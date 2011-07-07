@@ -295,7 +295,7 @@ sp_eraser_apply(SPEraserContext *dc, Geom::Point p)
     // If force is below the absolute threshold ERASER_EPSILON,
     // or we haven't yet reached ERASER_VEL_START (i.e. at the beginning of stroke)
     // _and_ the force is below the (higher) ERASER_EPSILON_START threshold,
-    // discard this move. 
+    // discard this move.
     // This prevents flips, blobs, and jerks caused by microscopic tremor of the tablet pen,
     // especially bothersome at the start of the stroke where we don't yet have the inertia to
     // smooth them out.
@@ -393,7 +393,6 @@ sp_eraser_brush(SPEraserContext *dc)
     // get the real brush point, not the same as pointer (affected by hatch tracking and/or mass
     // drag)
     Geom::Point brush = sp_eraser_get_vpoint(dc, dc->cur);
-    Geom::Point brush_w = SP_EVENT_CONTEXT(dc)->desktop->d2w(brush); 
 
     double trace_thick = 1;
 
@@ -586,7 +585,7 @@ sp_eraser_context_root_handler(SPEventContext *event_context,
         if (Inkscape::Rubberband::get(desktop)->is_started()) {
             Inkscape::Rubberband::get(desktop)->stop();
         }
-            
+
         break;
     }
 
@@ -743,7 +742,7 @@ set_to_accumulated(SPEraserContext *dc)
             bool wasSelection = false;
             Inkscape::Selection *selection = sp_desktop_selection(desktop);
             Inkscape::Preferences *prefs = Inkscape::Preferences::get();
-            
+
             gint eraserMode = prefs->getBool("/tools/eraser/mode") ? 1 : 0;
             Inkscape::XML::Document *xml_doc = desktop->doc()->getReprDoc();
 
@@ -833,7 +832,7 @@ set_to_accumulated(SPEraserContext *dc)
 
 
     if ( workDone ) {
-        DocumentUndo::done(sp_desktop_document(desktop), SP_VERB_CONTEXT_ERASER, 
+        DocumentUndo::done(sp_desktop_document(desktop), SP_VERB_CONTEXT_ERASER,
                            _("Draw eraser stroke"));
     } else {
         DocumentUndo::cancel(sp_desktop_document(desktop));
