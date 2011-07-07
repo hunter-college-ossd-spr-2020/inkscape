@@ -81,11 +81,9 @@ sp_marker_get_type (void)
 static void
 sp_marker_class_init (SPMarkerClass *klass)
 {
-	GObjectClass *object_class;
 	SPObjectClass *sp_object_class;
 	SPItemClass *sp_item_class;
 
-	object_class = G_OBJECT_CLASS (klass);
 	sp_object_class = (SPObjectClass *) klass;
 	sp_item_class = (SPItemClass *) klass;
 
@@ -128,12 +126,6 @@ sp_marker_init (SPMarker *marker)
 static void
 sp_marker_build (SPObject *object, SPDocument *document, Inkscape::XML::Node *repr)
 {
-	SPGroup *group;
-	SPMarker *marker;
-
-	group = (SPGroup *) object;
-	marker = (SPMarker *) object;
-
 	object->readAttr( "markerUnits" );
 	object->readAttr( "refX" );
 	object->readAttr( "refY" );
@@ -193,10 +185,7 @@ sp_marker_release (SPObject *object)
 static void
 sp_marker_set (SPObject *object, unsigned int key, const gchar *value)
 {
-	SPItem *item;
 	SPMarker *marker;
-
-	item = SP_ITEM (object);
 	marker = SP_MARKER (object);
 
 	switch (key) {
@@ -341,14 +330,12 @@ sp_marker_set (SPObject *object, unsigned int key, const gchar *value)
 static void
 sp_marker_update (SPObject *object, SPCtx *ctx, guint flags)
 {
-	SPItem *item;
 	SPMarker *marker;
 	SPItemCtx rctx;
-    Geom::Rect vb;
+	Geom::Rect vb;
 	double x, y, width, height;
 	SPMarkerView *v;
 
-	item = SP_ITEM (object);
 	marker = SP_MARKER (object);
 
 	/* fixme: We have to set up clip here too */
@@ -369,9 +356,9 @@ sp_marker_update (SPObject *object, SPCtx *ctx, guint flags)
 
 	/* Viewbox is always present, either implicitly or explicitly */
     if (marker->viewBox) {
-        vb = *marker->viewBox;
+		vb = *marker->viewBox;
 	} else {
-        vb = *(rctx.vp.upgrade_2geom());
+		vb = *(rctx.vp.upgrade_2geom());
 	}
 	/* Now set up viewbox transformation */
 	/* Determine actual viewbox in viewport coordinates */

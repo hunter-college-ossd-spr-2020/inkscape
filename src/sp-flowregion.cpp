@@ -119,10 +119,6 @@ sp_flowregion_dispose(GObject *object)
 static void
 sp_flowregion_child_added (SPObject *object, Inkscape::XML::Node *child, Inkscape::XML::Node *ref)
 {
-	SPItem *item;
-
-	item = SP_ITEM (object);
-
 	if (((SPObjectClass *) (flowregion_parent_class))->child_added)
 		(* ((SPObjectClass *) (flowregion_parent_class))->child_added) (object, child, ref);
 
@@ -335,10 +331,6 @@ sp_flowregionexclude_dispose(GObject *object)
 static void
 sp_flowregionexclude_child_added (SPObject *object, Inkscape::XML::Node *child, Inkscape::XML::Node *ref)
 {
-	SPItem *item;
-
-	item = SP_ITEM (object);
-
 	if (((SPObjectClass *) (flowregionexclude_parent_class))->child_added)
 		(* ((SPObjectClass *) (flowregionexclude_parent_class))->child_added) (object, child, ref);
 

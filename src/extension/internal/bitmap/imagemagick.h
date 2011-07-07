@@ -31,9 +31,9 @@ public:
     Gtk::Widget* prefs_effect(Inkscape::Extension::Effect *module, Inkscape::UI::View::View * view, sigc::signal<void> * changeSignal, Inkscape::Extension::Implementation::ImplementationDocumentCache * docCache);
 };
 
-}; /* namespace Bitmap */
-}; /* namespace Internal */
-}; /* namespace Extension */
-}; /* namespace Inkscape */
+} /* namespace Bitmap */
+} /* namespace Internal */
+} /* namespace Extension */
+} /* namespace Inkscape */
 
 #endif /* __INKSCAPE_EXTENSION_INTERNAL_BITMAP_IMAGEMAGICK_H__ */

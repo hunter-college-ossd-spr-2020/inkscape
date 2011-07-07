@@ -445,7 +445,6 @@ void Layout::fitToPathAlign(SVGLength const &startOffset, Path const &path)
     for (unsigned char_index = 0 ; char_index < _characters.size() ; ) {
         int next_cluster_glyph_index;
         unsigned next_cluster_char_index;
-        double character_advance;
         Span const &span = _characters[char_index].span(this);
 
         for (next_cluster_char_index = char_index + 1 ; next_cluster_char_index < _characters.size() ; next_cluster_char_index++) {
@@ -455,11 +454,8 @@ void Layout::fitToPathAlign(SVGLength const &startOffset, Path const &path)
 
         if (next_cluster_char_index == _characters.size()) {
             next_cluster_glyph_index = _glyphs.size();
-            character_advance = 0.0;   // arbitrary because we're not going to advance
         } else {
             next_cluster_glyph_index = _characters[next_cluster_char_index].in_glyph;
-            character_advance =   (_glyphs[next_cluster_glyph_index].x + _glyphs[next_cluster_glyph_index].chunk(this).left_x)
-                - (_glyphs[_characters[char_index].in_glyph].x + span.chunk(this).left_x);
         }
 
         double start_offset = offset + span.x_start + _characters[char_index].x;

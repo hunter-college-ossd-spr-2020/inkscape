@@ -342,7 +342,6 @@ GrDrag::addStopNearPoint (SPItem *item, Geom::Point mouse_p, double tolerance)
     gfloat offset; // type of SPStop.offset = gfloat
     SPGradient *gradient;
     bool fill_or_stroke = true;
-    bool r1_knot = false;
 
     bool addknot = false;
     do {
@@ -367,7 +366,6 @@ GrDrag::addStopNearPoint (SPItem *item, Geom::Point mouse_p, double tolerance)
             if ( dist_screen < tolerance ) {
                 offset = get_offset_between_points(nearest, begin, end);
                 addknot = true;
-                r1_knot = true;
                 break; // break out of the while loop: add only one knot
             }
 
@@ -377,7 +375,6 @@ GrDrag::addStopNearPoint (SPItem *item, Geom::Point mouse_p, double tolerance)
             if ( dist_screen < tolerance ) {
                 offset = get_offset_between_points(nearest, begin, end);
                 addknot = true;
-                r1_knot = false;
                 break; // break out of the while loop: add only one knot
             }
         }

@@ -177,7 +177,6 @@ void Handle::move(Geom::Point const &new_pos)
 
 void Handle::setPosition(Geom::Point const &p)
 {
-    Geom::Point old_pos = position();
     ControlPoint::setPosition(p);
     sp_ctrlline_set_coords(SP_CTRLLINE(_handle_line), _parent->position(), position());
 

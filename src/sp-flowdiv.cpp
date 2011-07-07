@@ -84,10 +84,7 @@ sp_flowdiv_get_type (void)
 static void
 sp_flowdiv_class_init (SPFlowdivClass *klass)
 {
-	GObjectClass * object_class;
 	SPObjectClass * sp_object_class;
-
-	object_class = (GObjectClass *) klass;
 	sp_object_class = (SPObjectClass *) klass;
 
 	flowdiv_parent_class = (SPItemClass *)g_type_class_ref (SP_TYPE_ITEM);
@@ -266,10 +263,7 @@ sp_flowtspan_get_type (void)
 static void
 sp_flowtspan_class_init (SPFlowtspanClass *klass)
 {
-	GObjectClass * object_class;
 	SPObjectClass * sp_object_class;
-
-	object_class = (GObjectClass *) klass;
 	sp_object_class = (SPObjectClass *) klass;
 
 	flowtspan_parent_class = (SPItemClass *)g_type_class_ref (SP_TYPE_ITEM);
@@ -447,10 +441,8 @@ sp_flowpara_get_type (void)
 static void
 sp_flowpara_class_init (SPFlowparaClass *klass)
 {
-	GObjectClass * object_class;
 	SPObjectClass * sp_object_class;
 
-	object_class = (GObjectClass *) klass;
 	sp_object_class = (SPObjectClass *) klass;
 
 	flowpara_parent_class = (SPItemClass *)g_type_class_ref (SP_TYPE_ITEM);
@@ -623,10 +615,7 @@ sp_flowline_get_type (void)
 static void
 sp_flowline_class_init (SPFlowlineClass *klass)
 {
-	GObjectClass * object_class;
 	SPObjectClass * sp_object_class;
-
-	object_class = (GObjectClass *) klass;
 	sp_object_class = (SPObjectClass *) klass;
 
 	flowline_parent_class = (SPObjectClass *)g_type_class_ref (SP_TYPE_OBJECT);
@@ -699,10 +688,7 @@ sp_flowregionbreak_get_type (void)
 static void
 sp_flowregionbreak_class_init (SPFlowregionbreakClass *klass)
 {
-	GObjectClass * object_class;
 	SPObjectClass * sp_object_class;
-
-	object_class = (GObjectClass *) klass;
 	sp_object_class = (SPObjectClass *) klass;
 
 	flowregionbreak_parent_class = (SPObjectClass *)g_type_class_ref (SP_TYPE_OBJECT);

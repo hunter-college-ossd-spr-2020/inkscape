@@ -87,11 +87,9 @@ sp_color_notebook_class_init (SPColorNotebookClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
-    SPColorSelectorClass *selector_class;
 
     object_class = (GtkObjectClass *) klass;
     widget_class = (GtkWidgetClass *) klass;
-    selector_class = SP_COLOR_SELECTOR_CLASS (klass);
 
     parent_class = SP_COLOR_SELECTOR_CLASS (g_type_class_peek_parent (klass));
 
