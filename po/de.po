@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2011-06-05 20:35+0200\n"
-"PO-Revision-Date: 2011-07-07 18:16+0200\n"
+"PO-Revision-Date: 2011-07-08 13:29+0200\n"
 "Last-Translator: Uwe Schoeler <uschoeler@yahoo.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2429,7 +2429,7 @@ msgstr "Leindwandstruktur mit HSL-empfindlicher Höhenkarte"
 
 #: ../share/filters/filters.svg.h:203
 msgid "Canvas Bumps, matte"
-msgstr "Leinwandstruktur , matt"
+msgstr "Leinwandstruktur, matt"
 
 #: ../share/filters/filters.svg.h:203
 msgid "Same as Canvas Bumps but with a diffuse light instead of a specular one"
@@ -2644,7 +2644,7 @@ msgstr "10% Grau"
 #, no-c-format
 msgctxt "Palette"
 msgid "7.5% Gray"
-msgstr "7.5% Grau"
+msgstr "7,5% Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:48
@@ -6164,7 +6164,7 @@ msgstr "Dialog beim Starten des Programmes anzeigen"
 #: ../src/extension/execution-env.cpp:135
 #, c-format
 msgid "'%s' working, please wait..."
-msgstr "„%s“ arbeitet, bitte warten…"
+msgstr "„%s“ arbeitet, bitte warten …"
 
 #. static int i = 0;
 #. std::cout << "Checking module[" << i++ << "]: " << name << std::endl;
@@ -7134,7 +7134,7 @@ msgstr "Vertikaler Versatz (px):"
 #: ../src/extension/internal/filter/abc.h:669
 #: ../src/extension/internal/filter/experimental.h:93
 msgid "Complexity:"
-msgstr "Kompexität:"
+msgstr "Komplexität:"
 
 #: ../src/extension/internal/filter/abc.h:471
 #: ../src/extension/internal/filter/abc.h:670
@@ -13214,7 +13214,7 @@ msgstr "Vektorisieren: Bild enthält keine Pixelinformation"
 
 #: ../src/trace/trace.cpp:471
 msgid "Trace: Starting trace..."
-msgstr "Vektorisieren: Gestartet…"
+msgstr "Vektorisieren: Gestartet …"
 
 #. ## inform the document, so we can undo
 #: ../src/trace/trace.cpp:574
@@ -13494,7 +13494,7 @@ msgstr "Rechtschreibprüfun_g …"
 #.
 #: ../src/ui/dialog/aboutbox.cpp:78
 msgid "About Inkscape"
-msgstr "Informationen über Inkscape"
+msgstr "Über Inkscape"
 
 # !!!
 #: ../src/ui/dialog/aboutbox.cpp:89
@@ -25361,7 +25361,7 @@ msgstr ""
 
 #: ../share/extensions/dimension.inx.h:1
 msgid "Bounding box type :"
-msgstr "Umrandungsbox-Typ:"
+msgstr "Umrandungsbox:"
 
 #: ../share/extensions/dimension.inx.h:2
 msgid "Dimensions"
@@ -25373,7 +25373,7 @@ msgstr "Geometrisch"
 
 #: ../share/extensions/dimension.inx.h:4
 msgid "Visual"
-msgstr "Visuel"
+msgstr "Visuell"
 
 #: ../share/extensions/dimension.inx.h:5 ../share/extensions/dots.inx.h:13
 #: ../share/extensions/handles.inx.h:2 ../share/extensions/measure.inx.h:19
@@ -25804,9 +25804,8 @@ msgid ""
 "* A relative path (or a filename without path) is relative to the user's "
 "home directory."
 msgstr ""
-"* Bitte geben Sie keine Datei-Erweiterung ein. Diese wird automatisch "
-"ergänzt.\n"
-"* Ein relativer Pfad (oder ein Dateiname ohne Pfad) ist relativ zum "
+"Geben Sie keine Datei-Erweiterung ein. Diese wird automatisch ergänzt.\n"
+"Ein relativer Pfad (oder ein Dateiname ohne Pfad) ist relativ zum "
 "Benutzerverzeichnis."
 
 #: ../share/extensions/extractimage.inx.h:3
@@ -26033,12 +26032,13 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:2
 #: ../share/extensions/gcodetools_orientation_points.inx.h:1
 msgid "2-points mode (move and rotate, maintained aspect ratio X/Y)"
-msgstr ""
+msgstr "2-Punkte-Modus (bewegen, rotieren, festes Seitenverhältnis x/y)"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:3
 #: ../share/extensions/gcodetools_orientation_points.inx.h:2
 msgid "3-points mode (move, rotate and mirror, different X/Y scale)"
 msgstr ""
+"3-Punkte-Modus (bewegen, rotieren, spiegeln, veränderliche x/y-Skalierung)"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:4
 #: ../share/extensions/gcodetools_area.inx.h:2
@@ -26085,7 +26085,7 @@ msgstr "Breite der Fläche"
 #: ../share/extensions/gcodetools_all_in_one.inx.h:11
 #: ../share/extensions/gcodetools_area.inx.h:8
 msgid "Artefact diameter:"
-msgstr ""
+msgstr "Artefakt-Durchmesser:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:12
 #: ../share/extensions/gcodetools_area.inx.h:9
@@ -26135,7 +26135,7 @@ msgstr "Verzeichnis:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:18
 msgid "Draw additional graphics to debug engraving path:"
-msgstr ""
+msgstr "Zusätzliche Pfade für die Fehlersuche zeichnen:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:19
 #: ../share/extensions/gcodetools_engraving.inx.h:5
@@ -26225,7 +26225,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:28
 #: ../share/extensions/gcodetools_engraving.inx.h:12
 msgid "Maximum distance for engraving:"
-msgstr "Maximale Verschiebung in X, px"
+msgstr ""
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:29
 #: ../share/extensions/gcodetools_area.inx.h:19
@@ -26267,6 +26267,15 @@ msgid ""
 "the group or by Ctrl+Click. Now press apply to create control points "
 "(independent set for each layer)."
 msgstr ""
+"Orientierungspunkte werden verwendet, um die Transformationen (Versatz, "
+"Skalierung, Spiegelung, Rotation in der x-y-Ebene) des Pfads zu berechnen. "
+"Im Drei-Punkte-Modus dürfen die Punkte nicht auf einer Geraden liegen (sonst "
+"den 2-Punkte-Modus verwenden). Die z-Oberfläch und die z-Tiefe können später "
+"mit dem Textwerkzeug geändert werden. Wenn in der aktuellen Ebene keine "
+"Orientierungspunkte sind, werden die aus der darübergelegenen Ebene "
+"verwendet. Gruppierung der Punkte nicht aufheben! Sie können durch "
+"Doppelklicken oder durch Strg+Klick auf die Gruppe markiert werden. Drücken "
+"Sie „Anwenden“ zum Erstellen der Kontrollpunkte (für jede Ebene unabhängig)."
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:36
 #: ../share/extensions/gcodetools_orientation_points.inx.h:9
@@ -26326,7 +26335,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:43
 #: ../share/extensions/gcodetools_engraving.inx.h:21
 msgid "Sharp angle tolerance:"
-msgstr ""
+msgstr "Toleranz für scharfe Kanten:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:44
 #: ../share/extensions/gcodetools_engraving.inx.h:22
@@ -26346,7 +26355,7 @@ msgstr "Werkzeug-Bibliothek"
 #: ../share/extensions/gcodetools_all_in_one.inx.h:46
 #: ../share/extensions/gcodetools_tools_library.inx.h:7
 msgid "Tools type:"
-msgstr "Operationstyp"
+msgstr "Werkzeug:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:47
 #: ../share/extensions/gcodetools_area.inx.h:28
@@ -26481,7 +26490,7 @@ msgstr ""
 
 #: ../share/extensions/gcodetools_lathe.inx.h:15
 msgid "Lathe"
-msgstr "Feder"
+msgstr "Drechseln"
 
 #: ../share/extensions/gcodetools_lathe.inx.h:16
 msgid "Lathe X axis remap:"
@@ -26493,7 +26502,7 @@ msgstr ""
 
 #: ../share/extensions/gcodetools_lathe.inx.h:18
 msgid "Lathe width:"
-msgstr "Skaliere Breite"
+msgstr "Drechselmesser-Breite:"
 
 #: ../share/extensions/gcodetools_orientation_points.inx.h:7
 msgid "Orientation points"
@@ -26517,7 +26526,7 @@ msgstr ""
 "Füllungs- und Kontur-Dialog verfügbar sein. Sie müssen dazu ein Objekt oder "
 "ein Gruppe auswählen.\n"
 "\n"
-" Ist der Rand null, wird das Muster an den Kanten unterbrochen. Nehmen Sie "
+"Ist der Rand null, wird das Muster an den Kanten unterbrochen. Nehmen Sie "
 "einen positiven Wert, größer als die Zellgröße, um einen weichen Übergang "
 "zwischen Zellen und Rand zu schaffen. Nehmen Sie einen negativen Wert, um "
 "die Mustergröße zu reduzieren und einen leeren Rand zu erzeugen."
@@ -28230,7 +28239,7 @@ msgstr "Strich-Deckkraft, %"
 
 #: ../share/extensions/polyhedron_3d.inx.h:42
 msgid "Stroke width (px):"
-msgstr "Breite der Kontur, px"
+msgstr "Breite der Kontur (px):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:44
 msgid "Tetrahedron"
@@ -29495,7 +29504,7 @@ msgstr "beim Aktivieren"
 #: ../share/extensions/web-set-att.inx.h:21
 #: ../share/extensions/web-transmit-att.inx.h:19
 msgid "on blur"
-msgstr "bei Unschärfe"
+msgstr "bei Fokusverlust"
 
 #: ../share/extensions/web-set-att.inx.h:22
 #: ../share/extensions/web-transmit-att.inx.h:20
