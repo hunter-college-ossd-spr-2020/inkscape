@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2011-06-05 20:35+0200\n"
-"PO-Revision-Date: 2011-07-08 13:29+0200\n"
+"PO-Revision-Date: 2011-07-08 14:27+0200\n"
 "Last-Translator: Uwe Schoeler <uschoeler@yahoo.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -467,7 +467,7 @@ msgstr "Keine Flächendaten in der ausgewählten Datei gefunden"
 
 #: ../share/extensions/polyhedron_3d.py:332
 msgid "Try selecting \"Edge Specified\" in the Model File tab.\n"
-msgstr "Versuchen Sie es mit \"kantendefiniert\" im Modeldatei-Reiter.\n"
+msgstr "Versuchen Sie es mit „kantendefiniert“ im Modeldatei-Reiter.\n"
 
 #: ../share/extensions/polyhedron_3d.py:338
 msgid "No edge data found in specified file."
@@ -476,7 +476,7 @@ msgstr ""
 
 #: ../share/extensions/polyhedron_3d.py:339
 msgid "Try selecting \"Face Specified\" in the Model File tab.\n"
-msgstr "Versuchen Sie es mit \"flächendefiniert\" im Modeldatei-Reiter.\n"
+msgstr "Versuchen Sie es mit „flächendefiniert“ im Modeldatei-Reiter.\n"
 
 #. we cannot generate a list of faces from the edges without a lot of computation
 #: ../share/extensions/polyhedron_3d.py:514
@@ -485,7 +485,7 @@ msgid ""
 "imported as \"Face-Specified\" under the \"Model File\" tab.\n"
 msgstr ""
 "Keine Flächenbeschreibungen gefunden! Stellen Sie sicher, dass die Datei "
-"Flächendaten enthält und als \"flächendefiniert\" im Reiter \"Modeldatei\" "
+"Flächendaten enthält und als „flächendefiniert“ im Reiter „Modeldatei“ "
 "importiert wird.\n"
 
 #: ../share/extensions/polyhedron_3d.py:516
@@ -525,7 +525,7 @@ msgstr ""
 
 #: ../share/extensions/uniconv_output.py:120
 msgid "You need to install the UniConvertor software.\n"
-msgstr "Sie müssen die Software \"UniConvertor\" installieren!\n"
+msgstr "Sie müssen die Software „UniConvertor“ installieren!\n"
 
 #: ../share/extensions/web-set-att.py:56
 #: ../share/extensions/web-transmit-att.py:52
@@ -1733,8 +1733,7 @@ msgstr "Einfache Unschärfe"
 
 #: ../share/filters/filters.svg.h:122
 msgid "Simple Gaussian blur, same as the blur slider in Fill and Stroke dialog"
-msgstr ""
-"Einfacher gaußscher Weichzeichner, wie im \"Füllung und Kontur\"-Dialog"
+msgstr "Einfacher gaußscher Weichzeichner, wie im „Füllung und Kontur“-Dialog"
 
 #: ../share/filters/filters.svg.h:123
 msgid "Bubbly Bumps, matte"
@@ -1891,7 +1890,7 @@ msgstr "Kombination aus weicher Schattierung und Prägung"
 
 #: ../share/filters/filters.svg.h:141
 msgid "Smooth shader dark"
-msgstr "Dunkle \"Weiche Schattierung\""
+msgstr "Dunkle „Weiche Schattierung\""
 
 #: ../share/filters/filters.svg.h:141
 msgid "Dark version of non realistic smooth shading"
@@ -2581,84 +2580,84 @@ msgstr "Schwarz"
 #, no-c-format
 msgctxt "Palette"
 msgid "90% Gray"
-msgstr "90% Grau"
+msgstr "90 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:12
 #, no-c-format
 msgctxt "Palette"
 msgid "80% Gray"
-msgstr "80% Grau"
+msgstr "80 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:16
 #, no-c-format
 msgctxt "Palette"
 msgid "70% Gray"
-msgstr "70% Grau"
+msgstr "70 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:20
 #, no-c-format
 msgctxt "Palette"
 msgid "60% Gray"
-msgstr "60% Grau"
+msgstr "60 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:24
 #, no-c-format
 msgctxt "Palette"
 msgid "50% Gray"
-msgstr "50% Grau"
+msgstr "50 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:28
 #, no-c-format
 msgctxt "Palette"
 msgid "40% Gray"
-msgstr "40% Grau"
+msgstr "40 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:32
 #, no-c-format
 msgctxt "Palette"
 msgid "30% Gray"
-msgstr "30% Grau"
+msgstr "30 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:36
 #, no-c-format
 msgctxt "Palette"
 msgid "20% Gray"
-msgstr "20% Grau"
+msgstr "20 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:40
 #, no-c-format
 msgctxt "Palette"
 msgid "10% Gray"
-msgstr "10% Grau"
+msgstr "10 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:44
 #, no-c-format
 msgctxt "Palette"
 msgid "7.5% Gray"
-msgstr "7,5% Grau"
+msgstr "7,5 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:48
 #, no-c-format
 msgctxt "Palette"
 msgid "5% Gray"
-msgstr "5% Grau"
+msgstr "5 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:52
 #, no-c-format
 msgctxt "Palette"
 msgid "2.5% Gray"
-msgstr "2.5% Grau"
+msgstr "2,5 % Grau"
 
 #. Palette: ./inkscape.gpl
 #: ../share/palettes/palettes.h:55
@@ -5202,8 +5201,8 @@ msgstr "Wähle Objekte aus, die zu allen angegebene Feldern passen"
 msgid ""
 "The id= attribute (only letters, digits, and the characters .-_: allowed)"
 msgstr ""
-"Das Kennungsattribut \"id=\" (nur Buchstaben, Ziffern und die Zeichen \".-_:"
-"\" zulässig)"
+"Das Kennungsattribut „id=“ (nur Buchstaben, Ziffern und die Zeichen „.-_:“ "
+"zulässig)"
 
 #. Button for setting the object's id, label, title and description.
 #: ../src/dialogs/item-properties.cpp:137 ../src/verbs.cpp:2481
@@ -9016,7 +9015,7 @@ msgstr "Setup für die Breitbild-Arbeit"
 #: ../src/interface.cpp:953
 #, c-format
 msgid "Verb \"%s\" Unknown"
-msgstr "Verb \"%s\" unbekannt"
+msgstr "Verb „%s“ unbekannt"
 
 #: ../src/interface.cpp:995
 msgid "Open _Recent"
@@ -9143,7 +9142,7 @@ msgstr "Verwaltet Dock-Objekt"
 
 #: ../src/libgdl/gdl-dock-item-grip.c:705
 msgid "Dockitem which 'owns' this grip"
-msgstr "Dockobjekt, das diesen Griff \"besitzt\""
+msgstr "Dockobjekt, das diesen Griff „besitzt\""
 
 #. Name
 #: ../src/libgdl/gdl-dock-item.c:287 ../src/widgets/toolbox.cpp:7671
@@ -9493,7 +9492,7 @@ msgstr ""
 
 #: ../src/libgdl/gdl-dock-tablabel.c:129
 msgid "Dockitem which 'owns' this tablabel"
-msgstr "Dock-Objekt, dem dieser Tabbezeichner \"gehört\"."
+msgstr "Dock-Objekt, dem dieser Tabbezeichner „gehört“."
 
 #: ../src/libgdl/gdl-dock.c:175 ../src/ui/dialog/inkscape-preferences.cpp:581
 #: ../src/ui/dialog/inkscape-preferences.cpp:602
@@ -9695,7 +9694,7 @@ msgstr "Kein Effekt"
 #, c-format
 msgid "Please specify a parameter path for the LPE '%s' with %d mouse clicks"
 msgstr ""
-"Bitte spezifizieren Sie einen Parameterpfad für den Pfadeffekt \"%s\" mit %d "
+"Bitte spezifizieren Sie einen Parameterpfad für den Pfadeffekt „%s“ mit %d "
 "Mausklicks. "
 
 #: ../src/live_effects/effect.cpp:648
@@ -9946,7 +9945,7 @@ msgstr "In Einheiten der Strichbreite"
 
 #: ../src/live_effects/lpe-knot.cpp:344
 msgid "Consider 'Interruption width' as a ratio of stroke width"
-msgstr "\"Unterbrechungsbreite\" in Vielfachen der Strichbreite"
+msgstr "„Unterbrechungsbreite“ in Vielfachen der Strichbreite"
 
 #: ../src/live_effects/lpe-knot.cpp:345
 msgid "St_roke width"
@@ -10113,7 +10112,7 @@ msgid ""
 "Set smoothness/sharpness of path when reaching a 'bottom' half-turn. "
 "0=sharp, 1=default"
 msgstr ""
-"Wählt Glattheit des Pfades bei Einlaufen in \"unteren\" Wendepunkt. 0=spitz, "
+"Wählt Glattheit des Pfades bei Einlaufen in „unteren“ Wendepunkt. 0=spitz, "
 "1=Vorgabe"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:230
@@ -10125,8 +10124,8 @@ msgid ""
 "Set smoothness/sharpness of path when leaving a 'bottom' half-turn. 0=sharp, "
 "1=default"
 msgstr ""
-"Wählt Glattheit des Pfades bei Auslaufen aus \"unterem\" Wendepunkt. "
-"0=spitz, 1=Vorgabe"
+"Wählt Glattheit des Pfades bei Auslaufen aus „unterem“ Wendepunkt. 0=spitz, "
+"1=Vorgabe"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:231
 msgid "2nd side, in:"
@@ -10137,7 +10136,7 @@ msgid ""
 "Set smoothness/sharpness of path when reaching a 'top' half-turn. 0=sharp, "
 "1=default"
 msgstr ""
-"Wählt Glattheit des Pfades bei Einlaufen in \"oberen\" Wendepunkt. 0=spitz, "
+"Wählt Glattheit des Pfades bei Einlaufen in „oberen“ Wendepunkt. 0=spitz, "
 "1=Vorgabe"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:232
@@ -10149,7 +10148,7 @@ msgid ""
 "Set smoothness/sharpness of path when leaving a 'top' half-turn. 0=sharp, "
 "1=default"
 msgstr ""
-"Wählt Glattheit des Pfades bei Auslaufen aus \"oberen\" Wendepunkt. 0=spitz, "
+"Wählt Glattheit des Pfades bei Auslaufen aus „oberen“ Wendepunkt. 0=spitz, "
 "1=Vorgabe"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:233
@@ -10159,7 +10158,7 @@ msgstr "Ausmaß Schwankung: 1. Seite"
 #: ../src/live_effects/lpe-rough-hatches.cpp:233
 msgid "Randomly moves 'bottom' half-turns to produce magnitude variations."
 msgstr ""
-"Verschiebt zufällig \"untere\" Wendepunkte, um Änderung der Amplitude zu "
+"Verschiebt zufällig „untere“ Wendepunkte, um Änderung der Amplitude zu "
 "erreichen."
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:234
@@ -10171,7 +10170,7 @@ msgstr "2. Seite"
 #: ../src/live_effects/lpe-rough-hatches.cpp:234
 msgid "Randomly moves 'top' half-turns to produce magnitude variations."
 msgstr ""
-"Verschiebt zufällig \"obere\" Wendepunkte, um Änderung der Amplitude zu "
+"Verschiebt zufällig „obere“ Wendepunkte, um Änderung der Amplitude zu "
 "erreichen."
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:235
@@ -10183,7 +10182,7 @@ msgid ""
 "Add direction randomness by moving 'bottom' half-turns tangentially to the "
 "boundary."
 msgstr ""
-"Ändert Richtung zufällig, in dem \"untere\" Wendepunkte tangential zur "
+"Ändert Richtung zufällig, in dem „untere“ Wendepunkte tangential zur "
 "Begrenzung bewegt werden."
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:236
@@ -10191,7 +10190,7 @@ msgid ""
 "Add direction randomness by randomly moving 'top' half-turns tangentially to "
 "the boundary."
 msgstr ""
-"Ändert Richtung zufällig, in dem \"obere\" Wendepunkte tangential zur "
+"Ändert Richtung zufällig, in dem „obere“ Wendepunkte tangential zur "
 "Begrenzung bewegt werden."
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:237
@@ -10200,11 +10199,11 @@ msgstr "Varianz: 1. Seite"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:237
 msgid "Randomness of 'bottom' half-turns smoothness"
-msgstr "Zufall in der Glattheit \"unterer\" Wendepunkte"
+msgstr "Zufall in der Glattheit „unterer“ Wendepunkte"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:238
 msgid "Randomness of 'top' half-turns smoothness"
-msgstr "Zufall in der Glattheit \"oberer\" Wendepunkte"
+msgstr "Zufall in der Glattheit „oberer“ Wendepunkte"
 
 #.
 #: ../src/live_effects/lpe-rough-hatches.cpp:240
@@ -10229,7 +10228,7 @@ msgstr "Dicke: auf der 1. Seite"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:242
 msgid "Width at 'bottom' half-turns"
-msgstr "Breite an den \"unteren\" Wendepunkten"
+msgstr "Breite an den „unteren“ Wendepunkten"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:243
 msgid "at 2nd side:"
@@ -10237,7 +10236,7 @@ msgstr "auf der 2. Seite"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:243
 msgid "Width at 'top' half-turns"
-msgstr "Breite an den \"oberen\" Wendepunkten"
+msgstr "Breite an den „oberen“ Wendepunkten"
 
 #.
 #: ../src/live_effects/lpe-rough-hatches.cpp:245
@@ -10246,7 +10245,7 @@ msgstr "von der 2. zur 1. Seite"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:245
 msgid "Width from 'top' to 'bottom'"
-msgstr "Breite der Striche von \"oben\" nach \"unten\""
+msgstr "Breite der Striche von „oben“ nach „unten“"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:246
 msgid "from 1st to 2nd side:"
@@ -10254,7 +10253,7 @@ msgstr "von der 1. zur 2. Seite"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:246
 msgid "Width from 'bottom' to 'top'"
-msgstr "Breite an den \"unteren\" Wendepunkten"
+msgstr "Breite an den „unteren“ Wendepunkten"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:248
 msgid "Hatches width and dir"
@@ -13954,8 +13953,8 @@ msgid ""
 "part of the guide near the cursor will snap)"
 msgstr ""
 "Während des Ziehens einer Führungslinie rastet diese an Objekt-Knoten oder "
-"Ecken von Umrandungskästen ein (\"An Knoten einrasten\" oder \"An "
-"Umrandungsecken einrasten\" muss aktiviert sein; nur ein kleiner Teil um den "
+"Ecken von Umrandungskästen ein („An Knoten einrasten“ oder „An "
+"Umrandungsecken einrasten“ muss aktiviert sein; nur ein kleiner Teil um den "
 "Mauszeiger wird einrasten)"
 
 #: ../src/ui/dialog/document-properties.cpp:104
@@ -14620,9 +14619,9 @@ msgid ""
 "convenience shortcuts to allow commonly used color operations to be "
 "performed without specifying a complete matrix."
 msgstr ""
-"Gibt den Typ der Matrix vor. Das Schlüsselwort \"matrix\" erzwingt eine "
-"volle 5x4-Wertematrix, während andere Schlüsselwörter bequeme Abkürzungen "
-"für oft verwendete Farboperationen bereitstellen, ohne eine komplette Matrix "
+"Gibt den Typ der Matrix vor. Das Schlüsselwort „matrix“ erzwingt eine volle "
+"(5 × 4)-Wertematrix, während andere Schlüsselwörter bequeme Abkürzungen für "
+"oft verwendete Farboperationen bereitstellen, ohne eine komplette Matrix "
 "angeben zu müssen."
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2194
@@ -14846,8 +14845,8 @@ msgid ""
 "Erode: performs \"thinning\" of input image.\n"
 "Dilate: performs \"fattenning\" of input image."
 msgstr ""
-"Erodieren: \"Verdünnt\" das Eingangsbild.\n"
-"Weiten:\"Verdickt\" das Eingangsbild."
+"Erodieren: „Verdünnt“ das Eingangsbild.\n"
+"Weiten:\"Verdickt“ das Eingangsbild."
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2253
 msgid "Source of Image:"
@@ -14881,7 +14880,7 @@ msgstr "Exponent:"
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2263
 msgid "Exponent for specular term, larger is more \"shiny\"."
-msgstr "Exponent bestimmt Glanzlicht, größer ist \"glänzender\""
+msgstr "Exponent bestimmt Glanzlicht, größer ist „glänzender\""
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2272
 msgid ""
@@ -14975,7 +14974,7 @@ msgid ""
 "opacity areas recede away from the viewer."
 msgstr ""
 "Die Filterbausteine <b>DiffuseBeleuchtung</b> und Punktlichtbeleuchtung "
-"erzeugen \"Relief-Schattierungen\". Der Alphakanal des Eingangs wird "
+"erzeugen „Relief-Schattierungen\". Der Alphakanal des Eingangs wird "
 "verwendet, um Höheninformationen zu erhalten: opakere Gebiete werden "
 "angehoben, weniger opake abgesenkt."
 
@@ -15027,7 +15026,7 @@ msgid ""
 msgstr ""
 "Der Filterbaustein <b>Verschmelzen</b> führt mehrere einzelne Bilder unter "
 "Verwendung des Alphakanals zu einem einzigen zusammen. Dies ist äquivalent "
-"zu den Bausteinen Überblenden im Normalmodus oder Verbund im \"Überlagern\"-"
+"zu den Bausteinen Überblenden im Normalmodus oder Verbund im „Überlagern“-"
 "Modus."
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2348
@@ -15036,9 +15035,9 @@ msgid ""
 "For single-color objects erode makes the object thinner and dilate makes it "
 "thicker."
 msgstr ""
-"Der Filterbaustein <b>Morphologie</b> stellt die Effekte \"Erodieren\" und "
-"\"Weiten\" zur Verfügung. Für einfarbige Objekte wirkt \"Erodieren\" "
-"ausdünnend und \"Weiten\" verdickend."
+"Der Filterbaustein <b>Morphologie</b> stellt die Effekte „Erodieren“ und "
+"„Weiten“ zur Verfügung. Für einfarbige Objekte wirkt „Erodieren“ ausdünnend "
+"und „Weiten“ verdickend."
 
 #: ../src/ui/dialog/filter-effects-dialog.cpp:2352
 msgid ""
@@ -15059,7 +15058,7 @@ msgid ""
 "opacity areas recede away from the viewer."
 msgstr ""
 "Die Filterbausteine DiffuseBeleuchtung und <b>Punktlichtbeleuchtung</b> "
-"erzeugen \"geprägte\" Schattierungen. Der Alphakanal des Eingangs wird "
+"erzeugen „geprägte“ Schattierungen. Der Alphakanal des Eingangs wird "
 "verwendet, um Höheninformationen zu erhalten: opakere Gebiete werden "
 "angehoben, weniger opake abgesenkt."
 
@@ -16748,7 +16747,7 @@ msgstr "unbewegt bleiben"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:643
 msgid "Move according to transform"
-msgstr "sich entsprechend des transform=-Attributs bewegen"
+msgstr "Entsprechend des transform-Attributs bewegen"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:645
 msgid "Are unlinked"
@@ -17144,8 +17143,8 @@ msgid ""
 "The server name of the Open Clip Art Library webdav server; it's used by the "
 "Import and Export to OCAL function"
 msgstr ""
-"Der Servername des \"Open Clip Art Library\" Webdav Servers. Dieser wird "
-"beim Im- und Export zur OCAL verwendet."
+"Der Servername des „Open Clip Art Library“ Webdav Servers. Dieser wird beim "
+"Im- und Export zur OCAL verwendet."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:833
 msgid "Open Clip Art Library Username:"
@@ -17388,12 +17387,12 @@ msgid ""
 "If set, write the CSS name of the color when available (e.g. 'red' or "
 "'magenta') instead of the numeric value"
 msgstr ""
-"Benutzt, wenn möglich, die CSS-Farbnamen (z.B. 'red', 'magenta') anstelle "
+"Benutzt, wenn möglich, die CSS-Farbnamen (z.B. „red“, „magenta“) anstelle "
 "von nummerischen Werten."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1081
 msgid "XML formatting"
-msgstr "XML Format"
+msgstr "XML-Format"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1083
 msgid "Inline attributes"
@@ -17437,8 +17436,8 @@ msgid ""
 "Force repeating of the same path command (for example, 'L 1,2 L 3,4' instead "
 "of 'L 1,2 3,4')"
 msgstr ""
-"Erzwingt die Wiederholung von Pfad-Kommandos (z.B. 'L 1,2 L 3,4' anstatt 'L "
-"1,2 3,4')"
+"Erzwingt die Wiederholung von Pfad-Kommandos (z. B. „L 1,2 L 3,4“ anstatt „L "
+"1,2 3,4“)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1097
 msgid "Numbers"
@@ -17522,7 +17521,7 @@ msgstr "Valencianisches Katalan (ca@valencia)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1111
 msgid "Chinese/China (zh_CN)"
-msgstr "Chinesisch/china (zh_CN)"
+msgstr "Chinesisch/China (zh_CN)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1112
 msgid "Chinese/Taiwan (zh_TW)"
@@ -17802,7 +17801,7 @@ msgstr "Liste löschen"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1185
 msgid "Maximum documents in Open Recent:"
-msgstr "Länge der \"letzte Dokumente\"-Liste:"
+msgstr "Länge der „letzte Dokumente“-Liste:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1186
 msgid ""
@@ -17851,8 +17850,8 @@ msgid ""
 "directory where the currently open document is; when it's off, it will open "
 "in the directory where you last saved a file using that dialog"
 msgstr ""
-"Wenn diese Option aktiviert ist, wird der \"Speichern unter\"-Dialog immer "
-"das Verzeichnis öffnen, in dem das aktuell offene Dokument liegt. Ist sie "
+"Wenn diese Option aktiviert ist, wird der „Speichern unter“-Dialog immer das "
+"Verzeichnis öffnen, in dem das aktuell offene Dokument liegt. Ist sie "
 "deaktiviert, wird das Verzeichnis der letzten Speicherung über diesen Dialog "
 "geöffnet."
 
@@ -17937,7 +17936,7 @@ msgstr "Auflösung von Bitmap Kopien:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1253
 msgid "Resolution used by the Create Bitmap Copy command"
-msgstr "Auflösung von Bildern die mit \"Kopiere als Bitmap\" erstellt werden."
+msgstr "Auflösung von Bildern die mit „Kopiere als Bitmap“ erstellt werden."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1255
 msgid "Bitmaps"
@@ -17977,7 +17976,7 @@ msgstr "Ignoriere Wörter mit Zahlen"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1320
 msgid "Ignore words containing digits, such as \"R2D2\""
-msgstr "Ignoriere Wörter mit Zahlen, wie  \"R2D2\""
+msgstr "Ignoriere Wörter mit Zahlen, wie  „R2D2“"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1322
 msgid "Ignore words in ALL CAPITALS"
@@ -17985,7 +17984,7 @@ msgstr "Ignoriere Wörter die GROSSGESCHRIEBEN sind"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1324
 msgid "Ignore words in all capitals, such as \"IUPAC\""
-msgstr "Ignoriere Wörter die GROSSGESCHRIEBEN sind, wie \"IUPAC\""
+msgstr "Ignoriere Wörter die GROSSGESCHRIEBEN sind, wie „IUPAC“"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1326
 msgid "Spellcheck"
@@ -18499,7 +18498,7 @@ msgstr "Glyphenform festlegen"
 
 #: ../src/ui/dialog/svg-fonts-dialog.cpp:586
 msgid "Reset missing-glyph"
-msgstr "\"Fehlende Glyphe\" zurücksetzen"
+msgstr "„Fehlende Glyphe“ zurücksetzen"
 
 #: ../src/ui/dialog/svg-fonts-dialog.cpp:602
 msgid "Edit glyph name"
@@ -19543,7 +19542,7 @@ msgstr "<b>Skaliere Anfasser</b>: Ziehen um die Auswahl zu skalieren"
 #, c-format
 msgctxt "Transform handle tip"
 msgid "Scale by %.2f%% x %.2f%%"
-msgstr "Scaieren mit %.2f%% x %.2f%%"
+msgstr "Scaieren mit %.2f%% × %.2f%%"
 
 #: ../src/ui/tool/transform-handle-set.cpp:374
 #, c-format
@@ -22335,10 +22334,10 @@ msgid ""
 "\n"
 "Do you want to save this file as Inkscape SVG?"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Die Datei \"%s\" wurde in einem "
-"möglicherweise verlustbehafteten Format (%s) gespeichert!</span>\n"
+"<span weight=\"bold\" size=\"larger\">Die Datei „%s“ wurde in einem "
+"möglicherweise verlustbehafteten Format gespeichert!</span>\n"
 "\n"
-"Möchten Sie das Dokument als ein Inkscape SVG speichern?"
+"Möchten Sie das Dokument als ein Inkscape-SVG speichern?"
 
 #: ../src/widgets/desktop-widget.cpp:957
 msgid "_Save as SVG"
@@ -24308,7 +24307,7 @@ msgstr ""
 #. Fixation
 #: ../src/widgets/toolbox.cpp:5156
 msgid "(perpendicular to stroke, \"brush\")"
-msgstr "(senkrecht zum Strich, \"Pinsel\")"
+msgstr "(senkrecht zum Strich, „Pinsel“)"
 
 #: ../src/widgets/toolbox.cpp:5156
 msgid "(almost fixed, default)"
@@ -24316,7 +24315,7 @@ msgstr "(fast fixiert, Vorgabe)"
 
 #: ../src/widgets/toolbox.cpp:5156
 msgid "(fixed by Angle, \"pen\")"
-msgstr "(fixiert mit Winkel, \"Stift\")"
+msgstr "(fixiert mit Winkel, „Stift“)"
 
 #: ../src/widgets/toolbox.cpp:5159
 msgid "Fixation"
@@ -25631,12 +25630,12 @@ msgid ""
 "- layers are preserved only on File->Open, not Import.\n"
 "- limited support for BLOCKS, use AutoCAD Explode Blocks instead, if needed."
 msgstr ""
-"- AutoCAD R13 und neuer.\n"
-"- Längeneinheiten der Zeichnung sind mm.\n"
-"- SVG-Längeneinheiten sind Pixel bei 90 dpi.\n"
-"- Ebenen werden nur erhalten bei \"Datei &gt Öffnen\", nicht bei "
-"\"Importieren\".\n"
-"- BLOCKS werden nicht voll unterstützt. Verwenden Sie AutoCAD Explode "
+"• AutoCAD R13 und neuer.\n"
+"• Längeneinheiten der Zeichnung sind mm.\n"
+"• SVG-Längeneinheiten sind Pixel bei 90 dpi.\n"
+"• Ebenen werden nur erhalten bei „Datei &gt Öffnen“ nicht bei "
+"„Importieren“.\n"
+"• BLOCKS werden nicht voll unterstützt. Verwenden Sie AutoCAD Explode "
 "Blocks, falls nötig."
 
 #: ../share/extensions/dxf_input.inx.h:7
@@ -25689,11 +25688,11 @@ msgid ""
 "- LWPOLYLINE output is a multiply-connected polyline, disable it to use a "
 "legacy version of the LINE output."
 msgstr ""
-"- AutoCAD R13-Format.\n"
-"- Längeneinheiten der dxf-Zeichnung sind mm.\n"
-"- SVG-Längeneinheiten sind Pixel bei 90 dpi.\n"
-"- Es werden nur LWPOLYLINE- und SPLINE-Elemente unterstützt.\n"
-"- Die Option ROBO-Master bezieht sich auf spezielle Splines, die nur in ROBO-"
+"• AutoCAD R13-Format.\n"
+"• Längeneinheiten der dxf-Zeichnung sind mm.\n"
+"• SVG-Längeneinheiten sind Pixel bei 90 dpi.\n"
+"• Es werden nur LWPOLYLINE- und SPLINE-Elemente unterstützt.\n"
+"• Die Option ROBO-Master bezieht sich auf spezielle Splines, die nur in ROBO-"
 "Master und AutoDesk, nicht aber in Inkscape, zur Verfügung stehen."
 
 #: ../share/extensions/dxf_outlines.inx.h:6
@@ -26761,7 +26760,7 @@ msgstr "Hauptkreisteilung:"
 
 #: ../share/extensions/grid_polar.inx.h:15
 msgid "Minor Angle Division End 'n' Divs. Before Centre:"
-msgstr "Winkel-Nebenteilung endet 'n' Teilstriche vor dem Zentrum"
+msgstr "Winkel-Nebenteilung endet „n“ Teilstriche vor dem Zentrum"
 
 #: ../share/extensions/grid_polar.inx.h:16
 msgid "Minor Angular Division Thickness (px):"
@@ -26909,11 +26908,11 @@ msgstr "Auflösung (Punkte pro Zoll)"
 
 #: ../share/extensions/hpgl_output.inx.h:8
 msgid "X-origin (px)"
-msgstr "X-Ursprung [px]"
+msgstr "X-Ursprung (px)"
 
 #: ../share/extensions/hpgl_output.inx.h:9
 msgid "Y-origin (px)"
-msgstr "Y-Ursprung [px]"
+msgstr "Y-Ursprung (px)"
 
 #: ../share/extensions/hpgl_output.inx.h:10
 msgid "hpgl output flatness"
@@ -26982,7 +26981,7 @@ msgid ""
 "If you select \"Other\", you must know the SVG attributes to identify here "
 "this \"other\"."
 msgstr ""
-"Falls Sie \"Andere\" wählen, so müssen Sie diese Anderen durch deren SVG-"
+"Falls Sie „Andere“ wählen, so müssen Sie diese Anderen durch deren SVG-"
 "Attribute spezifizieren:"
 
 #: ../share/extensions/interp_att_g.inx.h:10
@@ -27677,7 +27676,7 @@ msgid ""
 "text. If a flowed text is selected, Lorem Ipsum is added to it; otherwise a "
 "new flowed text object, the size of the page, is created in a new layer."
 msgstr ""
-"Dieser Effekt erstellt den standard \"Lorem Ipsum\" Platzhaltetext. Wenn ein "
+"Dieser Effekt erstellt den standard „Lorem Ipsum“ Platzhaltetext. Wenn ein "
 "Fließtext ausgewählt ist, wird Lorem Ipsum angehängt; ansonsten wird ein "
 "neues Fließtextobjekt in einer neuen Ebene erzeugt, das so groß ist wie die "
 "Seite."
@@ -27778,13 +27777,13 @@ msgstr ""
 "Dieser Effekt misst die Länge oder den Bereich eines Pfades in den gewählten "
 "Einheiten und fügt diese als Text-auf-Pfad-Objekt an.\n"
 "\n"
-"Die Anzahl der signifikanten Stellen wird durch \"Präzision\" gewählt.\n"
-"Das Feld \"Versatz\" kontrolliert die Entfernung Text-Pfad. \n"
-"Der \"Maßstab\" kann zur Messung skalierter Pfade verwendet werden (M = 250 -"
-"> 1cm entspricht 2,5m).\n"
+"Die Anzahl der signifikanten Stellen wird durch „Präzision“ gewählt.\n"
+"Das Feld „Versatz“ kontrolliert die Entfernung Text-Pfad. \n"
+"Der „Maßstab“ kann zur Messung skalierter Pfade verwendet werden (M = 250 → "
+"1 cm entspricht 2,5 m).\n"
 "Wenn der Bereich berechnet wird, sollte das Ergebnis für Polygone und Bezier-"
 "Kurven präzise sein. Wird ein Kreis benutzt, kann die berechnete Fläche um "
-"bis zu 0.03% zu groß sein."
+"bis zu 0,03 % zu groß sein."
 
 #: ../share/extensions/measure.inx.h:20
 msgctxt "measure extension"
@@ -27817,11 +27816,11 @@ msgstr "Ende t-Wert"
 
 #: ../share/extensions/param_curves.inx.h:5
 msgid "Multiply t-range by 2*pi:"
-msgstr "T-Bereich mit 2*pi multiplizieren"
+msgstr "T-Bereich mit 2·π multiplizieren"
 
 #: ../share/extensions/param_curves.inx.h:6
 msgid "Parametric Curves"
-msgstr "Parametrische Kurve"
+msgstr "Parametrische Kurven"
 
 #: ../share/extensions/param_curves.inx.h:7
 msgid "Range and Sampling"
@@ -28143,7 +28142,7 @@ msgstr "Füllfarbe (Rotwert)"
 #: ../share/extensions/polyhedron_3d.inx.h:16
 #, no-c-format
 msgid "Fill opacity (%):"
-msgstr "Deckkraft, %"
+msgstr "Deckkraft (%)"
 
 #: ../share/extensions/polyhedron_3d.inx.h:17
 msgid "Great Dodecahedron"
@@ -28235,7 +28234,7 @@ msgstr "Abgeschrägtes Dodekaeder"
 #: ../share/extensions/polyhedron_3d.inx.h:41
 #, no-c-format
 msgid "Stroke opacity (%):"
-msgstr "Strich-Deckkraft, %"
+msgstr "Strich-Deckkraft (%)"
 
 #: ../share/extensions/polyhedron_3d.inx.h:42
 msgid "Stroke width (px):"
@@ -28447,22 +28446,22 @@ msgstr "Fehlerkorrektur-Level:"
 #: ../share/extensions/render_barcode_qrcode.inx.h:5
 #, no-c-format
 msgid "H (Approx. 30%)"
-msgstr "H (ca. 30%)"
+msgstr "H (ca. 30 %)"
 
 #: ../share/extensions/render_barcode_qrcode.inx.h:7
 #, no-c-format
 msgid "L (Approx. 7%)"
-msgstr "L (ca. 7%)"
+msgstr "L (ca. 7 %)"
 
 #: ../share/extensions/render_barcode_qrcode.inx.h:9
 #, no-c-format
 msgid "M (Approx. 15%)"
-msgstr "M (ca. 15%)"
+msgstr "M (ca. 15 %)"
 
 #: ../share/extensions/render_barcode_qrcode.inx.h:11
 #, no-c-format
 msgid "Q (Approx. 25%)"
-msgstr "Q (ca. 25%)"
+msgstr "Q (ca. 25 %)"
 
 #: ../share/extensions/render_barcode_qrcode.inx.h:13
 msgid "See http://www.denso-wave.com/qrcode/index-e.html for details"
@@ -28919,7 +28918,7 @@ msgstr "Komprimiertes Inkscape-SVG mit Medien (*.zip)"
 
 #: ../share/extensions/svg_and_media_zip_output.inx.h:4
 msgid "Image zip directory:"
-msgstr "%s ist kein gültiges Verzeichnis."
+msgstr ""
 
 #: ../share/extensions/svg_and_media_zip_output.inx.h:5
 msgid ""
@@ -29082,7 +29081,7 @@ msgstr "Von:"
 
 #: ../share/extensions/text_replace.inx.h:2
 msgid "Replace text"
-msgstr "Text ersetzen…"
+msgstr "Text ersetzen …"
 
 #: ../share/extensions/text_replace.inx.h:3
 msgid "Replace:"
@@ -29225,8 +29224,8 @@ msgid ""
 "it). To use this, you must to select some \"Slicer rectangles\" first."
 msgstr ""
 "Die Layout-Gruppe dient nur zum Erstellen einer besseren Codegeneration "
-"(falls benötigt). Um sie zu benutzen müssen Sie zuerst ein paar \"Schnitt-"
-"Rechtecke\" markieren."
+"(falls benötigt). Um sie zu benutzen müssen Sie zuerst ein paar „Schnitt-"
+"Rechtecke“ markieren."
 
 #: ../share/extensions/webslicer_create_group.inx.h:8
 msgid "Percent (relative to parent size)"
@@ -29494,7 +29493,7 @@ msgstr "Wert(e) festlegen"
 # Was ist "set" in diesem Zusammenhang?
 #: ../share/extensions/web-set-att.inx.h:19
 msgid "When should the set be done:"
-msgstr "Wann sollen Werte gesetzt werden?"
+msgstr "Wann die Werte gesetzt werden sollen:"
 
 #: ../share/extensions/web-set-att.inx.h:20
 #: ../share/extensions/web-transmit-att.inx.h:18
