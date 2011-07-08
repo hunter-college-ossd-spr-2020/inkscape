@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2011-06-05 20:35+0200\n"
-"PO-Revision-Date: 2011-07-08 14:27+0200\n"
+"PO-Revision-Date: 2011-07-08 14:34+0200\n"
 "Last-Translator: Uwe Schoeler <uschoeler@yahoo.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4502,7 +4502,7 @@ msgstr "_Farbe"
 
 #: ../src/dialogs/clonetiler.cpp:2406
 msgid "Initial color: "
-msgstr "Ursprüngliche Farbe: "
+msgstr "Ursprüngliche Farbe:"
 
 #: ../src/dialogs/clonetiler.cpp:2410
 msgid "Initial color of tiled clones"
@@ -4747,7 +4747,7 @@ msgstr "Höhe des zu füllenden Rechtecks"
 
 #: ../src/dialogs/clonetiler.cpp:2839
 msgid "Rows, columns: "
-msgstr "Reihen, Spalten: "
+msgstr "Reihen, Spalten:"
 
 #: ../src/dialogs/clonetiler.cpp:2840
 msgid "Create the specified number of rows and columns"
@@ -4755,7 +4755,7 @@ msgstr "Angegeben Anzahl von Reihen und Spalten erzeugen"
 
 #: ../src/dialogs/clonetiler.cpp:2849
 msgid "Width, height: "
-msgstr "Breite, Höhe: "
+msgstr "Breite, Höhe:"
 
 #: ../src/dialogs/clonetiler.cpp:2850
 msgid "Fill the specified width and height with the tiling"
@@ -4999,7 +4999,7 @@ msgstr "Keine Objekte gefunden"
 
 #: ../src/dialogs/find.cpp:543
 msgid "T_ype: "
-msgstr "T_yp: "
+msgstr "T_yp:"
 
 #: ../src/dialogs/find.cpp:550 ../src/ui/dialog/find.cpp:72
 msgid "Search in all object types"
@@ -5106,7 +5106,7 @@ msgstr "Versatz"
 
 #: ../src/dialogs/find.cpp:698 ../src/ui/dialog/find.cpp:63
 msgid "_Text:"
-msgstr "_Text: "
+msgstr "_Text:"
 
 #: ../src/dialogs/find.cpp:698 ../src/ui/dialog/find.cpp:63
 msgid "Find objects by their text content (exact or partial match)"
@@ -5119,7 +5119,7 @@ msgstr ""
 #: ../src/dialogs/item-properties.cpp:437
 #: ../src/dialogs/item-properties.cpp:444 ../src/ui/dialog/find.cpp:64
 msgid "_ID:"
-msgstr "_ID: "
+msgstr "_ID:"
 
 #: ../src/dialogs/find.cpp:699 ../src/ui/dialog/find.cpp:64
 msgid "Find objects by the value of the id attribute (exact or partial match)"
@@ -5129,7 +5129,7 @@ msgstr ""
 
 #: ../src/dialogs/find.cpp:700 ../src/ui/dialog/find.cpp:65
 msgid "_Style:"
-msgstr "_Stil: "
+msgstr "_Stil:"
 
 #: ../src/dialogs/find.cpp:700 ../src/ui/dialog/find.cpp:65
 msgid ""
@@ -5139,7 +5139,7 @@ msgstr ""
 
 #: ../src/dialogs/find.cpp:701 ../src/ui/dialog/find.cpp:66
 msgid "_Attribute:"
-msgstr "_Attribut: "
+msgstr "_Attribut:"
 
 #: ../src/dialogs/find.cpp:701 ../src/ui/dialog/find.cpp:66
 msgid "Find objects by the name of an attribute (exact or partial match)"
@@ -6121,19 +6121,19 @@ msgstr "Abhängigkeit:"
 
 #: ../src/extension/dependency.cpp:247
 msgid "  type: "
-msgstr "  Typ: "
+msgstr "  Typ:"
 
 #: ../src/extension/dependency.cpp:248
 msgid "  location: "
-msgstr "  Speicherort: "
+msgstr "  Speicherort:"
 
 #: ../src/extension/dependency.cpp:249
 msgid "  string: "
-msgstr "  Zeichenkette: "
+msgstr "  Zeichenkette:"
 
 #: ../src/extension/dependency.cpp:252
 msgid "  description: "
-msgstr "  Beschreibung: "
+msgstr "  Beschreibung:"
 
 #: ../src/extension/effect.cpp:40
 msgid " (No preferences)"
@@ -6379,7 +6379,7 @@ msgstr "Radius:"
 #: ../src/extension/internal/bitmap/sharpen.cpp:40
 #: ../src/extension/internal/bitmap/unsharpmask.cpp:43
 msgid "Sigma:"
-msgstr "Sigma"
+msgstr "Sigma:"
 
 #: ../src/extension/internal/bitmap/blur.cpp:46
 msgid "Blur selected bitmap(s)"
@@ -6391,7 +6391,7 @@ msgstr "Kanal"
 
 #: ../src/extension/internal/bitmap/channel.cpp:49
 msgid "Layer:"
-msgstr "Ebene"
+msgstr "Ebene:"
 
 #: ../src/extension/internal/bitmap/channel.cpp:50
 #: ../src/extension/internal/bitmap/levelChannel.cpp:54
@@ -6460,7 +6460,7 @@ msgstr "Kontrast"
 
 #: ../src/extension/internal/bitmap/contrast.cpp:41
 msgid "Adjust:"
-msgstr "Anpassen"
+msgstr "Anpassen:"
 
 #: ../src/extension/internal/bitmap/contrast.cpp:47
 msgid "Increase or decrease contrast in bitmap(s)"
@@ -6475,7 +6475,7 @@ msgstr "Rotiere Farbpalette"
 #: ../src/extension/internal/bitmap/unsharpmask.cpp:44
 #: ../src/widgets/toolbox.cpp:4705
 msgid "Amount:"
-msgstr "Menge"
+msgstr "Menge:"
 
 #: ../src/extension/internal/bitmap/cycleColormap.cpp:44
 msgid "Cycle colormap(s) of selected bitmap(s)"
@@ -6528,7 +6528,7 @@ msgstr "Gaußscher Weichzeichner"
 #: ../src/extension/internal/bitmap/implode.cpp:38
 #: ../src/extension/internal/bitmap/solarize.cpp:40
 msgid "Factor:"
-msgstr "Faktor"
+msgstr "Faktor:"
 
 #: ../src/extension/internal/bitmap/gaussianBlur.cpp:46
 msgid "Gaussian blur selected bitmap(s)"
@@ -6549,17 +6549,17 @@ msgstr "Ebene"
 #: ../src/extension/internal/bitmap/level.cpp:42
 #: ../src/extension/internal/bitmap/levelChannel.cpp:64
 msgid "Black Point:"
-msgstr "Schwarzer Punkt"
+msgstr "Schwarzer Punkt:"
 
 #: ../src/extension/internal/bitmap/level.cpp:43
 #: ../src/extension/internal/bitmap/levelChannel.cpp:65
 msgid "White Point:"
-msgstr "Weißer Punkt"
+msgstr "Weißer Punkt:"
 
 #: ../src/extension/internal/bitmap/level.cpp:44
 #: ../src/extension/internal/bitmap/levelChannel.cpp:66
 msgid "Gamma Correction:"
-msgstr "Gammakorrektur"
+msgstr "Gammakorrektur:"
 
 #: ../src/extension/internal/bitmap/level.cpp:50
 msgid ""
@@ -6602,19 +6602,19 @@ msgstr "HSB anpassen"
 
 #: ../src/extension/internal/bitmap/modulate.cpp:41
 msgid "Hue:"
-msgstr "Farbton"
+msgstr "Farbton:"
 
 #: ../src/extension/internal/bitmap/modulate.cpp:42
 #: ../src/extension/internal/filter/abc.h:177
 #: ../src/extension/internal/filter/experimental.h:85
 msgid "Saturation:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/bitmap/modulate.cpp:43
 #: ../src/extension/internal/filter/abc.h:375
 #: ../src/extension/internal/filter/abc.h:815
 msgid "Brightness:"
-msgstr "Helligkeit"
+msgstr "Helligkeit:"
 
 #: ../src/extension/internal/bitmap/modulate.cpp:49
 msgid ""
@@ -6708,11 +6708,11 @@ msgstr "Schattieren"
 
 #: ../src/extension/internal/bitmap/shade.cpp:41
 msgid "Azimuth:"
-msgstr "Azimut"
+msgstr "Azimut:"
 
 #: ../src/extension/internal/bitmap/shade.cpp:42
 msgid "Elevation:"
-msgstr "Anhebung"
+msgstr "Anhebung:"
 
 #: ../src/extension/internal/bitmap/shade.cpp:43
 msgid "Colored Shading"
@@ -6748,7 +6748,7 @@ msgstr "Verwirbeln"
 
 #: ../src/extension/internal/bitmap/swirl.cpp:38
 msgid "Degrees:"
-msgstr "Grad"
+msgstr "Grad:"
 
 #: ../src/extension/internal/bitmap/swirl.cpp:44
 msgid "Swirl selected bitmap(s) around center point"
@@ -6785,11 +6785,11 @@ msgstr "Welle"
 
 #: ../src/extension/internal/bitmap/wave.cpp:39
 msgid "Amplitude:"
-msgstr "Amplitude"
+msgstr "Amplitude:"
 
 #: ../src/extension/internal/bitmap/wave.cpp:40
 msgid "Wavelength:"
-msgstr "Wellenlänge"
+msgstr "Wellenlänge:"
 
 #: ../src/extension/internal/bitmap/wave.cpp:46
 msgid "Alter selected bitmap(s) along sine wave"
@@ -6829,7 +6829,7 @@ msgstr "Postscript"
 #: ../src/extension/internal/cairo-ps-out.cpp:319
 #: ../src/extension/internal/cairo-ps-out.cpp:357
 msgid "Restrict to PS level:"
-msgstr "Auf PostScript Level einschränken"
+msgstr "Auf PostScript Level einschränken:"
 
 #: ../src/extension/internal/cairo-ps-out.cpp:320
 #: ../src/extension/internal/cairo-ps-out.cpp:358
@@ -6862,7 +6862,7 @@ msgstr "Filtereffekte in Raster umwandeln"
 #: ../src/extension/internal/cairo-ps-out.cpp:366
 #: ../src/extension/internal/cairo-renderer-pdf-out.cpp:251
 msgid "Resolution for rasterization (dpi):"
-msgstr "Auflösung des Rasters (dpi)"
+msgstr "Auflösung des Rasters (dpi):"
 
 #: ../src/extension/internal/cairo-ps-out.cpp:329
 #: ../src/extension/internal/cairo-ps-out.cpp:367
@@ -6880,7 +6880,7 @@ msgstr "Exportierter Bereich ist die gesamte Seite"
 #: ../src/extension/internal/cairo-ps-out.cpp:369
 #: ../src/extension/internal/cairo-renderer-pdf-out.cpp:254
 msgid "Limit export to the object with ID:"
-msgstr "Export einschränken auf das Objekt mit ID"
+msgstr "Export einschränken auf das Objekt mit ID:"
 
 #: ../src/extension/internal/cairo-ps-out.cpp:335
 #: ../share/extensions/ps_input.inx.h:2
@@ -6911,7 +6911,7 @@ msgstr "Encapsulated-Postscript-Datei"
 
 #: ../src/extension/internal/cairo-renderer-pdf-out.cpp:242
 msgid "Restrict to PDF version:"
-msgstr "Auf PDF Version einschränken"
+msgstr "Auf PDF Version einschränken:"
 
 #: ../src/extension/internal/cairo-renderer-pdf-out.cpp:244
 msgid "PDF 1.5"
@@ -7079,7 +7079,7 @@ msgstr "Diffuses Licht"
 #: ../src/extension/internal/filter/experimental.h:87
 #: ../share/extensions/fractalize.inx.h:3
 msgid "Smoothness:"
-msgstr "Glattheit"
+msgstr "Glattheit:"
 
 #: ../src/extension/internal/filter/abc.h:238
 #: ../src/extension/internal/filter/abc.h:376
@@ -7115,7 +7115,7 @@ msgstr "Diffuses Licht"
 #: ../src/extension/internal/filter/abc.h:464
 #: ../src/extension/internal/filter/abc.h:663
 msgid "Turbulence type:"
-msgstr "Turbulenz"
+msgstr "Turbulenz:"
 
 #: ../src/extension/internal/filter/abc.h:468
 #: ../src/extension/internal/filter/abc.h:667
@@ -7139,7 +7139,7 @@ msgstr "Komplexität:"
 #: ../src/extension/internal/filter/abc.h:670
 #: ../src/extension/internal/filter/experimental.h:94
 msgid "Variation:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/filter/abc.h:472
 #: ../src/extension/internal/filter/abc.h:576
@@ -7147,7 +7147,7 @@ msgstr "Sättigung"
 #: ../src/extension/internal/filter/experimental.h:341
 #: ../src/extension/internal/filter/experimental.h:345
 msgid "Dilatation:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/filter/abc.h:473
 #: ../src/extension/internal/filter/abc.h:577
@@ -7211,7 +7211,7 @@ msgstr "Farbe der Kontur setzen"
 
 #: ../src/extension/internal/filter/color.h:66
 msgid "Vibration:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/filter/color.h:67
 #: ../src/extension/internal/filter/color.h:459
@@ -7301,7 +7301,7 @@ msgstr "Farbe der Kontur setzen"
 
 #: ../src/extension/internal/filter/color.h:242
 msgid "Fluorescence level:"
-msgstr "Fluoreszenz"
+msgstr "Fluoreszenz:"
 
 #: ../src/extension/internal/filter/color.h:243
 msgid "Swap:"
@@ -7418,7 +7418,7 @@ msgstr "Vierfarben-Fantasie"
 #: ../src/extension/internal/filter/color.h:607
 #: ../src/extension/internal/filter/color.h:805
 msgid "Hue distribution (°):"
-msgstr "Normalverteilung verwenden"
+msgstr "Normalverteilung verwenden:"
 
 #: ../src/extension/internal/filter/color.h:608
 #: ../src/ui/dialog/tracedialog.cpp:477
@@ -7427,7 +7427,7 @@ msgstr "Farben:"
 
 #: ../src/extension/internal/filter/color.h:614
 msgid "Over-saturation:"
-msgstr "Übersättigung"
+msgstr "Übersättigung:"
 
 #: ../src/extension/internal/filter/color.h:692
 msgid "Solarize, custom (Color)"
@@ -7435,7 +7435,7 @@ msgstr "Farbe der Kontur setzen"
 
 #: ../src/extension/internal/filter/color.h:694
 msgid "Hue rotation (°):"
-msgstr "_Rotation"
+msgstr "_Rotation:"
 
 #: ../src/extension/internal/filter/color.h:706
 msgid "Classic photographic solarization effect"
@@ -7459,7 +7459,7 @@ msgstr "Hintergrund entfernen"
 
 #: ../src/extension/internal/filter/color.h:789
 msgid "Global blend:"
-msgstr "Globale Wölbung"
+msgstr "Globale Wölbung:"
 
 #: ../src/extension/internal/filter/color.h:795
 msgid "Glow:"
@@ -7467,7 +7467,7 @@ msgstr "Glühen:"
 
 #: ../src/extension/internal/filter/color.h:796
 msgid "Glow blend:"
-msgstr "Blase mit Lichthof"
+msgstr "Blase mit Lichthof:"
 
 #: ../src/extension/internal/filter/color.h:801
 msgid "Local light:"
@@ -7490,7 +7490,7 @@ msgstr "Abgesetzter Schatten"
 #: ../src/extension/internal/filter/drop-shadow.h:37
 #: ../src/extension/internal/filter/drop-shadow.h:97
 msgid "Blur radius (px):"
-msgstr "Unschärfen Radius"
+msgstr "Unschärfen Radius:"
 
 #: ../src/extension/internal/filter/drop-shadow.h:38
 #: ../src/extension/internal/filter/drop-shadow.h:98
@@ -7531,7 +7531,7 @@ msgstr "Zeichenmodus"
 
 #: ../src/extension/internal/filter/experimental.h:74
 msgid "Drawing blend:"
-msgstr "Zeichnen abgebrochen"
+msgstr "Zeichnen abgebrochen:"
 
 #: ../src/extension/internal/filter/experimental.h:82
 msgid "Dented"
@@ -7539,7 +7539,7 @@ msgstr "Zentrieren"
 
 #: ../src/extension/internal/filter/experimental.h:86
 msgid "Noise reduction:"
-msgstr "Richtung"
+msgstr "Richtung:"
 
 # not sure here -cm-
 #: ../src/extension/internal/filter/experimental.h:90
@@ -7552,7 +7552,7 @@ msgstr "Erweiterung:"
 
 #: ../src/extension/internal/filter/experimental.h:98
 msgid "Grain blend:"
-msgstr "Farbverlauf"
+msgstr "Farbverlauf:"
 
 #: ../src/extension/internal/filter/experimental.h:114
 msgid "Chromo effect with customizable edge drawing and graininess"
@@ -7585,7 +7585,7 @@ msgstr "Zeichenmodus"
 # Name des Effekte-submenü, das alle Bitmap-Effekte beinhaltet.
 #: ../src/extension/internal/filter/experimental.h:337
 msgid "Erase:"
-msgstr "Radierer"
+msgstr "Radierer:"
 
 #: ../src/extension/internal/filter/experimental.h:338
 msgid "Transluscent"
@@ -7650,7 +7650,7 @@ msgstr "Zeichenmodus"
 
 #: ../src/extension/internal/filter/experimental.h:608
 msgid "Transfer type:"
-msgstr "Operationstyp"
+msgstr "Operationstyp:"
 
 #: ../src/extension/internal/filter/experimental.h:618
 msgid "Simplify (primary):"
@@ -7658,15 +7658,15 @@ msgstr "Vereinfache Pfade:"
 
 #: ../src/extension/internal/filter/experimental.h:619
 msgid "Simplify (secondary):"
-msgstr "Farben vereinfachen"
+msgstr "Farben vereinfachen:"
 
 #: ../src/extension/internal/filter/experimental.h:620
 msgid "Pre-saturation:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/filter/experimental.h:621
 msgid "Post-saturation:"
-msgstr "Sättigung"
+msgstr "Sättigung:"
 
 #: ../src/extension/internal/filter/experimental.h:622
 msgid "Simulate antialiasing"
@@ -7710,7 +7710,7 @@ msgstr "Schneekrone"
 
 #: ../src/extension/internal/filter/snow.h:34
 msgid "Drift Size:"
-msgstr "Schneegröße"
+msgstr "Schneegröße:"
 
 #: ../src/extension/internal/filter/snow.h:42
 msgid "Snow has fallen on object"
@@ -7760,23 +7760,23 @@ msgstr "Gitter"
 
 #: ../src/extension/internal/grid.cpp:202
 msgid "Line Width:"
-msgstr "Linienstärke"
+msgstr "Linienstärke:"
 
 #: ../src/extension/internal/grid.cpp:203
 msgid "Horizontal Spacing:"
-msgstr "Horizontale Abstände"
+msgstr "Horizontale Abstände:"
 
 #: ../src/extension/internal/grid.cpp:204
 msgid "Vertical Spacing:"
-msgstr "Vertikale Abstände"
+msgstr "Vertikale Abstände:"
 
 #: ../src/extension/internal/grid.cpp:205
 msgid "Horizontal Offset:"
-msgstr "Horizontaler Versatz"
+msgstr "Horizontaler Versatz:"
 
 #: ../src/extension/internal/grid.cpp:206
 msgid "Vertical Offset:"
-msgstr "Vertikaler Versatz"
+msgstr "Vertikaler Versatz:"
 
 #: ../src/extension/internal/grid.cpp:210
 #: ../share/extensions/draw_from_triangle.inx.h:30
@@ -9710,7 +9710,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-bendpath.cpp:55
 msgid "Bend path:"
-msgstr "Pfad verbiegen"
+msgstr "Pfad verbiegen:"
 
 #: ../src/live_effects/lpe-bendpath.cpp:55
 msgid "Path along which to bend the original path"
@@ -9755,7 +9755,7 @@ msgstr "Die Größe des Gitters in Y-Richtung"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:42
 msgid "Stitch path:"
-msgstr "Verändere Pfad"
+msgstr "Verändere Pfad:"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:42
 msgid "The path that will be used as stitch."
@@ -9771,7 +9771,7 @@ msgstr "Anzahl der zu erzeugenden Pfade"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:44
 msgid "Sta_rt edge variance:"
-msgstr "Start der Kanten Abweichung"
+msgstr "Start der Kanten Abweichung:"
 
 # Hier "stitches" etwa Kopien? Was ist dieser Effekt?
 #: ../src/live_effects/lpe-curvestitch.cpp:44
@@ -9784,7 +9784,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-curvestitch.cpp:45
 msgid "Sta_rt spacing variance:"
-msgstr "Start der Abstands-Abweichung"
+msgstr "Start der Abstands-Abweichung:"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:45
 msgid ""
@@ -9796,7 +9796,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-curvestitch.cpp:46
 msgid "End ed_ge variance:"
-msgstr "Ende der Kanten Abweichung"
+msgstr "Ende der Kanten Abweichung:"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:46
 msgid ""
@@ -9808,7 +9808,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-curvestitch.cpp:47
 msgid "End spa_cing variance:"
-msgstr "Ende der Abstands-Abweichung"
+msgstr "Ende der Abstands-Abweichung:"
 
 #: ../src/live_effects/lpe-curvestitch.cpp:47
 msgid ""
@@ -9836,7 +9836,7 @@ msgstr "Skalieren der Breite des Stichpfades relativ zu seiner Länge"
 
 #: ../src/live_effects/lpe-envelope.cpp:33
 msgid "Top bend path:"
-msgstr "Oberen Pfad verbiegen"
+msgstr "Oberen Pfad verbiegen:"
 
 #: ../src/live_effects/lpe-envelope.cpp:33
 msgid "Top path along which to bend the original path"
@@ -9844,7 +9844,7 @@ msgstr "Oberer Pfad, entlang welchem der Originalpfad gebogen wird"
 
 #: ../src/live_effects/lpe-envelope.cpp:34
 msgid "Right bend path:"
-msgstr "Rechten Pfad verbiegen"
+msgstr "Rechten Pfad verbiegen:"
 
 #: ../src/live_effects/lpe-envelope.cpp:34
 msgid "Right path along which to bend the original path"
@@ -9852,7 +9852,7 @@ msgstr "Rechter Pfad, entlang welchem der Originalpfad gebogen wird"
 
 #: ../src/live_effects/lpe-envelope.cpp:35
 msgid "Bottom bend path:"
-msgstr "Unteren Pfad verbiegen"
+msgstr "Unteren Pfad verbiegen:"
 
 #: ../src/live_effects/lpe-envelope.cpp:35
 msgid "Bottom path along which to bend the original path"
@@ -9860,7 +9860,7 @@ msgstr "Unterer Pfad, entlang welchem der Originalpfad gebogen wird"
 
 #: ../src/live_effects/lpe-envelope.cpp:36
 msgid "Left bend path:"
-msgstr "Linken Pfad verbiegen"
+msgstr "Linken Pfad verbiegen:"
 
 #: ../src/live_effects/lpe-envelope.cpp:36
 msgid "Left path along which to bend the original path"
@@ -9902,7 +9902,7 @@ msgstr "Zahnflankenwinkel (typisch 20–25°)."
 
 #: ../src/live_effects/lpe-interpolate.cpp:30
 msgid "Trajectory:"
-msgstr "Kurve"
+msgstr "Kurve:"
 
 #: ../src/live_effects/lpe-interpolate.cpp:30
 msgid "Path along which intermediate steps are created."
@@ -9933,7 +9933,7 @@ msgstr ""
 #. initialise your parameters here:
 #: ../src/live_effects/lpe-knot.cpp:343
 msgid "Fi_xed width:"
-msgstr "Feste Breite"
+msgstr "Feste Breite:"
 
 #: ../src/live_effects/lpe-knot.cpp:343
 msgid "Size of hidden region of lower string"
@@ -9965,7 +9965,7 @@ msgstr "Addiere Dicke gekreuzter Striche zur Unterbrechungslänge."
 
 #: ../src/live_effects/lpe-knot.cpp:347
 msgid "S_witcher size:"
-msgstr "Größe des Drehpfeiles"
+msgstr "Größe des Drehpfeiles:"
 
 #: ../src/live_effects/lpe-knot.cpp:347
 msgid "Orientation indicator/switcher size"
@@ -10010,7 +10010,7 @@ msgstr "Wiederholt, gestreckt"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:61
 msgid "Pattern source:"
-msgstr "Quelle des Musters"
+msgstr "Quelle des Musters:"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:61
 msgid "Path to put along the skeleton path"
@@ -10018,7 +10018,7 @@ msgstr "Gerüstpfad entlang dieses Pfades setzen"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:62
 msgid "Pattern copies:"
-msgstr "Muster-Kopien"
+msgstr "Muster-Kopien:"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:62
 msgid "How many pattern copies to place along the skeleton path"
@@ -10051,11 +10051,11 @@ msgstr ""
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:72
 msgid "No_rmal offset:"
-msgstr "Normaler Versatz"
+msgstr "Normaler Versatz:"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:73
 msgid "Tan_gential offset:"
-msgstr "Tangentialer Versatz"
+msgstr "Tangentialer Versatz:"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:74
 msgid "Offsets in _unit of pattern size"
@@ -10079,7 +10079,7 @@ msgstr "Muster vor dem Anwenden um 90° drehen"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:79
 msgid "_Fuse nearby ends:"
-msgstr "Beieinanderliegende Enden verschmelzen"
+msgstr "Beieinanderliegende Enden verschmelzen:"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:79
 msgid "Fuse ends closer than this number. 0 means don't fuse."
@@ -10088,7 +10088,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:226
 msgid "Frequency randomness:"
-msgstr "Zufalls-Frequenz"
+msgstr "Zufalls-Frequenz:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:226
 msgid "Variation of distance between hatches, in %."
@@ -10096,7 +10096,7 @@ msgstr "Variation des Abstands zwischen den Strichen in %"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:227
 msgid "Growth:"
-msgstr "Wachstum"
+msgstr "Wachstum:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:227
 msgid "Growth of distance between hatches."
@@ -10105,7 +10105,7 @@ msgstr "Zunahme des Abstands zwischen den Strichen"
 #. FIXME: top/bottom names are inverted in the UI/svg and in the code!!
 #: ../src/live_effects/lpe-rough-hatches.cpp:229
 msgid "Half-turns smoothness: 1st side, in:"
-msgstr "Weichheit der Umkehrpunkte: 1. Seite, einlaufend"
+msgstr "Weichheit der Umkehrpunkte: 1. Seite, einlaufend:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:229
 msgid ""
@@ -10117,7 +10117,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:230
 msgid "1st side, out:"
-msgstr "1. Seite, außen"
+msgstr "1. Seite, außen:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:230
 msgid ""
@@ -10129,7 +10129,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:231
 msgid "2nd side, in:"
-msgstr "2. Seite, innen"
+msgstr "2. Seite, innen:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:231
 msgid ""
@@ -10141,7 +10141,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:232
 msgid "2nd side, out:"
-msgstr "2. Seite, außen"
+msgstr "2. Seite, außen:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:232
 msgid ""
@@ -10153,7 +10153,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:233
 msgid "Magnitude jitter: 1st side:"
-msgstr "Ausmaß Schwankung: 1. Seite"
+msgstr "Ausmaß Schwankung: 1. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:233
 msgid "Randomly moves 'bottom' half-turns to produce magnitude variations."
@@ -10165,7 +10165,7 @@ msgstr ""
 #: ../src/live_effects/lpe-rough-hatches.cpp:236
 #: ../src/live_effects/lpe-rough-hatches.cpp:238
 msgid "2nd side:"
-msgstr "2. Seite"
+msgstr "2. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:234
 msgid "Randomly moves 'top' half-turns to produce magnitude variations."
@@ -10175,7 +10175,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:235
 msgid "Parallelism jitter: 1st side:"
-msgstr "Parallelität Schwankung: 1. Seite"
+msgstr "Parallelität Schwankung: 1. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:235
 msgid ""
@@ -10195,7 +10195,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:237
 msgid "Variance: 1st side:"
-msgstr "Varianz: 1. Seite"
+msgstr "Varianz: 1. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:237
 msgid "Randomness of 'bottom' half-turns smoothness"
@@ -10224,7 +10224,7 @@ msgstr "Globale Krümmung zu den Strichen hinzufügen (langsam)."
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:242
 msgid "Thickness: at 1st side:"
-msgstr "Dicke: auf der 1. Seite"
+msgstr "Dicke: auf der 1. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:242
 msgid "Width at 'bottom' half-turns"
@@ -10232,7 +10232,7 @@ msgstr "Breite an den „unteren“ Wendepunkten"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:243
 msgid "at 2nd side:"
-msgstr "auf der 2. Seite"
+msgstr "auf der 2. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:243
 msgid "Width at 'top' half-turns"
@@ -10241,7 +10241,7 @@ msgstr "Breite an den „oberen“ Wendepunkten"
 #.
 #: ../src/live_effects/lpe-rough-hatches.cpp:245
 msgid "from 2nd to 1st side:"
-msgstr "von der 2. zur 1. Seite"
+msgstr "von der 2. zur 1. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:245
 msgid "Width from 'top' to 'bottom'"
@@ -10249,7 +10249,7 @@ msgstr "Breite der Striche von „oben“ nach „unten“"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:246
 msgid "from 1st to 2nd side:"
-msgstr "von der 1. zur 2. Seite"
+msgstr "von der 1. zur 2. Seite:"
 
 #: ../src/live_effects/lpe-rough-hatches.cpp:246
 msgid "Width from 'bottom' to 'top'"
@@ -10299,7 +10299,7 @@ msgstr "Ende"
 
 #: ../src/live_effects/lpe-ruler.cpp:43
 msgid "_Mark distance:"
-msgstr "Markierungsdistanz"
+msgstr "Markierungsdistanz:"
 
 #: ../src/live_effects/lpe-ruler.cpp:43
 msgid "Distance between successive ruler marks"
@@ -10314,7 +10314,7 @@ msgstr "Einheit:"
 
 #: ../src/live_effects/lpe-ruler.cpp:45
 msgid "Ma_jor length:"
-msgstr "Große Länge"
+msgstr "Große Länge:"
 
 #: ../src/live_effects/lpe-ruler.cpp:45
 msgid "Length of major ruler marks"
@@ -10322,7 +10322,7 @@ msgstr "Länge der großen Linealmarken"
 
 #: ../src/live_effects/lpe-ruler.cpp:46
 msgid "Mino_r length:"
-msgstr "Kleine Länge"
+msgstr "Kleine Länge:"
 
 #: ../src/live_effects/lpe-ruler.cpp:46
 msgid "Length of minor ruler marks"
@@ -10338,7 +10338,7 @@ msgstr "Zeichne eine große Marke alle … Schritte"
 
 #: ../src/live_effects/lpe-ruler.cpp:48
 msgid "Shift marks _by:"
-msgstr "Verschiebe Markierung um"
+msgstr "Verschiebe Markierung um:"
 
 #: ../src/live_effects/lpe-ruler.cpp:48
 msgid "Shift marks by this many steps"
@@ -10346,7 +10346,7 @@ msgstr "Markierungen um diese Anzahl Schritte verschieben"
 
 #: ../src/live_effects/lpe-ruler.cpp:49
 msgid "Mark direction:"
-msgstr "Markierungsrichtung"
+msgstr "Markierungsrichtung:"
 
 #: ../src/live_effects/lpe-ruler.cpp:49
 msgid "Direction of marks (when viewing along the path from start to end)"
@@ -10380,7 +10380,7 @@ msgstr "Zeichne diese Zahl an durchschnittlichen Strichen"
 
 #: ../src/live_effects/lpe-sketch.cpp:36
 msgid "Max stroke length:"
-msgstr "Maximale Konturbreite"
+msgstr "Maximale Konturbreite:"
 
 #: ../src/live_effects/lpe-sketch.cpp:37
 msgid "Maximum length of approximating strokes"
@@ -10388,7 +10388,7 @@ msgstr "Maximale Länge der durchschnittlichen Striche"
 
 #: ../src/live_effects/lpe-sketch.cpp:38
 msgid "Stroke length variation:"
-msgstr "Strichlängen-Variation"
+msgstr "Strichlängen-Variation:"
 
 #: ../src/live_effects/lpe-sketch.cpp:39
 msgid "Random variation of stroke length (relative to maximum length)"
@@ -10396,7 +10396,7 @@ msgstr "Zufällige Variation der Strichlänge (relativ zur max. Länge)"
 
 #: ../src/live_effects/lpe-sketch.cpp:40
 msgid "Max. overlap:"
-msgstr "Max. Überlappung"
+msgstr "Max. Überlappung:"
 
 #: ../src/live_effects/lpe-sketch.cpp:41
 msgid "How much successive strokes should overlap (relative to maximum length)"
@@ -10406,7 +10406,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-sketch.cpp:42
 msgid "Overlap variation:"
-msgstr "Überlappungs-Varaition"
+msgstr "Überlappungs-Variation:"
 
 #: ../src/live_effects/lpe-sketch.cpp:43
 msgid "Random variation of overlap (relative to maximum overlap)"
@@ -10414,7 +10414,7 @@ msgstr "Zufällige Variation der Überlappung (relativ zur max. Überlappung)"
 
 #: ../src/live_effects/lpe-sketch.cpp:44
 msgid "Max. end tolerance:"
-msgstr "Max. Endtoleranz"
+msgstr "Max. Endtoleranz:"
 
 #: ../src/live_effects/lpe-sketch.cpp:45
 msgid ""
@@ -10426,7 +10426,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-sketch.cpp:46
 msgid "Average offset:"
-msgstr "Durchschn. Versatz"
+msgstr "Durchschn. Versatz:"
 
 #: ../src/live_effects/lpe-sketch.cpp:47
 msgid "Average distance each stroke is away from the original path"
@@ -10434,7 +10434,7 @@ msgstr "Mittlere Distanz, die ein Strich vom Originalpfad entfernt ist."
 
 #: ../src/live_effects/lpe-sketch.cpp:48
 msgid "Max. tremble:"
-msgstr "Max. Zittern"
+msgstr "Max. Zittern:"
 
 #: ../src/live_effects/lpe-sketch.cpp:49
 msgid "Maximum tremble magnitude"
@@ -10442,7 +10442,7 @@ msgstr "Maximales Ausmaß des Zitterns"
 
 #: ../src/live_effects/lpe-sketch.cpp:50
 msgid "Tremble frequency:"
-msgstr "Zitterfrequenz"
+msgstr "Zitterfrequenz:"
 
 #: ../src/live_effects/lpe-sketch.cpp:51
 msgid "Average number of tremble periods in a stroke"
@@ -10450,7 +10450,7 @@ msgstr "Durchschnittliche Anzahl der Zitterperioden in einem Strich"
 
 #: ../src/live_effects/lpe-sketch.cpp:53
 msgid "Construction lines:"
-msgstr "Konstruktionslinien"
+msgstr "Konstruktionslinien:"
 
 #: ../src/live_effects/lpe-sketch.cpp:54
 msgid "How many construction lines (tangents) to draw"
@@ -10472,7 +10472,7 @@ msgstr ""
 
 #: ../src/live_effects/lpe-sketch.cpp:57
 msgid "Max. length:"
-msgstr "Max. Länge"
+msgstr "Max. Länge:"
 
 #: ../src/live_effects/lpe-sketch.cpp:57
 msgid "Maximum length of construction lines"
@@ -10480,7 +10480,7 @@ msgstr "Maximale Länge der Konstruktionslinien"
 
 #: ../src/live_effects/lpe-sketch.cpp:58
 msgid "Length variation:"
-msgstr "Längenvariation"
+msgstr "Längenvariation:"
 
 #: ../src/live_effects/lpe-sketch.cpp:58
 msgid "Random variation of the length of construction lines"
@@ -10488,7 +10488,7 @@ msgstr "Zufällige Variation der Länge der Konstruktionslinien"
 
 #: ../src/live_effects/lpe-sketch.cpp:59
 msgid "Placement randomness:"
-msgstr "Zufällige Platzierung"
+msgstr "Zufällige Platzierung:"
 
 #: ../src/live_effects/lpe-sketch.cpp:59
 msgid "0: evenly distributed construction lines, 1: purely random placement"
@@ -10499,7 +10499,7 @@ msgstr ""
 # !!! maybe use "verbinden"
 #: ../src/live_effects/lpe-sketch.cpp:61
 msgid "k_min:"
-msgstr "verbinden"
+msgstr "verbinden:"
 
 #: ../src/live_effects/lpe-sketch.cpp:61
 msgid "min curvature"
@@ -10507,7 +10507,7 @@ msgstr "min. Krümmung"
 
 #: ../src/live_effects/lpe-sketch.cpp:62
 msgid "k_max:"
-msgstr "k_max"
+msgstr "k_max:"
 
 #: ../src/live_effects/lpe-sketch.cpp:62
 msgid "max curvature"
@@ -10515,7 +10515,7 @@ msgstr "maximale Krümmung"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:46
 msgid "N_r of generations:"
-msgstr "Anzahl der Generationen"
+msgstr "Anzahl der Generationen:"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:46
 msgid "Depth of the recursion --- keep low!!"
@@ -10523,7 +10523,7 @@ msgstr "Tiefe der Rekursion – gering halten!"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:47
 msgid "Generating path:"
-msgstr "Erzeuge neuen Pfad"
+msgstr "Erzeuge neuen Pfad:"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:47
 msgid "Path whose segments define the iterated transforms"
@@ -10552,7 +10552,7 @@ msgstr "Wenn nicht ausgewählt, wird nur letzte Generation gezeichnet."
 #. ,draw_boxes(_("Display boxes"), _("Display boxes instead of paths only"), "draw_boxes", &wr, this, true)
 #: ../src/live_effects/lpe-vonkoch.cpp:51
 msgid "Reference segment:"
-msgstr "Referenz-Segment"
+msgstr "Referenz-Segment:"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:51
 msgid "The reference segment. Defaults to the horizontal midline of the bbox."
@@ -10563,7 +10563,7 @@ msgstr "Referenzsegment (Vorgabe ist horizontale Mittellinie der Umrandung)"
 #. FIXME: a path is used here instead of 2 points to work around path/point param incompatibility bug.
 #: ../src/live_effects/lpe-vonkoch.cpp:55
 msgid "_Max complexity:"
-msgstr "Maximale Kompexität"
+msgstr "Maximale Kompexität:"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:55
 msgid "Disable effect if the output is too complex"
@@ -11520,7 +11520,7 @@ msgstr ""
 #. For info, see Appendix D of http://www.w3.org/TR/1998/WD-rdf-schema-19980409/
 #: ../src/rdf.cpp:271
 msgid "Coverage:"
-msgstr "Abdeckung"
+msgstr "Abdeckung:"
 
 #: ../src/rdf.cpp:272
 msgid "Extent or scope of this document"
@@ -12933,7 +12933,7 @@ msgstr "Unicode (<b>Eingabe</b> zum Abschliessen): %s: %s"
 
 #: ../src/text-context.cpp:581 ../src/text-context.cpp:880
 msgid "Unicode (<b>Enter</b> to finish): "
-msgstr "Unicode (<b>Eingabe</b> zum Abschliessen): "
+msgstr "Unicode (<b>Eingabe</b> zum Abschliessen):"
 
 #: ../src/text-context.cpp:668
 #, c-format
@@ -13620,7 +13620,7 @@ msgstr "Knoten"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:901
 msgid "Relative to: "
-msgstr "Relativ zu: "
+msgstr "Relativ zu:"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:902
 msgid "_Treat selection as group: "
@@ -16474,7 +16474,7 @@ msgstr ""
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:460
 msgid "Flash time:"
-msgstr "Anzeigedauer"
+msgstr "Anzeigedauer:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:460
 msgid ""
@@ -16701,7 +16701,7 @@ msgstr "Dialog Transparenz:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:618
 msgid "Opacity when focused:"
-msgstr "Transparenz bei Focus"
+msgstr "Transparenz bei Focus:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:620
 msgid "Opacity when unfocused:"
@@ -16709,7 +16709,7 @@ msgstr "Trübung wenn nicht fokussiert:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:622
 msgid "Time of opacity change animation:"
-msgstr "Zeit für Transparenz-Änderungsanimation"
+msgstr "Zeit für Transparenz-Änderungsanimation:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:625
 msgid "Miscellaneous"
@@ -17214,7 +17214,7 @@ msgstr "Ermittle Profil von angeschlossenen Anzeigegeräten."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:923
 msgid "Display rendering intent:"
-msgstr "Anzeigenversatz"
+msgstr "Anzeigenversatz:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:924
 msgid "The rendering intent to use to calibrate display output"
@@ -17259,7 +17259,7 @@ msgstr "ICC-Profil für Simulation der Geräteausgabe."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:946
 msgid "Device rendering intent:"
-msgstr "Gerätewiedergabe-Bedeutung"
+msgstr "Gerätewiedergabe-Bedeutung:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:947
 msgid "The rendering intent to use to calibrate device output"
@@ -17733,7 +17733,7 @@ msgstr "Vietnamesisch (vi)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1153
 msgid "Language (requires restart):"
-msgstr "Sprache (erfordert Neustart)"
+msgstr "Sprache (erfordert Neustart):"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1154
 msgid "Set the language for menus and number formats"
@@ -17754,7 +17754,7 @@ msgstr "Kleiner"
 # !!! called "Commands Bar" in other places
 #: ../src/ui/dialog/inkscape-preferences.cpp:1160
 msgid "Toolbox icon size:"
-msgstr "Symbolgröße in der Werkzeugleiste"
+msgstr "Symbolgröße in der Werkzeugleiste:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1161
 msgid "Set the size for the tool icons (requires restart)"
@@ -17762,7 +17762,7 @@ msgstr "Größe der Werkzeugsymbole verändern (erfordert Neustart)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1164
 msgid "Control bar icon size:"
-msgstr "Symbolgröße in Einstellungsleiste"
+msgstr "Symbolgröße in Einstellungsleiste:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1165
 msgid ""
@@ -17774,7 +17774,7 @@ msgstr ""
 # !!! called "Commands Bar" in other places
 #: ../src/ui/dialog/inkscape-preferences.cpp:1168
 msgid "Secondary toolbar icon size:"
-msgstr "Symbolgröße in zweiter Werkzeugleiste"
+msgstr "Symbolgröße in zweiter Werkzeugleiste:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1169
 msgid ""
@@ -17812,7 +17812,7 @@ msgstr ""
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1189
 msgid "Zoom correction factor (in %):"
-msgstr "Zoom Korrektur (in %)"
+msgstr "Zoom Korrektur (in %):"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1190
 msgid ""
@@ -18077,7 +18077,7 @@ msgstr "System"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1387
 msgid "PIXMAP: "
-msgstr "PIXMAP: "
+msgstr "PIXMAP:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1391
 msgid "DATA: "
@@ -19721,7 +19721,7 @@ msgstr "Beschreibung"
 
 #: ../src/ui/widget/page-sizer.cpp:287
 msgid "Orientation:"
-msgstr "Ausrichtung"
+msgstr "Ausrichtung:"
 
 #: ../src/ui/widget/page-sizer.cpp:290
 msgid "_Landscape"
@@ -22346,7 +22346,7 @@ msgstr "Als _SVG speichern"
 # CHECK
 #: ../src/widgets/desktop-widget.cpp:1166
 msgid "Note:"
-msgstr "Deaktiviert"
+msgstr "Deaktiviert:"
 
 # CHECK
 #: ../src/widgets/ege-paint-def.cpp:69 ../src/widgets/ege-paint-def.cpp:91
@@ -22395,7 +22395,7 @@ msgstr "Schriftfamilie"
 #: ../src/widgets/font-selector.cpp:185
 msgctxt "Font selector"
 msgid "_Style"
-msgstr "_Stil: "
+msgstr "_Stil:"
 
 #: ../src/widgets/font-selector.cpp:226
 msgid "Font si_ze:"
@@ -23252,7 +23252,7 @@ msgstr "X-Koordinate der Auswahl"
 
 #: ../src/widgets/toolbox.cpp:1576
 msgid "Y coordinate:"
-msgstr "Y-Koordinate"
+msgstr "Y-Koordinate:"
 
 #: ../src/widgets/toolbox.cpp:1576
 msgid "Y coordinate of selected node(s)"
@@ -24181,7 +24181,7 @@ msgstr "_Rotation"
 
 #: ../src/widgets/toolbox.cpp:4735
 msgid "Rotation:"
-msgstr "_Rotation"
+msgstr "_Rotation:"
 
 #: ../src/widgets/toolbox.cpp:4737
 #, no-c-format
@@ -24961,7 +24961,7 @@ msgstr "Krümmung der Objektverbinder"
 
 #: ../src/widgets/toolbox.cpp:8237
 msgid "Curvature:"
-msgstr "Krümmung"
+msgstr "Krümmung:"
 
 #: ../src/widgets/toolbox.cpp:8238
 msgid "The amount of connectors curvature"
@@ -25092,11 +25092,11 @@ msgstr "in der Anzahl der Segmente"
 
 #: ../share/extensions/addnodes.inx.h:4
 msgid "Division method:"
-msgstr "Divisionsmethode"
+msgstr "Divisionsmethode:"
 
 #: ../share/extensions/addnodes.inx.h:5
 msgid "Maximum segment length (px):"
-msgstr "Maximale Segmentlänge (px)"
+msgstr "Maximale Segmentlänge (px):"
 
 #: ../share/extensions/addnodes.inx.h:6
 #: ../share/extensions/convert2dashes.inx.h:2
@@ -25115,7 +25115,7 @@ msgstr "Pfad modifizieren"
 
 #: ../share/extensions/addnodes.inx.h:7
 msgid "Number of segments:"
-msgstr "Anzahl der Segmente"
+msgstr "Anzahl der Segmente:"
 
 #: ../share/extensions/ai_input.inx.h:1
 msgid "AI 8.0 Input"
@@ -25526,7 +25526,7 @@ msgstr "Höhenschnittpunkt"
 
 #: ../share/extensions/draw_from_triangle.inx.h:28
 msgid "Point At:"
-msgstr "Zeigt auf"
+msgstr "Zeigt auf:"
 
 #: ../share/extensions/draw_from_triangle.inx.h:29
 #: ../share/extensions/wireframe_sphere.inx.h:4
@@ -25731,15 +25731,15 @@ msgstr ""
 
 #: ../share/extensions/edge3d.inx.h:1
 msgid "Blur height:"
-msgstr "Höhe der Weichzeichnung"
+msgstr "Höhe der Weichzeichnung:"
 
 #: ../share/extensions/edge3d.inx.h:2
 msgid "Blur stdDeviation:"
-msgstr "Standardabweichung der Weichzeichnung"
+msgstr "Standardabweichung der Weichzeichnung:"
 
 #: ../share/extensions/edge3d.inx.h:3
 msgid "Blur width:"
-msgstr "Breite der Weichzeichnung"
+msgstr "Breite der Weichzeichnung:"
 
 #: ../share/extensions/edge3d.inx.h:4
 msgid "Edge 3D"
@@ -25747,19 +25747,19 @@ msgstr "3D-Kante"
 
 #: ../share/extensions/edge3d.inx.h:5
 msgid "Illumination Angle:"
-msgstr "Belichtungswinkel"
+msgstr "Belichtungswinkel:"
 
 #: ../share/extensions/edge3d.inx.h:7
 msgid "Only black and white:"
-msgstr "Nur Schwarz-Weiß"
+msgstr "Nur Schwarz-Weiß:"
 
 #: ../share/extensions/edge3d.inx.h:8
 msgid "Shades:"
-msgstr "Formen"
+msgstr "Formen:"
 
 #: ../share/extensions/edge3d.inx.h:9
 msgid "Stroke width:"
-msgstr "Breite der Kontur"
+msgstr "Breite der Kontur:"
 
 #: ../share/extensions/embedimage.inx.h:1
 msgid "Embed Images"
@@ -25783,7 +25783,7 @@ msgstr "LaTeX-Formel"
 
 #: ../share/extensions/eqtexsvg.inx.h:3
 msgid "LaTeX formula: "
-msgstr "LaTeX-Formel: "
+msgstr "LaTeX-Formel:"
 
 #: ../share/extensions/export_gimp_palette.inx.h:1
 msgid "Export as GIMP Palette"
@@ -25838,7 +25838,7 @@ msgstr "XFIG einlesen"
 # !!!
 #: ../share/extensions/flatten.inx.h:1
 msgid "Flatness:"
-msgstr "Flachheit"
+msgstr "Flachheit:"
 
 #: ../share/extensions/flatten.inx.h:2
 msgid "Flatten Beziers"
@@ -25850,7 +25850,7 @@ msgstr "Führungslinie hinzufügen"
 
 #: ../share/extensions/foldablebox.inx.h:2
 msgid "Depth:"
-msgstr "Tiefe"
+msgstr "Tiefe:"
 
 #: ../share/extensions/foldablebox.inx.h:3
 msgid "Foldable Box"
@@ -25858,11 +25858,11 @@ msgstr "Faltschachtel"
 
 #: ../share/extensions/foldablebox.inx.h:5
 msgid "Paper Thickness:"
-msgstr "Papierdicke"
+msgstr "Papierdicke:"
 
 #: ../share/extensions/foldablebox.inx.h:7
 msgid "Tab Proportion:"
-msgstr "Klappenproportion"
+msgstr "Klappenproportion:"
 
 #: ../share/extensions/fractalize.inx.h:1
 msgid "Fractalize"
@@ -25870,7 +25870,7 @@ msgstr "Fraktalisieren"
 
 #: ../share/extensions/fractalize.inx.h:4
 msgid "Subdivisions:"
-msgstr "Unterteilungen"
+msgstr "Unterteilungen:"
 
 #: ../share/extensions/funcplot.inx.h:1
 msgid "Add x-axis endpoints"
@@ -25887,11 +25887,11 @@ msgstr "Achsen zeichnen"
 
 #: ../share/extensions/funcplot.inx.h:4
 msgid "End X value:"
-msgstr "Ende x-Wert"
+msgstr "Ende x-Wert:"
 
 #: ../share/extensions/funcplot.inx.h:5
 msgid "First derivative:"
-msgstr "Erste Ableitung"
+msgstr "Erste Ableitung:"
 
 #: ../share/extensions/funcplot.inx.h:6
 msgid "Function Plotter"
@@ -25899,7 +25899,7 @@ msgstr "Funktionsplotter"
 
 #: ../share/extensions/funcplot.inx.h:7
 msgid "Function:"
-msgstr "Funktion"
+msgstr "Funktion:"
 
 #: ../share/extensions/funcplot.inx.h:8
 #: ../share/extensions/param_curves.inx.h:3
@@ -25917,7 +25917,7 @@ msgstr "x-Bereich mit 2·π multiplizieren"
 
 #: ../share/extensions/funcplot.inx.h:11
 msgid "Number of samples:"
-msgstr "Anzahl der Schritte"
+msgstr "Anzahl der Schritte:"
 
 #: ../share/extensions/funcplot.inx.h:12
 msgid "Range and sampling"
@@ -25970,7 +25970,7 @@ msgstr ""
 
 #: ../share/extensions/funcplot.inx.h:32
 msgid "Start X value:"
-msgstr "Beginn X-Wert"
+msgstr "Beginn X-Wert:"
 
 #: ../share/extensions/funcplot.inx.h:33
 #: ../share/extensions/param_curves.inx.h:23
@@ -25991,11 +25991,11 @@ msgstr ""
 
 #: ../share/extensions/funcplot.inx.h:36
 msgid "Y value of rectangle's bottom:"
-msgstr "y-Wert der unteren Kante des Rechtecks"
+msgstr "y-Wert der unteren Kante des Rechtecks:"
 
 #: ../share/extensions/funcplot.inx.h:37
 msgid "Y value of rectangle's top:"
-msgstr "y-Wert der oberen Kante des Rechtecks"
+msgstr "y-Wert der oberen Kante des Rechtecks:"
 
 # !!!
 #: ../share/extensions/gears.inx.h:1
@@ -26079,7 +26079,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:10
 #: ../share/extensions/gcodetools_area.inx.h:7
 msgid "Area width:"
-msgstr "Breite der Fläche"
+msgstr "Breite der Fläche:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:11
 #: ../share/extensions/gcodetools_area.inx.h:8
@@ -26102,7 +26102,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_lathe.inx.h:4
 #: ../share/extensions/gcodetools_path_to_gcode.inx.h:4
 msgid "Biarc interpolation tolerance:"
-msgstr "Interpolationsschritte"
+msgstr "Interpolationsschritte:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:14
 #: ../share/extensions/gcodetools_dxf_points.inx.h:3
@@ -26116,7 +26116,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:15
 #: ../share/extensions/gcodetools_dxf_points.inx.h:4
 msgid "Convert selection:"
-msgstr "Auswahl _umkehren"
+msgstr "Auswahl _umkehren:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:16
 #: ../share/extensions/gcodetools_dxf_points.inx.h:6
@@ -26252,7 +26252,7 @@ msgstr "Anzahl der Hilfspunkte, um den Abstand zu berechnen:"
 #: ../share/extensions/gcodetools_lathe.inx.h:21
 #: ../share/extensions/gcodetools_path_to_gcode.inx.h:14
 msgid "Offset along Z axis:"
-msgstr "Versatz auf der z-Achse"
+msgstr "Versatz auf der z-Achse:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:35
 #: ../share/extensions/gcodetools_orientation_points.inx.h:8
@@ -26279,7 +26279,7 @@ msgstr ""
 #: ../share/extensions/gcodetools_all_in_one.inx.h:36
 #: ../share/extensions/gcodetools_orientation_points.inx.h:9
 msgid "Orientation type:"
-msgstr "Ausrichtung"
+msgstr "Ausrichtung:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:37
 #: ../share/extensions/gcodetools_area.inx.h:23
@@ -26312,7 +26312,7 @@ msgstr "Einstellungen"
 #: ../share/extensions/gcodetools_lathe.inx.h:26
 #: ../share/extensions/gcodetools_path_to_gcode.inx.h:19
 msgid "Scale along Z axis:"
-msgstr "Skalierung auf der z-Achse"
+msgstr "Skalierung auf der z-Achse:"
 
 #: ../share/extensions/gcodetools_all_in_one.inx.h:41
 #: ../share/extensions/gcodetools_area.inx.h:27
@@ -26509,7 +26509,7 @@ msgstr "Orientierungspunkte"
 
 #: ../share/extensions/generate_voronoi.inx.h:1
 msgid "Average size of cell (px):"
-msgstr "Durchschnittliche Größe der Zelle (px)"
+msgstr "Durchschnittliche Größe der Zelle (px):"
 
 #: ../share/extensions/generate_voronoi.inx.h:2
 msgid ""
@@ -26532,7 +26532,7 @@ msgstr ""
 
 #: ../share/extensions/generate_voronoi.inx.h:8
 msgid "Size of Border (px):"
-msgstr "Größe des Randes (px)"
+msgstr "Größe des Randes (px):"
 
 #: ../share/extensions/generate_voronoi.inx.h:9
 msgid "Voronoi Pattern"
@@ -26576,7 +26576,7 @@ msgstr ""
 #: ../share/extensions/grid_cartesian.inx.h:1
 #: ../share/extensions/grid_isometric.inx.h:1
 msgid "Border Thickness (px):"
-msgstr "Randdicke (px)"
+msgstr "Randdicke (px):"
 
 #: ../share/extensions/grid_cartesian.inx.h:2
 msgid "Cartesian Grid"
@@ -26644,19 +26644,19 @@ msgstr "Unterteilungen pro Y-Hauptteilung:"
 
 #: ../share/extensions/grid_cartesian.inx.h:18
 msgid "Subminor X Division Thickness (px):"
-msgstr "Strichstärke untergeordnete X-Teilung (px)"
+msgstr "Strichstärke untergeordnete X-Teilung (px):"
 
 #: ../share/extensions/grid_cartesian.inx.h:19
 msgid "Subminor Y Division Thickness (px):"
-msgstr "Strichstärke untergeordnete Y-Teilung (px)"
+msgstr "Strichstärke untergeordnete Y-Teilung (px):"
 
 #: ../share/extensions/grid_cartesian.inx.h:20
 msgid "Subsubdivs. per X Subdivision:"
-msgstr "Unter-Unterteilungen pro X-Unterteilung"
+msgstr "Unter-Unterteilungen pro X-Unterteilung:"
 
 #: ../share/extensions/grid_cartesian.inx.h:21
 msgid "Subsubdivs. per Y Subdivision:"
-msgstr "Unter-Unterteilungen pro Y-Unterteilung"
+msgstr "Unter-Unterteilungen pro Y-Unterteilung:"
 
 #: ../share/extensions/grid_cartesian.inx.h:22
 msgid "X Axis"
@@ -26688,11 +26688,11 @@ msgstr "Unterteilungen pro X-Hauptteilung:"
 
 #: ../share/extensions/grid_isometric.inx.h:8
 msgid "Subminor Division Thickness (px):"
-msgstr "Strichstärke untergeordnete X-Teilung (px)"
+msgstr "Strichstärke untergeordnete X-Teilung (px):"
 
 #: ../share/extensions/grid_isometric.inx.h:9
 msgid "Subsubdivs per Subdivision:"
-msgstr "Unter-Unterteilungen pro X-Unterteilung"
+msgstr "Unter-Unterteilungen pro X-Unterteilung:"
 
 #: ../share/extensions/grid_isometric.inx.h:10
 msgid "X Divisions [x2]:"
@@ -26704,11 +26704,11 @@ msgstr ""
 
 #: ../share/extensions/grid_polar.inx.h:1
 msgid "Angle Divisions at Centre:"
-msgstr "Winkelteilung im Zentrum"
+msgstr "Winkelteilung im Zentrum:"
 
 #: ../share/extensions/grid_polar.inx.h:2
 msgid "Angle Divisions:"
-msgstr "Winkelteilung"
+msgstr "Winkelteilung:"
 
 #: ../share/extensions/grid_polar.inx.h:3
 msgid "Angular Divisions"
@@ -26716,7 +26716,7 @@ msgstr "Winkelteilung"
 
 #: ../share/extensions/grid_polar.inx.h:4
 msgid "Centre Dot Diameter (px):"
-msgstr "Durchmesser Mittelpunkt [px]"
+msgstr "Durchmesser Mittelpunkt (px):"
 
 #: ../share/extensions/grid_polar.inx.h:5
 msgid "Circular Divisions"
@@ -26724,15 +26724,15 @@ msgstr "Hauptkreisteilung"
 
 #: ../share/extensions/grid_polar.inx.h:6
 msgid "Circumferential Label Outset (px):"
-msgstr "Beginn des umlaufenden Bezeichners (px)"
+msgstr "Beginn des umlaufenden Bezeichners (px):"
 
 #: ../share/extensions/grid_polar.inx.h:7
 msgid "Circumferential Label Size (px):"
-msgstr "Größe des umlaufenden Bezeichners (px)"
+msgstr "Größe des umlaufenden Bezeichners (px):"
 
 #: ../share/extensions/grid_polar.inx.h:8
 msgid "Circumferential Labels:"
-msgstr "Umlaufende Bezeichner"
+msgstr "Umlaufende Bezeichner:"
 
 #: ../share/extensions/grid_polar.inx.h:9
 msgid "Degrees"
@@ -26744,15 +26744,15 @@ msgstr "Logarithmische Unterteilung (Basis wie oben gegeben)"
 
 #: ../share/extensions/grid_polar.inx.h:11
 msgid "Major Angular Division Thickness (px):"
-msgstr "Strichstärke Winkelteilung [px]"
+msgstr "Strichstärke Winkelteilung (px):"
 
 #: ../share/extensions/grid_polar.inx.h:12
 msgid "Major Circular Division Spacing (px):"
-msgstr "Haupt-Kreis-Teilung Abstand [px]"
+msgstr "Haupt-Kreis-Teilung Abstand (px):"
 
 #: ../share/extensions/grid_polar.inx.h:13
 msgid "Major Circular Division Thickness (px):"
-msgstr "Strichstärke Kreisteilung [px]"
+msgstr "Strichstärke Kreisteilung (px):"
 
 #: ../share/extensions/grid_polar.inx.h:14
 msgid "Major Circular Divisions:"
@@ -26760,7 +26760,7 @@ msgstr "Hauptkreisteilung:"
 
 #: ../share/extensions/grid_polar.inx.h:15
 msgid "Minor Angle Division End 'n' Divs. Before Centre:"
-msgstr "Winkel-Nebenteilung endet „n“ Teilstriche vor dem Zentrum"
+msgstr "Winkel-Nebenteilung endet „n“ Teilstriche vor dem Zentrum:"
 
 #: ../share/extensions/grid_polar.inx.h:16
 msgid "Minor Angular Division Thickness (px):"
@@ -26776,11 +26776,11 @@ msgstr "Polargitter"
 
 #: ../share/extensions/grid_polar.inx.h:21
 msgid "Subdivisions per Major Angular Division:"
-msgstr "Nebenteilungen pro Winkelhauptteilung"
+msgstr "Nebenteilungen pro Winkelhauptteilung:"
 
 #: ../share/extensions/grid_polar.inx.h:22
 msgid "Subdivisions per Major Circular Division:"
-msgstr "Nebenteilungen pro Kreishauptteilung"
+msgstr "Nebenteilungen pro Kreishauptteilung:"
 
 #: ../share/extensions/guides_creator.inx.h:1
 msgid "1/10"
@@ -26840,7 +26840,7 @@ msgstr "Horizontale Führungslinie alle:"
 
 #: ../share/extensions/guides_creator.inx.h:16
 msgid "Preset:"
-msgstr "Voreinstellung"
+msgstr "Voreinstellung:"
 
 #: ../share/extensions/guides_creator.inx.h:18
 msgid "Rule-of-third"
@@ -26852,7 +26852,7 @@ msgstr "An Kanten beginnen"
 
 #: ../share/extensions/guides_creator.inx.h:20
 msgid "Vertical guide each:"
-msgstr "Vertikale Führungslinie alle"
+msgstr "Vertikale Führungslinie alle:"
 
 #: ../share/extensions/guillotine.inx.h:1
 msgid "Directory to save images to"
@@ -26961,11 +26961,11 @@ msgstr "Anwenden auf:"
 
 #: ../share/extensions/interp_att_g.inx.h:2
 msgid "Attribute to Interpolate:"
-msgstr "Attribut für Interpolation"
+msgstr "Attribut für Interpolation:"
 
 #: ../share/extensions/interp_att_g.inx.h:4
 msgid "End Value:"
-msgstr "Endwert"
+msgstr "Endwert:"
 
 #: ../share/extensions/interp_att_g.inx.h:5
 #: ../share/extensions/markers_strokepaint.inx.h:6
@@ -27002,15 +27002,15 @@ msgstr "Andere"
 
 #: ../share/extensions/interp_att_g.inx.h:17
 msgid "Other Attribute type:"
-msgstr "Anderer Attributtyp"
+msgstr "Anderer Attributtyp:"
 
 #: ../share/extensions/interp_att_g.inx.h:18
 msgid "Other Attribute:"
-msgstr "Anderes Attribut"
+msgstr "Anderes Attribut:"
 
 #: ../share/extensions/interp_att_g.inx.h:20
 msgid "Start Value:"
-msgstr "Startwert"
+msgstr "Startwert:"
 
 #: ../share/extensions/interp_att_g.inx.h:21
 #: ../share/extensions/polyhedron_3d.inx.h:43
@@ -27060,11 +27060,11 @@ msgstr "Stil Interpolieren"
 
 #: ../share/extensions/interp.inx.h:6
 msgid "Interpolation method:"
-msgstr "Interpolationsmethode"
+msgstr "Interpolationsmethode:"
 
 #: ../share/extensions/interp.inx.h:7
 msgid "Interpolation steps:"
-msgstr "Interpolationsschritte"
+msgstr "Interpolationsschritte:"
 
 #: ../share/extensions/jessyInk_autoTexts.inx.h:1
 msgid "Auto-Text:"
@@ -27247,7 +27247,7 @@ msgstr "Anzahl der Spalten verringern:"
 
 #: ../share/extensions/jessyInk_keyBindings.inx.h:6
 msgid "Export presentation:"
-msgstr "Textausrichtung"
+msgstr "Textausrichtung:"
 
 #: ../share/extensions/jessyInk_keyBindings.inx.h:7
 msgid "First slide:"
@@ -27287,7 +27287,7 @@ msgstr "Vorherige Seite:"
 
 #: ../share/extensions/jessyInk_keyBindings.inx.h:18
 msgid "Reset timer:"
-msgstr "Zeitgeber zurücksetzen"
+msgstr "Zeitgeber zurücksetzen:"
 
 #: ../share/extensions/jessyInk_keyBindings.inx.h:19
 msgid "Select the slide above:"
@@ -27622,7 +27622,7 @@ msgstr "Axiom und Regel"
 
 #: ../share/extensions/lindenmayer.inx.h:22
 msgid "Axiom:"
-msgstr "Axiom"
+msgstr "Axiom:"
 
 #: ../share/extensions/lindenmayer.inx.h:24
 msgid "L-system"
@@ -27630,21 +27630,21 @@ msgstr "L-System"
 
 #: ../share/extensions/lindenmayer.inx.h:25
 msgid "Left angle:"
-msgstr "Linker Winkel"
+msgstr "Linker Winkel:"
 
 #: ../share/extensions/lindenmayer.inx.h:28
 #, no-c-format
 msgid "Randomize angle (%):"
-msgstr "Winkel zufällig machen (%)"
+msgstr "Winkel zufällig machen (%):"
 
 #: ../share/extensions/lindenmayer.inx.h:30
 #, no-c-format
 msgid "Randomize step (%):"
-msgstr "Schrittweite zufällig machen (%)"
+msgstr "Schrittweite zufällig machen (%):"
 
 #: ../share/extensions/lindenmayer.inx.h:32
 msgid "Right angle:"
-msgstr "Rechter Winkel"
+msgstr "Rechter Winkel:"
 
 #: ../share/extensions/lindenmayer.inx.h:33
 msgid "Rules:"
@@ -27652,7 +27652,7 @@ msgstr "Regeln:"
 
 #: ../share/extensions/lindenmayer.inx.h:34
 msgid "Step length (px):"
-msgstr "Schrittweite (px)"
+msgstr "Schrittweite (px):"
 
 #: ../share/extensions/lorem_ipsum.inx.h:2
 msgid "Lorem ipsum"
@@ -27660,15 +27660,15 @@ msgstr "Lorem ipsum"
 
 #: ../share/extensions/lorem_ipsum.inx.h:3
 msgid "Number of paragraphs:"
-msgstr "Anzahl der Abschnitte"
+msgstr "Anzahl der Abschnitte:"
 
 #: ../share/extensions/lorem_ipsum.inx.h:5
 msgid "Paragraph length fluctuation (sentences):"
-msgstr "Unterschiede in der Länge der Absätze (Sätze)"
+msgstr "Unterschiede in der Länge der Absätze (Sätze):"
 
 #: ../share/extensions/lorem_ipsum.inx.h:6
 msgid "Sentences per paragraph:"
-msgstr "Sätze pro Absatz"
+msgstr "Sätze pro Absatz:"
 
 #: ../share/extensions/lorem_ipsum.inx.h:8
 msgid ""
@@ -27723,7 +27723,7 @@ msgstr "fest"
 
 #: ../share/extensions/measure.inx.h:1
 msgid "Font size (px):"
-msgstr "Schriftgröße (px)"
+msgstr "Schriftgröße (px):"
 
 #: ../share/extensions/measure.inx.h:3
 msgid "Length"
@@ -27732,7 +27732,7 @@ msgstr "Länge"
 #. <param name="unit" type="string" _gui-text="Unit {km|m|cm|mm|in|px|pt}">mm</param>
 #: ../share/extensions/measure.inx.h:5
 msgid "Length Unit:"
-msgstr "Längeneinheit: "
+msgstr "Längeneinheit:"
 
 #: ../share/extensions/measure.inx.h:6
 msgid "Measure"
@@ -27752,7 +27752,7 @@ msgstr "Versatz (px):"
 
 #: ../share/extensions/measure.inx.h:10
 msgid "Precision:"
-msgstr "Genauigkeit"
+msgstr "Genauigkeit:"
 
 #: ../share/extensions/measure.inx.h:11
 msgid "Scale Factor (Drawing:Real Length) = 1:"
@@ -27812,11 +27812,11 @@ msgstr "Textumriss einlesen"
 
 #: ../share/extensions/param_curves.inx.h:2
 msgid "End t-value:"
-msgstr "Ende t-Wert"
+msgstr "Ende t-Wert:"
 
 #: ../share/extensions/param_curves.inx.h:5
 msgid "Multiply t-range by 2*pi:"
-msgstr "T-Bereich mit 2·π multiplizieren"
+msgstr "T-Bereich mit 2·π multiplizieren:"
 
 #: ../share/extensions/param_curves.inx.h:6
 msgid "Parametric Curves"
@@ -27828,7 +27828,7 @@ msgstr "Bereich und Sampling"
 
 #: ../share/extensions/param_curves.inx.h:10
 msgid "Samples:"
-msgstr "Beispiele"
+msgstr "Beispiele:"
 
 #: ../share/extensions/param_curves.inx.h:11
 msgid ""
@@ -27843,31 +27843,31 @@ msgstr ""
 
 #: ../share/extensions/param_curves.inx.h:22
 msgid "Start t-value:"
-msgstr "Beginn T-Wert"
+msgstr "Beginn T-Wert:"
 
 #: ../share/extensions/param_curves.inx.h:25
 msgid "x-Function:"
-msgstr "x-Funktion"
+msgstr "x-Funktion:"
 
 #: ../share/extensions/param_curves.inx.h:26
 msgid "x-value of rectangle's left:"
-msgstr "x-Wert der linken Seite des Rechtecks"
+msgstr "x-Wert der linken Seite des Rechtecks:"
 
 #: ../share/extensions/param_curves.inx.h:27
 msgid "x-value of rectangle's right:"
-msgstr "x-Wert der rechten Seite des Rechtecks"
+msgstr "x-Wert der rechten Seite des Rechtecks:"
 
 #: ../share/extensions/param_curves.inx.h:28
 msgid "y-Function:"
-msgstr "y-Funktion"
+msgstr "y-Funktion:"
 
 #: ../share/extensions/param_curves.inx.h:29
 msgid "y-value of rectangle's bottom:"
-msgstr "y-Wert der unteren Kante des Rechtecks"
+msgstr "y-Wert der unteren Kante des Rechtecks:"
 
 #: ../share/extensions/param_curves.inx.h:30
 msgid "y-value of rectangle's top:"
-msgstr "y-Wert der oberen Kante des Rechtecks"
+msgstr "y-Wert der oberen Kante des Rechtecks:"
 
 #: ../share/extensions/pathalongpath.inx.h:1
 msgid "Copies of the pattern:"
@@ -27875,7 +27875,7 @@ msgstr "Kopien des Musters:"
 
 #: ../share/extensions/pathalongpath.inx.h:2
 msgid "Deformation type:"
-msgstr "Deformationstyp"
+msgstr "Deformationstyp:"
 
 #: ../share/extensions/pathalongpath.inx.h:3
 #: ../share/extensions/pathscatter.inx.h:3
@@ -27885,7 +27885,7 @@ msgstr "Muster vor der Deformation duplizieren"
 #: ../share/extensions/pathalongpath.inx.h:6
 #: ../share/extensions/pathscatter.inx.h:9
 msgid "Normal offset:"
-msgstr "Normaler Versatz"
+msgstr "Normaler Versatz:"
 
 #: ../share/extensions/pathalongpath.inx.h:8
 msgid "Pattern along Path"
@@ -27912,7 +27912,7 @@ msgstr "Abstand zwischen Kopien:"
 #: ../share/extensions/pathalongpath.inx.h:17
 #: ../share/extensions/pathscatter.inx.h:19
 msgid "Tangential offset:"
-msgstr "Tangentialer Versatz"
+msgstr "Tangentialer Versatz:"
 
 #: ../share/extensions/pathalongpath.inx.h:18
 msgid ""
@@ -27976,7 +27976,7 @@ msgstr ""
 
 #: ../share/extensions/perfectboundcover.inx.h:1
 msgid "Bleed (in):"
-msgstr "Beschnitt (in)"
+msgstr "Beschnitt (in):"
 
 #: ../share/extensions/perfectboundcover.inx.h:2
 msgid "Bond Weight #"
@@ -27984,7 +27984,7 @@ msgstr "Bond Weight # (US-Maß für Papier-Flächenmasse)"
 
 #: ../share/extensions/perfectboundcover.inx.h:3
 msgid "Book Height (inches):"
-msgstr "Höhe des Buches (in Zoll)"
+msgstr "Höhe des Buches (in Zoll):"
 
 # !!!
 #: ../share/extensions/perfectboundcover.inx.h:4
@@ -27993,7 +27993,7 @@ msgstr "Buch Eigenschaften"
 
 #: ../share/extensions/perfectboundcover.inx.h:5
 msgid "Book Width (inches):"
-msgstr "Breite des Buches (in Zoll)"
+msgstr "Breite des Buches (in Zoll):"
 
 #: ../share/extensions/perfectboundcover.inx.h:6
 msgid "Caliper (inches)"
@@ -28006,7 +28006,7 @@ msgstr "Abdeckung"
 
 #: ../share/extensions/perfectboundcover.inx.h:8
 msgid "Cover Thickness Measurement:"
-msgstr "Dickenmessung Überdeckung"
+msgstr "Dickenmessung Überdeckung:"
 
 #: ../share/extensions/perfectboundcover.inx.h:9
 msgid "Interior Pages"
@@ -28018,7 +28018,7 @@ msgstr "Achtung: Bond Weight #-Berechnungen sind nur fundiert geraten!"
 
 #: ../share/extensions/perfectboundcover.inx.h:11
 msgid "Number of Pages:"
-msgstr "Anzahl der Seiten"
+msgstr "Anzahl der Seiten:"
 
 #: ../share/extensions/perfectboundcover.inx.h:12
 msgid "Pages Per Inch (PPI)"
@@ -28026,7 +28026,7 @@ msgstr "Seiten pro Zoll (PPI)"
 
 #: ../share/extensions/perfectboundcover.inx.h:13
 msgid "Paper Thickness Measurement:"
-msgstr "Papierdicke-Messung"
+msgstr "Papierdicke-Messung:"
 
 # check
 #: ../share/extensions/perfectboundcover.inx.h:14
@@ -28043,7 +28043,7 @@ msgstr "Breite spezifizieren"
 
 #: ../share/extensions/perfectboundcover.inx.h:19
 msgid "Value:"
-msgstr "Wert"
+msgstr "Wert:"
 
 #: ../share/extensions/perspective.inx.h:2
 msgid "Perspective"
@@ -28129,20 +28129,20 @@ msgstr "Dateiname:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:12
 msgid "Fill color, Blue:"
-msgstr "Füllfarbe (Blauwert)"
+msgstr "Füllfarbe (Blauwert):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:13
 msgid "Fill color, Green:"
-msgstr "Füllfarbe (Grünwert)"
+msgstr "Füllfarbe (Grünwert):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:14
 msgid "Fill color, Red:"
-msgstr "Füllfarbe (Rotwert)"
+msgstr "Füllfarbe (Rotwert):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:16
 #, no-c-format
 msgid "Fill opacity (%):"
-msgstr "Deckkraft (%)"
+msgstr "Deckkraft (%):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:17
 msgid "Great Dodecahedron"
@@ -28158,15 +28158,15 @@ msgstr "Ikosaeder (Zwanzigflächner)"
 
 #: ../share/extensions/polyhedron_3d.inx.h:20
 msgid "Light X:"
-msgstr "Erhellen X"
+msgstr "Erhellen X:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:21
 msgid "Light Y:"
-msgstr "Erhellen Y"
+msgstr "Erhellen Y:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:22
 msgid "Light Z:"
-msgstr "Erhellen Z"
+msgstr "Erhellen Z:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:23
 msgid "Load from file"
@@ -28190,7 +28190,7 @@ msgstr "Modell-Datei"
 
 #: ../share/extensions/polyhedron_3d.inx.h:28
 msgid "Object Type:"
-msgstr "Objekttyp"
+msgstr "Objekttyp:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:29
 msgid "Object:"
@@ -28208,11 +28208,11 @@ msgstr "Rotieren um:"
 #: ../share/extensions/spirograph.inx.h:7
 #: ../share/extensions/wireframe_sphere.inx.h:6
 msgid "Rotation (deg):"
-msgstr "Rotation (Grad)"
+msgstr "Rotation (Grad):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:34
 msgid "Scaling factor:"
-msgstr "Saklierungs-Faktor"
+msgstr "Saklierungs-Faktor:"
 
 #: ../share/extensions/polyhedron_3d.inx.h:35
 msgid "Shading"
@@ -28234,7 +28234,7 @@ msgstr "Abgeschrägtes Dodekaeder"
 #: ../share/extensions/polyhedron_3d.inx.h:41
 #, no-c-format
 msgid "Stroke opacity (%):"
-msgstr "Strich-Deckkraft (%)"
+msgstr "Strich-Deckkraft (%):"
 
 #: ../share/extensions/polyhedron_3d.inx.h:42
 msgid "Stroke width (px):"
@@ -28342,7 +28342,7 @@ msgstr "Rechts:"
 
 #: ../share/extensions/printing-marks.inx.h:17
 msgid "Set crop marks to:"
-msgstr "Setze Schnittmarkierung auf"
+msgstr "Setze Schnittmarkierung auf:"
 
 #: ../share/extensions/printing-marks.inx.h:18
 msgid "Star Target"
@@ -28400,7 +28400,7 @@ msgstr "Seed für Zufallsgenerator:"
 #: ../share/extensions/render_barcode_datamatrix.inx.h:5
 #: ../share/extensions/render_barcode_qrcode.inx.h:16
 msgid "Text:"
-msgstr "Text"
+msgstr "Text:"
 
 #: ../share/extensions/render_barcode.inx.h:1
 msgid "Bar Height:"
@@ -28563,7 +28563,7 @@ msgstr "Umschichten"
 
 #: ../share/extensions/restack.inx.h:13
 msgid "Restack Direction:"
-msgstr "Richtung"
+msgstr "Richtung:"
 
 #: ../share/extensions/restack.inx.h:15
 msgid "Right to Left (180)"
@@ -28583,11 +28583,11 @@ msgstr "Vertikaler Punkt:"
 
 #: ../share/extensions/rtree.inx.h:1
 msgid "Initial size:"
-msgstr "Anfangsgröße"
+msgstr "Anfangsgröße:"
 
 #: ../share/extensions/rtree.inx.h:2
 msgid "Minimum size:"
-msgstr "Mindestgröße"
+msgstr "Mindestgröße:"
 
 #: ../share/extensions/rtree.inx.h:3
 msgid "Random Tree"
@@ -28800,7 +28800,7 @@ msgstr "Sketch einlesen"
 # !!!
 #: ../share/extensions/spirograph.inx.h:1
 msgid "Gear Placement:"
-msgstr "Platzierung der Zähne"
+msgstr "Platzierung der Zähne:"
 
 #: ../share/extensions/spirograph.inx.h:2
 msgid "Inside (Hypotrochoid)"
@@ -28812,11 +28812,11 @@ msgstr "Außerhalb (Epitrochoide)"
 
 #: ../share/extensions/spirograph.inx.h:4
 msgid "Quality (Default = 16):"
-msgstr "Qualität (Vorgabe = 16)"
+msgstr "Qualität (Vorgabe = 16):"
 
 #: ../share/extensions/spirograph.inx.h:5
 msgid "R - Ring Radius (px):"
-msgstr "R – Ringradius (px)"
+msgstr "R – Ringradius (px):"
 
 #: ../share/extensions/spirograph.inx.h:8
 msgid "Spirograph"
@@ -28824,12 +28824,12 @@ msgstr "Spirograph"
 
 #: ../share/extensions/spirograph.inx.h:9
 msgid "d - Pen Radius (px):"
-msgstr "d – Stiftradius (px)"
+msgstr "d – Stiftradius (px):"
 
 # !!!
 #: ../share/extensions/spirograph.inx.h:10
 msgid "r - Gear Radius (px):"
-msgstr "r – Zahnradius (px)"
+msgstr "r – Zahnradius (px):"
 
 #: ../share/extensions/split.inx.h:3
 msgid "Preserve original text"
@@ -28866,11 +28866,11 @@ msgstr "Wörter"
 
 #: ../share/extensions/straightseg.inx.h:1
 msgid "Behavior:"
-msgstr "Verhalten"
+msgstr "Verhalten:"
 
 #: ../share/extensions/straightseg.inx.h:3
 msgid "Percent:"
-msgstr "Prozent"
+msgstr "Prozent:"
 
 #: ../share/extensions/straightseg.inx.h:4
 msgid "Straighten Segments"
@@ -28938,16 +28938,16 @@ msgstr "Kalender"
 
 #: ../share/extensions/svgcalendar.inx.h:3
 msgid "Char Encoding:"
-msgstr "Zeichensatz"
+msgstr "Zeichensatz:"
 
 # !!! correct?
 #: ../share/extensions/svgcalendar.inx.h:6
 msgid "Day color:"
-msgstr "Farbe für Tag"
+msgstr "Farbe für Tag:"
 
 #: ../share/extensions/svgcalendar.inx.h:7
 msgid "Day names:"
-msgstr "Tagesnamen"
+msgstr "Tagesnamen:"
 
 #: ../share/extensions/svgcalendar.inx.h:8
 msgid "Fill empty day boxes with next month's days"
@@ -28971,31 +28971,31 @@ msgstr "Montag"
 
 #: ../share/extensions/svgcalendar.inx.h:13
 msgid "Month (0 for all):"
-msgstr "Monat (0 für alle)"
+msgstr "Monat (0 für alle):"
 
 #: ../share/extensions/svgcalendar.inx.h:14
 msgid "Month Margin:"
-msgstr "Monatsseitenrand"
+msgstr "Monatsseitenrand:"
 
 #: ../share/extensions/svgcalendar.inx.h:15
 msgid "Month Width:"
-msgstr "Monatsbreite"
+msgstr "Monatsbreite:"
 
 #: ../share/extensions/svgcalendar.inx.h:16
 msgid "Month color:"
-msgstr "Monatsfarbe"
+msgstr "Monatsfarbe:"
 
 #: ../share/extensions/svgcalendar.inx.h:17
 msgid "Month names:"
-msgstr "Monatsnamen"
+msgstr "Monatsnamen:"
 
 #: ../share/extensions/svgcalendar.inx.h:18
 msgid "Months per line:"
-msgstr "Monate per Zeile"
+msgstr "Monate per Zeile:"
 
 #: ../share/extensions/svgcalendar.inx.h:19
 msgid "Next month day color:"
-msgstr "Farbe des Tages für den nächsten Monat"
+msgstr "Farbe des Tages für den nächsten Monat:"
 
 #: ../share/extensions/svgcalendar.inx.h:21
 msgid "Saturday"
@@ -29036,15 +29036,15 @@ msgstr "Wochenbeginn"
 
 #: ../share/extensions/svgcalendar.inx.h:29
 msgid "Weekday name color:"
-msgstr "Farbe für Wochentage"
+msgstr "Farbe für Wochentage:"
 
 #: ../share/extensions/svgcalendar.inx.h:30
 msgid "Weekend day color:"
-msgstr "Farbe für Wochenende"
+msgstr "Farbe für Wochenende:"
 
 #: ../share/extensions/svgcalendar.inx.h:31
 msgid "Weekend:"
-msgstr "Wochenende"
+msgstr "Wochenende:"
 
 #: ../share/extensions/svgcalendar.inx.h:32
 msgid "Year (4 digits):"
@@ -29053,7 +29053,7 @@ msgstr "Jahr (4 Ziffern):"
 # !!! correct?
 #: ../share/extensions/svgcalendar.inx.h:33
 msgid "Year color:"
-msgstr "Farbe des Jahres"
+msgstr "Farbe des Jahres:"
 
 #: ../share/extensions/svgcalendar.inx.h:34
 msgid "You may change the names for other languages:"
@@ -29101,15 +29101,15 @@ msgstr "GROSSSCHREIBUNG"
 
 #: ../share/extensions/triangle.inx.h:1
 msgid "Angle a (deg):"
-msgstr "Winkel a (Grad)"
+msgstr "Winkel a (Grad):"
 
 #: ../share/extensions/triangle.inx.h:2
 msgid "Angle b (deg):"
-msgstr "Winkel b (Grad)"
+msgstr "Winkel b (Grad):"
 
 #: ../share/extensions/triangle.inx.h:3
 msgid "Angle c (deg):"
-msgstr "Winkel c (Grad)"
+msgstr "Winkel c (Grad):"
 
 #: ../share/extensions/triangle.inx.h:4
 msgid "From Side a and Angles a, b"
@@ -29133,15 +29133,15 @@ msgstr "von drei Seiten"
 
 #: ../share/extensions/triangle.inx.h:11
 msgid "Side Length a (px):"
-msgstr "Länge Seite a (px)"
+msgstr "Länge Seite a (px):"
 
 #: ../share/extensions/triangle.inx.h:12
 msgid "Side Length b (px):"
-msgstr "Länge Seite b (px)"
+msgstr "Länge Seite b (px):"
 
 #: ../share/extensions/triangle.inx.h:13
 msgid "Side Length c (px):"
-msgstr "Länge Seite c (px)"
+msgstr "Länge Seite c (px):"
 
 #: ../share/extensions/triangle.inx.h:14
 msgid "Triangle"
@@ -29422,12 +29422,12 @@ msgstr "Alle ausgewählten setzen ein Attribut in dem Letzten"
 
 #: ../share/extensions/web-set-att.inx.h:2
 msgid "Attribute to set:"
-msgstr "Attributname"
+msgstr "Attributname:"
 
 #: ../share/extensions/web-set-att.inx.h:3
 #: ../share/extensions/web-transmit-att.inx.h:3
 msgid "Compatibility with previews code to this event:"
-msgstr "Kompatibilität des Vorschaufunktion mit diesem Ereignis"
+msgstr "Kompatibilität des Vorschaufunktion mit diesem Ereignis:"
 
 #: ../share/extensions/web-set-att.inx.h:5
 msgid ""
@@ -29453,7 +29453,7 @@ msgstr "Attribute festlegen"
 
 #: ../share/extensions/web-set-att.inx.h:11
 msgid "Source and destination of setting:"
-msgstr "Quelle und Ziel setzen"
+msgstr "Quelle und Ziel setzen:"
 
 #: ../share/extensions/web-set-att.inx.h:12
 msgid "The first selected sets an attribute in all others"
@@ -29488,7 +29488,7 @@ msgstr ""
 
 #: ../share/extensions/web-set-att.inx.h:17
 msgid "Value to set:"
-msgstr "Wert(e) festlegen"
+msgstr "Wert(e) festlegen:"
 
 # Was ist "set" in diesem Zusammenhang?
 #: ../share/extensions/web-set-att.inx.h:19
@@ -29551,7 +29551,7 @@ msgstr "Alle Gewählten übertragen zum Letzten"
 
 #: ../share/extensions/web-transmit-att.inx.h:2
 msgid "Attribute to transmit:"
-msgstr "Attribute zum Senden"
+msgstr "Attribute zum Senden:"
 
 #: ../share/extensions/web-transmit-att.inx.h:5
 msgid ""
@@ -29563,7 +29563,7 @@ msgstr ""
 
 #: ../share/extensions/web-transmit-att.inx.h:10
 msgid "Source and destination of transmitting:"
-msgstr "Quelle und Ziel für die Übertragung"
+msgstr "Quelle und Ziel für die Übertragung:"
 
 #: ../share/extensions/web-transmit-att.inx.h:11
 msgid "The first selected transmits to all others"
@@ -29583,7 +29583,7 @@ msgstr "Sende Attribute"
 
 #: ../share/extensions/web-transmit-att.inx.h:17
 msgid "When to transmit:"
-msgstr "Wann wollen Sie senden"
+msgstr "Wann wollen Sie senden:"
 
 #: ../share/extensions/whirl.inx.h:1
 msgid "Amount of whirl:"
