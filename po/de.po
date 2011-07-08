@@ -156,7 +156,7 @@ msgid ""
 "Can not write to specified file!\n"
 "%s"
 msgstr ""
-"Kann Datei %s nicht schreiben.\n"
+"Kann Datei nicht schreiben:\n"
 "%s"
 
 #: ../share/extensions/gcodetools.py:3240
@@ -5926,7 +5926,7 @@ msgstr "Mitte der Umrandungslinie"
 
 #: ../src/display/snap-indicator.cpp:176 ../src/ui/tool/node.cpp:1231
 msgid "Smooth node"
-msgstr "glatter Knoten"
+msgstr "Glatter Knoten"
 
 #: ../src/display/snap-indicator.cpp:179 ../src/ui/tool/node.cpp:1230
 msgid "Cusp node"
@@ -19276,21 +19276,21 @@ msgstr "<b>Umschalt</b>: Ziehen, um Knoten zur Auswahl hinzuzufügen"
 #, c-format
 msgid "<b>%u of %u</b> node selected."
 msgid_plural "<b>%u of %u</b> nodes selected."
-msgstr[0] "<b>%i</b> von <b>%i</b> Knoten ausgewählt. %s."
-msgstr[1] "<b>%i</b> von <b>%i</b> Knoten ausgewählt. %s."
+msgstr[0] "<b>%u</b> von <b>%u</b> Knoten ausgewählt."
+msgstr[1] "<b>%u</b> von <b>%u</b> Knoten ausgewählt."
 
 #: ../src/ui/tool/node-tool.cpp:573
 #, c-format
 msgctxt "Node tool tip"
 msgid "%s Drag to select nodes, click to edit only this object (more: Shift)"
 msgstr ""
-"Ziehen, um Knoten auszuwählen. Klicken, um nur dieses Objekt zu bearbeiten."
+"%s Ziehen, um Knoten auszuwählen. Klicken, um nur dieses Objekt zu bearbeiten (mehr: Umschalt)."
 
 #: ../src/ui/tool/node-tool.cpp:579
 #, c-format
 msgctxt "Node tool tip"
 msgid "%s Drag to select nodes, click clear the selection"
-msgstr "Ziehen, um Knoten auszuwählen. Klicken, um Auswahl zu löschen"
+msgstr "%s Ziehen, um Knoten auszuwählen. Klicken, um Auswahl zu leeren."
 
 #: ../src/ui/tool/node-tool.cpp:588
 msgctxt "Node tool tip"
@@ -19301,19 +19301,19 @@ msgstr ""
 #: ../src/ui/tool/node-tool.cpp:591
 msgctxt "Node tool tip"
 msgid "Drag to select nodes, click to clear the selection"
-msgstr "Ziehen, um Knoten auszuwählen. Klicken, um Auswahl zu löschen"
+msgstr "Ziehen, um Knoten auszuwählen. Klicken, um Auswahl zu leeren."
 
 #: ../src/ui/tool/node-tool.cpp:596
 msgctxt "Node tool tip"
 msgid "Drag to select objects to edit, click to edit this object (more: Shift)"
 msgstr ""
 "Ziehen um Objekte zum Bearbeiten auszuwählen und Klicken, um das Objekt zu "
-"bearbeiten (mehr: Shift)"
+"bearbeiten (mehr: Umschalt)."
 
 #: ../src/ui/tool/node-tool.cpp:599
 msgctxt "Node tool tip"
 msgid "Drag to select objects to edit"
-msgstr "Ziehen, um Objekte zum bearbeiten auszuwählen"
+msgstr "Ziehen, um Objekte zum Bearbeiten auszuwählen."
 
 #: ../src/ui/tool/node.cpp:222
 msgid "Cusp node handle"
@@ -19334,12 +19334,12 @@ msgstr "Knotenanfasser automatisch abrunden"
 #: ../src/ui/tool/node.cpp:400
 msgctxt "Path handle tip"
 msgid "more: Shift, Ctrl, Alt"
-msgstr "mehr: Umschalttaste, STRG, ALT"
+msgstr "mehr: Umschalt, Strg, Alt"
 
 #: ../src/ui/tool/node.cpp:402
 msgctxt "Path handle tip"
 msgid "more: Ctrl, Alt"
-msgstr "more: STRG, ALT"
+msgstr "more: Strg, Alt"
 
 #: ../src/ui/tool/node.cpp:408
 #, c-format
@@ -19349,7 +19349,7 @@ msgid ""
 "increments while rotating both handles"
 msgstr ""
 "<b>Umschalt+Strg+Alt</b>: Länge behalten und Rotationswinkel einrasten auf %g"
-"° Stufen, während dem Drehen beider Anfasser"
+"°-Stufen, während des Drehens beider Anfasser"
 
 #: ../src/ui/tool/node.cpp:413
 #, c-format
@@ -19357,12 +19357,12 @@ msgctxt "Path handle tip"
 msgid ""
 "<b>Ctrl+Alt</b>: preserve length and snap rotation angle to %g° increments"
 msgstr ""
-"<b>Ctrl+Alt</b>: Länge behalten und Rotationswinkel einrasten auf %g° Stufen"
+"<b>Ctrl+Alt</b>: Länge behalten und Rotationswinkel einrasten auf %g°-Stufen"
 
 #: ../src/ui/tool/node.cpp:419
 msgctxt "Path handle tip"
 msgid "<b>Shift+Alt</b>: preserve handle length and rotate both handles"
-msgstr "<b>Umschalt</b>:bewahrt die Anfasserlänge und dreht beide Anfasser"
+msgstr "<b>Umschalt</b>: bewahrt die Anfasserlänge und dreht beide Anfasser"
 
 #: ../src/ui/tool/node.cpp:422
 msgctxt "Path handle tip"
@@ -19397,8 +19397,7 @@ msgstr "<b>Umschalt</b>: Dreht beide Anfasser um den gleichen Winkel"
 msgctxt "Path handle tip"
 msgid "<b>Auto node handle</b>: drag to convert to smooth node (%s)"
 msgstr ""
-"<b>Automatischer Knoten-Anfasser</b>: Ziehen, um in einen weichen Knoten zu "
-"konvertieren (%s)"
+"<b>Automatischer Knoten-Anfasser</b>: Ziehen, um in einen weichen Knoten umzuwandeln (%s)"
 
 #: ../src/ui/tool/node.cpp:448
 #, c-format
@@ -19416,26 +19415,26 @@ msgstr "Anfasser verschieben um %s, %s; Winkel %.2f°, Länge %s"
 msgctxt "Path node tip"
 msgid "<b>Shift</b>: drag out a handle, click to toggle selection"
 msgstr ""
-"<b>Umschalt</b>: Anfasser nach außen ziehen, Klicken um Auswahl umzuschalten"
+"<b>Umschalt</b>: Anfasser nach außen ziehen. Klicken, um Auswahl umzuschalten."
 
 #: ../src/ui/tool/node.cpp:1186
 msgctxt "Path node tip"
 msgid "<b>Shift</b>: click to toggle selection"
-msgstr "<b>Umschalt</b>: Klick um Auswahl umzuschalten"
+msgstr "<b>Umschalt</b>: Klicken, um Auswahl umzuschalten"
 
 #: ../src/ui/tool/node.cpp:1191
 msgctxt "Path node tip"
 msgid "<b>Ctrl+Alt</b>: move along handle lines, click to delete node"
 msgstr ""
-"<b>STRG+Alt</b>: Entlang der Anfasser-Linien verschieben. Klicken, um Knoten "
-"zu löschen"
+"<b>Strg+Alt</b>: Entlang der Anfasser-Linien verschieben. Klicken, um Knoten "
+"zu löschen."
 
 #: ../src/ui/tool/node.cpp:1194
 msgctxt "Path node tip"
 msgid "<b>Ctrl</b>: move along axes, click to change node type"
 msgstr ""
-"<b>STRG</b>: Verschieben entlang der Achsen. Klicken, um Knotentyp zu "
-"verändern"
+"<b>Strg</b>: Verschieben entlang der Achsen. Klicken, um Knotentyp zu "
+"verändern."
 
 #: ../src/ui/tool/node.cpp:1198
 msgctxt "Path node tip"
@@ -19446,7 +19445,7 @@ msgstr "<b>Alt</b>: Knoten formen"
 #, c-format
 msgctxt "Path node tip"
 msgid "<b>%s</b>: drag to shape the path (more: Shift, Ctrl, Alt)"
-msgstr "<b>%s</b>: Ziehen, um den Pfad zu formen (mehr: Umschalt, STRG, Alt)"
+msgstr "<b>%s</b>: Ziehen, um den Pfad zu formen (mehr: Umschalt, Strg, Alt)."
 
 #: ../src/ui/tool/node.cpp:1209
 #, c-format
@@ -19455,8 +19454,8 @@ msgid ""
 "<b>%s</b>: drag to shape the path, click to toggle scale/rotation handles "
 "(more: Shift, Ctrl, Alt)"
 msgstr ""
-"<b>%s</b>:Ziehen, um den Pfad zu formen, Klicken um Skalieren/Rotieren der "
-"Anfasser umzuschalten (mehr: Umschalt, Strg, Alt)"
+"<b>%s</b>: Ziehen, um den Pfad zu formen. Klicken, um Skalieren/Rotieren der "
+"Anfasser umzuschalten (mehr: Umschalt, Strg, Alt)."
 
 #: ../src/ui/tool/node.cpp:1212
 #, c-format
@@ -19465,8 +19464,8 @@ msgid ""
 "<b>%s</b>: drag to shape the path, click to select only this node (more: "
 "Shift, Ctrl, Alt)"
 msgstr ""
-"<b>%s</b>: Ziehen, um den Pfad zu formen, Klicken, um nur diesen Knoten "
-"auszuwählen (mehr: Umschalt, Strg, Alt)"
+"<b>%s</b>: Ziehen, um den Pfad zu formen. Klicken, um nur diesen Knoten "
+"auszuwählen (mehr: Umschalt, Strg, Alt)."
 
 #: ../src/ui/tool/node.cpp:1220
 #, c-format
@@ -19510,7 +19509,7 @@ msgstr "Anfasser zurückziehen"
 #: ../src/ui/tool/transform-handle-set.cpp:160
 msgctxt "Transform handle tip"
 msgid "<b>Shift+Ctrl</b>: scale uniformly about the rotation center"
-msgstr "<b>Umschalt + STRG</b>: Um Mittelpunkt einheitlich skalieren"
+msgstr "<b>Umschalt+Strg</b>: Um Mittelpunkt einheitlich skalieren"
 
 #: ../src/ui/tool/transform-handle-set.cpp:162
 msgctxt "Transform handle tip"
@@ -19542,7 +19541,7 @@ msgstr "<b>Skaliere Anfasser</b>: Ziehen um die Auswahl zu skalieren"
 #, c-format
 msgctxt "Transform handle tip"
 msgid "Scale by %.2f%% x %.2f%%"
-msgstr "Scaieren mit %.2f%% × %.2f%%"
+msgstr "Skalieren mit %.2f%% × %.2f%%"
 
 #: ../src/ui/tool/transform-handle-set.cpp:374
 #, c-format
