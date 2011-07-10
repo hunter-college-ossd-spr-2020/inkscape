@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2011-06-05 20:35+0200\n"
-"PO-Revision-Date: 2011-07-08 14:34+0200\n"
+"PO-Revision-Date: 2011-07-08 23:44+0200\n"
 "Last-Translator: Uwe Schoeler <uschoeler@yahoo.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +116,7 @@ msgstr ""
 #: ../share/extensions/embedimage.py:77
 #, python-format
 msgid "Sorry we could not locate %s"
-msgstr "Entschuldigung! Wir können %s nicht finden"
+msgstr "Entschuldigung! Wir können %s nicht finden."
 
 #: ../share/extensions/embedimage.py:102
 #, python-format
@@ -1172,7 +1172,7 @@ msgstr ""
 
 #: ../share/filters/filters.svg.h:59
 msgid "Eroded metal"
-msgstr "verrostetes Metall"
+msgstr "Verrostetes Metall"
 
 #: ../share/filters/filters.svg.h:59
 msgid "Eroded metal texture with ridges, grooves, holes and bumps"
@@ -1364,15 +1364,15 @@ msgstr "Feine Goldpartikel in fetter Grundlage, mit Glanzlichtern"
 
 #: ../share/filters/filters.svg.h:81
 msgid "Crumpled plastic"
-msgstr "gebröckelte Plastik"
+msgstr "Gebröckeltes Plastik"
 
 #: ../share/filters/filters.svg.h:81
 msgid "Crumpled matte plastic, with melted edge"
-msgstr "gebröckelte matte Plastik mit geschmolzenen Ecken"
+msgstr "Gebröckeltes, matte Plastik mit geschmolzenen Ecken"
 
 #: ../share/filters/filters.svg.h:82
 msgid "Enamel jewelry"
-msgstr "Emaille Schmuck"
+msgstr "Emaille-Schmuck"
 
 #: ../share/filters/filters.svg.h:82
 msgid "Slightly cracked enameled texture"
@@ -1380,7 +1380,7 @@ msgstr "Leicht gebrochene Emaille-Textur"
 
 #: ../share/filters/filters.svg.h:83
 msgid "Rough paper"
-msgstr "rauhes Papier"
+msgstr "Rauhes Papier"
 
 #: ../share/filters/filters.svg.h:83
 msgid "Aquarelle paper effect which can be used for pictures as for objects"
@@ -2239,7 +2239,7 @@ msgstr "Verknitterte, eingefallene Ballonhaut mit Löchern"
 
 #: ../share/filters/filters.svg.h:182
 msgid "Embossed leather"
-msgstr "geprägtes Leder"
+msgstr "Geprägtes Leder"
 
 #: ../share/filters/filters.svg.h:182
 msgid ""
@@ -7162,7 +7162,7 @@ msgstr "Position:"
 #: ../src/extension/internal/filter/color.h:369
 #: ../src/extension/internal/filter/experimental.h:83
 msgid "Inverted"
-msgstr "Invertiet"
+msgstr "Invertiert"
 
 #: ../src/extension/internal/filter/abc.h:487
 msgid "Basic noise fill and transparency texture"
@@ -7490,7 +7490,7 @@ msgstr "Abgesetzter Schatten"
 #: ../src/extension/internal/filter/drop-shadow.h:37
 #: ../src/extension/internal/filter/drop-shadow.h:97
 msgid "Blur radius (px):"
-msgstr "Unschärfen Radius:"
+msgstr "Unschärfe-Radius (px):"
 
 #: ../src/extension/internal/filter/drop-shadow.h:38
 #: ../src/extension/internal/filter/drop-shadow.h:98
@@ -7517,7 +7517,7 @@ msgstr "Abgesetzter Lichthof"
 
 #: ../src/extension/internal/filter/drop-shadow.h:108
 msgid "White, blurred drop glow"
-msgstr "Weicher heller Lichthof unter dem Objekt"
+msgstr "Weicher, heller Lichthof unter dem Objekt"
 
 #: ../src/extension/internal/filter/experimental.h:69
 msgid "Chromolitho, custom"
@@ -8992,7 +8992,7 @@ msgstr "Statusleiste an- oder abschalten (am unteren Ende des Fensters)"
 
 #: ../src/interface.cpp:854
 msgid "Default interface setup"
-msgstr "Standard Schnittstellen-Setup"
+msgstr "Standard-Schnittstellen-Setup"
 
 #: ../src/interface.cpp:855 ../src/ui/dialog/filedialogimpl-gtkmm.cpp:1437
 #: ../share/extensions/color_custom.inx.h:10
@@ -10563,7 +10563,7 @@ msgstr "Referenzsegment (Vorgabe ist horizontale Mittellinie der Umrandung)"
 #. FIXME: a path is used here instead of 2 points to work around path/point param incompatibility bug.
 #: ../src/live_effects/lpe-vonkoch.cpp:55
 msgid "_Max complexity:"
-msgstr "Maximale Kompexität:"
+msgstr "Maximale Komplexität:"
 
 #: ../src/live_effects/lpe-vonkoch.cpp:55
 msgid "Disable effect if the output is too complex"
@@ -13493,7 +13493,7 @@ msgstr "Rechtschreibprüfun_g …"
 #.
 #: ../src/ui/dialog/aboutbox.cpp:78
 msgid "About Inkscape"
-msgstr "Über Inkscape"
+msgstr "Informationen über Inkscape"
 
 # !!!
 #: ../src/ui/dialog/aboutbox.cpp:89
@@ -19284,7 +19284,8 @@ msgstr[1] "<b>%u</b> von <b>%u</b> Knoten ausgewählt."
 msgctxt "Node tool tip"
 msgid "%s Drag to select nodes, click to edit only this object (more: Shift)"
 msgstr ""
-"%s Ziehen, um Knoten auszuwählen. Klicken, um nur dieses Objekt zu bearbeiten (mehr: Umschalt)."
+"%s Ziehen, um Knoten auszuwählen. Klicken, um nur dieses Objekt zu "
+"bearbeiten (mehr: Umschalt)."
 
 #: ../src/ui/tool/node-tool.cpp:579
 #, c-format
@@ -19397,7 +19398,8 @@ msgstr "<b>Umschalt</b>: Dreht beide Anfasser um den gleichen Winkel"
 msgctxt "Path handle tip"
 msgid "<b>Auto node handle</b>: drag to convert to smooth node (%s)"
 msgstr ""
-"<b>Automatischer Knoten-Anfasser</b>: Ziehen, um in einen weichen Knoten umzuwandeln (%s)"
+"<b>Automatischer Knoten-Anfasser</b>: Ziehen, um in einen weichen Knoten "
+"umzuwandeln (%s)"
 
 #: ../src/ui/tool/node.cpp:448
 #, c-format
@@ -19415,7 +19417,8 @@ msgstr "Anfasser verschieben um %s, %s; Winkel %.2f°, Länge %s"
 msgctxt "Path node tip"
 msgid "<b>Shift</b>: drag out a handle, click to toggle selection"
 msgstr ""
-"<b>Umschalt</b>: Anfasser nach außen ziehen. Klicken, um Auswahl umzuschalten."
+"<b>Umschalt</b>: Anfasser nach außen ziehen. Klicken, um Auswahl "
+"umzuschalten."
 
 #: ../src/ui/tool/node.cpp:1186
 msgctxt "Path node tip"
@@ -27675,10 +27678,9 @@ msgid ""
 "text. If a flowed text is selected, Lorem Ipsum is added to it; otherwise a "
 "new flowed text object, the size of the page, is created in a new layer."
 msgstr ""
-"Dieser Effekt erstellt den standard „Lorem Ipsum“ Platzhaltetext. Wenn ein "
-"Fließtext ausgewählt ist, wird Lorem Ipsum angehängt; ansonsten wird ein "
-"neues Fließtextobjekt in einer neuen Ebene erzeugt, das so groß ist wie die "
-"Seite."
+"Dieser Effekt erstellt den „Lorem Ipsum“-Platzhaltertext. Wenn ein Fließtext "
+"ausgewählt ist, wird Lorem Ipsum angehängt; ansonsten wird ein neues "
+"Fließtextobjekt in einer neuen Ebene erzeugt, das so groß wie die Seite ist."
 
 #: ../share/extensions/markers_strokepaint.inx.h:1
 msgid "Assign alpha"
