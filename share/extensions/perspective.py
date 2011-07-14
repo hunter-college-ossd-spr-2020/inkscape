@@ -37,7 +37,7 @@ except:
 
 uuconv = {'in':90.0, 'pt':1.25, 'px':1, 'mm':3.5433070866, 'cm':35.433070866, 'pc':15.0}
 def unittouu(string):
-    unit = re.compile('(%s)$' % '|'.join(uuconv.keys()))
+    unit = re.compile('(%s)$' % '|'.join(list(uuconv.keys())))
     param = re.compile(r'(([-+]?[0-9]+(\.[0-9]*)?|[-+]?\.[0-9]+)([eE][-+]?[0-9]+)?)')
 
     p = param.match(string)
@@ -84,7 +84,7 @@ class Project(inkex.Effect):
                 q = {'x':0,'y':0,'width':0,'height':0}
                 file = self.args[-1]
                 id = self.options.ids[0]
-                for query in q.keys():
+                for query in list(q.keys()):
                     if bsubprocess:
                         p = Popen('inkscape --query-%s --query-id=%s "%s"' % (query,id,file), shell=True, stdout=PIPE, stderr=PIPE)
                         rc = p.wait()

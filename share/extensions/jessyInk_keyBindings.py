@@ -94,7 +94,7 @@ class	JessyInk_CustomKeyBindings(inkex.Effect):
 		self.OptionParser.add_option('--index_increaseNumberOfColumns', action = 'callback', type = 'string', callback = self.indexOptions, default = '')
 		self.OptionParser.add_option('--index_setNumberOfColumnsToDefault', action = 'callback', type = 'string', callback = self.indexOptions, default = '')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 		
 		self.slideActions["backWithEffects"] = "dispatchEffects(-1);"
 		self.slideActions["nextWithEffects"] = "dispatchEffects(1);"
@@ -199,13 +199,13 @@ class	JessyInk_CustomKeyBindings(inkex.Effect):
 		nodeText += "	keyDict[INDEX_MODE] = new Object();" + "\n"
 		nodeText += "	keyDict[DRAWING_MODE] = new Object();" + "\n"
 
-		for key, value in self.slideKeyCodes.items():
+		for key, value in list(self.slideKeyCodes.items()):
 			nodeText += "	keyDict[SLIDE_MODE][" + key + "] = function() { " + value + " };" + "\n"
 		
-		for key, value in self.drawingKeyCodes.items():
+		for key, value in list(self.drawingKeyCodes.items()):
 			nodeText += "	keyDict[DRAWING_MODE][" + key + "] = function() { " + value + " };" + "\n"
 		
-		for key, value in self.indexKeyCodes.items():
+		for key, value in list(self.indexKeyCodes.items()):
 			nodeText += "	keyDict[INDEX_MODE][" + key + "] = function() { " + value + " };" + "\n"
 		
 		nodeText += "	return keyDict;" + "\n"
@@ -219,13 +219,13 @@ class	JessyInk_CustomKeyBindings(inkex.Effect):
 		nodeText += "	charDict[INDEX_MODE] = new Object();" + "\n"
 		nodeText += "	charDict[DRAWING_MODE] = new Object();" + "\n"
 
-		for key, value in self.slideCharCodes.items():
+		for key, value in list(self.slideCharCodes.items()):
 			nodeText += "	charDict[SLIDE_MODE][\"" + key + "\"] = function() { " + value + " };" + "\n"
 		
-		for key, value in self.drawingCharCodes.items():
+		for key, value in list(self.drawingCharCodes.items()):
 			nodeText += "	charDict[DRAWING_MODE][\"" + key + "\"] = function() { " + value + " };" + "\n"
 		
-		for key, value in self.indexCharCodes.items():
+		for key, value in list(self.indexCharCodes.items()):
 			nodeText += "	charDict[INDEX_MODE][\"" + key + "\"] = function() { " + value + " };" + "\n"
 		
 		nodeText += "	return charDict;" + "\n"

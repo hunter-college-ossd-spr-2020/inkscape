@@ -47,7 +47,7 @@ def propStrToDict(inStr):
 def dictToPropStr(dictio):
 	str = ""
 
-	for key in dictio.keys():
+	for key in list(dictio.keys()):
 		str += " " + key + ":" + dictio[key] + ";" 
 
 	return str[1:]
@@ -55,7 +55,7 @@ def dictToPropStr(dictio):
 def setStyle(node, propKey, propValue):
 	props = {}
 
-	if node.attrib.has_key("style"):
+	if "style" in node.attrib:
 		props = propStrToDict(node.get("style"))
 	
 	props[propKey] = propValue
@@ -73,7 +73,7 @@ class MyEffect(inkex.Effect):
 		self.OptionParser.add_option('--resolution', action = 'store', type = 'string', dest = 'resolution', default = '')
 
 		# Register jessyink namespace.
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 		# Set inkscape command.
 		self.inkscapeCommand = self.findInkscapeCommand()

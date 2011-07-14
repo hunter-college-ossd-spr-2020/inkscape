@@ -37,15 +37,15 @@ gettext.install('inkscape')
 
 #a dictionary of all of the xmlns prefixes in a standard inkscape doc
 NSS = {
-u'sodipodi' :u'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',
-u'cc'       :u'http://creativecommons.org/ns#',
-u'ccOLD'    :u'http://web.resource.org/cc/',
-u'svg'      :u'http://www.w3.org/2000/svg',
-u'dc'       :u'http://purl.org/dc/elements/1.1/',
-u'rdf'      :u'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-u'inkscape' :u'http://www.inkscape.org/namespaces/inkscape',
-u'xlink'    :u'http://www.w3.org/1999/xlink',
-u'xml'      :u'http://www.w3.org/XML/1998/namespace'
+'sodipodi' : 'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',
+'cc'       : 'http://creativecommons.org/ns#',
+'ccOLD'    : 'http://web.resource.org/cc/',
+'svg'      : 'http://www.w3.org/2000/svg',
+'dc'       : 'http://purl.org/dc/elements/1.1/',
+'rdf'      : 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+'inkscape' : 'http://www.inkscape.org/namespaces/inkscape',
+'xlink'    : 'http://www.w3.org/1999/xlink',
+'xml'      : 'http://www.w3.org/XML/1998/namespace'
 }
 
 #a dictionary of unit to user unit conversion factors
@@ -74,9 +74,9 @@ def uutounit(val, unit):
 
 try:
     from lxml import etree
-except Exception, e:
-    sys.exit(_("The fantastic lxml wrapper for libxml2 is required by inkex.py and therefore this extension. Please download and install the latest version from http://cheeseshop.python.org/pypi/lxml/, or install it through your package manager by a command like: sudo apt-get install python-lxml\n\nTechnical details:\n%s" % (e,)))
- 
+# the "as" keyword only works with 2.6 or higher and is required since ver. 3
+except Exception as e:
+        sys.exit(_("The fantastic lxml wrapper for libxml2 is required by inkex.py and therefore this extension. Please download and install the latest version from http://cheeseshop.python.org/pypi/lxml/, or install it through your package manager by a command like: sudo apt-get install python-lxml\n\nTechnical details:\n%s" % (e,)))
 
 def debug(what):
     sys.stderr.write(str(what) + "\n")
@@ -96,7 +96,10 @@ def errormsg(msg):
          ...
          inkex.errormsg(_("This extension requires two selected paths."))
     """
-    sys.stderr.write((unicode(msg) + "\n").encode("UTF-8"))
+    try:
+        sys.stderr.write(unicode(msg) + "\n")
+    except:
+        sys.stderr.buffer.write(str(msg))
 
 def check_inkbool(option, opt, value):
     if str(value).capitalize() == 'True':
@@ -108,7 +111,7 @@ def check_inkbool(option, opt, value):
 
 def addNS(tag, ns=None):
     val = tag
-    if ns!=None and len(ns)>0 and NSS.has_key(ns) and len(tag)>0 and tag[0]!='{':
+    if ns != None and len(ns) > 0 and ns in NSS and len(tag) > 0 and tag[0] != '{':
         val = "{%s}%s" % (NSS[ns], tag)
     return val
 

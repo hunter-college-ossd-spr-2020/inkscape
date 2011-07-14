@@ -40,11 +40,15 @@ def interpcoord(v1,v2,p):
     return v1+((v2-v1)*p)
 def interppoints(p1,p2,p):
     return [interpcoord(p1[0],p2[0],p),interpcoord(p1[1],p2[1],p)]
-def pointdistance((x1,y1),(x2,y2)):
+def pointdistance(xxx_todo_changeme, xxx_todo_changeme1):
+    (x1,y1) = xxx_todo_changeme
+    (x2,y2) = xxx_todo_changeme1
     return math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2))
 def bezlenapprx(sp1, sp2):
     return pointdistance(sp1[1], sp1[2]) + pointdistance(sp1[2], sp2[0]) + pointdistance(sp2[0], sp2[1])
-def tpoint((x1,y1), (x2,y2), t = 0.5):
+def tpoint(xxx_todo_changeme2, xxx_todo_changeme3, t = 0.5):
+    (x1,y1) = xxx_todo_changeme2
+    (x2,y2) = xxx_todo_changeme3
     return [x1+t*(x2-x1),y1+t*(y2-y1)]
 def cspbezsplit(sp1, sp2, t = 0.5):
     m1=tpoint(sp1[1],sp1[2],t)
@@ -66,7 +70,7 @@ def csplength(csp):
     lengths = []
     for sp in csp:
         lengths.append([])
-        for i in xrange(1,len(sp)):
+        for i in range(1,len(sp)):
             l = cspseglength(sp[i-1],sp[i])
             lengths[-1].append(l)
             total += l            
@@ -136,7 +140,7 @@ class Length(inkex.Effect):
                 factor = float(doc.get('height'))/float(viewh)
             self.options.fontsize /= factor
         # loop over all selected paths
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             if node.tag == inkex.addNS('path','svg'):
                 self.group = inkex.etree.SubElement(node.getparent(),inkex.addNS('text','svg'))
                 

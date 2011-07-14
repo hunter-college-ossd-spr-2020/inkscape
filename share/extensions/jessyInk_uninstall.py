@@ -53,7 +53,7 @@ class JessyInk_Uninstall(inkex.Effect):
 		self.OptionParser.add_option('--remove_autoTexts', action = 'store', type = 'inkbool', dest = 'remove_autoTexts', default = True)
 		self.OptionParser.add_option('--remove_views', action = 'store', type = 'inkbool', dest = 'remove_views', default = True)
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Remove script, if so desired.

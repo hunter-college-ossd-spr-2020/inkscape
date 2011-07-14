@@ -57,7 +57,7 @@ class JessyInk_Effects(inkex.Effect):
 		self.OptionParser.add_option('--viewDuration', action = 'store', type = 'float', dest = 'viewDuration', default = 0.8)
 		self.OptionParser.add_option('--removeView', action = 'store', type = 'inkbool', dest = 'removeView', default = False)
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.
@@ -68,7 +68,7 @@ class JessyInk_Effects(inkex.Effect):
 
 		rect = None
 
-		for id, node in self.selected.items():
+		for id, node in list(self.selected.items()):
 			if rect == None:
 				rect = node
 			else:
@@ -91,13 +91,13 @@ class JessyInk_Effects(inkex.Effect):
 			rect.set("{" + inkex.NSS["jessyink"] + "}view","name:view;order:" + self.options.viewOrder + ";length:" + str(int(self.options.viewDuration * 1000)))
 
 			# Remove possible effect arguments.
-			if rect.attrib.has_key("{" + inkex.NSS["jessyink"] + "}effectIn"):
+			if "{" + inkex.NSS["jessyink"] + "}effectIn" in rect.attrib:
 				del rect.attrib["{" + inkex.NSS["jessyink"] + "}effectIn"]
 
-			if rect.attrib.has_key("{" + inkex.NSS["jessyink"] + "}effectOut"):
+			if "{" + inkex.NSS["jessyink"] + "}effectOut" in rect.attrib:
 				del rect.attrib["{" + inkex.NSS["jessyink"] + "}effectOut"]
 		else:
-			if node.attrib.has_key("{" + inkex.NSS["jessyink"] + "}view"):
+			if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 				del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
 		
 # Create effect instance

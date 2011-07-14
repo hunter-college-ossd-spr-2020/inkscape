@@ -55,7 +55,7 @@ class MyEffect(inkex.Effect):
     def effect(self):
         svg_file = self.args[-1]
         ttmp_orig = self.document.getroot()
-        docname = ttmp_orig.get(inkex.addNS('docname',u'sodipodi'))
+        docname = ttmp_orig.get(inkex.addNS('docname','sodipodi'))
         if docname is None: docname = self.args[-1]
 
         pageHeight = int(inkex.unittouu(self.xpathSingle('/svg:svg/@height').split('.')[0]))

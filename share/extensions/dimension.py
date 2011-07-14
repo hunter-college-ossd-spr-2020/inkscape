@@ -105,12 +105,12 @@ class Dimension(pathmodifier.PathModifier):
             inkex.errormsg(_("Please select an object."))
             exit()
         if self.options.type == "geometric":
-            self.bbox = computeBBox(self.selected.values())
+            self.bbox = computeBBox(list(self.selected.values()))
         else:
             q = {'x':0,'y':0,'width':0,'height':0}
             file = self.args[-1]
             id = self.options.ids[0]
-            for query in q.keys():
+            for query in list(q.keys()):
                 if bsubprocess:
                     p = Popen('inkscape --query-%s --query-id=%s "%s"' % (query,id,file), shell=True, stdout=PIPE, stderr=PIPE)
                     rc = p.wait()
@@ -167,7 +167,7 @@ class Dimension(pathmodifier.PathModifier):
         line.set('stroke-width', '0.5')
         group.append(line)
 
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             group.append(node)
         
         layer.append(group)

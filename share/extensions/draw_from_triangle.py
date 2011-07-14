@@ -68,7 +68,9 @@ def draw_SVG_tri(vert_mat, params, style, name, parent):
     inkex.etree.SubElement(parent, inkex.addNS('path','svg'), tri_attribs )
 
 #draw an SVG line segment between the given (raw) points
-def draw_SVG_line( (x1, y1), (x2, y2), style, name, parent):
+def draw_SVG_line(p1, p2, style, name, parent):
+    (x1, y1) = p1
+    (x2, y2) = p2
     line_style   = { 'stroke': style.l_col, 'stroke-width':str(style.l_th), 'fill': style.l_fill }
     line_attribs = {'style':simplestyle.formatStyle(line_style),
                     inkex.addNS('label','inkscape'):name,
@@ -83,10 +85,14 @@ def draw_vertex_lines( vert_mat, params, width, name, parent):
         
 #MATHEMATICAL ROUTINES
 
-def distance( (x0,y0),(x1,y1)):#find the pythagorean distance
+def distance(p1, p2):#find the pythagorean distance
+    (x0,y0) = p1
+    (x1,y1) = p2
     return sqrt( (x0-x1)*(x0-x1) + (y0-y1)*(y0-y1) )
 
-def vector_from_to( (x0,y0),(x1,y1) ):#get the vector from (x0,y0) to (x1,y1)
+def vector_from_to(p1, p2):#get the vector from (x0,y0) to (x1,y1)
+    (x0,y0) = p1
+    (x1,y1) = p2
     return (x1-x0, y1-y0)
 
 def get_cartesian_pt( t, p):#get the cartesian coordinates from a trilinear set
@@ -95,7 +101,8 @@ def get_cartesian_pt( t, p):#get the cartesian coordinates from a trilinear set
     c2 = p[0][2]*t[2]/denom
     return ( c1*p[2][1][0]+c2*p[2][0][0], c1*p[2][1][1]+c2*p[2][0][1] )
 
-def get_cartesian_tri( ((t11,t12,t13),(t21,t22,t23),(t31,t32,t33)), params):#get the cartesian points from a trilinear vertex matrix
+def get_cartesian_tri(matrix, params):#get the cartesian points from a trilinear vertex matrix
+    ((t11,t12,t13),(t21,t22,t23),(t31,t32,t33)) = matrix
     p1=get_cartesian_pt( (t11,t12,t13), params )
     p2=get_cartesian_pt( (t21,t22,t23), params )
     p3=get_cartesian_pt( (t31,t32,t33), params )
@@ -304,7 +311,7 @@ class Draw_From_Triangle(inkex.Effect):
         so = self.options #shorthand
         
         pts = [] #initialise in case nothing is selected and following loop is not executed
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             if node.tag == inkex.addNS('path','svg'):
                 pts = get_n_points_from_path( node, 3 ) #find the (x,y) coordinates of the first 3 points of the path
 

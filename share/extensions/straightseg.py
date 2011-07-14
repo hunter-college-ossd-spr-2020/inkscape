@@ -18,7 +18,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 '''
 import math, inkex, simplepath, sys
 
-def pointAtPercent((x1, y1), (x2, y2), percent):
+def pointAtPercent(p1, p2, percent):
+    (x1, y1) = p1
+    (x2, y2) = p2
     percent /= 100.0
     x = x1 + (percent * (x2 - x1))
     y = y1 + (percent * (y2 - y1))
@@ -36,7 +38,7 @@ class SegmentStraightener(inkex.Effect):
                         dest="behave", default=1,
                         help="straightening behavior for cubic segments")
     def effect(self):
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             if node.tag == inkex.addNS('path', 'svg'):
                 d = node.get('d')
                 p = simplepath.parsePath(d)

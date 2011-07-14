@@ -125,9 +125,9 @@ class EQTEXSVG(inkex.Effect):
         try:
             os.stat(dvi_file)
         except OSError:
-            print >>sys.stderr, "invalid LaTeX input:"
-            print >>sys.stderr, self.options.formula
-            print >>sys.stderr, "temporary files were left in:", base_dir
+            print("invalid LaTeX input:", file=sys.stderr)
+            print(self.options.formula, file=sys.stderr)
+            print("temporary files were left in:", base_dir, file=sys.stderr)
             sys.exit(1)
 
         os.system('dvips -q -f -E -D 600 -y 5000 -o "%s" "%s"' % (ps_file, dvi_file))

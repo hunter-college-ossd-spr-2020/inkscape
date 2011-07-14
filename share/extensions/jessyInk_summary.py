@@ -54,7 +54,7 @@ class JessyInk_Summary(inkex.Effect):
 
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.
@@ -91,14 +91,14 @@ class JessyInk_Summary(inkex.Effect):
 			slideCounter += 1
 
 	def describeNode(self, node, prefix, slideNumber, numberOfSlides, slideTitle):
-		inkex.errormsg(_(u"{0}Layer name: {1}").format(prefix, node.get("{" + inkex.NSS["inkscape"] + "}label")))
+		inkex.errormsg(_("{0}Layer name: {1}").format(prefix, node.get("{" + inkex.NSS["inkscape"] + "}label")))
 		
 		# Display information about transitions.
 		transitionInAttribute = node.get("{" + inkex.NSS["jessyink"] + "}transitionIn")
 		if transitionInAttribute:
 			transInDict = propListToDict(propStrToList(transitionInAttribute))
 
-			if (transInDict["name"] != "appear") and transInDict.has_key("length"):
+			if (transInDict["name"] != "appear") and "length" in transInDict:
 				inkex.errormsg(_("{0}Transition in: {1} ({2!s} s)").format(prefix, transInDict["name"], int(transInDict["length"]) / 1000.0))
 			else:
 				inkex.errormsg(_("{0}Transition in: {1}").format(prefix, transInDict["name"]))
@@ -107,7 +107,7 @@ class JessyInk_Summary(inkex.Effect):
 		if transitionOutAttribute:
 			transOutDict = propListToDict(propStrToList(transitionOutAttribute))
 
-			if (transOutDict["name"] != "appear") and transOutDict.has_key("length"):
+			if (transOutDict["name"] != "appear") and "length" in transOutDict:
 				inkex.errormsg(_("{0}Transition out: {1} ({2!s} s)").format(prefix, transOutDict["name"], int(transOutDict["length"]) / 1000.0))
 			else:
 				inkex.errormsg(_("{0}Transition out: {1}").format(prefix, transOutDict["name"]))
@@ -131,7 +131,7 @@ class JessyInk_Summary(inkex.Effect):
 			dictio["id"] = effectNode.get("id")
 			dictio["type"] = "effect"
 
-			if not effects.has_key(dictio["order"]):
+			if dictio["order"] not in effects:
 				effects[dictio["order"]] = []
 
 			effects[dictio["order"]].append(dictio)
@@ -142,7 +142,7 @@ class JessyInk_Summary(inkex.Effect):
 			dictio["id"] = effectNode.get("id")
 			dictio["type"] = "effect"
 
-			if not effects.has_key(dictio["order"]):
+			if dictio["order"] not in effects:
 				effects[dictio["order"]] = []
 
 			effects[dictio["order"]].append(dictio)
@@ -152,7 +152,7 @@ class JessyInk_Summary(inkex.Effect):
 			dictio["id"] = viewNode.get("id")
 			dictio["type"] = "view"
 
-			if not effects.has_key(dictio["order"]):
+			if dictio["order"] not in effects:
 				effects[dictio["order"]] = []
 
 			effects[dictio["order"]].append(dictio)
@@ -183,7 +183,7 @@ class JessyInk_Summary(inkex.Effect):
 				if item["name"] != "appear":
 					tmpStr += _(" using effect \"{0}\"").format(item["name"])
 					
-				if item.has_key("length"):
+				if "length" in item:
 					tmpStr += _(" in {0!s} s").format(int(item["length"]) / 1000.0)
 
 				inkex.errormsg(tmpStr + ".\n")

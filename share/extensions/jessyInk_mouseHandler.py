@@ -38,7 +38,7 @@ class	JessyInk_CustomMouseHandler(inkex.Effect):
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 		self.OptionParser.add_option('--mouseSettings', action = 'store', type = 'string', dest = 'mouseSettings', default = 'default')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 		
 	def effect(self):
 		# Check version.

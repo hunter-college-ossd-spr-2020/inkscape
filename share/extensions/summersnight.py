@@ -63,7 +63,7 @@ class Project(inkex.Effect):
                 self.q = {'x':0,'y':0,'width':0,'height':0}
                 file = self.args[-1]
                 id = self.options.ids[0]
-                for query in self.q.keys():
+                for query in list(self.q.keys()):
                     if bsubprocess:
                         p = Popen('inkscape --query-%s --query-id=%s "%s"' % (query,id,file), shell=True, stdout=PIPE, stderr=PIPE)
                         rc = p.wait()
@@ -110,8 +110,9 @@ class Project(inkex.Effect):
         simpletransform.applyTransformToPath(mat, p)
         path.set('d',cubicsuperpath.formatPath(p))
 
-    def trafopoint(self,(x,y)):
+    def trafopoint(self, point):
         #Transform algorithm thanks to Jose Hevia (freon)
+        (x,y) = point
         vector = Segment(Point(self.q['x'],self.q['y']),Point(x,y))
         xratio = abs(vector.delta_x())/self.q['width']
         yratio = abs(vector.delta_y())/self.q['height']

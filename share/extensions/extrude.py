@@ -33,7 +33,7 @@ class Extrude(inkex.Effect):
 
     def effect(self):
         paths = []
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             if node.tag == '{http://www.w3.org/2000/svg}path':
                 paths.append(node)
                 if len(paths) == 2:
@@ -47,13 +47,13 @@ class Extrude(inkex.Effect):
                for i in (0,1)]
 
         for i in (0,1):
-            if 'transform' in paths[i].keys():
+            if 'transform' in list(paths[i].keys()):
                 trans = paths[i].get('transform')
                 trans = simpletransform.parseTransform(trans)
                 simpletransform.applyTransformToPath(trans, pts[i])
 
         verts = []
-        for i in range(0, min(map(len, pts))):
+        for i in range(0, min(list(map(len, pts)))):
             comp = []
             for j in range(0, min(len(pts[0][i]), len(pts[1][i]))):
                 comp.append([pts[0][i][j][1][-2:], pts[1][i][j][1][-2:]])

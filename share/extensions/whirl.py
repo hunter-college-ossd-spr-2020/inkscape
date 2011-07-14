@@ -30,7 +30,7 @@ class Whirl(inkex.Effect):
                         dest="rotation", default=True,
                         help="direction of rotation")
     def effect(self):
-        for id, node in self.selected.iteritems():
+        for id, node in self.selected.items():
             rotation = -1
             if self.options.rotation == True:
                 rotation = 1

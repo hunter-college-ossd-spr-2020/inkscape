@@ -49,7 +49,7 @@ class JessyInk_Install(inkex.Effect):
 
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Find and delete old script node

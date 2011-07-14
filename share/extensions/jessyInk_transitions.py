@@ -40,7 +40,7 @@ class JessyInk_Transitions(inkex.Effect):
 		self.OptionParser.add_option('--effectOut', action = 'store', type = 'string', dest = 'effectOut', default = 'default')
 		self.OptionParser.add_option('--effectOutDuration', action = 'store', type = 'float', dest = 'effectOutDuration', default = 0.8)
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.
@@ -50,7 +50,7 @@ class JessyInk_Transitions(inkex.Effect):
 			inkex.errormsg(_("The JessyInk script is not installed in this SVG file or has a different version than the JessyInk extensions. Please select \"install/update...\" from the \"JessyInk\" sub-menu of the \"Extensions\" menu to install or update the JessyInk script.\n\n"))
 
 		if self.options.layerName != "":
-			nodes = self.document.xpath(unicode("//*[@inkscape:groupmode='layer' and @inkscape:label='" + self.options.layerName + "']", 'utf-8'), namespaces=inkex.NSS)
+			nodes = self.document.xpath(str("//*[@inkscape:groupmode='layer' and @inkscape:label='" + self.options.layerName + "']", 'utf-8'), namespaces=inkex.NSS)
 			if len(nodes) == 0:
 				inkex.errormsg(_("Layer not found.\n"))
 			elif len(nodes) > 1:

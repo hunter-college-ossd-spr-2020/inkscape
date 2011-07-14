@@ -63,25 +63,22 @@ _ = gettext.gettext
 from math import *
 
 #SVG OUTPUT FUNCTIONS ================================================
-def draw_SVG_ellipse((rx, ry), (cx, cy), parent, start_end=(0,2*pi),transform='' ):
-
-    style = {   'stroke'        : '#000000',
-                'stroke-width'  : '1',
-                'fill'          : 'none'            }
+def draw_SVG_ellipse(rx, ry, cx, cy, parent, start_end=(0,2*pi), transform=''):
+    style = {'stroke'        : '#000000',
+             'stroke-width'  : '1',
+             'fill'          : 'none'}
     circ_attribs = {'style':simplestyle.formatStyle(style),
-        inkex.addNS('cx','sodipodi')        :str(cx),
-        inkex.addNS('cy','sodipodi')        :str(cy),
-        inkex.addNS('rx','sodipodi')        :str(rx),
-        inkex.addNS('ry','sodipodi')        :str(ry),
-        inkex.addNS('start','sodipodi')     :str(start_end[0]),
-        inkex.addNS('end','sodipodi')       :str(start_end[1]),
-        inkex.addNS('open','sodipodi')      :'true',    #all ellipse sectors we will draw are open
-        inkex.addNS('type','sodipodi')      :'arc',
-        'transform'                         :transform
-        
-            }
-    circ = inkex.etree.SubElement(parent, inkex.addNS('path','svg'), circ_attribs )
-    
+        inkex.addNS('cx','sodipodi')        : str(cx),
+        inkex.addNS('cy','sodipodi')        : str(cy),
+        inkex.addNS('rx','sodipodi')        : str(rx),
+        inkex.addNS('ry','sodipodi')        : str(ry),
+        inkex.addNS('start','sodipodi')     : str(start_end[0]),
+        inkex.addNS('end','sodipodi')       : str(start_end[1]),
+        inkex.addNS('open','sodipodi')      : 'true',    #all ellipse sectors we will draw are open
+        inkex.addNS('type','sodipodi')      : 'arc',
+        'transform'                         : transform}
+    circ = inkex.etree.SubElement(parent, inkex.addNS('path','svg'), circ_attribs)
+
 class Wireframe_Sphere(inkex.Effect):
     def __init__(self):
         inkex.Effect.__init__(self)

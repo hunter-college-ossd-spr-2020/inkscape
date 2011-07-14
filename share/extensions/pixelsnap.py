@@ -58,7 +58,7 @@ Note: Paths that have curves & arcs on some sides of the bounding box won't
     take a geometrically simplistic approach to inspecting & modifying the path.
 """
 
-from __future__ import division
+
 
 import sys
 # *** numpy causes issue #4 on Mac OS 10.6.2. I use it for
@@ -471,8 +471,8 @@ class PixelSnapEffect(inkex.Effect):
             for e in elem:
                 try:
                     self.pixel_snap(e, transform)
-                except TransformError, e:
-                    print >>sys.stderr, e
+                except TransformError as e:
+                    print(e, file=sys.stderr)
             return
 
         if not elemtype(elem, ('path', 'rect', 'image')):
@@ -481,8 +481,8 @@ class PixelSnapEffect(inkex.Effect):
         self.snap_transform(elem)
         try:
             self.snap_stroke(elem, parent_transform)
-        except TransformError, e:
-            print >>sys.stderr, e
+        except TransformError as e:
+            print(e, file=sys.stderr)
 
         if elemtype(elem, 'path'):
             self.snap_path_scale(elem, parent_transform)
@@ -496,11 +496,11 @@ class PixelSnapEffect(inkex.Effect):
         
         self.document_offset = unittouu(svg.attrib['height']) % 1       # although SVG units are absolute, the elements are positioned relative to the top of the page, rather than zero
 
-        for id, elem in self.selected.iteritems():
+        for id, elem in self.selected.items():
             try:
                 self.pixel_snap(elem)
-            except TransformError, e:
-                print >>sys.stderr, e
+            except TransformError as e:
+                print(e, file=sys.stderr)
 
 
 if __name__ == '__main__':

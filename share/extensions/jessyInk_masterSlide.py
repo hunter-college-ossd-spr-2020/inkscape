@@ -36,7 +36,7 @@ class JessyInk_MasterSlide(inkex.Effect):
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 		self.OptionParser.add_option('--layerName', action = 'store', type = 'string', dest = 'layerName', default = '')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.

@@ -13,7 +13,7 @@ try:
 except:
     sys.exit(_('The export_gpl.py module requires PyXML.  Please download the latest version from http://pyxml.sourceforge.net/.'))
 
-colortags=(u'fill',u'stroke',u'stop-color',u'flood-color',u'lighting-color')
+colortags=('fill','stroke','stop-color','flood-color','lighting-color')
 colors={}
 
 def walk(node):
@@ -29,7 +29,7 @@ def checkStyle(node):
         if sa!='':
             styles=simplestyle.parseStyle(sa)
             for c in range(len(colortags)):
-                if colortags[c] in styles.keys():
+                if colortags[c] in list(styles.keys()):
                     addColor(styles[colortags[c]])
 
 def addColor(col):
@@ -41,10 +41,10 @@ stream = open(sys.argv[-1:][0],'r')
 dom = parse(stream)
 stream.close()
 walk(dom)
-print 'GIMP Palette\nName: %s\n#' % (dom.getElementsByTagName('svg')[0].getAttribute(DOCNAME).split('.')[0])
+print('GIMP Palette\nName: %s\n#' % (dom.getElementsByTagName('svg')[0].getAttribute(DOCNAME).split('.')[0]))
 
 for k,v in sorted(colors.items()):
-    print k+v
+    print(k+v)
 
 
 # vim: expandtab shiftwidth=4 tabstop=8 softtabstop=4 fileencoding=utf-8 textwidth=99

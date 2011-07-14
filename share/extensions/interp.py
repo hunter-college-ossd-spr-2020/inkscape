@@ -24,11 +24,15 @@ def interpcoord(v1,v2,p):
     return v1+((v2-v1)*p)
 def interppoints(p1,p2,p):
     return [interpcoord(p1[0],p2[0],p),interpcoord(p1[1],p2[1],p)]
-def pointdistance((x1,y1),(x2,y2)):
+def pointdistance(p1, p2):
+    (x1,y1) = p1
+    (x2,y2) = p2
     return math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2))
 def bezlenapprx(sp1, sp2):
     return pointdistance(sp1[1], sp1[2]) + pointdistance(sp1[2], sp2[0]) + pointdistance(sp2[0], sp2[1])
-def tpoint((x1,y1), (x2,y2), t = 0.5):
+def tpoint(p1, p2, t = 0.5):
+    (x1,y1) = p1
+    (x2,y2) = p2
     return [x1+t*(x2-x1),y1+t*(y2-y1)]
 def cspbezsplit(sp1, sp2, t = 0.5):
     m1=tpoint(sp1[1],sp1[2],t)
@@ -50,7 +54,7 @@ def csplength(csp):
     lengths = []
     for sp in csp:
         lengths.append([])
-        for i in xrange(1,len(sp)):
+        for i in range(1,len(sp)):
             l = cspseglength(sp[i-1],sp[i])
             lengths[-1].append(l)
             total += l            
@@ -144,7 +148,7 @@ class Interp(inkex.Effect):
                 dofill = True
                 styledefaults = {'opacity':'1.0', 'stroke-opacity':'1.0', 'fill-opacity':'1.0',
                         'stroke-width':'1.0', 'stroke':'none', 'fill':'none'}
-                for key in styledefaults.keys():
+                for key in list(styledefaults.keys()):
                     sst.setdefault(key,styledefaults[key])
                     est.setdefault(key,styledefaults[key])
                 isnotplain = lambda x: not (x=='none' or x[:1]=='#')
@@ -188,9 +192,9 @@ class Interp(inkex.Effect):
                         t += l / etotal
                         lengths.setdefault(t,0)
                         lengths[t] += -1
-                sadd = [k for (k,v) in lengths.iteritems() if v < 0]
+                sadd = [k for (k,v) in lengths.items() if v < 0]
                 sadd.sort()
-                eadd = [k for (k,v) in lengths.iteritems() if v > 0]
+                eadd = [k for (k,v) in lengths.items() if v > 0]
                 eadd.sort()
 
                 t = 0

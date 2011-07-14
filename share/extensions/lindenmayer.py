@@ -62,7 +62,7 @@ class LSystem(inkex.Effect):
         self.stack = []
         self.turtle = pturtle.pTurtle()
     def iterate(self):
-        self.rules = dict([map(stripme, i.split("=")) for i in self.options.rules.upper().split(";") if i.count("=")==1])
+        self.rules = dict([list(map(stripme, i.split("="))) for i in self.options.rules.upper().split(";") if i.count("=")==1])
         string = self.__recurse(self.options.axiom.upper(),0)
         self.__compose_path(string)
         return self.turtle.getPath()

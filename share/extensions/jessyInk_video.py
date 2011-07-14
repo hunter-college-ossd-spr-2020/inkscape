@@ -39,7 +39,7 @@ class JessyInk_Effects(inkex.Effect):
 
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.
@@ -88,15 +88,15 @@ def findInternalLinks(node, docRoot, nodeDict = {}):
 	for entry in re.findall("url\(#.*\)", etree.tostring(node)):
 		linkId = entry[5:len(entry) - 1]
 
-		if not nodeDict.has_key(linkId):
+		if linkId not in nodeDict:
 			nodeDict[linkId] = deepcopy(docRoot.xpath("//*[@id='" + linkId + "']", namespaces=inkex.NSS)[0])
 			nodeDict = findInternalLinks(nodeDict[linkId], docRoot, nodeDict)
 
 	for entry in node.iter():
-		if entry.attrib.has_key('{' + inkex.NSS['xlink'] + '}href'):
+		if '{' + inkex.NSS['xlink'] + '}href' in entry.attrib:
 			linkId = entry.attrib['{' + inkex.NSS['xlink'] + '}href'][1:len(entry.attrib['{' + inkex.NSS['xlink'] + '}href'])]
 	
-			if not nodeDict.has_key(linkId):
+			if linkId not in nodeDict:
 				nodeDict[linkId] = deepcopy(docRoot.xpath("//*[@id='" + linkId + "']", namespaces=inkex.NSS)[0])
 				nodeDict = findInternalLinks(nodeDict[linkId], docRoot, nodeDict)
 
@@ -114,7 +114,7 @@ def getNewId(prefix, docRoot):
 
 def deleteIds(node):
 	for entry in node.iter():
-		if entry.attrib.has_key('id'):
+		if 'id' in entry.attrib:
 			del entry.attrib['id']
 
 # Create effect instance

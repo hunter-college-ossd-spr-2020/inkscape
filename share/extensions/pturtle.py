@@ -55,7 +55,8 @@ class pTurtle:
     def clear(self):
         self.clean()
         self.home()
-    def setpos(self,(x,y)):
+    def setpos(self, pos):
+        (x,y) = pos
         if self.__new:
             self.__path += "M"+",".join([str(i) for i in self.__pos])
             self.__new = False
@@ -68,7 +69,8 @@ class pTurtle:
         self.__heading = deg
     def getheading(self):
         return self.__heading
-    def sethome(self,(x,y)):
+    def sethome(self, home):
+        (x,y) = home
         self.__home = [x, y]
     def getPath(self):
         return self.__path

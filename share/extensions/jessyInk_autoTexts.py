@@ -36,7 +36,7 @@ class JessyInk_AutoTexts(inkex.Effect):
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
 		self.OptionParser.add_option('--autoText', action = 'store', type = 'string', dest = 'autoText', default = 'none')
 		
-		inkex.NSS[u"jessyink"] = u"https://launchpad.net/jessyink"
+		inkex.NSS["jessyink"] = "https://launchpad.net/jessyink"
 
 	def effect(self):
 		# Check version.
@@ -48,7 +48,7 @@ class JessyInk_AutoTexts(inkex.Effect):
 		if len(self.selected) == 0:
 			inkex.errormsg(_("To assign an effect, please select an object.\n\n"))
 
-		for id, node in self.selected.items():
+		for id, node in list(self.selected.items()):
 			nodes = node.xpath("./svg:tspan", namespaces=inkex.NSS)
 
 			if len(nodes) != 1:
@@ -61,7 +61,7 @@ class JessyInk_AutoTexts(inkex.Effect):
 				elif self.options.autoText == "numberOfSlides":
 					nodes[0].set("{" + inkex.NSS["jessyink"] + "}autoText","numberOfSlides")
 				else:
-					if nodes[0].attrib.has_key("{" + inkex.NSS["jessyink"] + "}autoText"):
+					if "{" + inkex.NSS["jessyink"] + "}autoText" in nodes[0].attrib:
 						del nodes[0].attrib["{" + inkex.NSS["jessyink"] + "}autoText"]
 
 # Create effect instance

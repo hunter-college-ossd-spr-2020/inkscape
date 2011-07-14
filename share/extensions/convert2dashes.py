@@ -23,7 +23,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import inkex, cubicsuperpath, bezmisc, simplestyle
 
-def tpoint((x1,y1), (x2,y2), t = 0.5):
+def tpoint(xxx_todo_changeme, xxx_todo_changeme1, t = 0.5):
+    (x1,y1) = xxx_todo_changeme
+    (x2,y2) = xxx_todo_changeme1
     return [x1+t*(x2-x1),y1+t*(y2-y1)]
 def cspbezsplit(sp1, sp2, t = 0.5):
     m1=tpoint(sp1[1],sp1[2],t)
@@ -46,11 +48,11 @@ class SplitIt(inkex.Effect):
         inkex.Effect.__init__(self)
 
     def effect(self):
-        for id, node in self.selected.iteritems():
+        for id, node in list(self.selected.items()):
             if node.tag == inkex.addNS('path','svg'):
                 dashes = []
                 style = simplestyle.parseStyle(node.get('style'))
-                if style.has_key('stroke-dasharray'):
+                if 'stroke-dasharray' in style:
                     if style['stroke-dasharray'].find(',') > 0:
                         dashes = [float (dash) for dash in style['stroke-dasharray'].split(',')]
                 if dashes:
