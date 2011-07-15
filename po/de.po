@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2011-06-05 20:35+0200\n"
-"PO-Revision-Date: 2011-07-08 23:44+0200\n"
+"PO-Revision-Date: 2011-07-15 14:56+0200\n"
 "Last-Translator: Uwe Schoeler <uschoeler@yahoo.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13807,7 +13807,7 @@ msgstr "Profilname:"
 #: ../src/ui/dialog/calligraphic-profile-rename.cpp:52
 #: ../src/ui/dialog/inkscape-preferences.cpp:1233
 msgid "Save"
-msgstr "_Speichern"
+msgstr "Speichern"
 
 #: ../src/ui/dialog/color-item.cpp:117
 #, c-format
