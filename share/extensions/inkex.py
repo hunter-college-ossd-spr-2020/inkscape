@@ -96,10 +96,10 @@ def errormsg(msg):
          ...
          inkex.errormsg(_("This extension requires two selected paths."))
     """
-    try:
+    if sys.version_info > (3, 0):
+        sys.stderr.buffer.write(str(msg) + "\n")
+    else:
         sys.stderr.write(unicode(msg) + "\n")
-    except:
-        sys.stderr.buffer.write(str(msg))
 
 def check_inkbool(option, opt, value):
     if str(value).capitalize() == 'True':
@@ -217,7 +217,10 @@ class Effect:
 
     def output(self):
         """Serialize document into XML on stdout"""
-        self.document.write(sys.stdout)
+        if sys.version_info > (3, 0):
+            self.document.write(sys.stdout.buffer)
+        else:
+            self.document.write(sys.stdout)
 
     def affect(self, args=sys.argv[1:], output=True):
         """Affect an SVG document with a callback effect"""
