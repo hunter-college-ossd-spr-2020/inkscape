@@ -159,12 +159,16 @@ sp_object_layout_any_value_changed(GtkAdjustment *adj, SPWidget *spw)
 
     document->ensureUpToDate ();
     Inkscape::Preferences *prefs = Inkscape::Preferences::get();
-    int prefs_bbox = prefs->getInt("/tools/bounding_box");
-    SPItem::BBoxType bbox_type = (prefs_bbox ==0)?
-        SPItem::APPROXIMATE_BBOX : SPItem::GEOMETRIC_BBOX;
-    Geom::OptRect bbox = selection->bounds(bbox_type);
 
-    if ( !bbox ) {
+    Geom::OptRect bbox_vis = selection->bounds(SPItem::APPROXIMATE_BBOX);
+    Geom::OptRect bbox_geom = selection->bounds(SPItem::GEOMETRIC_BBOX);
+
+    int prefs_bbox = prefs->getInt("/tools/bounding_box");
+    SPItem::BBoxType bbox_type = (prefs_bbox == 0)?
+        SPItem::APPROXIMATE_BBOX : SPItem::GEOMETRIC_BBOX;
+    Geom::OptRect bbox_user = selection->bounds(bbox_type);
+
+    if ( !bbox_user ) {
         g_object_set_data(G_OBJECT(spw), "update", GINT_TO_POINTER(FALSE));
         return;
     }
@@ -186,35 +190,35 @@ sp_object_layout_any_value_changed(GtkAdjustment *adj, SPWidget *spw)
         x0 = sp_units_get_pixels (a_x->value, unit);
         y0 = sp_units_get_pixels (a_y->value, unit);
         x1 = x0 + sp_units_get_pixels (a_w->value, unit);
-        xrel = sp_units_get_pixels (a_w->value, unit) / bbox->dimensions()[Geom::X];
+        xrel = sp_units_get_pixels (a_w->value, unit) / bbox_user->dimensions()[Geom::X];
         y1 = y0 + sp_units_get_pixels (a_h->value, unit);
-        yrel = sp_units_get_pixels (a_h->value, unit) / bbox->dimensions()[Geom::Y];
+        yrel = sp_units_get_pixels (a_h->value, unit) / bbox_user->dimensions()[Geom::Y];
     } else {
         double const x0_propn = a_x->value * unit.unittobase;
-        x0 = bbox->min()[Geom::X] * x0_propn;
+        x0 = bbox_user->min()[Geom::X] * x0_propn;
         double const y0_propn = a_y->value * unit.unittobase;
-        y0 = y0_propn * bbox->min()[Geom::Y];
+        y0 = y0_propn * bbox_user->min()[Geom::Y];
         xrel = a_w->value * unit.unittobase;
-        x1 = x0 + xrel * bbox->dimensions()[Geom::X];
+        x1 = x0 + xrel * bbox_user->dimensions()[Geom::X];
         yrel = a_h->value * unit.unittobase;
-        y1 = y0 + yrel * bbox->dimensions()[Geom::Y];
+        y1 = y0 + yrel * bbox_user->dimensions()[Geom::Y];
     }
 
     // Keep proportions if lock is on
     GtkToggleAction *lock = GTK_TOGGLE_ACTION( g_object_get_data(G_OBJECT(spw), "lock") );
     if ( gtk_toggle_action_get_active(lock) ) {
         if (adj == a_h) {
-            x1 = x0 + yrel * bbox->dimensions()[Geom::X];
+            x1 = x0 + yrel * bbox_user->dimensions()[Geom::X];
         } else if (adj == a_w) {
-            y1 = y0 + xrel * bbox->dimensions()[Geom::Y];
+            y1 = y0 + xrel * bbox_user->dimensions()[Geom::Y];
         }
     }
 
     // scales and moves, in px
-    double mh = fabs(x0 - bbox->min()[Geom::X]);
-    double sh = fabs(x1 - bbox->max()[Geom::X]);
-    double mv = fabs(y0 - bbox->min()[Geom::Y]);
-    double sv = fabs(y1 - bbox->max()[Geom::Y]);
+    double mh = fabs(x0 - bbox_user->min()[Geom::X]);
+    double sh = fabs(x1 - bbox_user->max()[Geom::X]);
+    double mv = fabs(y0 - bbox_user->min()[Geom::Y]);
+    double sv = fabs(y1 - bbox_user->max()[Geom::Y]);
 
     // unless the unit is %, convert the scales and moves to the unit
     if (unit.base == SP_UNIT_ABSOLUTE || unit.base == SP_UNIT_DEVICE) {
@@ -244,11 +248,11 @@ sp_object_layout_any_value_changed(GtkAdjustment *adj, SPWidget *spw)
 
         Geom::Affine scaler;
         if (bbox_type == SPItem::APPROXIMATE_BBOX) {
-            // get_scale_transform_with_stroke() is intended for VISUAL (or APPROXIMATE) bounding boxes, not geometrical ones!
-            scaler = get_scale_transform_with_stroke (*bbox, strokewidth, transform_stroke, x0, y0, x1, y1);
+            scaler = get_scale_transform_with_unequal_stroke (*bbox_vis, *bbox_geom, transform_stroke, x0, y0, x1, y1);
         } else {
-            // we'll trick it into using a geometrical bounding box though, by setting the stroke width to zero
-            scaler = get_scale_transform_with_stroke (*bbox, 0, false, x0, y0, x1, y1);
+            // get_scale_transform_with_stroke() is intended for VISUAL (or APPROXIMATE) bounding boxes, not geometrical ones!
+            // we'll trick it into using a geometric bounding box though, by setting the stroke width to zero
+            scaler = get_scale_transform_with_uniform_stroke (*bbox_user, 0, false, x0, y0, x1, y1);
         }
 
         sp_selection_apply_affine(selection, scaler);
@@ -374,9 +378,9 @@ static void toggle_pattern( GtkToggleAction* act, gpointer data )
 static void toggle_lock( GtkToggleAction *act, gpointer /*data*/ ) {
     gboolean active = gtk_toggle_action_get_active( act );
     if ( active ) {
-        g_object_set( G_OBJECT(act), "iconId", INKSCAPE_ICON_OBJECT_LOCKED, NULL );
+        g_object_set( G_OBJECT(act), "iconId", INKSCAPE_ICON("object-locked"), NULL );
     } else {
-        g_object_set( G_OBJECT(act), "iconId", INKSCAPE_ICON_OBJECT_UNLOCKED, NULL );
+        g_object_set( G_OBJECT(act), "iconId", INKSCAPE_ICON("object-unlocked"), NULL );
     }
 }
 
@@ -503,7 +507,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     InkToggleAction* itact = ink_toggle_action_new( "LockAction",
                                                     _("Lock width and height"),
                                                     _("When locked, change both width and height by the same proportion"),
-                                                    INKSCAPE_ICON_OBJECT_UNLOCKED,
+                                                    INKSCAPE_ICON("object-unlocked"),
                                                     Inkscape::ICON_SIZE_DECORATION );
     g_object_set( itact, "short_label", "Lock", NULL );
     g_object_set_data( G_OBJECT(spw), "lock", itact );
@@ -550,7 +554,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     // "Transform with object" buttons
 
     {
-        EgeOutputAction* act = ege_output_action_new( "transform_affect_label", _("Affect:"), _("Control whether or not to scale stroke widths, scale rectangle corners, transform gradient fills, and transform pattern fills with the object"), 0 ); 
+        EgeOutputAction* act = ege_output_action_new( "transform_affect_label", _("Affect:"), _("Control whether or not to scale stroke widths, scale rectangle corners, transform gradient fills, and transform pattern fills with the object"), 0 );
         ege_output_action_set_use_markup( act, TRUE );
         g_object_set( act, "visible-overflown", FALSE, NULL );
         gtk_action_group_add_action( mainActions, GTK_ACTION( act ) );
@@ -560,7 +564,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     InkToggleAction* itact = ink_toggle_action_new( "transform_stroke",
                                                     _("Scale stroke width"),
                                                     _("When scaling objects, scale the stroke width by the same proportion"),
-                                                    INKSCAPE_ICON_TRANSFORM_AFFECT_STROKE,
+                                                    INKSCAPE_ICON("transform-affect-stroke"),
                                                     Inkscape::ICON_SIZE_DECORATION );
     gtk_toggle_action_set_active( GTK_TOGGLE_ACTION(itact), prefs->getBool("/options/transform/stroke", true) );
     g_signal_connect_after( G_OBJECT(itact), "toggled", G_CALLBACK(toggle_stroke), desktop) ;
@@ -571,7 +575,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     InkToggleAction* itact = ink_toggle_action_new( "transform_corners",
                                                     _("Scale rounded corners"),
                                                     _("When scaling rectangles, scale the radii of rounded corners"),
-                                                    INKSCAPE_ICON_TRANSFORM_AFFECT_ROUNDED_CORNERS,
+                                                    INKSCAPE_ICON("transform-affect-rounded-corners"),
                                                   Inkscape::ICON_SIZE_DECORATION );
     gtk_toggle_action_set_active( GTK_TOGGLE_ACTION(itact), prefs->getBool("/options/transform/rectcorners", true) );
     g_signal_connect_after( G_OBJECT(itact), "toggled", G_CALLBACK(toggle_corners), desktop) ;
@@ -582,7 +586,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     InkToggleAction* itact = ink_toggle_action_new( "transform_gradient",
                                                     _("Move gradients"),
                                                     _("Move gradients (in fill or stroke) along with the objects"),
-                                                    INKSCAPE_ICON_TRANSFORM_AFFECT_GRADIENT,
+                                                    INKSCAPE_ICON("transform-affect-gradient"),
                                                   Inkscape::ICON_SIZE_DECORATION );
     gtk_toggle_action_set_active( GTK_TOGGLE_ACTION(itact), prefs->getBool("/options/transform/gradient", true) );
     g_signal_connect_after( G_OBJECT(itact), "toggled", G_CALLBACK(toggle_gradient), desktop) ;
@@ -593,7 +597,7 @@ void sp_select_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GOb
     InkToggleAction* itact = ink_toggle_action_new( "transform_pattern",
                                                     _("Move patterns"),
                                                     _("Move patterns (in fill or stroke) along with the objects"),
-                                                    INKSCAPE_ICON_TRANSFORM_AFFECT_PATTERN,
+                                                    INKSCAPE_ICON("transform-affect-pattern"),
                                                   Inkscape::ICON_SIZE_DECORATION );
     gtk_toggle_action_set_active( GTK_TOGGLE_ACTION(itact), prefs->getBool("/options/transform/pattern", true) );
     g_signal_connect_after( G_OBJECT(itact), "toggled", G_CALLBACK(toggle_pattern), desktop) ;

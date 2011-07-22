@@ -19,6 +19,7 @@
 
 #include "libnr/nr-convert2geom.h"
 #include <2geom/affine.h>
+#include <2geom/transforms.h>
 #include "svg/svg.h"
 #include "display/nr-arena-group.h"
 #include "xml/repr.h"
@@ -81,9 +82,11 @@ sp_marker_get_type (void)
 static void
 sp_marker_class_init (SPMarkerClass *klass)
 {
+	GObjectClass *object_class;
 	SPObjectClass *sp_object_class;
 	SPItemClass *sp_item_class;
 
+	object_class = G_OBJECT_CLASS (klass);
 	sp_object_class = (SPObjectClass *) klass;
 	sp_item_class = (SPItemClass *) klass;
 
@@ -126,6 +129,12 @@ sp_marker_init (SPMarker *marker)
 static void
 sp_marker_build (SPObject *object, SPDocument *document, Inkscape::XML::Node *repr)
 {
+	SPGroup *group;
+	SPMarker *marker;
+
+	group = (SPGroup *) object;
+	marker = (SPMarker *) object;
+
 	object->readAttr( "markerUnits" );
 	object->readAttr( "refX" );
 	object->readAttr( "refY" );
@@ -182,11 +191,9 @@ sp_marker_release (SPObject *object)
  *     SP_ATTR_VIEWBOX
  *     SP_ATTR_PRESERVEASPECTRATIO
  */
-static void
-sp_marker_set (SPObject *object, unsigned int key, const gchar *value)
+static void sp_marker_set(SPObject *object, unsigned int key, const gchar *value)
 {
-	SPMarker *marker;
-	marker = SP_MARKER (object);
+	SPMarker *marker = SP_MARKER(object);
 
 	switch (key) {
 	case SP_ATTR_MARKERUNITS:
@@ -327,16 +334,12 @@ sp_marker_set (SPObject *object, unsigned int key, const gchar *value)
  * Updates <marker> when its attributes have changed.  Takes care of setting up
  * transformations and viewBoxes.
  */
-static void
-sp_marker_update (SPObject *object, SPCtx *ctx, guint flags)
+static void sp_marker_update(SPObject *object, SPCtx *ctx, guint flags)
 {
-	SPMarker *marker;
+	SPMarker *marker = SP_MARKER(object);
 	SPItemCtx rctx;
-	Geom::Rect vb;
+        Geom::Rect vb;
 	double x, y, width, height;
-	SPMarkerView *v;
-
-	marker = SP_MARKER (object);
 
 	/* fixme: We have to set up clip here too */
 
@@ -356,9 +359,9 @@ sp_marker_update (SPObject *object, SPCtx *ctx, guint flags)
 
 	/* Viewbox is always present, either implicitly or explicitly */
     if (marker->viewBox) {
-		vb = *marker->viewBox;
+        vb = *marker->viewBox;
 	} else {
-		vb = *(rctx.vp.upgrade_2geom());
+        vb = *(rctx.vp.upgrade_2geom());
 	}
 	/* Now set up viewbox transformation */
 	/* Determine actual viewbox in viewport coordinates */
@@ -436,19 +439,20 @@ sp_marker_update (SPObject *object, SPCtx *ctx, guint flags)
             rctx.i2vp = Geom::identity();
 	}
 
-	/* And invoke parent method */
-	if (((SPObjectClass *) (parent_class))->update)
+	// And invoke parent method
+	if (((SPObjectClass *) (parent_class))->update) {
 		((SPObjectClass *) (parent_class))->update (object, (SPCtx *) &rctx, flags);
+        }
 
-	/* As last step set additional transform of arena group */
-	for (v = marker->views; v != NULL; v = v->next) {
-      for (unsigned i = 0 ; i < v->items.size() ; i++) {
+        // As last step set additional transform of arena group
+        for (SPMarkerView *v = marker->views; v != NULL; v = v->next) {
+            for (unsigned i = 0 ; i < v->items.size() ; i++) {
                 if (v->items[i]) {
                     Geom::Affine tmp = marker->c2p;
                     nr_arena_group_set_child_transform(NR_ARENA_GROUP(v->items[i]), &tmp);
                 }
-      }
-	}
+            }
+        }
 }
 
 /**

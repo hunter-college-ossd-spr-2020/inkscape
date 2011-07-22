@@ -31,7 +31,8 @@
 #include "xml/repr.h"
 #include "color.h"
 #include "color-profile.h"
-#include "color-profile-fns.h"
+#include "cms-system.h"
+#include "color-profile-cms-fns.h"
 #include "attributes.h"
 #include "inkscape.h"
 #include "document.h"
@@ -100,7 +101,6 @@ extern guint update_in_progress;
 
 static SPObjectClass *cprof_parent_class;
 
-
 class ColorProfileImpl {
 public:
 #if ENABLE_LCMS
@@ -126,6 +126,24 @@ public:
     cmsHTRANSFORM _gamutTransf;
 #endif // ENABLE_LCMS
 };
+
+
+
+namespace Inkscape {
+
+#ifdef ENABLE_LCMS
+icColorSpaceSignature asICColorSpaceSig(ColorSpaceSig const & sig)
+{
+    return ColorSpaceSigWrapper(sig);
+}
+
+icProfileClassSignature asICColorProfileClassSig(ColorProfileClassSig const & sig)
+{
+    return ColorProfileClassSigWrapper(sig);
+}
+#endif //  ENABLE_LCMS
+
+} // namespace Inkscape
 
 ColorProfileImpl::ColorProfileImpl()
 #if ENABLE_LCMS
@@ -536,7 +554,7 @@ static SPObject* bruteFind( SPDocument* document, gchar const* name )
     return result;
 }
 
-cmsHPROFILE Inkscape::colorprofile_get_handle( SPDocument* document, guint* intent, gchar const* name )
+cmsHPROFILE Inkscape::CMSSystem::getHandle( SPDocument* document, guint* intent, gchar const* name )
 {
     cmsHPROFILE prof = 0;
 
@@ -554,12 +572,12 @@ cmsHPROFILE Inkscape::colorprofile_get_handle( SPDocument* document, guint* inte
     return prof;
 }
 
-icColorSpaceSignature ColorProfile::getColorSpace() const {
-    return impl->_profileSpace;
+Inkscape::ColorSpaceSig ColorProfile::getColorSpace() const {
+    return ColorSpaceSigWrapper(impl->_profileSpace);
 }
 
-icProfileClassSignature ColorProfile::getProfileClass() const {
-    return impl->_profileClass;
+Inkscape::ColorProfileClassSig ColorProfile::getProfileClass() const {
+    return ColorProfileClassSigWrapper(impl->_profileClass);
 }
 
 cmsHTRANSFORM ColorProfile::getTransfToSRGB8()
@@ -636,7 +654,7 @@ ProfileInfo::ProfileInfo( cmsHPROFILE prof, Glib::ustring const & path )
 
 static std::vector<ProfileInfo> knownProfiles;
 
-std::vector<Glib::ustring> Inkscape::colorprofile_get_display_names()
+std::vector<Glib::ustring> Inkscape::CMSSystem::getDisplayNames()
 {
     loadProfiles();
     std::vector<Glib::ustring> result;
@@ -650,7 +668,7 @@ std::vector<Glib::ustring> Inkscape::colorprofile_get_display_names()
     return result;
 }
 
-std::vector<Glib::ustring> Inkscape::colorprofile_get_softproof_names()
+std::vector<Glib::ustring> Inkscape::CMSSystem::getSoftproofNames()
 {
     loadProfiles();
     std::vector<Glib::ustring> result;
@@ -664,7 +682,7 @@ std::vector<Glib::ustring> Inkscape::colorprofile_get_softproof_names()
     return result;
 }
 
-Glib::ustring Inkscape::get_path_for_profile(Glib::ustring const& name)
+Glib::ustring Inkscape::CMSSystem::getPathForProfile(Glib::ustring const& name)
 {
     loadProfiles();
     Glib::ustring result;
@@ -678,6 +696,31 @@ Glib::ustring Inkscape::get_path_for_profile(Glib::ustring const& name)
 
     return result;
 }
+
+void Inkscape::CMSSystem::doTransform(cmsHTRANSFORM transform, void *inBuf, void *outBuf, unsigned int size)
+{
+    cmsDoTransform(transform, inBuf, outBuf, size);
+}
+
+bool Inkscape::CMSSystem::isPrintColorSpace(ColorProfile const *profile)
+{
+    bool isPrint = false;
+    if ( profile ) {
+        ColorSpaceSigWrapper colorspace = profile->getColorSpace();
+        isPrint = (colorspace == icSigCmykData) || (colorspace == icSigCmyData);
+    }
+    return isPrint;
+}
+
+gint Inkscape::CMSSystem::getChannelCount(ColorProfile const *profile)
+{
+    gint count = 0;
+    if ( profile ) {
+        count = _cmsChannelsOf( asICColorSpaceSig(profile->getColorSpace()) );
+    }
+    return count;
+}
+
 #endif // ENABLE_LCMS
 
 std::vector<Glib::ustring> ColorProfile::getBaseProfileDirs() {
@@ -1045,7 +1088,7 @@ cmsHPROFILE getProofProfileHandle()
 
 static void free_transforms();
 
-cmsHTRANSFORM Inkscape::colorprofile_get_display_transform()
+cmsHTRANSFORM Inkscape::CMSSystem::getDisplayTransform()
 {
     Inkscape::Preferences *prefs = Inkscape::Preferences::get();
     bool fromDisplay = prefs->getBool( "/options/displayprofile/from_display");
@@ -1156,7 +1199,7 @@ void free_transforms()
     }
 }
 
-Glib::ustring Inkscape::colorprofile_get_display_id( int screen, int monitor )
+Glib::ustring Inkscape::CMSSystem::getDisplayId( int screen, int monitor )
 {
     Glib::ustring id;
 
@@ -1171,7 +1214,7 @@ Glib::ustring Inkscape::colorprofile_get_display_id( int screen, int monitor )
     return id;
 }
 
-Glib::ustring Inkscape::colorprofile_set_display_per( gpointer buf, guint bufLen, int screen, int monitor )
+Glib::ustring Inkscape::CMSSystem::setDisplayPer( gpointer buf, guint bufLen, int screen, int monitor )
 {
     Glib::ustring id;
 
@@ -1204,7 +1247,7 @@ Glib::ustring Inkscape::colorprofile_set_display_per( gpointer buf, guint bufLen
     return id;
 }
 
-cmsHTRANSFORM Inkscape::colorprofile_get_display_per( Glib::ustring const& id )
+cmsHTRANSFORM Inkscape::CMSSystem::getDisplayPer( Glib::ustring const& id )
 {
     cmsHTRANSFORM result = 0;
     if ( id.empty() ) {

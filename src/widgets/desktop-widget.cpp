@@ -24,11 +24,12 @@
 # include "config.h"
 #endif
 
-#include <gtkmm/paned.h>
 #include <gtk/gtk.h>
+#include <gtkmm.h>
+#include <2geom/rect.h>
 
 #include "box3d-context.h"
-#include "color-profile-fns.h"
+#include "cms-system.h"
 #include "conn-avoid-ref.h"
 #include "desktop-events.h"
 #include "desktop-handles.h"
@@ -193,7 +194,7 @@ void CMSPrefWatcher::hook(EgeColorProfTracker */*tracker*/, gint screen, gint mo
     guint len = 0;
 
     ege_color_prof_tracker_get_profile_for( screen, monitor, reinterpret_cast<gpointer*>(&buf), &len );
-    Glib::ustring id = Inkscape::colorprofile_set_display_per( buf, len, screen, monitor );
+    Glib::ustring id = Inkscape::CMSSystem::setDisplayPer( buf, len, screen, monitor );
 #endif // ENABLE_LCMS
 }
 
@@ -333,7 +334,7 @@ void SPDesktopWidget::init( SPDesktopWidget *dtw )
     dtw->hbox = gtk_hbox_new(FALSE, 0);
     gtk_box_pack_end( GTK_BOX (dtw->vbox), dtw->hbox, TRUE, TRUE, 0 );
     gtk_widget_show(dtw->hbox);
- 
+
     dtw->aux_toolbox = ToolboxFactory::createAuxToolbox();
     gtk_box_pack_end (GTK_BOX (dtw->vbox), dtw->aux_toolbox, FALSE, TRUE, 0);
 
@@ -387,7 +388,7 @@ void SPDesktopWidget::init( SPDesktopWidget *dtw )
     dtw->sticky_zoom = sp_button_new_from_data ( Inkscape::ICON_SIZE_DECORATION,
                                                  SP_BUTTON_TYPE_TOGGLE,
                                                  NULL,
-                                                 INKSCAPE_ICON_ZOOM_ORIGINAL,
+                                                 INKSCAPE_ICON("zoom-original"),
                                                  _("Zoom drawing if window size changes"));
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dtw->sticky_zoom), prefs->getBool("/options/stickyzoom/value"));
     gtk_box_pack_start (GTK_BOX (dtw->vscrollbar_box), dtw->sticky_zoom, FALSE, FALSE, 0);
@@ -409,7 +410,7 @@ void SPDesktopWidget::init( SPDesktopWidget *dtw )
     dtw->cms_adjust = sp_button_new_from_data( Inkscape::ICON_SIZE_DECORATION,
                                                SP_BUTTON_TYPE_TOGGLE,
                                                NULL,
-                                               INKSCAPE_ICON_COLOR_MANAGEMENT,
+                                               INKSCAPE_ICON("color-management"),
                                                tip );
 #if ENABLE_LCMS
     {
@@ -540,13 +541,11 @@ void SPDesktopWidget::init( SPDesktopWidget *dtw )
 #if ENABLE_LCMS
     bool fromDisplay = prefs->getBool( "/options/displayprofile/from_display");
     if ( fromDisplay ) {
-        Glib::ustring id = Inkscape::colorprofile_get_display_id( 0, 0 );
+        Glib::ustring id = Inkscape::CMSSystem::getDisplayId( 0, 0 );
 
         bool enabled = false;
-        if ( dtw->canvas->cms_key ) {
-            *(dtw->canvas->cms_key) = id;
-            enabled = !dtw->canvas->cms_key->empty();
-        }
+        dtw->canvas->cms_key = id;
+        enabled = !dtw->canvas->cms_key.empty();
         cms_adjust_set_sensitive( dtw, enabled );
     }
 #endif // ENABLE_LCMS
@@ -632,9 +631,7 @@ SPDesktopWidget::updateTitle(gchar const* uri)
     Gtk::Window *window = (Gtk::Window*)g_object_get_data(G_OBJECT(this), "window");
 
     if (window) {
-        gchar const *fname = ( TRUE
-                               ? uri
-                               : g_basename(uri) );
+        gchar const *fname = uri;
         GString *name = g_string_new ("");
 
         gchar const *grayscalename = "(grayscale) ";
@@ -805,13 +802,11 @@ void sp_dtw_color_profile_event(EgeColorProfTracker */*tracker*/, SPDesktopWidge
     GdkScreen* screen = gtk_widget_get_screen(GTK_WIDGET(dtw));
     gint screenNum = gdk_screen_get_number(screen);
     gint monitor = gdk_screen_get_monitor_at_window(screen, gtk_widget_get_toplevel(GTK_WIDGET(dtw))->window);
-    Glib::ustring id = Inkscape::colorprofile_get_display_id( screenNum, monitor );
+    Glib::ustring id = Inkscape::CMSSystem::getDisplayId( screenNum, monitor );
     bool enabled = false;
-    if ( dtw->canvas->cms_key ) {
-        *(dtw->canvas->cms_key) = id;
-        dtw->requestCanvasUpdate();
-        enabled = !dtw->canvas->cms_key->empty();
-    }
+    dtw->canvas->cms_key = id;
+    dtw->requestCanvasUpdate();
+    enabled = !dtw->canvas->cms_key.empty();
     cms_adjust_set_sensitive( dtw, enabled );
 #endif // ENABLE_LCMS
 }
@@ -1161,7 +1156,7 @@ bool SPDesktopWidget::showInfoDialog( Glib::ustring const &message )
                 GTK_BUTTONS_OK,
                 "%s", message.c_str());
         gtk_window_set_title( GTK_WINDOW(dialog), _("Note:")); // probably want to take this as a parameter.
-        gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
     }
     return result;
@@ -1522,7 +1517,7 @@ sp_desktop_widget_update_hruler (SPDesktopWidget *dtw)
      * the latter is used for drawing e.g. the grids and guides. Only when the viewbox
      * coincides with the pixel buffer, everything will line up nicely.
      */
-    NR::IRect viewbox = dtw->canvas->getViewboxIntegers();
+    Geom::IntRect viewbox = dtw->canvas->getViewboxIntegers();
 
     double const scale = dtw->desktop->current_zoom();
     double s = viewbox.min()[Geom::X] / scale - dtw->ruler_origin[Geom::X];
@@ -1538,7 +1533,7 @@ sp_desktop_widget_update_vruler (SPDesktopWidget *dtw)
      * the latter is used for drawing e.g. the grids and guides. Only when the viewbox
      * coincides with the pixel buffer, everything will line up nicely.
      */
-    NR::IRect viewbox = dtw->canvas->getViewboxIntegers();
+    Geom::IntRect viewbox = dtw->canvas->getViewboxIntegers();
 
     double const scale = dtw->desktop->current_zoom();
     double s = viewbox.min()[Geom::Y] / -scale - dtw->ruler_origin[Geom::Y];
@@ -1561,12 +1556,12 @@ void SPDesktopWidget::namedviewModified(SPObject *obj, guint flags)
         /* This loops through all the grandchildren of aux toolbox,
          * and for each that it finds, it performs an sp_search_by_data_recursive(),
          * looking for widgets that hold some "tracker" data (this is used by
-         * all toolboxes to refer to the unit selector). The default document units 
+         * all toolboxes to refer to the unit selector). The default document units
          * is then selected within these unit selectors.
          *
          * Of course it would be nice to be able to refer to the toolbox and the
          * unit selector directly by name, but I don't yet see a way to do that.
-         * 
+         *
          * This should solve: https://bugs.launchpad.net/inkscape/+bug/362995
          */
         if (GTK_IS_CONTAINER(aux_toolbox)) {
@@ -1574,7 +1569,7 @@ void SPDesktopWidget::namedviewModified(SPObject *obj, guint flags)
             for (GList *i = ch; i != NULL; i = i->next) {
                 if (GTK_IS_CONTAINER(i->data)) {
                     GList *grch = gtk_container_get_children (GTK_CONTAINER(i->data));
-                    for (GList *j = grch; j != NULL; j = j->next) {                        
+                    for (GList *j = grch; j != NULL; j = j->next) {
                         if (!GTK_IS_WIDGET(j->data)) // wasn't a widget
                             continue;
 
@@ -1887,7 +1882,7 @@ sp_desktop_widget_update_scrollbars (SPDesktopWidget *dtw, double scale)
     Geom::Rect darea ( Geom::Point(-doc->getWidth(), -doc->getHeight()),
                      Geom::Point(2 * doc->getWidth(), 2 * doc->getHeight())  );
 
-    Geom::OptRect deskarea = Geom::unify(darea, doc->getRoot()->getBboxDesktop());
+    Geom::OptRect deskarea = darea | doc->getRoot()->getBboxDesktop();
 
     /* Canvas region we always show unconditionally */
     Geom::Rect carea( Geom::Point(deskarea->min()[Geom::X] * scale - 64, deskarea->max()[Geom::Y] * -scale - 64),

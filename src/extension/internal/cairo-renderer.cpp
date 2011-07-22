@@ -454,7 +454,7 @@ static void sp_asbitmap_render(SPItem *item, CairoRenderContext *ctx)
 
     // Get the bounding box of the selection in document coordinates.
     Geom::OptRect bbox = 
-           item->getBounds(item->i2d_affine(), SPItem::RENDERING_BBOX);
+           item->getBounds(item->i2dt_affine(), SPItem::RENDERING_BBOX);
 
     // no bbox, e.g. empty group
 	if (!bbox) {
@@ -475,9 +475,11 @@ static void sp_asbitmap_render(SPItem *item, CairoRenderContext *ctx)
     }
 
     // The width and height of the bitmap in pixels
-    unsigned width = (unsigned) floor ((bbox->max()[Geom::X] - bbox->min()[Geom::X]) * (res / PX_PER_IN));
-    unsigned height =(unsigned) floor ((bbox->max()[Geom::Y] - bbox->min()[Geom::Y]) * (res / PX_PER_IN));
-    
+    unsigned width =  ceil((bbox->max()[Geom::X] - bbox->min()[Geom::X]) * (res / PX_PER_IN));
+    unsigned height = ceil((bbox->max()[Geom::Y] - bbox->min()[Geom::Y]) * (res / PX_PER_IN));
+
+    if (width == 0 || height == 0) return;
+
     // Scale to exactly fit integer bitmap inside bounding box
     double scale_x = (bbox->max()[Geom::X] - bbox->min()[Geom::X]) / width;
     double scale_y = (bbox->max()[Geom::Y] - bbox->min()[Geom::Y]) / height;
@@ -500,7 +502,7 @@ static void sp_asbitmap_render(SPItem *item, CairoRenderContext *ctx)
                                  (Geom::Affine)(Geom::Translate (shift_x, shift_y));
 
     // ctx matrix already includes item transformation. We must substract.
-    Geom::Affine t_item =  item->i2d_affine ();
+    Geom::Affine t_item =  item->i2dt_affine ();
     Geom::Affine t = t_on_document * t_item.inverse();
 
     // Do the export
@@ -622,7 +624,7 @@ CairoRenderer::setupDocument(CairoRenderContext *ctx, SPDocument *doc, bool page
     g_assert( ctx != NULL );
 
     if (!base) {
-        base = SP_ITEM(doc->getRoot());
+        base = doc->getRoot();
     }
 
     NRRect d;
@@ -631,7 +633,7 @@ CairoRenderer::setupDocument(CairoRenderContext *ctx, SPDocument *doc, bool page
         d.x1 = doc->getWidth();
         d.y1 = doc->getHeight();
     } else {
-        base->invoke_bbox( &d, base->i2d_affine(), TRUE, SPItem::RENDERING_BBOX);
+        base->invoke_bbox( &d, base->i2dt_affine(), TRUE, SPItem::RENDERING_BBOX);
     }
 
     if (ctx->_vector_based_target) {

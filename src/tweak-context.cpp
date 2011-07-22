@@ -63,7 +63,6 @@
 #include "display/canvas-arena.h"
 #include "display/curve.h"
 #include "livarot/Shape.h"
-#include <2geom/isnan.h>
 #include <2geom/transforms.h>
 #include "preferences.h"
 #include "style.h"
@@ -407,7 +406,7 @@ sp_tweak_dilate_recursive (Inkscape::Selection *selection, SPItem *item, Geom::P
 
     if (SP_IS_BOX3D(item) && !is_transform_mode(mode) && !is_color_mode(mode)) {
         // convert 3D boxes to ordinary groups before tweaking their shapes
-        item = SP_ITEM(box3d_convert_to_group(SP_BOX3D(item)));
+        item = box3d_convert_to_group(SP_BOX3D(item));
         selection->add(item);
     }
 
@@ -984,7 +983,7 @@ sp_tweak_color_recursive (guint mode, SPItem *item, SPItem *item_at_point,
                 }
 
                 double blur_now = 0;
-                Geom::Affine i2d = item->i2d_affine ();
+                Geom::Affine i2dt = item->i2dt_affine ();
                 if (style->filter.set && style->getFilter()) {
                     //cycle through filter primitives
                     SPObject *primitive_obj = style->getFilter()->children;
@@ -995,7 +994,7 @@ sp_tweak_color_recursive (guint mode, SPItem *item, SPItem *item_at_point,
                             if(SP_IS_GAUSSIANBLUR(primitive)) {
                                 SPGaussianBlur * spblur = SP_GAUSSIANBLUR(primitive);
                                 float num = spblur->stdDeviation.getNumber();
-                                blur_now += num * i2d.descrim(); // sum all blurs in the filter
+                                blur_now += num * i2dt.descrim(); // sum all blurs in the filter
                             }
                         }
                         primitive_obj = primitive_obj->next;

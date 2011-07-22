@@ -21,6 +21,7 @@
 
 #include <glib/gmem.h>
 #include <gtk/gtk.h>
+#include <2geom/transforms.h>
 #include "sp-namedview.h"
 #include "selection.h"
 #include "inkscape.h"
@@ -79,8 +80,7 @@ GdkPixbuf* render_pixbuf(NRArenaItem* root, double scale_factor, const Geom::Rec
                                       GDK_COLORSPACE_RGB,
                                       TRUE,
                                       8, psize, psize, cairo_image_surface_get_stride(s),
-                                      (GdkPixbufDestroyNotify)cairo_surface_destroy,
-                                      NULL);
+                                      ink_cairo_pixbuf_cleanup, s);
     convert_pixbuf_argb32_to_normal(pixbuf);
 
     return pixbuf;

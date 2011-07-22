@@ -25,6 +25,7 @@
 #include <string>
 #include <glib/gstdio.h>
 #include <2geom/rect.h>
+#include <2geom/transforms.h>
 #include <glibmm/i18n.h>
 
 #include "display/nr-arena-image.h"
@@ -44,8 +45,9 @@
 
 #include "io/sys.h"
 #if ENABLE_LCMS
-#include "color-profile-fns.h"
+#include "cms-system.h"
 #include "color-profile.h"
+#include <lcms.h>
 //#define DEBUG_LCMS
 #ifdef DEBUG_LCMS
 
@@ -848,9 +850,9 @@ static void sp_image_update( SPObject *object, SPCtx *ctx, unsigned int flags )
                         DEBUG_MESSAGE( lcmsFive, "in <image>'s sp_image_update. About to call colorprofile_get_handle()" );
 #endif // DEBUG_LCMS
                         guint profIntent = Inkscape::RENDERING_INTENT_UNKNOWN;
-                        cmsHPROFILE prof = Inkscape::colorprofile_get_handle( object->document,
-                                                                              &profIntent,
-                                                                              image->color_profile );
+                        cmsHPROFILE prof = Inkscape::CMSSystem::getHandle( object->document,
+                                                                           &profIntent,
+                                                                           image->color_profile );
                         if ( prof ) {
                             icProfileClassSignature profileClass = cmsGetDeviceClass( prof );
                             if ( profileClass != icSigNamedColorClass ) {
@@ -1015,7 +1017,7 @@ static void sp_image_modified( SPObject *object, unsigned int flags )
     }
 
     if (flags & SP_OBJECT_STYLE_MODIFIED_FLAG) {
-        for (SPItemView *v = SP_ITEM (image)->display; v != NULL; v = v->next) {
+        for (SPItemView *v = image->display; v != NULL; v = v->next) {
             nr_arena_image_set_style (NR_ARENA_IMAGE (v->arenaitem), object->style);
         }
     }
@@ -1271,8 +1273,7 @@ sp_image_update_arenaitem (SPImage *image, NRArenaImage *ai)
     nr_arena_image_set_clipbox(ai, image->clipbox);
 }
 
-static void
-sp_image_update_canvas_image (SPImage *image)
+static void sp_image_update_canvas_image(SPImage *image)
 {
     SPItem *item = SP_ITEM(image);
 
@@ -1302,7 +1303,7 @@ static void sp_image_snappoints( SPItem const *item, std::vector<Inkscape::SnapC
         double const y0 = image.y.computed;
         double const x1 = x0 + image.width.computed;
         double const y1 = y0 + image.height.computed;
-        Geom::Affine const i2d (item->i2d_affine ());
+        Geom::Affine const i2d (item->i2dt_affine ());
         p.push_back(Inkscape::SnapCandidatePoint(Geom::Point(x0, y0) * i2d, Inkscape::SNAPSOURCE_CORNER, Inkscape::SNAPTARGET_CORNER));
         p.push_back(Inkscape::SnapCandidatePoint(Geom::Point(x0, y1) * i2d, Inkscape::SNAPSOURCE_CORNER, Inkscape::SNAPTARGET_CORNER));
         p.push_back(Inkscape::SnapCandidatePoint(Geom::Point(x1, y1) * i2d, Inkscape::SNAPSOURCE_CORNER, Inkscape::SNAPTARGET_CORNER));
@@ -1497,7 +1498,7 @@ static void sp_image_set_curve( SPImage *image )
     } else {
         NRRect rect;
         sp_image_bbox(image, &rect, Geom::identity(), 0);
-        Geom::Rect rect2 = to_2geom(*rect.upgrade());
+        Geom::Rect rect2 = *to_2geom(&rect);
         SPCurve *c = SPCurve::new_from_rect(rect2, true);
 
         if (image->curve) {
