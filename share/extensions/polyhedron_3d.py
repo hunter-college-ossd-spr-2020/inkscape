@@ -132,7 +132,8 @@ def get_obj_data(obj, name):
 
 #RENDERING AND SVG OUTPUT FUNCTIONS
 
-def draw_SVG_dot((cx, cy), st, name, parent):
+def draw_SVG_dot(point, st, name, parent):
+    (cx, cy) = point
     style = { 'stroke': '#000000', 'stroke-width':str(st.th), 'fill': st.fill, 'stroke-opacity':st.s_opac, 'fill-opacity':st.f_opac}
     circ_attribs = {'style':simplestyle.formatStyle(style),
                     inkex.addNS('label','inkscape'):name,
@@ -140,7 +141,9 @@ def draw_SVG_dot((cx, cy), st, name, parent):
                     'cx':str(cx), 'cy':str(-cy)}
     inkex.etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
     
-def draw_SVG_line((x1, y1),(x2, y2), st, name, parent):
+def draw_SVG_line(p1, p2, st, name, parent):
+    (x1, y1) = p1
+    (x2, y2) = p2
     style = { 'stroke': '#000000', 'stroke-width':str(st.th), 'stroke-linecap':st.linecap}
     line_attribs = {'style':simplestyle.formatStyle(style),
                     inkex.addNS('label','inkscape'):name,
@@ -179,8 +182,9 @@ def draw_faces( faces_data, pts, obj, shading, fill_col,st, parent):
         face_no = face[3]#the number of the face to draw
         draw_SVG_poly(pts, obj.fce[ face_no ], st, 'Face:'+str(face_no), parent)
 
-def get_darkened_colour( (r,g,b), factor):
+def get_darkened_colour(colour, factor):
 #return a hex triplet of colour, reduced in lightness proportionally to a value between 0 and 1
+    (r,g,b) = colour
     return  '#' + "%02X" % floor( factor*r ) \
                 + "%02X" % floor( factor*g ) \
                 + "%02X" % floor( factor*b ) #make the colour string
