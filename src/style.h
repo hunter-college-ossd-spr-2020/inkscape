@@ -46,14 +46,6 @@ class SPIPaint;
 class SPIFontSize;
 class SPIBaselineShift;
 
-/// Float type internal to SPStyle.
-struct SPIFloat {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned data : 30;
-    float value;
-};
-
 /*
  * One might think that the best value for SP_SCALE24_MAX would be ((1<<24)-1), which allows the
  * greatest possible precision for fitting [0, 1] fractions into 24 bits.
@@ -82,85 +74,119 @@ struct SPIFloat {
 /** Returns a scale24 for the product of two scale24 values. */
 #define SP_SCALE24_MUL(_v1, _v2) unsigned((double)(_v1) * (_v2) / SP_SCALE24_MAX + .5)
 
-/// 24 bit data type internal to SPStyle.
-struct SPIScale24 {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned value : 24;
-};
-
-/// Int type internal to SPStyle.
-struct SPIInt {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned data : 30;
-    int value;
-};
-
-/// Short type internal to SPStyle.
-struct SPIShort {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned data : 14;
-    int value : 16;
-};
-
-/// Enum type internal to SPStyle.
-struct SPIEnum {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned value : 8;
-    unsigned computed : 8;
-};
-
-/// String type internal to SPStyle.
-struct SPIString {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned data : 30;
-    gchar *value;
-};
-
-enum {
-    SP_CSS_UNIT_NONE,
-    SP_CSS_UNIT_PX,
-    SP_CSS_UNIT_PT,
-    SP_CSS_UNIT_PC,
-    SP_CSS_UNIT_MM,
-    SP_CSS_UNIT_CM,
-    SP_CSS_UNIT_IN,
-    SP_CSS_UNIT_EM,
-    SP_CSS_UNIT_EX,
-    SP_CSS_UNIT_PERCENT
-};
-
-/// Length type internal to SPStyle.
-struct SPILength {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned unit : 4;
-    float value;
-    float computed;
-};
-
 #define SP_STYLE_FILL_SERVER(s) (((SPStyle *) (s))->getFillPaintServer())
 #define SP_STYLE_STROKE_SERVER(s) (((SPStyle *) (s))->getStrokePaintServer())
 
 class SVGICCColor;
 
 /// Paint type internal to SPStyle.
-struct SPIPaint {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned currentcolor : 1;
-    unsigned int colorSet : 1;
-    unsigned int noneSet : 1;
-    struct {
-         SPPaintServerReference *href;
-         SPColor color;
-    } value;
+class SPIPaint : public SPIXorEnum {
+    SPPaintServerReference *href;
+    SPColor color;
 
-    SPIPaint();
+    enum {
+        SP_PAINT_CURRENT_COLOR
+    };
+
+    SPIPaint() :
+        href(NULL),
+    {
+        literalList = {
+            {"none", NONE},
+            {"currentColor", SP_PAINT_CURRENTCOLOR}
+        };
+    }
+
+    ~SPIPaint()
+    {
+        if (href != NULL) {
+            delete href;
+        }
+    }
+
+    void readFromString(gchar *str)
+    {
+        SPIXorEnum::readFromString(str);
+        if (status == STATUS_UNSET) {
+            const guint32 rgb0 = sp_svg_read_color(str, 0xff);
+            if (rgb0 != 0xff) {
+                setColor(rgb0);
+                status = STATUS_SET;
+            }
+        }
+    }
+
+    void mergeFromDyingParent(const SPIPaint &parent)
+    {
+        if (status == STATUS_UNSET || status == STATUS_INHERIT) {
+            mergeFromParent(&parent);
+            status = parent.status;
+        }
+    }
+
+    void mergeFromParent(const SPIPaint &parent)
+    {
+        if ((paint->status == STATUS_SET && paint->value == SP_PAINT_CURRENT_COLOR) || parent->value == SP_PAINT_CURRENT_COLOR) {
+            SPIStatus isset = paint->status;
+            clear();
+            if (isset == ) = isset;
+            value = SP_PAINT_CURRENT_COLOR;
+            setColor(style->color.value.color); // TODO
+            return;
+        }
+
+        clear();
+        if (parent->isPaintserver() == true) {
+            if (parent->value.href != NULL) { // TODO
+                sp_style_set_ipaint_to_uri(style, paint, parent->value.href->getURI(), parent->value.href->getOwnerDocument());
+            } else {
+                g_warning("Expected paint server not found.");
+            }
+        }
+        else if (parent->isColor() ) {
+            paint->setColor( parent->value.color );
+        }
+        else if ( parent->isNoneSet() ) {
+            paint->noneSet = true;
+        }
+        else if (parent->isNone()) {
+            //
+        }
+        else {
+            g_assert_not_reached();
+        }
+
+    }
+
+    // TODO sigc connection
+
+    bool operator !=(const SPIPaint &paint)
+    {
+        if (a->isColor() != b->isColor()
+            || a->isPaintserver() != b->isPaintserver()
+            || a->status != b->status
+            || (status == STATUS_LITERAL_SET && a->literalValue != b->literalValue))
+        {
+            return true;
+        }
+// TODO declare functions const!
+        // TODO refactor to allow for mixed paints (rgb() *and* url(), etc)
+        if (isPaintserver()) {
+            return (value.href == NULL || value.href == NULL || value.href->getObject() != value.href->getObject());
+        }
+
+        if ( a->isColor() ) {
+            return !( (value.color == value.color)
+                     && ((value.color.icc == value.color.icc)
+                         || (value.color.icc && value.color.icc
+                             && (value.color.icc->colorProfile == value.color.icc->colorProfile)
+                             && (value.color.icc->colors == value.color.icc->colors))));
+        /* todo: Allow for epsilon differences in iccColor->colors, e.g. changes small enough not to show up
+         * in the string representation. */
+        }
+
+        return false;
+    }
 
     bool isSet() const { return true; /* set || colorSet*/}
     bool isSameType( SPIPaint const & other ) const {return (isPaintserver() == other.isPaintserver()) && (colorSet == other.colorSet) && (currentcolor == other.currentcolor);}
@@ -187,86 +213,711 @@ private:
 #endif // WIN32
 };
 
-/// Filter type internal to SPStyle
-struct SPIFilter {
-    unsigned set : 1;
-    unsigned inherit : 1;
+class SPIFilter : public SPIXorEnum {
+public:
+    SPIFilter() :
+        SPFilterReference(NULL)
+    {
+        literalList = {{"none", NONE}};
+    }
+
+    // Attention! This return value has to be freed!
+    gchar * toString()
+    {
+        if (status == STATUS_INHERIT) {
+            return g_strdup("inherit");
+        }
+        else {
+            return g_strdup_printf("url(%s)", href->getURI()->toString());
+        }
+    }
+
+    // TODO: "none" value?
+    void readFromString(gchar *str)
+    {
+        SPIXorEnum::readFromString();
+
+        if (href != NULL && href->getObject() != NULL) {
+            href->detach();
+        }
+
+        if (status == STATUS_UNSET) {
+            return;
+        }
+
+        if (str[0] == 'u' && str[1] == 'r' && str[2] == 'l') {
+            char *uri = extract_uri(str);
+            if (uri == NULL || uri[0] == '\0') {
+                g_warning("Specified filter url is empty");
+                status = STATUS_SET; // really?
+                return;
+            }
+
+            if (href == NULL && document != NULL) {
+                href = new SPFilterReference(document);
+                href->changedSignal().connect(sigc::bind(sigc::ptr_fun(filterRefChanged), this));
+            }
+
+            try {
+                href->attach(Inkscape::URI(uri));
+            }
+            catch (Inkscape::BadURIException &e) {
+                g_warning("%s", e.what());
+                href->detach();
+            }
+
+            g_free(uri);
+        }
+        else {
+            status = STATUS_UNSET;
+        }
+    }
+
+private:
     SPFilterReference *href;
 };
-
-enum {
-    SP_FONT_SIZE_LITERAL,
-    SP_FONT_SIZE_LENGTH,
-    SP_FONT_SIZE_PERCENTAGE
-};
-
-enum {
-    SP_BASELINE_SHIFT_LITERAL,
-    SP_BASELINE_SHIFT_LENGTH,
-    SP_BASELINE_SHIFT_PERCENTAGE
-};
-
-/*
-Not used anymore, originally for SPIFontSize
-#define SP_F8_16_TO_FLOAT(v) ((gdouble) (v) / (1 << 16))
-#define SP_F8_16_FROM_FLOAT(v) ((int) ((v) * ((1 << 16) + 0.9999)))
-*/
 
 #define SP_STYLE_FLAG_IFSET (1 << 0)
 #define SP_STYLE_FLAG_IFDIFF (1 << 1)
 #define SP_STYLE_FLAG_ALWAYS (1 << 2)
 
-/// Fontsize type internal to SPStyle (also used by libnrtype/Layout-TNG-Input.cpp).
-struct SPIFontSize {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned type : 2;
-    unsigned unit : 4;
-    unsigned literal: 4;
-    float value;
-    float computed;
+class SPIFontSize : SPILengthOrNormal {
+    // is a length
+    SPIFontSize()
+    {
+        // literallist
+    }
+
+// TODO flags
+// TODO unify free requirement
+    gchar * toString()
+    {
+        gchar *basets = SPIXorEnum::toString()[0]
+        if (basets != NULL) {
+            return basets;
+        }
+        if (fontSize.getUnit() == SVGLength::SVG_LENGTHTYPE_UNSPECIFIED) {
+            // must specify px, see inkscape bug 1221626, mozilla bug 234789
+            fontSize.convertToSpecifiedUnits(SVGLength::SVG_LENGTHTYPE_PX);
+        }
+        return fontSize.toString();
+    }
+
+    void mergeFromDyingParent(const SPIFontSize *const parent)
+    {
+        
+    }
+SVGLength fontSize;
 };
 
-/// Baseline shift type internal to SPStyle.
-struct SPIBaselineShift {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned type : 2;
-    unsigned unit : 4;
-    unsigned literal: 2;
-    float value; // Can be negative
-    float computed;
+/** Baseline shift type internal to SPStyle.
+ */
+class SPIBaselineShift {
+public:
+    SPIBaselineShift() { }
+
+    void setValue(SVGLength length, const SPIFontSize &pfont_size)
+    {
+        if (status == STATUS_VALUE_SET || status == STATUS_INHERIT) {
+            computedValue = parent.getComputedValue();
+        }
+        else if (status == STATUS_LITERAL_SET) {
+            switch (enumValue) {
+                case SP_CSS_BASELINE_SHIFT_BASELINE:
+                    computedValue.setValue(0);
+                    break;
+                case SP_CSS_BASELINE_SHIFT_SUPER:
+                    computedValue.setValue(0.4 * pfont_size.getComputedValue());
+                    break;
+                case SP_CSS_BASELINE_SHIFT_SUPER:
+                    computedValue.setValue(0.5 * pfont_value.getComputedValue());
+                    break;
+            }
+        }
+        else if (status == STATUS_VALUE_SET) {
+            if (length.getUnitType() == SVGLength::SVG_LENGTHTYPE_PERCENTAGE) {
+                computedValue = 0.5 * value * pfont_size.getComputedValue();
+            }
+        }
+        else {
+            computedValue += parent.getComputedValue();
+        }
+    }
+
+    SVGLength getValue()
+    {
+        return length;
+    }
+
+    SVGLength getComputedValue()
+    {
+        return computedLength;
+    }
+
+    void inheritFrom(const SPIBaselineShift &parent, const SPIBaselineShift &pfont_size)
+    {
+        if (status == STATUS_UNSET || status == STATUS_INHERIT) {
+            computedValue = parent.getComputedValue();
+        }
+        else if (status == STATUS_VALUE_SET) {
+        }
+    }
+
+private:
+    SVGLength computedLength;
+    SVGLength length;
 };
 
-/// Text decoration type internal to SPStyle.
-struct SPITextDecoration {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned underline : 1;
-    unsigned overline : 1;
-    unsigned line_through : 1;
-    unsigned blink : 1;    // "Conforming user agents are not required to support this value." yay!
+/**
+ * color-interpolation, color-interpolation-filters, color-rendering, shape-rendering,
+ * text-rendering, image-rendering, fill-rule, stroke-linecap, stroke-linejoin, display,
+ * visibility
+ */
+
+class SPIXorEnum {
+
+public:
+    SPIXorEnum(SPLiteralEnum property) :
+        status(ENUM_UNSET)
+    {
+        switch (property) {
+            case SP_PROP_STROKE_LINECAP:
+                value = SP_STROKE_LINECAP_BUTT;
+                literalDict = {
+                    {"miter", SP_STROKE_LINECAP_BUTT},
+                    {"round", SP_STROKE_LINECAP_ROUND},
+                    {"square", SP_STROKE_LINECAP_SQUARE},
+                };
+                break;
+            case SP_PROP_STROKE_LINEJOIN:
+                value = SP_STROKE_LINEJOIN_MITER;
+                literalDict = {
+                    {"miter", SP_STROKE_LINEJOIN_MITER},
+                    {"round", SP_STROKE_LINEJOIN_ROUND},
+                    {"bevel", SP_STROKE_LINEJOIN_BEVEL},
+                };
+                break;
+            case SP_PROP_FILL_RULE:
+                value = SP_WIND_RULE_NONZERO;
+                literalDict = {
+                    {"nonzero", SP_WIND_RULE_NONZERO},
+                    {"evenodd", SP_WIND_RULE_EVENODD},
+                };
+                break;
+            case SP_PROP_FONT_WEIGHT:
+                value = SP_CSS_FONT_WEIGHT_NORMAL;
+                literalDict = {
+                    {"100", SP_CSS_FONT_WEIGHT_100},
+                    {"200", SP_CSS_FONT_WEIGHT_200},
+                    {"300", SP_CSS_FONT_WEIGHT_300},
+                    {"400", SP_CSS_FONT_WEIGHT_400},
+                    {"500", SP_CSS_FONT_WEIGHT_500},
+                    {"600", SP_CSS_FONT_WEIGHT_600},
+                    {"700", SP_CSS_FONT_WEIGHT_700},
+                    {"800", SP_CSS_FONT_WEIGHT_800},
+                    {"900", SP_CSS_FONT_WEIGHT_900},
+                    {"normal", SP_CSS_FONT_WEIGHT_NORMAL},
+                    {"bold", SP_CSS_FONT_WEIGHT_BOLD},
+                    {"lighter", SP_CSS_FONT_WEIGHT_LIGHTER},
+                    {"bolder", SP_CSS_FONT_WEIGHT_BOLDER},
+                };
+                break;
+            case SP_PROP_FONT_VARIANT:
+                value = SP_CSS_FONT_VARIANT_NORMAL;
+                literalDict = {
+                    {"normal", SP_CSS_FONT_VARIANT_NORMAL},
+                    {"small-caps", SP_CSS_FONT_VARIANT_SMALL_CAPS},
+                };
+                break;
+            case SP_PROP_FONT_STRETCH:
+                value = SP_CSS_FONT_STRETCH_NORMAL;
+                literalDict = {
+                    {"ultra-condensed", SP_CSS_FONT_STRETCH_ULTRA_CONDENSED},
+                    {"extra-condensed", SP_CSS_FONT_STRETCH_EXTRA_CONDENSED},
+                    {"condensed", SP_CSS_FONT_STRETCH_CONDENSED},
+                    {"semi-condensed", SP_CSS_FONT_STRETCH_SEMI_CONDENSED},
+                    {"normal", SP_CSS_FONT_STRETCH_NORMAL},
+                    {"semi-expanded", SP_CSS_FONT_STRETCH_SEMI_EXPANDED},
+                    {"expanded", SP_CSS_FONT_STRETCH_EXPANDED},
+                    {"extra-expanded", SP_CSS_FONT_STRETCH_EXTRA_EXPANDED},
+                    {"ultra-expanded", SP_CSS_FONT_STRETCH_ULTRA_EXPANDED},
+                    {"narrower", SP_CSS_FONT_STRETCH_NARROWER},
+                    {"wider", SP_CSS_FONT_STRETCH_WIDER},
+                };
+                break;
+            case SP_PROP_SHAPE_RENDERING:
+                literalList = {
+                    {"auto", 0},
+                    {"optimizeSpeed", 0},
+                    {"crispEdges", 0},
+                    {"geometricPrecision", 0}
+                };
+                break;
+            case SP_PROP_DISPLAY:
+                literalList = {
+                    {"none",      SP_CSS_DISPLAY_NONE},
+                    {"inline",    SP_CSS_DISPLAY_INLINE},
+                    {"block",     SP_CSS_DISPLAY_BLOCK},
+                    {"list-item", SP_CSS_DISPLAY_LIST_ITEM},
+                    {"run-in",    SP_CSS_DISPLAY_RUN_IN},
+                    {"compact",   SP_CSS_DISPLAY_COMPACT},
+                    {"marker",    SP_CSS_DISPLAY_MARKER},
+                    {"table",     SP_CSS_DISPLAY_TABLE},
+                    {"inline-table",  SP_CSS_DISPLAY_INLINE_TABLE},
+                    {"table-row-group",    SP_CSS_DISPLAY_TABLE_ROW_GROUP},
+                    {"table-header-group", SP_CSS_DISPLAY_TABLE_HEADER_GROUP},
+                    {"table-footer-group", SP_CSS_DISPLAY_TABLE_FOOTER_GROUP},
+                    {"table-row",     SP_CSS_DISPLAY_TABLE_ROW},
+                    {"table-column-group", SP_CSS_DISPLAY_TABLE_COLUMN_GROUP},
+                    {"table-column",  SP_CSS_DISPLAY_TABLE_COLUMN},
+                    {"table-cell",    SP_CSS_DISPLAY_TABLE_CELL},
+                    {"table-caption", SP_CSS_DISPLAY_TABLE_CAPTION}
+                };
+                break;
+            case SP_PROP_ENABLE_BACKGROUND:
+                literalList = {
+                    {"accumulate", SP_CSS_BACKGROUND_ACCUMULATE},
+                    {"new", SP_CSS_BACKGROUND_NEW}
+                };
+                break;
+            case SP_PROP_CLIP_RULE:
+                literalList = {
+                    {"nonzero", SP_WIND_RULE_NONZERO},
+                    {"evenodd", SP_WIND_RULE_EVENODD}
+                };
+                break;
+            case SP_PROP_OVERFLOW:
+                literalList = {
+                    {"visible", SP_CSS_OVERFLOW_VISIBLE},
+                    {"hidden", SP_CSS_OVERFLOW_HIDDEN},
+                    {"scroll", SP_CSS_OVERFLOW_SCROLL},
+                    {"auto", SP_CSS_OVERFLOW_AUTO}
+                };
+                break;
+            case SP_PROP_VISIBILITY:
+                literalList = {
+                    {"hidden", SP_CSS_VISIBILITY_HIDDEN},
+                    {"collapse", SP_CSS_VISIBILITY_COLLAPSE},
+                    {"visible", SP_CSS_VISIBILITY_VISIBLE}
+                };
+                break;
+            case SP_PROP_BASELINE_SHIFT:
+                literalList = {
+                    {"baseline", SP_CSS_BASELINE_SHIFT_BASELINE},
+                    {"sub",      SP_CSS_BASELINE_SHIFT_SUB},
+                    {"super",    SP_CSS_BASELINE_SHIFT_SUPER}
+                };
+                break;
+            case SP_PROP_FONT_STYLE:
+                literalList = {
+                    {"normal", SP_CSS_FONT_STYLE_NORMAL},
+                    {"italic", SP_CSS_FONT_STYLE_ITALIC},
+                    {"oblique", SP_CSS_FONT_STYLE_OBLIQUE}
+                };
+                break;
+            case SP_PROP_FONT_SIZE:
+                literalList = {
+                    {"xx-small", SP_CSS_FONT_SIZE_XX_SMALL},
+                    {"x-small", SP_CSS_FONT_SIZE_X_SMALL},
+                    {"small", SP_CSS_FONT_SIZE_SMALL},
+                    {"medium", SP_CSS_FONT_SIZE_MEDIUM},
+                    {"large", SP_CSS_FONT_SIZE_LARGE},
+                    {"x-large", SP_CSS_FONT_SIZE_X_LARGE},
+                    {"xx-large", SP_CSS_FONT_SIZE_XX_LARGE},
+                    {"smaller", SP_CSS_FONT_SIZE_SMALLER},
+                    {"larger", SP_CSS_FONT_SIZE_LARGER}
+                };
+                break;
+            case SP_PROP_TEXT_ALIGN:
+                literalList = {
+                    {"start", SP_CSS_TEXT_ALIGN_START},
+                    {"end", SP_CSS_TEXT_ALIGN_END},
+                    {"left", SP_CSS_TEXT_ALIGN_LEFT},
+                    {"right", SP_CSS_TEXT_ALIGN_RIGHT},
+                    {"center", SP_CSS_TEXT_ALIGN_CENTER},
+                    {"justify", SP_CSS_TEXT_ALIGN_JUSTIFY}
+                };
+                break;
+            case SP_PROP_TEXT_TRANSFORM:
+                literalList = {
+                    {"capitalize", SP_CSS_TEXT_TRANSFORM_CAPITALIZE},
+                    {"uppercase", SP_CSS_TEXT_TRANSFORM_UPPERCASE},
+                    {"lowercase", SP_CSS_TEXT_TRANSFORM_LOWERCASE},
+                    {"none", SP_CSS_TEXT_TRANSFORM_NONE}
+                };
+                break;
+            case SP_PROP_TEXT_ANCHOR:
+                literalList = {
+                    {"start", SP_CSS_TEXT_ANCHOR_START},
+                    {"middle", SP_CSS_TEXT_ANCHOR_MIDDLE},
+                    {"end", SP_CSS_TEXT_ANCHOR_END}
+                };
+                break;
+            case SP_PROP_DIRECTION:
+                literalList = {
+                    {"ltr", SP_CSS_DIRECTION_LTR},
+                    {"rtl", SP_CSS_DIRECTION_RTL}
+                };
+                break;
+            case SP_PROP_BLOCK_PROGRESSION:
+                literalList = {
+                    {"tb", SP_CSS_BLOCK_PROGRESSION_TB},
+                    {"rl", SP_CSS_BLOCK_PROGRESSION_RL},
+                    {"lr", SP_CSS_BLOCK_PROGRESSION_LR}
+                };
+                break;
+         }
+    }
+
+    virtual gchar * toString()
+    {
+        if (status == STATUS_UNSET) {
+            return "";
+        }
+        else if (status == STATUS_INHERIT) {
+            return "inherit";
+        }
+        else {
+            unsigned int i;
+            for (unsigned int i = 0; i < G_N_ELEMENTS(literalList); ++i) {
+                if (literalList[i][1] == value) {
+                    return literalList[i][0];
+                }
+            }
+        }
+    }
+
+    virtual void readFromString(gchar *str)
+    {
+        if (str[0] == '\0') {
+            status = STATUS_UNSET;
+            value = defaultValue;
+        }
+        else if (strcmp(str, "inherit") == 0) {
+            status = STATUS_INHERIT;
+        }
+        else {
+            for (unsigned int i = 0; i < G_N_ELEMENTS(literalList); ++i) {
+                if (strcmp(literalList[i][0] == str) == 0) {
+                    status = STATUS_LITERAL_SET;
+                    value = literalList[i][1];
+                }
+            }
+        }
+    }
+
+    virtual void inheritFrom(SPIXorEnum *parent)
+    {
+        if (parent->status == STATUS_LITERAL_SET || parent->status == STATUS_INHERIT) {
+            computedValue = parent.getComputedValue()
+        }
+    }
+
+    void readFromNode(Inkscape::XML::Node *repr)
+    {
+        // sp_attribute_name in attributes.cpp
+        const char *name = sp_attribute_name(prop);
+        const gchar *val = repr->attribute(name);
+        readFromString(val);
+    }
+
+    enum {
+        STATUS_VALUE_SET,
+        STATUS_LITERAL_SET,
+        STATUS_INHERIT,
+        STATUS_UNSET
+    } status;
+
+    SPStyleEnum literalDict[];
+    unsigned int value;
+    unsigned int computedValue;
+    CSSAttribute prop;
 };
 
-/// Extended length type internal to SPStyle.
-struct SPILengthOrNormal {
-    unsigned set : 1;
-    unsigned inherit : 1;
-    unsigned normal : 1;
-    unsigned unit : 4;
-    float value;
-    float computed;
+class SPIString : public SPIXorEnum {
+public:
+    SPIString(gchar *str)
+    {
+        buffer = g_strdup(str);
+    }
+
+    ~SPIString()
+    {
+        if (buffer != NULL) { // omit check?
+            g_free(buffer);
+        }
+    }
+
+// const gchar * better
+    gchar * toString()
+    {
+        return buffer;
+    }
+
+    void readFromString(gchar *str)
+    {
+        delete buffer;
+        buffer = g_strdup(str);
+    }
+
+    void mergeFromDyingParent(SPIString *parent)
+    {
+        if (status == STATUS_UNSET || status == STATUS_INHERIT) {
+            g_free(buffer);
+            buffer = g_strdup(parent.toString());
+            status = parent.status;
+        }
+    }
+
+private:
+    gchar *buffer;
 };
+
+// also used for SVGNumber (just with unit SVG_LENGTHTYPE_UNSPECIFIED)
+class SPILengthOrNumber : public SPIXorEnum {
+public:
+    SPILengthOrNumber(CSSAttribute attr) :
+        SVGLength(0)
+    {
+        switch (prop) {
+            case SP_PROP_STROKE_OPACITY:
+            case SP_PROP_OPACITY:
+            case SP_PROP_FILL_OPACITY:
+            case SP_PROP_STROKE_WIDTH:
+                length = SVGLength(1);
+                break;
+            // case SP_PROP_DASH_OFFSET:
+                // default length stays 0
+            //    break;
+            case SP_PROP_LETTER_SPACING:
+            case SP_PROP_WORD_SPACING:
+                value = NORMAL;
+                enumList = {{"normal", NORMAL}};
+            case SP_PROP_KERNING:
+                value = AUTO;
+                enumList = {{"auto", AUTO}};
+                break;
+        }
+    }
+
+    gchar * toString()
+    {
+        return length.getValueAsString();
+    }
+
+    void readFromString(gchar *str)
+    {
+        length.setValueAsString(str);
+
+        // check if unit is unspecified when data type is actually SVGNumber
+        if (length.getUnit() != SVG_LENGTHTYPE_UNSPECIFIED && (
+            prop == SP_PROP_STROKE_OPACITY ||
+            prop == SP_PROP_FILL_OPACITY ||
+            prop == SP_PROP_OPACITY))
+        {
+            // invalid type
+            status = STATUS_VALUE_UNSET;
+            return;
+        }
+
+        // clamping to range 0...1, according to w3c
+        if (prop == SP_PROP_STROKE_OPACITY ||
+            prop == SP_PROP_FILL_OPACITY ||
+            prop == SP_PROP_OPACITY)
+        {
+            if (length.getValue() > 1) {
+                length.setValue(1);
+            }
+            else if (length.getValue() < 0) {
+                length.setValue(0);
+            }
+        }
+
+        status = STATUS_VALUE_SET;
+    }
+
+    // TODO maybe tostring and tooptimizedstring?
+
+    // TODO fix this
+    void mergeFromDyingParent(const SPILength &parent, const double parent_child_em_ratio)
+    {
+        if ((status == STATUS_VALUE_SET || status == STATUS_INHERIT)
+             && parent.status == STATUS_VALUE_SET && parent.status != STATUS_INHERIT)
+        {
+            length = parent.length;
+            status = parent.status; // correct?
+            switch (parent.getValue().getUnit()) {
+                case SVGLength::SVG_LENGTHTYPE_EM:
+                case SVGLength::SVG_LENGTHTYPE_EX:
+                    length.setValue(length.getValue() * parent_child_em_ratio);
+                    /** \todo
+                     * fixme: Have separate ex ratio parameter.
+                     * Get x height from libnrtype or pango.
+                     */
+                    if (!IS_FINITE(length.getValue())) {
+                        length.setValue(computedLength.getValue());
+                    }
+                    break;
+            }
+    }
+
+    SVGLength length;
+    SVGLength computedLength;
+private:
+    CSSAttribute prop;
+}
+
+/** none | [ underline || overline || line-through || blink ] | inherit */
+class SPITextDecoration : public SPIXorEnum {
+public:
+    enum {
+        TEXT_DECORATION_NONE         = (1 << 0),
+        TEXT_DECORATION_UNDERLINE    = (1 << 2),
+        TEXT_DECORATION_OVERLINE     = (1 << 3),
+        TEXT_DECORATION_LINE_THROUGH = (1 << 4)
+    } textDecoration;
+
+    SPITextDecoration() :
+        textDecoration(TEXT_DECORATION_NONE)
+    {}
+
+    gchar * toString()
+    {
+        Inkscape::CSSOStringStream os;
+        if (textDecoration & TEXT_DECORATION_INHERIT) {
+            os << "inherit";
+        }
+        else if {
+            if (textDecoration & TEXT_DECORATION_UNDERLINE) {
+                os << " underline";
+            }
+            if (textDecoration & TEXT_DECORATION_OVERLINE) {
+                os << " overline";
+            }
+            if (textDecoration & TEXT_DECORATION_LINE_THROUGH) {
+                os << " line-through";
+            }
+        }
+
+        return os.str().c_str();
+    }
+
+    void readFromString(const gchar *str)
+    {
+        if (strcmp(str, "inherit") == 0) {
+            status = STATUS_INHERIT;
+        }
+        else if (strcmp(str, "none") == 0) {
+            textDecoration = TEXT_DECORATION_NONE;
+        }
+        else {
+            textDecoration = TEXT_DECORATION_UNSET;
+            while (*str != '\0') {
+                if (*str == ' ') {
+                    continue;
+                }
+                if (strneq(str, "underline", 9) && (str[9] == ' ' || str[9] == '\0')) {
+                    textDecoration |= TEXT_DECORATION_UNDERLINE;
+                    str += 9;
+                }
+                else if (strneq(str, "overline", 8) && (str[8] == ' ' || str[8] == '\0')) {
+                    textDecoration |= TEXT_DECORATION_OVERLINE;
+                    str += 8;
+                }
+                else if (strneq(str, "line-through", 12) && (str[12] == ' ' || str[12] == '\0')) {
+                    textDecoration |= TEXT_DECORATION_LINE_THROUGH;
+                    str += 12;
+                }
+                else {
+                    status = STATUS_UNSET;
+                    return;  // invalid value
+                }
+                ++str;
+            }
+        }
+    }
+};
+
+class AttributeSplitter {
+public:
+    // Free the return value with freeAttributeSplit.
+    static std::vector<gchar *> splitAttributeString(gchar *str, bool commaIsSeparator)
+    {
+        // split after comma or whitespace
+        // tokStartIndex: start position of the split item
+        // if -1, we currently have separators
+        unsigned int tokStartIndex = 0;
+        std::vector<gchar *> result;
+        for (unsigned int i = 0; str[i] != '\0'; ++i) {
+            if (str[i] == ' ' || (commaIsSeparator == true && str[i] == ',') ||
+                str[i] == '\n' || str[i] == '\r' || str[i] == '\t') {
+                if (tokStartIndex == 0) {
+                    // leading whitespaces or so
+                    continue;
+                }
+
+                // true, if we this is the first separator character
+                if (tokStartIndex != -1) {
+                    gchar *split = g_malloc0(i - tokStartIndex + 2);
+                    g_utf8_strncpy(output, &str[tokStartIndex], i - tokStartIndex + 1);
+                    result.push_back(split);
+                    tokStartIndex = -1;
+                }
+            }
+            else {
+                tokStartIndex = i;
+            }
+        }
+        return result;
+    }
+
+    static void freeAttributeSplit(std::vector<gchar *> split)
+    {
+        for (int i = 0; i < split.size(); ++i) {
+            g_free(split[i]);
+        }
+    }
+};
+
+class SPIStrokeDashArray : public SPIXorEnum {
+public:
+    gchar * toString()
+    {
+        Inkscape::CSSOStringStream os;
+        unsigned long noi = dashes.getNumberOfItems();
+        for (unsigned long i = 0; i < noi; ++i) {
+            os << dashes.getItem(i).getValueAsString();
+            if (i != noi - 1) {
+                os << ",";
+            }
+        }
+        return os.str().c_str();
+    }
+
+    void readFromString(gchar *str)
+    {
+        std::vector<gchar *> split = AttributeSplitter::splitAttributeString(str);
+        for (unsigned int i = 0; i < split.size(); ++i) {
+            SVGLength *item = new SVGLength();
+            item.setValueAsString(split[i]);
+            dashes.appendItem(const_cast<const SVGLength>(item));
+        }
+        AttributeSplitter::freeAttributeSplit(split);
+    }
+
+    ~SPIStrokeDashArray()
+    {
+        for (unsigned int i = 0; i < dashes.getNumberOfItems(); ++i) {
+            delete dashes.getItem(i);
+        }
+        delete dashes;
+    }
+
+private:
+    SVGLengthList dashes;
+}
 
 class SPTextStyle;
-
-/// Stroke dash details.
-class NRVpathDash {
-public:
-    double offset;
-    int n_dash;
-    double *dash;
-};
 
 /// An SVG style object.
 struct SPStyle {
@@ -274,6 +925,7 @@ struct SPStyle {
 
     /** Object we are attached to */
     SPObject *object;
+
     /** Document we are associated with */
     SPDocument *document;
 
@@ -281,116 +933,327 @@ struct SPStyle {
     SPTextStyle *text;
     unsigned text_private : 1;
 
-    /* CSS2 */
-    /* Font */
     /** Size of the font */
     SPIFontSize font_size;
-    /** Style of the font */
-    SPIEnum font_style;
-    /** Which substyle of the font */
-    SPIEnum font_variant;
-    /** Weight of the font */
-    SPIEnum font_weight;
-    /** Stretch of the font */
-    SPIEnum font_stretch;
 
-    /** First line indent of paragraphs (css2 16.1) */
-    SPILength text_indent;
-    /** text alignment (css2 16.2) (not to be confused with text-anchor) */
-    SPIEnum text_align;
     /** text decoration (css2 16.3.1) */
     SPITextDecoration text_decoration;
-    // 16.3.2 is text-shadow. That's complicated.
-    /** Line spacing (css2 10.8.1) */
-    SPILengthOrNormal line_height;
-    /** letter spacing (css2 16.4) */
-    SPILengthOrNormal letter_spacing;
-    /** word spacing (also css2 16.4) */
-    SPILengthOrNormal word_spacing;
-    /** capitalization (css2 16.5) */
-    SPIEnum text_transform;
 
-    /* CSS3 Text */
-    /** text direction (css3 text 3.2) */
-    SPIEnum direction;
-    /** block progression (css3 text 3.2) */
-    SPIEnum block_progression;
-    /** Writing mode (css3 text 3.2 and svg1.1 10.7.2) */
-    SPIEnum writing_mode;
     /** Baseline shift (svg1.1 10.9.2) */
     SPIBaselineShift baseline_shift;
 
-    /* SVG */
-    /** Anchor of the text (svg1.1 10.9.1) */
-    SPIEnum text_anchor;
+    SPIDashArray stroke_dasharray;
 
-    /* Misc attributes */
-    unsigned clip_set : 1;
-    unsigned color_set : 1;
-    unsigned cursor_set : 1;
-    unsigned overflow_set : 1;
-    unsigned clip_path_set : 1;
-    unsigned mask_set : 1;
+    CSSAttribute literalProperties[] = {
+        SP_PROP_COLOR,
+        SP_PROP_DISPLAY,
+        SP_PROP_OVERFLOW,
+        SP_PROP_VISIBILITY,
+        SP_PROP_CLIP_RULE,
+        SP_PROP_TEXT_ANCHOR,
+        SP_PROP_TEXT_ALIGN,
+        SP_PROP_TEXT_TRANSFORM,
+        SP_PROP_DIRECTION,
+        SP_PROP_BLOCK_PROGRESSION,
+        SP_PROP_WRITING_MODE,
+        SP_PROP_FONT_STYLE,
+        SP_PROP_FONT_VARIANT,
+        SP_PROP_FONT_WEIGHT,
+        SP_PROP_FONT_STRETCH,
+        SP_PROP_STROKE_LINECAP,
+        SP_PROP_STROKE_LINEJOIN,
+        SP_PROP_FILL_RULE,
+        SP_PROP_OVERFLOW,
+        SP_PROP_DISPLAY,
+        SP_PROP_CLIP_RULE
+        SP_PROP_ENABLE_BACKGROUND
+        SP_PROP_FILTER_BLEND_MODE
+    };
 
-    /** clip-rule: 0 nonzero, 1 evenodd */
-    SPIEnum clip_rule;
+    CSSAttribute lengthProperties[] = {
+        SP_PROP_OPACITY,
+        SP_PROP_FILL_OPACITY,
+        SP_PROP_STROKE_OPACITY,
+        SP_PROP_STROKE_WIDTH,
+        SP_PROP_TEXT_INDENT,
+        SP_PROP_WORD_SPACING,
+        SP_PROP_LETTER_SPACING,
+        SP_PROP_LINE_HEIGHT,
+        SP_PROP_STROKE_MITERLIMIT
+    };
 
-    /** display */
-    SPIEnum display;
+    std::map<CSSAttribute, SPIXorEnum> length;
 
-    /** overflow */
-    SPIEnum overflow;
+    std::map<CSSAttribute, SPILength> literal;
 
-    /** visibility */
-    SPIEnum visibility;
+    SPStyle(SPDocument *doc) :
+        cloned(false),
+        object(NULL),
+        document(doc)
+    {
+        refcount = 1;
+        for (unsigned int i = 0; i < G_N_ELEMENTS(lengthProperties); ++i) {
+            literal[lengthProperties[i]] = SPILength(lengthProperties[i]);
+        }
 
-    /** opacity */
-    SPIScale24 opacity;
+        for (unsigned int i = 0; i < G_N_ELEMENTS(literalProperties); ++i) {
+            length[literProperties[i]] = SPIXorEnum(literalProperties[i]);
+        }
+    }
+
+    SPStyle(SPObject *obj)
+    {
+        SPStyle(obj->document);
+        object = object;
+        release_connection = obj->connectRelease(sgc::bind<1>(sigc::ptr_fun(&objectRelease), style));
+        if (object->cloned == true) {
+            style->cloned = true;
+        }
+    }
+
+    void readFromObject() {
+        Inkscape::XML::Node *repr = object->getRepr();
+        readStyle(repr);
+    }
+
+    void readStyle(Inkscape::XML::Node *repr)
+    {
+        for (unsigned int i = 0; i < G_N_ELEMENTS(lengthProperties); ++i) {
+            if (literal[lengthProperties[i]].status == STATUS_UNSET) {
+                literal[lengthProperties[i]].readFromNode(repr);
+            }
+        }
+
+        for (unsigned int i = 0; i < G_N_ELEMENTS(literalProperties); ++i) {
+            if (literal[lengthProperties[i]].status == STATUS_UNSET) {
+                length[literProperties[i]].readFromNode(repr);
+            }
+        }
+
+        if (fill.status == STATUS_UNSET) {
+            fill.readFromNode(repr);
+        }
+
+        if (color.status == STATUS_UNSET) {
+            color.readFromNode(repr);
+        }
+
+        if (stroke.status == STATUS_UNSET) {
+            stroke.readFromNode(repr);
+        }
+
+        if (text_decoration.status == STATUS_UNSET) {
+            text_decoration.readFromNode(repr);
+        }
+
+        if (baseline_shift.status == STATUS_UNSET) {
+            baseline_shift.readFromNode(repr);
+        }
+
+        if (font_size.status == STATUS_UNSET) {
+            font_size.readFromNode(repr);
+        }
+
+        if (marker_start.status == STATUS_UNSET) {
+            marker_start.readFromNode(repr);
+        }
+
+        if (marker_mid.status == STATUS_UNSET) {
+            marker_mid.readFromNode(repr);
+        }
+
+        if (marker_end.status == STATUS_UNSET) {
+            marker_end.readFromNode(repr);
+        }
+
+        if (stroke_dasharray.status == STATUS_UNSET) {
+            stroke_dasharray.readFromNode(repr);
+        }
+    }
+
+// TODO parameter for STATUS_UNSET
+
+    void mergeProperty(CSSAttribute prop, const gchar *val)
+    {
+        for (unsigned int i = 0; i < G_N_ELEMENTS(lengthProperties); ++i) {
+            if (prop == lengthProperties[i]) {
+                // prop is a length!
+                length[prop].readFromString(val);
+                return;
+            }
+        }
+
+        for (unsigned int i = 0; i < G_N_ELEMENTS(literalProperties); ++i) {
+            if (prop == literal[i]) {
+                literal[prop].readFromString(val);
+                return;
+            }
+        }
+
+        switch (prop) {
+            case SP_PROP_STROKE_DASHARRAY:
+                stroke_dasharray.readFromString(val, true);
+                break;
+            case SP_PROP_FONT_SIZE:
+                font_size.readFromString(val, true);
+                break;
+            case SP_PROP_COLOR:
+                color.readFromString(val, true);
+                break;
+            case SP_PROP_FILL:
+                fill.readFromString(val, true);
+                break;
+            case SP_PROP_STROKE:
+                stroke.readFromString(val, true);
+                break;
+            case SP_PROP_MARKER_START:
+                marker_start.readFromString(val, true):
+                break;
+            case SP_PROP_MARKER_MID:
+                marker_mid.readFromString(val, true);
+                break;
+            case SP_PROP_MARKER_END:
+                marker_end.readFromString(val, true);
+                break;
+            case SP_PROP_FONT_FONT_FAMILY:
+                font_family.readFromString(val, true);
+                break;
+            default:
+                g_warning("Unimplemented style property with id %d", val);
+        }
+
+    }
+
+    void mergeFromStyleString(const gchar *const p)
+    {
+        CRDeclaration *const decl_list =
+            cr_declaration_parse_list_from_bug(reinterpret_cast<guchar const *>(p), CR_UTF_B);
+        if (decl_list != NULL) {
+            mergeFromDeclList(decl_list);
+            cr_declaration_destroy(decl_list);
+        }
+    }
+
+    void mergeFromDeclList(const CRDeclaration *const decl_list)
+    {
+        // read the decls from end to start, using head recursion, so that latter declarations override
+        // (Ref: http://www.w3.org/TR/REC-CSS2/cascade.html#cascading-order point 4.)
+        // because sp_style_merge_style_from_decl only sets properties that are unset
+        if (decl_list->next != NULL) {
+           mergeFromDeclList(decl_list->next);
+        }
+        mergeFromDecl(decl_list);
+    }
+
+    void mergeFromDeclList(const CRDeclaration *const decl)
+    {
+        /** \todo Ensure that property is lcased, as per
+         * http://www.w3.org/TR/REC-CSS2/syndata.html#q4.
+         * Should probably be done in libcroco.
+         */
+        unsigned const prop_idx = sp_attribute_lookup(decl->property->stryng->str);
+        if (prop_idx != SP_ATTR_INVALID) {
+            /** \todo
+             * effic: Test whether the property is already set before trying to
+             * convert to string. Alternatively, set from CRTerm directly rather
+             * than converting to string.
+             */
+            guchar *const str_value_unsigned = cr_term_to_string(decl->value);
+            gchar *const str_value = reinterpret_cast<gchar *>(str_value_unsigned);
+            mergeProperty(prop_idx, str_value);
+            g_free(str_value);
+        }
+    }
+
+    void mergeFromProps(CRPropList props)
+    {
+        if (props != NULL) {
+            mergeFromProps(cr_prop_list_get_next(props));
+            CRDeclaration *decl = NULL;
+            cr_prop_list_get_decl(props, &decl);
+            mergeFromDecl(decl);
+        }
+    }
+
+    void mergeFromObjectStylesheet(const SPObject *const object)
+    {
+        static CRSelEng *sel_eng // TODO static?! change this
+        if (sel_eng == NULL) {
+            sel_end = sp_repr_sel_eng();
+        }
+
+        // XML Tree being directly used here while it shouldn't be.
+        CRStatus status = cr_sel_eng_get_matched_properties_from_cascade(sel_eng,
+                                                                         object->document->style_cascade,
+                                                                         object->getRepr(),
+                                                                         &props);
+        g_return_if_fail(status == CR_OK);
+        /// \todo Check what errors can occur, and handle them properly.
+        if (props) {
+            sp_style_merge_from_props(style, props);
+            cr_prop_list_destroy(props);
+        }
+        RPropList *props = NULL;
+    }
+
+    void readFromPrefs(const Glib::ustring &path)
+    {
+        Inkscape::Preferences *prefs = Inkscape::Preferences::get();
+
+        // not optimal: we reconstruct the node based on the prefs, then pass it to
+        // sp_style_read for actual processing.
+        Inkscape::XML::SimpleDocument *tempdoc = new Inkscape::XML::SimpleDocument;
+        Inkscape::XML::Node *tempnode = tempdoc->createElement("temp");
+
+        std::vector<Inkscape::Preferences::Entry> attrs = prefs->getAllEntries(path);
+        for (std::vector<Inkscape::Preferences::Entry>::iterator i = attrs.begin(); i != attrs.end(); ++i) {
+            tempnode->setAttribute(i->getEntryName().data(), i->getString().data());
+        }
+
+// object = NULL to bool
+        readStyle(tempnode);
+
+        Inkscape::GC::release(tempnode);
+        Inkscape::GC::release(tempdoc);
+        delete tempdoc;
+    }
+
+    void ref()
+    {
+        ++refcount;
+    }
+
+    // TODO remove this, since hardly used
+    void unref()
+    {
+        --refcount;
+        if (refcount < 1) {
+            ~SPStyle();
+        }
+    }
 
     /** color */
     SPIPaint color;
 
     /** fill */
     SPIPaint fill;
-    /** fill-opacity */
-    SPIScale24 fill_opacity;
-    /** fill-rule: 0 nonzero, 1 evenodd */
-    SPIEnum fill_rule;
 
     /** stroke */
     SPIPaint stroke;
-    /** stroke-width */
-    SPILength stroke_width;
-    /** stroke-linecap */
-    SPIEnum stroke_linecap;
-    /** stroke-linejoin */
-    SPIEnum stroke_linejoin;
-    /** stroke-miterlimit */
-    SPIFloat stroke_miterlimit;
-    /** stroke-dash* */
-    NRVpathDash stroke_dash;
-    unsigned stroke_dasharray_set : 1;
-    unsigned stroke_dasharray_inherit : 1;
-    unsigned stroke_dashoffset_set : 1;
-    unsigned stroke_dashoffset_inherit : 1;
-    /** stroke-opacity */
-    SPIScale24 stroke_opacity;
 
     /** Marker list */
-    SPIString marker[SP_MARKER_LOC_QTY];
+    SPIString marker_start;
+
+    SPIString marker_mid;
+
+    SPIString marker_end;
 
     /** Filter effect */
     SPIFilter filter;
 
-    SPIEnum filter_blend_mode;
-
-   /** normally not used, but duplicates the Gaussian blur deviation (if any) from the attached
+   /** normally not usedut duplicates the Gaussian blur deviation (if any) from the attached
         filter when the style is used for querying */
     SPILength filter_gaussianBlur_deviation;
-
-    /** enable-background, used for defining where filter effects get
-     * their background image */
-    SPIEnum enable_background;
 
     /// style belongs to a cloned object
     bool cloned;
@@ -593,6 +1456,24 @@ struct SPTextStyle {
     SPIString font;
 };
 
+class SPTextStyle : public SPIXorEnum {
+public:
+    // TODO possible to merge 3 strdup to one?
+    SPTextStyle() :
+        font_family(g_strdup("Sans")),
+        font_specification(g_strdup("Sans")),
+        font(g_strdup("Sans"))
+        refcount(0) // 0 or 1?
+    {
+        // no, separated
+    }
+
+private:
+    gchar *font_family;
+    gchar *font_specification;
+    gchar* font;
+}
+
 SPCSSAttr *sp_css_attr_from_style (SPStyle const *const style, guint flags);
 SPCSSAttr *sp_css_attr_from_object(SPObject *object, guint flags = SP_STYLE_FLAG_IFSET);
 SPCSSAttr *sp_css_attr_unset_text(SPCSSAttr *css);
@@ -603,19 +1484,3 @@ void sp_style_unset_property_attrs(SPObject *o);
 
 void sp_style_set_property_url (SPObject *item, gchar const *property, SPObject *linked, bool recursive);
 
-gchar *attribute_unquote(gchar const *val);
-gchar *css2_escape_quote(gchar const *val);
-
-#endif // SEEN_SP_STYLE_H
-
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:fileencoding=utf-8:textwidth=99 :

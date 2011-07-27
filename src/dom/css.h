@@ -1483,7 +1483,7 @@ public:
      *An integer indicating which type of unit applies to the value.
      */
     typedef enum
-        {
+    {
         CSS_UNKNOWN    = 0,
         CSS_NUMBER     = 1,
         CSS_PERCENTAGE = 2,
@@ -1510,98 +1510,103 @@ public:
         CSS_COUNTER    = 23,
         CSS_RECT       = 24,
         CSS_RGBCOLOR   = 25
-        } UnitTypes;
+    } PrimitiveValueType;
 
 
     /**
      * The type of the value as defined by the constants specified above.
      */
-    virtual unsigned short getPrimitiveType()
-        {
+    unsigned short getPrimitiveType()
+    {
         return primitiveType;
-        }
+    }
 
     /**
-     * A method to set the float value with a specified unit. If the property 
-     * attached with this value can not accept the specified unit or the float value, 
+     * A method to set the float value with a specified unit. If the property
+     * attached with this value can not accept the specified unit or the float value,
      * the value will be unchanged and a DOMException will be raised.
      */
-    virtual void setFloatValue(unsigned short unitType,
-                               double doubleValueArg)
-                               throw (dom::DOMException)
-        {
+    void setFloatValue(PrimitiveValueType unitType, double doubleValueArg)
+        throw (dom::DOMException)
+    {
         primitiveType = unitType;
         doubleValue = doubleValueArg;
-        }
+    }
 
     /**
-     * This method is used to get a float value in a specified unit. If this CSS 
+     * This method is used to get a float value in a specified unit. If this CSS
      * value doesn't contain a float value or can't be converted into the specified 
      * unit, a DOMException is raised.
      */
-    virtual double getFloatValue(unsigned short /*unitType*/)
-                                throw (dom::DOMException)
-        {
+    double getFloatValue(PrimitiveValueType unitType)
+        throw (dom::DOMException)
+    {
         return doubleValue;
-        }
+    }
 
     /**
      * A method to set the string value with the specified unit. If the property 
      * attached to this value can't accept the specified unit or the string value, 
      * the value will be unchanged and a DOMException will be raised.
      */
-    virtual void setStringValue(unsigned short /*stringType*/,
+    void setStringValue(unsigned short /*stringType*/,
                                 const DOMString &stringValueArg)
-                                throw (dom::DOMException)
-        {
+        throw (dom::DOMException)
+    {
         stringValue = stringValueArg;
-        }
+    }
 
     /**
      * This method is used to get the string value. If the CSS value doesn't contain 
      * a string value, a DOMException is raised.
-     * 
-     * Note: Some properties (like 'font-family' or 'voice-family') convert a 
+     *
+     * Note: Some properties (like 'font-family' or 'voice-family') convert a
      * whitespace separated list of idents to a string.
      */
-    virtual DOMString getStringValue() throw (dom::DOMException)
-        {
+    DOMString getStringValue()
+        throw (dom::DOMException)
+    {
         return stringValue;
-        }
+    }
 
     /**
      * This method is used to get the Counter value. If this CSS value doesn't 
      * contain a counter value, a DOMException is raised. Modification to the 
      * corresponding style property can be achieved using the Counter interface.
      */
-    virtual Counter *getCounterValue() throw (dom::DOMException)
-        {
-        return NULL;
+    Counter getCounterValue()
+        throw (dom::DOMException)
+    {
+        if (valueType != CSS_COUNTER) {
+            throw DOMException(INVALID_ACCESS_ERR);
         }
+        return counterValue;
+    }
 
     /**
      * This method is used to get the Rect value. If this CSS value doesn't contain a 
      * rect value, a DOMException is raised. Modification to the corresponding style 
      * property can be achieved using the Rect interface.
      */
-    virtual Rect *getRectValue() throw (dom::DOMException)
-        {
-        return NULL;
+    Rect getRectValue()
+        throw (dom::DOMException)
+    {
+        if (valueType != CSS_RECT) {
+            throw DOMException(INVALID_ACCESS_ERR);
         }
+        return rectValue;
+    }
 
     /**
      * This method is used to get the RGB color. If this CSS value doesn't contain a 
      * RGB color value, a DOMException is raised. Modification to the corresponding 
      * style property can be achieved using the RGBColor interface.
      */
-    virtual RGBColor *getRGBColorValue() throw (dom::DOMException)
-        {
+    RGBColor getRGBColorValue()
+        throw (dom::DOMException)
+    {
         return NULL;
-        }
-
-    //##################
-    //# Non-API methods
-    //##################
+    }
 
     /**
      *
@@ -1610,144 +1615,61 @@ public:
         {
         }
 
-    /**
-     *
-     */
-    CSSPrimitiveValue(const CSSPrimitiveValue &other) : CSSValue(other)
-        {
-        }
-
-    /**
-     *
-     */
-    CSSPrimitiveValue &operator=(const CSSPrimitiveValue &/*other*/)
-        {
-        return *this;
-        }
-
-    /**
-     *
-     */
-    virtual ~CSSPrimitiveValue() {}
-
-protected:
-
+private:
+    Counter counterValue;
     int primitiveType;
-
+    PrimitiveValueType valueType;
+    Rect rectValue;
     double doubleValue;
-
     DOMString stringValue;
-
-
 };
 
-
-
-/*#########################################################################
-## RGBColor
-#########################################################################*/
-
 /**
- * The RGBColor interface is used to represent any RGB color value. This 
- * interface reflects the values in the underlying style property. Hence, 
+ * The RGBColor interface is used to represent any RGB color value. This
+ * interface reflects the values in the underlying style property. Hence,
  * modifications made to the CSSPrimitiveValue objects modify the style property.
- * 
- * A specified RGB color is not clipped (even if the number is outside the range 
+ *
+ * A specified RGB color is not clipped (even if the number is outside the range
  * 0-255 or 0%-100%). A computed RGB color is clipped depending on the device.
  * 
- * Even if a style sheet can only contain an integer for a color value, the 
- * internal storage of this integer is a float, and this can be used as a float 
+ * Even if a style sheet can only contain an integer for a color value, the
+ * internal storage of this integer is a float, and this can be used as a float
  * in the specified or the computed style.
- * 
+ *
  * A color percentage value can always be converted to a number and vice versa.
  */
 class RGBColor
 {
 public:
-
     /**
      * This attribute is used for the red value of the RGB color.
      */
-    virtual CSSPrimitiveValue getRed()
-        {
+    CSSPrimitiveValue getRed()
+    {
         return red;
-        }
+    }
 
     /**
      * This attribute is used for the green value of the RGB color.
      */
-    virtual CSSPrimitiveValue getGreen()
-        {
+    CSSPrimitiveValue getGreen()
+    {
         return green;
-        }
+    }
 
     /**
      * This attribute is used for the blue value of the RGB color.
      */
-    virtual CSSPrimitiveValue getBlue()
-        {
+    CSSPrimitiveValue getBlue()
+    {
         return blue;
-        }
-
-    /**
-     * REPLACES: RGBColor CSSPrimitiveValue::getRGBColorValue() throw (dom::DOMException)
-     */
-    static RGBColor getRGBColorValue(const CSSPrimitiveValue &/*val*/)
-        {
-        RGBColor col;
-        return col;
-        }
-
-    //##################
-    //# Non-API methods
-    //##################
-
-    /**
-     *
-     */
-    RGBColor() {}
-
-    /**
-     *
-     */
-    RGBColor(const RGBColor &other)
-        {
-        assign(other);
-        }
-
-    /**
-     *
-     */
-    RGBColor &operator=(const RGBColor &other)
-        {
-        assign(other);
-        return *this;
-        }
-
-    /**
-     *
-     */
-    void assign(const RGBColor &other)
-        {
-        red   = other.red;
-        green = other.green;
-        blue  = other.blue;
-        }
-
-    /**
-     *
-     */
-    virtual ~RGBColor() {}
+    }
 
 protected:
-
     CSSPrimitiveValue red;
     CSSPrimitiveValue green;
     CSSPrimitiveValue blue;
 };
-
-
-
 
 /*#########################################################################
 ## Rect
@@ -1766,42 +1688,42 @@ public:
      * This attribute is used for the top of the rect.
      */
     virtual CSSPrimitiveValue getTop()
-        {
+    {
         return top;
-        }
+    }
 
     /**
      * This attribute is used for the right of the rect.
      */
     virtual CSSPrimitiveValue getRight()
-        {
+    {
         return right;
-        }
+    }
 
     /**
      * This attribute is used for the bottom of the rect.
      */
     virtual CSSPrimitiveValue getBottom()
-        {
+    {
         return bottom;
-        }
+    }
 
     /**
      * This attribute is used for the left of the rect.
      */
     virtual CSSPrimitiveValue getLeft()
-        {
+    {
         return left;
-        }
+    }
 
     /**
      * REPLACES: Rect CSSPrimitiveValue::getRectValue() throw (dom::DOMException)
      */
     static Rect getRectValue(const CSSPrimitiveValue &/*val*/)
-        {
+    {
         Rect rect;
         return rect;
-        }
+    }
 
     //##################
     //# Non-API methods
