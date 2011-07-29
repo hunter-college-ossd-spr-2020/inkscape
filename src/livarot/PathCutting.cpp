@@ -60,15 +60,15 @@ void  Path::DashPolyline(float head,float tail,float body,int nbD,float *dashs,b
 
 void  Path::DashPolylineFromStyle(SPStyle *style, float scale, float min_len)
 {
-    if (style->stroke_dash.n_dash) {
+  //  if (style->stroke_dash.status) { // TODO if?
 
         double dlen = 0.0;
-        for (int i = 0; i < style->stroke_dash.n_dash; i++) {
-            dlen += style->stroke_dash.dash[i] * scale;
+        for (int i = 0; i < style->stroke_dash.dashes.getNumberOfItems(); i++) {
+            dlen += style->stroke_dash.dashes.getItem(i) * scale;
         }
         if (dlen >= min_len) {
-            NRVpathDash dash;
-            dash.offset = style->stroke_dash.offset * scale;
+            SPIStrokeDashArray dash;
+            double offset = style->length[SP_PROP_STROKE_OFFSET].getComputedValue();
             dash.n_dash = style->stroke_dash.n_dash;
             dash.dash = g_new(double, dash.n_dash);
             for (int i = 0; i < dash.n_dash; i++) {
@@ -86,7 +86,7 @@ void  Path::DashPolylineFromStyle(SPStyle *style, float scale, float min_len)
             free(dashs);
             g_free(dash.dash);
         }
-    }
+    //}
 }
 
 
