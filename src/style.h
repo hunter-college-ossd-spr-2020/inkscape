@@ -32,13 +32,22 @@
 namespace Inkscape {
 namespace XML {
 
+// Often used literal properties
+// TODO: merge all properties to 1 enum?
+// ↓ this is not good
+const int AUTO = -1;
+const int NONE = -2;
+
 /// Paint type internal to SPStyle.
 class SPIPaint : public SPIXorEnum {
     SPPaintServerReference *href;
     SPColor color;
 
     enum {
-        SP_PAINT_CURRENT_COLOR
+        SP_PAINT_CURRENT_COLOR,
+        SP_PAINT_COLOR_SET,
+        SP_PAINT_ICCCOLOR_SET,
+        SP_PAINT_IRI_SET
     };
 
     SPIPaint();
@@ -47,17 +56,30 @@ class SPIPaint : public SPIXorEnum {
     void mergeFromDyingParent(const SPIPaint &parent);
     void mergeFromParent(const SPIPaint &parent);
     bool operator !=(const SPIPaint &paint);
-    bool isSet() const { return true; /* set || colorSet*/}
-    bool isSameType( SPIPaint const & other ) const {return (isPaintserver() == other.isPaintserver()) && (colorSet == other.colorSet) && (currentcolor == other.currentcolor);}
-    bool isNoneSet() const {return noneSet;}
-    bool isNone() const {return !currentcolor && !colorSet && !isPaintserver();} // TODO refine
-    bool isColor() const {return colorSet && !isPaintserver();}
-    bool isPaintserver() const {return value.href && value.href->getObject();}
+
     void clear();
-    void setColor( float r, float g, float b ) {value.color.set( r, g, b ); colorSet = true;}
-    void setColor( guint32 val ) {value.color.set( val ); colorSet = true;}
-    void setColor( SPColor const& color ) {value.color = color; colorSet = true;}
-    void read( gchar const *str, SPStyle &tyle, SPDocument *document = 0);
+
+    void setColor(float r, float g, float b)
+    {
+        color.set(r, g, b);
+        paintStatus = SP_PAINTSTATUS_COLOR_SET;
+    }
+
+    void setColor(guint32 val)
+    {
+        color.color.set(val);
+        paintStatus = SP_PAINTSTATUS_COLOR_SET;
+    }
+
+    void setColor(SPColor const& color )
+    {
+        color.color = color;
+        paintStatus = SP_PAINTSTATUS_COLOR_SET;
+    }
+
+    void readFromString(gchar const *str, SPStyle &style);
+
+    
 
     // Win32 is a temp work-around until the emf extension is fixed:
 #ifndef WIN32
@@ -70,30 +92,10 @@ private:
 class SPIFilter : public SPIXorEnum {
 public:
     SPIFilter();
-    // Attention! This return value has to be freed!
     gchar * toString();
     void readFromString(gchar *str);
-private:
     SPFilterReference *href;
 };
-
-class SPIFontSize : SPILengthOrNormal {
-    SPIFontSize();
-    }
-// TODO flags
-// TODO unify free requirement
-    gchar * toString();
-    void setLiteralValue(int newLit);
-    void setValue(SVGLength newLength)
-    void mergeFromParent(const SPIFontSize &parent)
-    void mergeFromDyingParent(const SPIFontSize *const parent)
-};
-
-/**
- * color-interpolation, color-interpolation-filters, color-rendering, shape-rendering,
- * text-rendering, image-rendering, fill-rule, stroke-linecap, stroke-linejoin, display,
- * visibility
- */
 
 /** The status of the CSS property. */
 typedef enum {
@@ -113,14 +115,12 @@ typedef enum {
 /** CSS property that only accepts literal values. */
 class SPIXorEnum {
 public:
-    SPIXorEnum(SPLiteralEnum property);
+    SPIXorEnum(CSSAttribute attr);
     virtual gchar * toString() const;
-    virtual gchar * getPropTitle() const;
     virtual void readFromString(gchar *str);
-    virtual void inheritFrom(SPStyle *style, SPIXorEnum *parent);
-    virtual void readFromNode(Inkscape::XML::Node *repr);
+    virtual void setLiteralValue(int literal);
+    virtual void mergeFromDyingParent(const SPStyle *parent);
     int getLiteralValue() const;
-    int setLiteralValue();
     StyleStatus status;
     const property;
 protected:
@@ -137,13 +137,11 @@ protected:
 
 class SPIString : public SPIXorEnum {
 public:
-    SPIString(gchar *str);
+    SPIString(CSSAttribute attr);
     ~SPIString();
     gchar * toString() const;
     void readFromString(gchar *str);
-    void readFromNode(Inkscape::XML::Node *repr);
-    void inheritFrom(SPIXorEnum *parent);
-    void mergeFromDyingParent(SPIString *parent)
+    void mergeFromDyingParent(SPIStyle *parent)
 private:
     gchar *buffer;
 };
@@ -156,8 +154,8 @@ public:
     SPILengthOrNumber(CSSAttribute attr);
     gchar * toString() const;
     void readFromString(gchar *str);
-    void mergeFromDyingParent(const SPILength &parent, const double parent_child_em_ratio)
-    void inheritFrom(SPIXorEnum *parent);
+    void mergeFromDyingParent(SPStyle *parent);
+    void setLiteralValue(int literal);
     SVGLength length;
 private:
     SVGLength computedLength;
@@ -176,26 +174,25 @@ public:
 
     SPITextDecoration() :
     gchar * toString() const;
-    void readFromString(const gchar *str)
-    void readFromNode();
+    void readFromString(const gchar *str);
+    void mergeFromDyingParent(SPStyle *parent);
 };
 
 class SPIStrokeDashArray : public SPIXorEnum {
 public:
     gchar * toString() const;
     void readFromString(gchar *str);
+    void mergeFromDyingParent(SPStyle *parent);
+    void mergeFromParent(SPStyle *parent);
     ~SPIStrokeDashArray();
 
-    /** Converts the dash lengths to an array, used for the livearot/cairo renderer. */
+    /** Converts the dash lengths to an array, used for the livarot/cairo renderer. */
     double * getDashArray();
-    SVGLengthList dashes;
+    std::vector<SPILength *> dashes;
 }
 
-class SPTextStyle;
 
-struct SPStyle {
-    int refcount;
-
+class SPStyle {
     /** Object we are attached to */
     SPObject *object;
 
@@ -264,12 +261,14 @@ struct SPStyle {
 
     void readFromObject() {
 
-    void readStyle(Inkscape::XML::Node *repr)
+    void readStyle(Inkscape::XML::Node *repr);
 // TODO parameter for STATUS_UNSET
 
     void mergeFromParent(SPStyle *parent);
 
     void mergeFromDyingParent(SPStyle *parent);
+
+    void mergeFromObjectStylesheet(const SPObject *const object);
 
     void mergeProperty(CSSAttribute prop, const gchar *val);
 
@@ -300,6 +299,8 @@ struct SPStyle {
     /** stroke */
     SPIPaint stroke;
 
+    SPI
+
     /** Marker list */
     SPIString marker_start;
 
@@ -322,24 +323,6 @@ struct SPStyle {
     sigc::connection filter_modified_connection;
     sigc::connection fill_ps_modified_connection;
     sigc::connection stroke_ps_modified_connection;
-
-    SPObject *getFilter() { return (filter.href) ? filter.href->getObject() : 0; }
-
-    SPObject const *getFilter() const { return (filter.href) ? filter.href->getObject() : 0; }
-
-    gchar const *getFilterURI() const { return (filter.href) ? filter.href->getURI()->toString() : 0; }
-
-    SPPaintServer *getFillPaintServer() { return (fill.value.href) ? fill.value.href->getObject() : 0; }
-
-    SPPaintServer const *getFillPaintServer() const { return (fill.value.href) ? fill.value.href->getObject() : 0; }
-
-    gchar const *getFillURI() const { return (fill.value.href) ? fill.value.href->getURI()->toString() : 0; }
-
-    SPPaintServer *getStrokePaintServer() { return (stroke.value.href) ? stroke.value.href->getObject() : 0; }
-
-    SPPaintServer const *getStrokePaintServer() const { return (stroke.value.href) ? stroke.value.href->getObject() : 0; }
-
-    gchar const  *getStrokeURI() const { return (stroke.value.href) ? stroke.value.href->getURI()->toString() : 0; }
 };
 
 
@@ -482,37 +465,35 @@ enum SPEnableBackground {
     SP_CSS_BACKGROUND_NEW
 };
 
-/// An SPTextStyle has a refcount, a font family, and a font name.
-struct SPTextStyle {
-    int refcount;
-
-    /* CSS font properties */
-    SPIString font_family;
-
-    /* Full font name, as font_factory::ConstructFontSpecification would give */
-    SPIString font_specification;
-
-    /** \todo fixme: The 'font' property is ugly, and not working (lauris) */
-    SPIString font;
+// <unused>
+enum SPAlignmentBaseline {
+    SP_ALIGNMENT_BASELINE_BASELINE,
+    SP_ALIGNMENT_BASELINE_BEFORE_EDGE,
+    SP_ALIGNMENT_BASELINE_TEXT_BEFORE_EDGE,
+    SP_ALIGNMENT_BASELINE_MIDDLE,
+    SP_ALIGNMENT_BASELINE_CENTRAL,
+    SP_ALIGNMENT_BASELINE_AFTER_EDGE,
+    SP_ALIGNMENT_BASELINE_TEXT_AFTER_EDGE,
+    SP_ALIGNMENT_BASELINE_IDEOGRAPHIC,
+    SP_ALIGNMENT_BASELINE_ALPHABETIC,
+    SP_ALIGNMENT_BASELINE_HANGING,
+    SP_ALIGNMENT_BASELINE_MATHEMATICAL
 };
 
-class SPTextStyle : public SPIXorEnum {
-public:
-    // TODO possible to merge 3 strdup to one?
-    SPTextStyle() :
-        font_family(g_strdup("Sans")),
-        font_specification(g_strdup("Sans")),
-        font(g_strdup("Sans"))
-        refcount(0) // 0 or 1?
-    {
-        // no, separated
-    }
-
-private:
-    gchar *font_family;
-    gchar *font_specification;
-    gchar* font;
-}
+enum SPDominantBaseline {
+    SP_DOMINANT_BASELINE_USE_SCRIPT,
+    SP_DOMINANT_BASELINE_NO_CHANGE,
+    SP_DOMINANT_BASELINE_RESET_SIZE,
+    SP_DOMINANT_BASELINE_IDEOGRAPHIC,
+    SP_DOMINANT_BASELINE_ALPHABETIC,
+    SP_DOMINANT_BASELINE_HANGING,
+    SP_DOMINANT_BASELINE_MATHEMATICAL,
+    SP_DOMINANT_BASELINE_CENTRAL,
+    SP_DOMINANT_BASELINE_MIDDLE,
+    SP_DOMINANT_BASELINE_TEXT_AFTER_EDGE,
+    SP_DOMINANT_BASELINE_TEXT_BEFORE_EDGE
+};
+// </unused>
 
 SPCSSAttr *sp_css_attr_from_style (SPStyle const *const style, guint flags);
 SPCSSAttr *sp_css_attr_from_object(SPObject *object, guint flags = SP_STYLE_FLAG_IFSET);
@@ -524,3 +505,4 @@ void sp_style_unset_property_attrs(SPObject *o);
 
 void sp_style_set_property_url (SPObject *item, gchar const *property, SPObject *linked, bool recursive);
 
+#endif

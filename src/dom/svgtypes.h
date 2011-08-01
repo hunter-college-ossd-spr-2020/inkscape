@@ -686,7 +686,7 @@ prrivate:
     double value;
 };
 
-template<class T>
+template<typename T>
 class SVGAnimated
 {
 public:
@@ -707,7 +707,7 @@ class SVGLength
 {
 public:
     /** Length Unit Types */
-    typedef enum : unsigned short
+    typedef enum
     {
         SVG_LENGTHTYPE_UNKNOWN    = 0,
         SVG_LENGTHTYPE_NUMBER     = 1,
@@ -942,7 +942,7 @@ private:
 /**
  * Defines a list of DOM objects.
  */
-template<class T>
+template<typename T>
 class SVGList
 {
 public:
@@ -1284,8 +1284,6 @@ private:
 class SVGColor : public css::CSSValue
 {
 public:
-
-
     /**
      * Color Types
      */
@@ -1298,22 +1296,20 @@ public:
         } ColorType;
 
 
-    /**
-     *
-     */
-    unsigned short getColorType()
-        {
+    /** Gets the color type. */
+    SVGColorType getColorType()
+    {
         return colorType;
-        }
+    }
 
     /**
      *
      */
     css::RGBColor getRgbColor()
-        {
+    {
         css::RGBColor col;
         return col;
-        }
+    }
 
     /**
      *
@@ -1352,37 +1348,8 @@ public:
         {
         }
 
-
-
-    //##################
-    //# Non-API methods
-    //##################
-
-    /**
-     *
-     */
-    SVGColor()
-        {
-        colorType = SVG_COLORTYPE_UNKNOWN;
-        }
-
-    /**
-     *
-     */
-    SVGColor(const SVGColor &other) : css::CSSValue(other)
-        {
-        colorType = other.colorType;
-        }
-
-    /**
-     *
-     */
-    ~SVGColor() {}
-
 protected:
-
     int colorType;
-
 };
 
 /** Represents a rectangle. */
@@ -3694,15 +3661,6 @@ protected:
 
 };
 
-
-
-
-
-
-/*#########################################################################
-## SVGPathSegLinetoHorizontalRel
-#########################################################################*/
-
 /**
  *
  */
@@ -3765,12 +3723,6 @@ protected:
     double x;
 
 };
-
-
-
-/*#########################################################################
-## SVGPathSegLinetoVerticalAbs
-#########################################################################*/
 
 /**
  *
@@ -3835,12 +3787,6 @@ protected:
 
 };
 
-
-
-/*#########################################################################
-## SVGPathSegLinetoVerticalRel
-#########################################################################*/
-
 /**
  *
  */
@@ -3903,11 +3849,6 @@ protected:
     double y;
 
 };
-
-
-
-
-
 
 /*#########################################################################
 ## SVGPathSegCurvetoCubicSmoothAbs
@@ -4016,12 +3957,6 @@ protected:
 
 };
 
-
-
-/*#########################################################################
-## SVGPathSegCurvetoCubicSmoothRel
-#########################################################################*/
-
 /**
  *
  */
@@ -4124,11 +4059,6 @@ protected:
     double x, y, x2, y2;
 
 };
-
-
-
-
-
 
 /*#########################################################################
 ## SVGPathSegCurvetoQuadraticSmoothAbs
@@ -4297,162 +4227,6 @@ protected:
 
 };
 
-
-
-
-
-
-/*#########################################################################
-## SVGPathSegList
-#########################################################################*/
-
-/**
- *
- */
-class SVGPathSegList
-{
-public:
-
-    /**
-     *
-     */
-    unsigned long getNumberOfItems()
-        { return items.size(); }
-
-
-    /**
-     *
-     */
-    void clear () throw( DOMException )
-        { items.clear(); }
-
-    /**
-     *
-     */
-    SVGPathSeg initialize (const SVGPathSeg &newItem)
-                    throw( DOMException, SVGException )
-        {
-        items.clear();
-        items.push_back(newItem);
-        return newItem;
-        }
-
-    /**
-     *
-     */
-    SVGPathSeg getItem (unsigned long index)
-                    throw( DOMException )
-        {
-        if (index >= items.size())
-            {
-            SVGPathSeg seg;
-            return seg;
-            }
-        return items[index];
-        }
-
-    /**
-     *
-     */
-    SVGPathSeg insertItemBefore(const SVGPathSeg &newItem,
-                                        unsigned long index )
-                          throw( DOMException, SVGException )
-        {
-        if (index >= items.size())
-            items.push_back(newItem);
-        else
-            {
-            std::vector<SVGPathSeg>::iterator iter = items.begin() + index;
-            items.insert(iter, newItem);
-            }
-        return newItem;
-        }
-
-    /**
-     *
-     */
-    SVGPathSeg replaceItem(const SVGPathSeg &newItem,
-                                   unsigned long index )
-                              throw( DOMException, SVGException )
-        {
-        if (index >= items.size())
-            {
-            SVGPathSeg seg;
-            return seg;
-            }
-        std::vector<SVGPathSeg>::iterator iter = items.begin() + index;
-        *iter = newItem;
-        return newItem;
-        }
-
-    /**
-     *
-     */
-    SVGPathSeg removeItem (unsigned long index)
-                                  throw (DOMException)
-        {
-        if (index >= items.size())
-            {
-            SVGPathSeg seg;
-            return seg;
-            }
-        std::vector<SVGPathSeg>::iterator iter = items.begin() + index;
-        SVGPathSeg olditem = *iter;
-        items.erase(iter);
-        return olditem;
-        }
-
-    /**
-     *
-     */
-    SVGPathSeg appendItem (const SVGPathSeg &newItem)
-                    throw( DOMException, SVGException )
-        {
-        items.push_back(newItem);
-        return newItem;
-        }
-
-
-
-    //##################
-    //# Non-API methods
-    //##################
-
-    /**
-     *
-     */
-    SVGPathSegList() {}
-
-
-    /**
-     *
-     */
-    SVGPathSegList(const SVGPathSegList &other)
-        {
-        items = other.items;
-        }
-
-
-    /**
-     *
-     */
-    ~SVGPathSegList() {}
-
-protected:
-
-    std::vector<SVGPathSeg> items;
-
-};
-
-
-
-
-
-
-/*#########################################################################
-## SVGAnimatedPathData
-#########################################################################*/
-
 /**
  *
  */
@@ -4582,27 +4356,17 @@ protected:
 
 };
 
-
-
-
-
-/*#########################################################################
-## SVGPaint
-#########################################################################*/
-
 /**
- *
+ * See http://www.w3.org/TR/SVG/painting.html#InterfaceSVGPaint.
  */
 class SVGPaint : public SVGColor
 {
 public:
-
-
     /**
      * Paint Types
      */
     typedef enum
-        {
+    {
         SVG_PAINTTYPE_UNKNOWN               = 0,
         SVG_PAINTTYPE_RGBCOLOR              = 1,
         SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR     = 2,
@@ -4613,76 +4377,78 @@ public:
         SVG_PAINTTYPE_URI_RGBCOLOR          = 105,
         SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR = 106,
         SVG_PAINTTYPE_URI                   = 107
-        } PaintType;
+    } SVGPaintType;
 
 
-    /**
-     *
-     */
-    unsigned short getPaintType()
-        { return paintType; }
+    /** Gets the type of paint. */
+    SVGPaintType getPaintType()
+    {
+        return paintType;
+    }
 
-    /**
-     *
-     */
+    /** Gets the paint uri or null, if no uri is set. */
     DOMString getUri()
-        { return uri; }
-
-    /**
-     *
-     */
-    void setUri (const DOMString& uriArg )
-        { uri = uriArg; }
-
-    /**
-     *
-     */
-    void setPaint (unsigned short paintTypeArg,
-                           const DOMString& uriArg,
-                           const DOMString& /*rgbColor*/,
-                           const DOMString& /*iccColor*/ )
-                           throw( SVGException )
+    {
+        if (paintType == SVG_PAINTTYPE_URI_NONE ||
+            paintType == SVG_PAINTTYPE_URI_CURRENTCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR ||
+            paintType == SVG_PAINTTYPE_URI)
         {
+            return uri;
+        }
+        return NULL;
+    }
+
+    /** Sets the paintType to SVG_PAINTTYPE_URI_NONE and sets uri to the specified value. */
+    void setUri(const DOMString& uriArg)
+    {
+        paintType = SVG_PAINTTYPE_URI_NONE;
+        uri = uriArg;
+    }
+
+    /**
+     * 
+     */
+    void setPaint(SVGPaintType paintTypeArg,
+                  DOMString& uriArg,
+                  DOMString& rgbColor,
+                  DOMString& iccColor)
+        throw(SVGException)
+     {
+        if (paintType == SVG_PAINTTYPE_UNKNOWN) {
+            throw new SVGException(SVG_INVALID_VALUE_ERR);
+        }
+
+        if (uriArg == NULL && (
+            paintType == SVG_PAINTTYPE_URI_NONE ||
+            paintType == SVG_PAINTTYPE_URI_CURRENTCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR ||
+            paintType == SVG_PAINTTYPE_URI))
+        {
+            throw new SVGException(SVG_INVALID_VALUE_ERR);
+        }
+
+        if (rgbColor == NULL && (
+            paintType == SVG_PAINTTYPE_RGBCOLOR ||
+            paintType == SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR ||
+            paintType == SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR))
+        {
+            throw new SVGException(SVG_INVALID_VALUE_ERR);
+        }
+
         paintType = paintTypeArg;
         uri       = uriArg;
-        //do something with rgbColor
-        //do something with iccColor;
-        }
-
-
-
-    //##################
-    //# Non-API methods
-    //##################
-
-    /**
-     *
-     */
-    SVGPaint()
-        {
-        uri       = "";
-        paintType = SVG_PAINTTYPE_UNKNOWN;
-        }
-
-    /**
-     *
-     */
-    SVGPaint(const SVGPaint &other) : css::CSSValue(other), SVGColor(other)
-        {
-        uri       = "";
-        paintType = SVG_PAINTTYPE_UNKNOWN;
-        }
-
-    /**
-     *
-     */
-    ~SVGPaint() {}
+        DOMString rgbColor
+        DOMString iccColor;
+    }
 
 protected:
-
-    unsigned int paintType;
+    SVGPaintType paintType;
     DOMString uri;
-
+    DOMString 
 };
 
 

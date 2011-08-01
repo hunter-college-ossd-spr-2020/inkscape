@@ -1451,13 +1451,6 @@ protected:
     std::vector<CSSValue> items;
 };
 
-
-
-
-/*#########################################################################
-## CSSPrimitiveValue
-#########################################################################*/
-
 /**
  * The CSSPrimitiveValue interface represents a single CSS value. This interface 
  * may be used to determine the value of a specific style property currently set 
@@ -1480,7 +1473,7 @@ class CSSPrimitiveValue : virtual public CSSValue
 public:
 
     /**
-     *An integer indicating which type of unit applies to the value.
+     * An integer indicating which type of unit applies to the value.
      */
     typedef enum
     {
@@ -1512,11 +1505,10 @@ public:
         CSS_RGBCOLOR   = 25
     } PrimitiveValueType;
 
-
     /**
      * The type of the value as defined by the constants specified above.
      */
-    unsigned short getPrimitiveType()
+    PrimitiveValueType getPrimitiveType()
     {
         return primitiveType;
     }
@@ -1529,6 +1521,18 @@ public:
     void setFloatValue(PrimitiveValueType unitType, double doubleValueArg)
         throw (dom::DOMException)
     {
+        if(unitType != CSS_NUMBER || unitType != CSS_PERCENTAGE ||
+            unitType != CSS_EMS || unitType != CSS_EXS ||
+            unitType != CSS_PX || unitType != CSS_CM ||
+            unitType != CSS_MM || unitType != CSS_IN ||
+            unitType != CSS_PT || unitType != CSS_PC ||
+            unitType != CSS_DEG || unitType != CSS_RAD ||
+            unitType != CSS_GRAD || unitType != CSS_MS ||
+            unitType != CSS_S || unitType != CSS_HZ ||
+            unitType != CSS_KHZ || unitType != CSS_DIMENSION)
+        {
+            throw new dom::DOMException(INVALID_ACCESS_ERR);
+        }
         primitiveType = unitType;
         doubleValue = doubleValueArg;
     }
@@ -1605,21 +1609,18 @@ public:
     RGBColor getRGBColorValue()
         throw (dom::DOMException)
     {
-        return NULL;
-    }
-
-    /**
-     *
-     */
-    CSSPrimitiveValue() : CSSValue()
-        {
+        if (valueType != CSS_RGBCOLOR) {
+            throw DOMException(INVALID_ACCESS_ERR)
         }
+        return rgbColor;
+    }
 
 private:
     Counter counterValue;
     int primitiveType;
     PrimitiveValueType valueType;
     Rect rectValue;
+    RGBColor rgbColor;
     double doubleValue;
     DOMString stringValue;
 };

@@ -2,7 +2,7 @@
 #define SEEN_SP_STYLE_H
 
 /** \file
-* SPStyle - a style object for SPItem objects
+* SPStyle - a style object for SPItem objects. For method documentation, see style.h.
 */
 /* Authors:
 *   Lauris Kaplinski <lauris@kaplinski.com>
@@ -68,6 +68,29 @@ void SPIPaint::mergeFromDyingParent(const SPIPaint &parent)
     }
 }
 
+void SPIPaint::setToUri(const Inkscape::URI *uri)
+{
+    // it may be that this style's SPIPaint has not yet created its URIReference;
+    // now that we have a document, we can create it here
+    if (href == NULL && document != NULL) {
+        href = new SPPaintServerReference(document);
+    }
+
+    if (href != NULL && paint->value.href->getObject() != NULL) {
+        href->detach();
+    }
+
+    if (href != NULL) {
+        try {
+            href->attach(*uri);
+        }
+        catch (Inkscape::BadURIException &e) {
+            g_warning("%s", e.what());
+            href->detach();
+        }
+    }
+}
+
 void SPIPaint::mergeFromParent(const SPIPaint &parent)
 {
     if ((paint->status == STATUS_SET && paint->value == SP_PAINT_CURRENT_COLOR) || parent->value == SP_PAINT_CURRENT_COLOR) {
@@ -102,9 +125,19 @@ void SPIPaint::mergeFromParent(const SPIPaint &parent)
 
 }
 
+char * SPIPaint::toString()
+{
+    char * baseTs = SPiXorEnum::toString();
+    if (baseTs[0] != '\0') {
+        return baseTs;
+    }
+    std::stringstream stream;
+    
+}
+
 // TODO sigc connection
 
-bool SPIPaint::operator !=(const SPIPaint &paint)
+bool SPIPaint::operator !=(const SPIPaint &b)
 {
     if (a->isColor() != b->isColor()
         || a->isPaintserver() != b->isPaintserver()
@@ -156,33 +189,30 @@ SPIPaint &operator=(SPIPaint const &);
 /* SPIFilter */
 
 SPIFilter::SPIFilter() :
-    SPFilterReference(NULL)
+    SPFilterReference(NULL),
+    literalValue(NONE)
 {
     literalList = {{"none", NONE}};
 }
 
-// Attention! This return value has to be freed!
 gchar * SPIFilter::toString()
 {
-    if (status == STATUS_INHERIT) {
-        return g_strdup("inherit");
+    gchar *baseTs = SPIXorEnum::toString();
+    if (baseTs[0] != '\0') {
+        return baseTs;
     }
-    else {
-        return g_strdup_printf("url(%s)", href->getURI()->toString());
-    }
+    return g_strdup_printf("url(%s)", href->getURI()->toString());
 }
 
-// TODO: "none" value?
 void SPIFilter::readFromString(gchar *str)
 {
     SPIXorEnum::readFromString();
+    if (status != STATUS_UNSET) {
+        return;
+    }
 
     if (href != NULL && href->getObject() != NULL) {
         href->detach();
-    }
-
-    if (status == STATUS_UNSET) {
-        return;
     }
 
     if (str[0] == 'u' && str[1] == 'r' && str[2] == 'l') {
@@ -210,134 +240,6 @@ void SPIFilter::readFromString(gchar *str)
     }
     else {
         status = STATUS_UNSET;
-    }
-}
-
-/* SPIFontSize */
-
-SPIFontSize::SPIFontSize()
-{
-    literalList = {
-        {"xx-small", SP_CSS_FONT_SIZE_XX_SMALL},
-        {"x-small", SP_CSS_FONT_SIZE_X_SMALL},
-        {"small", SP_CSS_FONT_SIZE_SMALL},
-        {"medium", SP_CSS_FONT_SIZE_MEDIUM},
-        {"large", SP_CSS_FONT_SIZE_LARGE},
-        {"x-large", SP_CSS_FONT_SIZE_X_LARGE},
-        {"xx-large", SP_CSS_FONT_SIZE_XX_LARGE},
-        {"smaller", SP_CSS_FONT_SIZE_SMALLER},
-        {"larger", SP_CSS_FONT_SIZE_LARGER}
-    };
-}
-
-// TODO flags
-// TODO unify free requirement
-gchar * SPIFontSize::toString()
-{
-    gchar *basets = SPIXorEnum::toString()[0]
-    if (basets != NULL) {
-        return basets;
-    }
-    if (fontSize.getUnit() == SVGLength::SVG_LENGTHTYPE_UNSPECIFIED) {
-        // must specify px, see inkscape bug 1221626, mozilla bug 234789
-        fontSize.convertToSpecifiedUnits(SVGLength::SVG_LENGTHTYPE_PX);
-    }
-    return fontSize.toString();
-}
-
-void SPIFontSize::setLiteralValue(int newLit)
-{
-    switch (newLit) {
-        case SP_FONT_SIZE_XX_SMALL:
-            computedLength.setValue(6.0);
-            break;
-        case SP_FONT_SIZE_X_SMALL:
-            computedLength.setValue(8.0);
-            break;
-        case SP_FONT_SIZE_SMALL:
-            computedLength.setValue(10.0);
-        case SP_FONT_SIZE_MEDIUM:
-            computedLength.setValue(12.0);
-            break;
-        case SP_FONT_SIZE_LARGE:
-            computedLength.setValue(14.0);
-            break;
-        case SP_FONT_SIZE_X_LARGE:
-            computedLength.setValue(18.0);
-            break;
-        case SP_FONT_SIZE_XX_LARGE:
-            computedLength.setValue(24.0);
-            break;
-        case SP_FONT_SIZE_SMALLER:
-            // "In CSS2, the suggested scaling factor for a computer screen
-            // between adjacent indexes was 1.2"
-            computedLength.setValue(parent.getComputedLength() / 1.2);
-            break;
-        case SP_FONT_SIZE_LARGER:
-            computedLength.setValue(parent.getComputedValue() * 1.2);
-            break;
-        default:
-            g_warning("Unknown literal property for font size. Please report this.");
-            return;
-    }
-    literalValue = newLit;
-    status = STATUS_LITERAL_SET;
-}
-
-void SPIFontSize::setValue(SVGLength newLength)
-{
-}
-
-void SPIFontSize::mergeFromParent(const SPIFontSize &parent)
-{
-    if (status == STATUS_UNSET || status == STATUS_INHERIT) {
-        computedLength = parent.getComputedLength();
-        return;
-    }
-    else if (status == STATUS_LITERAL_SET) {
-        // FIXME: SVG and CSS do not specify clearly, whether we should use
-        // user or screen coordinates (Lauris)
-
-      }
-    else if (length.getUnit() == SVGLength::SVG_LENGTHTYPE_PERCENTAGE) {
-        // Unlike most other lengths, percentage for font size is relative
-        // to parent computed value rather than viewport.
-        computedLength = parent.getComputedValue() * length.getValue() / 100;
-    else {
-        
-    }
-}
-
-void mergeFromDyingParent(const SPIFontSize *const parent)
-{
-    
-}
-
-void setValue(SVGLength length, const SPIFontSize &pfont_size)
-{
-    if (status == STATUS_VALUE_SET || status == STATUS_INHERIT) {
-        computedValue = parent.getComputedValue();
-    }
-    else if (status == STATUS_LITERAL_SET) {
-        switch (enumValue) {
-            case SP_CSS_BASELINE_SHIFT_BASELINE:
-                computedValue.setValue(0);
-                break;
-            case SP_CSS_BASELINE_SHIFT_SUPER:
-                computedValue.setValue(0.4 * pfont_size.getComputedValue());
-                break;
-            case SP_CSS_BASELINE_SHIFT_SUPER:
-                computedValue.setValue(0.5 * pfont_value.getComputedValue());
-                break;
-        }
-    }
-    else if (status == STATUS_VALUE_SET) {
-        if (length.getUnitType() == SVGLength::SVG_LENGTHTYPE_PERCENTAGE) {
-            computedValue = 0.5 * value * pfont_size.getComputedValue();
-        }
-    }
-    else {
-        computedValue += parent.getComputedValue();
     }
 }
 
@@ -468,13 +370,6 @@ SPIXorEnum::SPIXorEnum(CSSAttribute attr) :
                 {"visible", SP_CSS_VISIBILITY_VISIBLE}
             };
             break;
-        case SP_PROP_BASELINE_SHIFT:
-            literalList = {
-                {"baseline", SP_CSS_BASELINE_SHIFT_BASELINE},
-                {"sub",      SP_CSS_BASELINE_SHIFT_SUB},
-                {"super",    SP_CSS_BASELINE_SHIFT_SUPER}
-            };
-            break;
         case SP_PROP_FONT_STYLE:
             literalList = {
                 {"normal", SP_CSS_FONT_STYLE_NORMAL},
@@ -541,12 +436,13 @@ virtual gchar * SPIXorEnum::toString()
     }
 }
 
+virtual void SPIXorEnum::setLiteralValue(int literal)
+{
+    literalValue = literal;
+}
+
 virtual void SPIXorEnum::readFromString(gchar *str)
 {
-    if (str[0] == '\0') {
-        status = STATUS_UNSET;
-        value = defaultValue;
-    }
     else if (strcmp(str, "inherit") == 0) {
         status = STATUS_INHERIT;
     }
@@ -554,16 +450,19 @@ virtual void SPIXorEnum::readFromString(gchar *str)
         for (unsigned int i = 0; i < G_N_ELEMENTS(literalList); ++i) {
             if (strcmp(literalList[i][0] == str) == 0) {
                 status = STATUS_LITERAL_SET;
-                value = literalList[i][1];
+                setLiteralValue(literalList[i][1]);
+                return;
             }
         }
+        status = STATUS_UNSET;
+        literalValue = defaultValue;
     }
 }
 
 virtual void SPIXorEnum::inheritFrom(SPIXorEnum *parent)
 {
     if (parent->status == STATUS_LITERAL_SET || parent->status == STATUS_INHERIT) {
-        computedValue = parent.getComputedValue()
+        computedValue = parent.getComputedValue();
     }
 }
 
@@ -633,13 +532,17 @@ SPILengthOrNumber(CSSAttribute attr) :
         case SP_PROP_WORD_SPACING:
             literalValue = NORMAL;
             enumList = {{"normal", NORMAL}};
+            break;
         case SP_PROP_KERNING:
             literalValue = AUTO;
             enumList = {{"auto", AUTO}};
             break;
-        case SP_PROP_FONT_SIZE:
-            break;
         case SP_PROP_BASELINE_SHIFT:
+            literalList = {
+                {"baseline", SP_CSS_BASELINE_SHIFT_BASELINE},
+                {"sub", SP_CSS_BASELINE_SHIFT_SUB},
+                {"super", SP_CSS_BASELINE_SHIFT_SUPER}
+            };
             break;
         case SP_PROP_FONT_SIZE:
             literalList = {
@@ -660,10 +563,65 @@ SPILengthOrNumber(CSSAttribute attr) :
 char * SPILengthOrNumber::toString()
 {
     char *baseTs = SPIXorEnum::toString():
-    if (baseTs[0] == '\0') {
-        return length.getValueAsString();
+    if (baseTs[0] != '\0') {
+        return baseTs;
     }
-    return baseTs;
+    if (property == SP_PROP_FONT_SIZE && length.getUnit() == SVGLength::SVG_LENGTHTYPE_UNSPECIFIED) {
+        // must specify px, see inkscape bug 1221626, mozilla bug 234789
+        length.convertToSpecifiedUnits(SVGLength::SVG_LENGTHTYPE_PX);
+    }
+    return length.getValueAsString();
+}
+
+void SPILengthOrNumber::setLiteralValue(int literal)
+{
+    literalValue = literal;
+    status = STATUS_LITERAL_SET;
+    if (property == SP_PROP_BASELINE_SHIFT) {
+        switch (literal) {
+            case SP_CSS_BASELINE_SHIFT_BASELINE:
+                computedValue.setValue(0);
+                break;
+            case SP_CSS_BASELINE_SHIFT_SUB:
+                computedValue.setValue(-0.2 * pfont_size.getComputedValue());
+                break;
+            case SP_CSS_BASELINE_SHIFT_SUPER:
+                computedValue.setValue(0.4 * pfont_value.getComputedValue());
+                break;
+    }
+    else if (property == SP_PROP_FONT_FONT_SIZE) {
+        switch (literal) {
+            case SP_FONT_SIZE_XX_SMALL:
+                computedLength.setValue(6.0);
+                break;
+            case SP_FONT_SIZE_X_SMALL:
+                computedLength.setValue(8.0);
+                break;
+            case SP_FONT_SIZE_SMALL:
+                computedLength.setValue(10.0);
+                break;
+            case SP_FONT_SIZE_MEDIUM:
+                computedLength.setValue(12.0);
+                break;
+            case SP_FONT_SIZE_LARGE:
+                computedLength.setValue(14.0);
+                break;
+            case SP_FONT_SIZE_X_LARGE:
+                computedLength.setValue(18.0);
+                break;
+            case SP_FONT_SIZE_XX_LARGE:
+                computedLength.setValue(24.0);
+                break;
+            case SP_FONT_SIZE_SMALLER:
+                // "In CSS2, the suggested scaling factor for a computer screen
+                // between adjacent indexes was 1.2"
+                computedLength.setValue(parent.getComputedLength() / 1.2);
+                break;
+            case SP_FONT_SIZE_LARGER:
+                computedLength.setValue(parent.getComputedValue() * 1.2);
+                break;
+        }
+    }
 }
 
 void SPILengthOrNumber::readFromString(char *str)
@@ -671,6 +629,7 @@ void SPILengthOrNumber::readFromString(char *str)
     SPIXorEnum::readFromString(str);
     if (status != STATUS_UNSET) {
         // was a literal value
+        }
         return;
     }
 
@@ -701,31 +660,86 @@ void SPILengthOrNumber::readFromString(char *str)
     }
 
     status = STATUS_VALUE_SET;
+
+    // set computedLength
+    mergeFromParent();
+}
+
+double SPILengthOrNumber::getComputedValue()
+{
+    return computedLength.getValue();
+}
+
+void SPILengthOrNumber::mergeFromParent(SPILength *parent)
+{
+    if (status == STATUS_UNSET || status == STATUS_INHERIT) {
+        literalValue = parent->getLiteralValue();
+        computedLength = parent->getComputedLength();
+    }
+
+    if (status != STATUS_VALUE_SET) {
+        return;
+    }
+
+    if (isRelative(length.getUnit())) {
+        switch (length.getUnit()) {
+            case SVGLength::SVG_LENGTHTYPE_PERCENT:
+                computedValue =
+                break;
+            case SVGLength::SVG_LENGTHTYPE_EMS:
+                computedValue = parent->getComputedValue() * pxPerEm;
+                break;
+            case SVGLength::SVG_LENGTHTYPE_EXS:
+                computedValue = parent->getComputedValue() * pxPerExc;
+                break;
+        }
+    }
+    else {
+        computedLength = parent.getComputedLength();
+    }
 }
 
 // TODO maybe tostring and tooptimizedstring?
 
 // TODO fix this
-void SPILengthOrNumber::mergeFromDyingParent(const SPILength &parent, const double parent_child_em_ratio)
+void SPILengthOrNumber::mergeFromDyingParent(SPIStyle *style, SPILength *parent)
 {
-    if ((status == STATUS_VALUE_SET || status == STATUS_INHERIT)
-         && parent.status == STATUS_VALUE_SET && parent.status != STATUS_INHERIT)
-    {
-        length = parent.length;
-        status = parent.status; // correct?
-        switch (parent.getValue().getUnit()) {
-            case SVGLength::SVG_LENGTHTYPE_EM:
-            case SVGLength::SVG_LENGTHTYPE_EX:
-                length.setValue(length.getValue() * parent_child_em_ratio);
-                /** \todo
-                 * fixme: Have separate ex ratio parameter.
-                 * Get x height from libnrtype or pango.
-                 */
-                if (!IS_FINITE(length.getValue())) {
-                    length.setValue(computedLength.getValue());
-                }
-                break;
+    if (parent->status == STATUS_SET && parent->status != STATUS_INHERIT) {
+        if (status != STATUS_UNSET || status == STATUS_INHERIT) {
+            length = parent->getComputedValue();
         }
+        else if (length.getUnit() == SVGLength::SVG_LENGTHTYPE_EM ||
+                 length.getUnit() == SVGLength::SVG_LENGTHTYPE_EX ||
+                 length.getUnit() == SVGLength::SVG_LENGTHTYPE_PERCENTAGE)
+        {
+            status = STATUS_VALUE_SET;
+            computedLength.setValue(parent->length * getRelativeFontSizeFrac());
+        }
+        else if ()
+        // * Parent has relative 
+    }
+}
+
+double SPILengthOrNumber::getRelativeFontSizeFrac()
+{
+    if (status == STATUS_LITERAL_SET) {
+        switch (length.getUnit()) {
+            case SP_CSS_FONT_SIZE_SMALLER:
+                return 1.2;
+            case SP_CSS_FONT_SIZE_LARGER:
+                return 1/1.2;
+        }
+    }
+
+    switch (length.getUnit()) {
+        case SVGLength::SVG_LENGTHTYPE_PERCENTAGE:
+            return length.getValue() / 100;
+        case SVGLength::SVG_LENGTHTYPE_EM:
+            return length.getValue();
+        case SVGLength::SVG_LENGTHTYPE_EX:
+            // TODO get ex size from pango
+            return length.getValue() * 0.5;
+    }
 }
 
 SPITextDecoration::SPITextDecoration() :
@@ -833,21 +847,45 @@ gchar * SPIStrokeDashArray::toString()
     for (unsigned long i = 0; i < noi; ++i) {
         os << dashes.getItem(i).getValueAsString();
         if (i != noi - 1) {
-            os << ",";
+            os << ',';
         }
     }
     return os.str().c_str();
+}
+
+double * SPIStrokeDashArray::getDashArray()
+{
+    int noe = dashes.getNumberOfElements();
+    double *result = new double[noe];
+    for (int i = 0; i < noe; ++i) {
+        result[i] = dashes[i].getComputedLength();
+    }
+    return result;
 }
 
 void SPIStrokeDashArray::readFromString(gchar *str)
 {
     std::vector<gchar *> split = AttributeSplitter::splitAttributeString(str);
     for (unsigned int i = 0; i < split.size(); ++i) {
-        SVGLength *item = new SVGLength();
-        item.setValueAsString(split[i]);
-        dashes.appendItem(const_cast<const SVGLength>(item));
+        SPILength *item = new SPILength();
+        item.readFromString(split[i]);
+        dashes.push_back(item);
     }
     AttributeSplitter::freeAttributeSplit(split);
+}
+
+void SPIStrokeDashArray::mergeFromParent(SPIStyle *parent)
+{
+    for (unsigned int i = 0; i < split.size(); ++i) {
+        dashes[i].mergeFromParent(parent);
+    }
+}
+
+void SPIStrokeDashArray::mergeFromDyingParent(SPIStyle *parent)
+{
+    for (unsigned int i = 0; i < split.size(); ++i) {
+        dashes[i].mergeFromDyingParent(parent);
+    }
 }
 
 SPIStrokeDashArray::~SPIStrokeDashArray()
@@ -866,7 +904,7 @@ SPStyle::SPStyle(SPDocument *doc) :
     document(doc)
 {
     // use pointer to avoid object slicing
-    base = { &fill_opacity, &stroke_opacity,  };
+    base = { &fill_opacity, &stroke_opacity, };
     for (unsigned int i = 0; i < G_N_ELEMENTS(lengthProperties); ++i) {
         literal[lengthProperties[i]] = SPILength(lengthProperties[i]);
     }
@@ -903,14 +941,11 @@ void SPStyle::readStyle(Inkscape::XML::Node *repr)
     }
 }
 
-// TODO parameter for STATUS_UNSET
-
 void SPStyle::mergeFromParent(const SPStyle *parent)
 {
     for (int i = 0; i < G_N_ELEMENTS(base); ++i) {
         if (base[i]->status == STATUS_UNSET || length[prop].status == STATUS_INHERIT) {
-            delete base[i];
-            base[i] = parent;
+            base[i]->mergeFromParent(parent);
         }
     }
 }
@@ -1034,49 +1069,56 @@ void SPStyle::readFromPrefs(const Glib::ustring &path)
     }
 }
 
-SPObject * SPStyle::getFilter() const
+void SPStyle::paintServerRefChanged(SPObject *oldref, SPObject *ref, sigc::connection *ps)
 {
-    return (filter.href) ? filter.href->getObject() : 0;
+    if (oldref != NULL) {
+        ps->disconnect();
+    :w}
+    if (SP_IS_PAINT_SERVER(ref)) {
+        ps = ref->connectModified(sigc::bind(sigc::ptf_fun(&SPStyle::paintServerRefModified)));
+    }
+    paintServerRefModified(ref, NULL);
 }
 
-const SPObject * SPStyle::getFilter() const
+void SPStyle::filterRefModified(SPObject *obj, guint flags)
 {
-    return (filter.href) ? filter.href->getObject() : 0;
+    SPFilter *filter = static_cast<SPFilter *>(obj);
+    if (getFilter() == filter) {
+        if (object != NULL) {
+            object->requestModified(SP_OBJECT_MODIFIED_FLAG | SP_OBJECT_STYLE_MODIFIED_FLAG);
+        }
+    }
 }
 
-const gchar * SPStyle::getFilterURI() const
+void SPStyle::filterRefChanged(SPObject *oldref, SPObject *ref)
 {
-    return (filter.href) ? filter.href->getURI()->toString() : 0;
+    if (oldref != NULL) {
+        filter_modified_connection
+    }
 }
 
-SPPaintServer * SPStyle::getFillPaintServer() const
+void SPStyle::paintServerRefModified(SPObject *ref)
 {
-    return (fill.value.href) ? fill.value.href->getObject() : 0;
-}
-
-const SPPaintServer * SPIStyle::getFillPaintServer() const
-{
-    return (fill.value.href) ? fill.value.href->getObject() : 0;
-}
-
-const gchar * SPStyle::getFillURI() const
-{
-    return (fill.value.href) ? fill.value.href->getURI()->toString() : 0;
-}
-
-SPPaintServer * SPStyle::getStrokePaintServer() const // TODO really const bcz of getObject
-{
-    return (stroke.value.href) ? stroke.value.href->getObject() : 0;
-}
-
-const SPPaintServer * SPStyle::getStrokePaintServer() const
-{
-    return (stroke.value.href) ? stroke.value.href->getObject() : 0
-}
-
-const gchar * SPStyle::getStrokeURI() const
-{
-    return (stroke.value.href) ? stroke.value.href->getURI()->toString() : 0;
+    SPPaintServer *server = static_cast<SPPaintServer *>(obj);
+    if (fill.isPaintserver() == true) {
+        if (object != NULL) {
+            /** TODO
+             * fixme: I do not know, whether it is optimal - we are
+             * forcing reread of everything (Lauris)
+             */
+            /** TODO
+             * fixme: We have to use object_modified flag, because parent
+             * flag is only available downstreams.
+             */
+            object->requestModified(SP_OBJECT_MODIFIED_FLAG | SP_OBJECT_STYLE_MODIFIED_FLAG);
+        }
+    }
+    else if (stroke.isPaintServer() == true && getStrokePaintserver == server) {
+        object->requestModified(SP_OBJECT_MODIFIED_FLAG | SP_OBJECT_STYLE_MODIFIED_FLAG);
+    }
+    else if (server != NULL) {
+        g_assert_not_reached();
+    }
 }
 
 class SPTextStyle : public SPIXorEnum {
