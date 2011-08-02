@@ -312,6 +312,18 @@ SPDocument *SPDocument::createDoc(Inkscape::XML::Document *rdoc,
     document->rdoc = rdoc;
     document->rroot = rroot;
 
+    if (document->uri){
+        g_free(document->uri);
+        document->uri = 0;
+    }
+    if (document->base){
+        g_free(document->base);
+        document->base = 0;
+    }
+    if (document->name){
+        g_free(document->name);
+        document->name = 0;
+    }
 #ifndef WIN32
     document->uri = prepend_current_dir_if_relative(uri);
 #else
@@ -485,24 +497,20 @@ SPDocument *SPDocument::createNewDoc(gchar const *uri, unsigned int keepalive, b
 
 SPDocument *SPDocument::createNewDocFromMem(gchar const *buffer, gint length, unsigned int keepalive)
 {
-    SPDocument *doc;
-    Inkscape::XML::Document *rdoc;
-    Inkscape::XML::Node *rroot;
-    gchar *name;
+    SPDocument *doc = 0;
 
-    rdoc = sp_repr_read_mem(buffer, length, SP_SVG_NS_URI);
-
-    /* If it cannot be loaded, return NULL without warning */
-    if (rdoc == NULL) return NULL;
-
-    rroot = rdoc->root();
-    /* If xml file is not svg, return NULL without warning */
-    /* fixme: destroy document */
-    if (strcmp(rroot->name(), "svg:svg") != 0) return NULL;
-
-    name = g_strdup_printf(_("Memory document %d"), ++doc_count);
-
-    doc = createDoc(rdoc, NULL, NULL, name, keepalive);
+    Inkscape::XML::Document *rdoc = sp_repr_read_mem(buffer, length, SP_SVG_NS_URI);
+    if ( rdoc ) {
+        // Only continue to create a non-null doc if it could be loaded
+        Inkscape::XML::Node *rroot = rdoc->root();
+        if ( strcmp(rroot->name(), "svg:svg") != 0 ) {
+            // If xml file is not svg, return NULL without warning
+            // TODO fixme: destroy document
+        } else {
+            Glib::ustring name = Glib::ustring::compose( _("Memory document %1"), ++doc_count );
+            doc = createDoc(rdoc, NULL, NULL, name.c_str(), keepalive);
+        }
+    }
 
     return doc;
 }
@@ -841,6 +849,11 @@ void
 SPDocument::removeUndoObserver(Inkscape::UndoStackObserver& observer)
 {
     this->priv->undoStackObservers.remove(observer);
+}
+
+SPObject *SPDocument::getObjectById(Glib::ustring const &id) const
+{
+    return getObjectById( id.c_str() );
 }
 
 SPObject *SPDocument::getObjectById(gchar const *id) const

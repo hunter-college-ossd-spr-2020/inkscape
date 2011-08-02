@@ -71,6 +71,14 @@ typedef dom::Document Document;
 typedef dom::NodeList NodeList;
 
 class SVGElement;
+class SVGAnimated;
+class SVGList;
+class SVGString;
+class SVGNumber;
+class SVGLength;
+class SVGAngle;
+class SVGRect;
+
 typedef Ptr<SVGElement> SVGElementPtr;
 class SVGUseElement;
 typedef Ptr<SVGUseElement> SVGUseElementPtr;
@@ -662,8 +670,10 @@ protected:
 class SVGNumber
 {
 public:
+    SVGNumber() { };
+
     SVGNumber(double val) :
-        double value(val)
+        value(val)
     {}
 
     /**
@@ -682,7 +692,7 @@ public:
         value = val;
     }
 
-prrivate:
+private:
     double value;
 };
 
@@ -809,21 +819,21 @@ public:
         gchar *endptr;
         double dbl = g_ascii_strtod(val, &endptr);
         if (endptr[0] == '%' && endptr[1] == '\0') {
-            unitType = SVG_LENGTHTYPE_PERCENT;
+            unitType = SVG_LENGTHTYPE_PERCENTAGE;
         }
         else if (endptr[0] == '\0' || endptr[1] == '\0' || endptr[2] != '\0') {
-            unitType = SVG_LENGTHTYPE_UNSPECIFIED;
+            unitType = SVG_LENGTHTYPE_UNKNOWN;
         }
         else {
-            unsigned const int uval = UVAL(e[0], e[1]);
+            unsigned const int uval = UVAL(endptr[0], endptr[1]);
             switch (uval) {
                 case UVAL('e', 'm'):
-                    unitType = SVG_LENGTHTYPE_EM;
-                    value = dbl*PX_PER_EM;
+                    unitType = SVG_LENGTHTYPE_EMS;
+                    value = dbl;
                     break;
                 case UVAL('e', 'x'):
-                    unitType = SVG_LENGTHTYPE_EX;
-                    value = dbl*PX_PER_EX;
+                    unitType = SVG_LENGTHTYPE_EXS;
+                    value = dbl;
                     break;
                 case UVAL('p', 'x'):
                     unitType = SVG_LENGTHTYPE_PX;
@@ -831,23 +841,23 @@ public:
                     break;
                 case UVAL('c', 'm'):
                     unitType = SVG_LENGTHTYPE_CM;
-                    value = dbl*PX_PER_CM;
+                    value = dbl;
                     break;
                 case UVAL('m', 'm'):
                     unitType = SVG_LENGTHTYPE_MM;
-                    value = dbl*PX_PER_MM;
+                    value = dbl;
                     break;
                 case UVAL('i', 'n'):
                     unitType = SVG_LENGTHTYPE_IN;
-                    value = dbl*PX_PER_IN;
+                    value = dbl;
                     break;
                 case UVAL('p', 't'):
                     unitType = SVG_LENGTHTYPE_PT;
-                    value = dbl*PX_PER_PT;
+                    value = dbl;
                     break;
                 case UVAL('p', 'c'):
-                    unitType = SVG_LENGHTTYPE_PC;
-                    value = dbl*PX_PER_PC;
+                    unitType = SVG_LENGTHTYPE_PC;
+                    value = dbl;
                     break;
             }
         }
@@ -858,7 +868,7 @@ public:
      * all of the attributes on the object.
      * \param newType 
      * \param val
-     * \exception DOMException (code NOT_SUPPORTED_ERR) Raised if unitType is
+     * \exception DOMException (code DOMException::NOT_SUPPORTED_ERR) Raised if unitType is
      * SVG_LENGTHTYPE_UNKNOWN or not a valid unit type constant (one of the other SVG_LENGTHTYPE_*
      * constants defined on this interface).
      * \exception DOMException (code NO_MODIFICATION_ALLOWED_ERR) Raised when the length
@@ -867,7 +877,7 @@ public:
     void newValueSpecifiedUnits(SVGLengthType newType, double val)
     {
         if (newType == SVG_LENGTHTYPE_UNKNOWN) {
-            throw DOMException(NOT_SUPPORTED_ERR);
+            throw DOMException(DOMException::NOT_SUPPORTED_ERR);
         }
         unitType = newType;
         value = val;
@@ -877,13 +887,13 @@ public:
      * Preserve the same underlying stored value, but reset the stored unit identifier to the given
      * unitType.
      * \param newType The unit type to switch to.
-     * \exception DOMException (code NOT_SUPPORTED_ERR) Raised if unitType is
+     * \exception DOMException (code DOMException::NOT_SUPPORTED_ERR) Raised if unitType is
     *  SVG_LENGTHTYPE_UNKNOWN.
      */
     void convertToSpecifiedUnits(SVGLengthType newType)
     {
-        if (newType == SVG_LENGTHTYPE_UNSPECIFIED) {
-            throw DOMException(NOT_SUPPORTED_ERR);
+        if (newType == SVG_LENGTHTYPE_UNKNOWN) {
+            throw DOMException(DOMException::NOT_SUPPORTED_ERR);
         }
         unitType = newType;
     }
@@ -893,7 +903,7 @@ public:
      */
     SVGLength() :
         value(0),
-        unitType(SVG_LENGTHTYPE_UNSPECIFIED)
+        unitType(SVG_LENGTHTYPE_UNKNOWN)
     {}
 
     /**
@@ -1021,12 +1031,10 @@ public:
     T & insertItemBefore(const T &newItem, unsigned long index)
         throw(DOMException)
     {
-        if (index >= items.size())
-        {
+        if (index >= items.size()) {
             items.push_back(newItem);
         }
-        else
-        {// TODO
+        else {
             std::vector<T>::iterator iter = items.begin() + index;
             items.insert(iter, newItem);
         }
@@ -1051,9 +1059,8 @@ public:
                           unsigned long index)
         throw(DOMException)
     {
-        if (index >= items.size())
-        {
-            throw DOMException(INDEX_SIZE_ERR);
+        if (index >= items.size()) {
+            throw DOMException(DOMException::INDEX_SIZE_ERR);
         }
         std::vector<T>::iterator iter = items.begin() + index;
         *iter = newItem;
@@ -1185,7 +1192,7 @@ public:
             case SVG_ANGLETYPE_RAD:
                 result.append("rad");
                 break;
-            case SVG_ANGLE_TYPE_GRAD:
+            case SVG_ANGLETYPE_GRAD:
                 result.append("grad");
                 break
         }
@@ -1201,11 +1208,11 @@ public:
         throw (DOMException)
     {
         gchar *e;
-        const float dbl = g_ascii_strtod(str, &e);
+        const float dbl = g_ascii_strtod(str.c_str(), &e);
         if (e == str) {
             // cannot convert str to a number
             unitType = SVG_ANGLETYPE_UNSPECIFIED;
-            value = 0F;
+            value = 0.0;
         }
 
         if (e[0] == 'd' && e[1] == 'e' && e[2] == 'g' && e[3] == '\0') {
@@ -1232,7 +1239,7 @@ public:
      * all of the attributes on the object.
      * \param newType The unit type for the value.
      * \param val The angle value.
-     * \except DOMException (code NOT_SUPPORTED_ERR) Raised if unitType is SVG_ANGLETYPE_UNKNOWN or
+     * \except DOMException (code DOMException::NOT_SUPPORTED_ERR) Raised if unitType is SVG_ANGLETYPE_UNKNOWN or
      * not a valid unit type constant (one of the other SVG_ANGLETYPE_* constants defined on this
      * interface).
      * \except DOMException (code NO_MODIFICATION_ALLOWED_ERR) Raised when the angle corresponds to
@@ -1241,10 +1248,10 @@ public:
     void newValueSpecifiedUnits(SVGAngleUnitType newType, double val)
     {
         if (newType == SVG_ANGLETYPE_UNKNOWN) {
-            throw DOMException(NOT_SUPPORTED_ERR);
+            throw DOMException(DOMException::NOT_SUPPORTED_ERR);
         }
         unitType = newType;
-        setValueSpecifiedUnits(val);
+        setValueInSpecifiedUnits(val);
     }
 
     /**
@@ -1256,7 +1263,7 @@ public:
     void convertToSpecifiedUnits(SVGAngleUnitType newType)
     {
         if (newType == SVG_ANGLETYPE_UNKNOWN) {
-            throw DOMException(NOT_SUPPORTED_ERR);
+            throw DOMException(DOMException::NOT_SUPPORTED_ERR);
         }
         unitType = newType;
     }
@@ -1265,7 +1272,7 @@ public:
      * Default constructor, sets length to zero and unit to unspecified.
      */
     SVGAngle() :
-        value(0,)
+        value(0),
         unitType(SVG_ANGLETYPE_UNSPECIFIED)
     {
     }
