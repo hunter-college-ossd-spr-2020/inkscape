@@ -95,6 +95,7 @@ extensions = \
 	jessyInk_uninstall.py \
 	jessyInk_video.py \
 	jessyInk_view.py \
+	jitternodes.py \
 	launch_webbrowser.py \
 	layers2svgfont.py \
 	svgfont2layers.py \
@@ -122,7 +123,6 @@ extensions = \
 	ps2dxf.sh \
 	ps2pdf-ext.py \
 	pturtle.py \
-	radiusrand.py \
 	replace_font.py \
 	restack.py \
 	render_barcode.py \
@@ -287,6 +287,7 @@ modules = \
 	jessyInk_uninstall.inx \
 	jessyInk_video.inx \
 	jessyInk_view.inx \
+	jitternodes.inx \
 	layers2svgfont.inx \
 	svgfont2layers.inx \
 	layout_nup.inx \
@@ -310,7 +311,6 @@ modules = \
 	polyhedron_3d.inx	\
 	printing_marks.inx \
 	ps_input.inx \
-	radiusrand.inx \
 	render_barcode.inx \
 	render_barcode_datamatrix.inx \
 	render_barcode_qrcode.inx \
