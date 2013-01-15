@@ -22,13 +22,6 @@
 #include "libnrtype/font-instance.h"
 #include "util/unordered-containers.h"
 
-#if !PANGO_VERSION_CHECK(1,24,0)
-#define PANGO_WEIGHT_THIN       static_cast<PangoWeight>(100)
-#define PANGO_WEIGHT_BOOK       static_cast<PangoWeight>(380)
-#define PANGO_WEIGHT_MEDIUM     static_cast<PangoWeight>(500)
-#define PANGO_WEIGHT_ULTRAHEAVY static_cast<PangoWeight>(1000)
-#endif
-
 typedef INK_UNORDERED_MAP<PangoFontDescription*, font_instance*, font_descr_hash, font_descr_equal> FaceMapType;
 
 // need to avoid using the size field
@@ -322,9 +315,15 @@ font_factory::font_factory(void) :
 {
 #ifdef USE_PANGO_WIN32
 #else
-    pango_ft2_font_map_set_resolution((PangoFT2FontMap*)fontServer, 72, 72);
-    fontContext = pango_ft2_font_map_create_context((PangoFT2FontMap*)fontServer);
-    pango_ft2_font_map_set_default_substitute((PangoFT2FontMap*)fontServer,FactorySubstituteFunc,this,NULL);
+    pango_ft2_font_map_set_resolution(PANGO_FT2_FONT_MAP(fontServer),
+                                      72, 72);
+    
+    fontContext = pango_font_map_create_context(fontServer);
+
+    pango_ft2_font_map_set_default_substitute(PANGO_FT2_FONT_MAP(fontServer),
+                                              FactorySubstituteFunc,
+                                              this,
+                                              NULL);
 #endif
 }
 

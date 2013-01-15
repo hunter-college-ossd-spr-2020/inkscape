@@ -511,9 +511,6 @@ void SPItem::sp_item_set(SPObject *object, unsigned key, gchar const *value)
         case SP_ATTR_CONNECTOR_AVOID:
             item->avoidRef->setAvoid(value);
             break;
-        case SP_ATTR_CONNECTION_POINTS:
-            item->avoidRef->setConnectionPoints(value);
-            break;
         case SP_ATTR_TRANSFORM_CENTER_X:
             if (value) {
                 item->transform_center_x = g_strtod(value, NULL);
@@ -552,6 +549,7 @@ void SPItem::sp_item_set(SPObject *object, unsigned key, gchar const *value)
 
 void SPItem::clip_ref_changed(SPObject *old_clip, SPObject *clip, SPItem *item)
 {
+    item->bbox_valid = FALSE; // force a re-evaluation
     if (old_clip) {
         SPItemView *v;
         /* Hide clippath */
@@ -1514,8 +1512,6 @@ Geom::Affine SPItem::i2dt_affine() const
         ret = i2doc_affine()
             * Geom::Scale(1, -1)
             * Geom::Translate(0, document->getHeight());
-
-        g_return_val_if_fail(desktop != NULL, ret);
     }
     return ret;
 }

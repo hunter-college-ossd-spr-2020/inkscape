@@ -27,13 +27,6 @@
 #include "livarot/Path.h"
 #include "util/unordered-containers.h"
 
-#if !PANGO_VERSION_CHECK(1,24,0)
-#define PANGO_WEIGHT_THIN       static_cast<PangoWeight>(100)
-#define PANGO_WEIGHT_BOOK       static_cast<PangoWeight>(380)
-#define PANGO_WEIGHT_MEDIUM     static_cast<PangoWeight>(500)
-#define PANGO_WEIGHT_ULTRAHEAVY static_cast<PangoWeight>(1000)
-#endif
-
 
 struct font_style_hash : public std::unary_function<font_style, size_t> {
     size_t operator()(font_style const &x) const;
@@ -406,7 +399,7 @@ void font_instance::InitTheFace()
     SetGraphicsMode(daddy->hScreenDC, GM_COMPATIBLE);
     SelectObject(daddy->hScreenDC,theFace);
 #else
-    theFace=pango_ft2_font_get_face(pFont); // Deprecated, use pango_fc_font_lock_face() instead
+    theFace=pango_fc_font_lock_face(PANGO_FC_FONT(pFont));
     if ( theFace ) {
         FT_Select_Charmap(theFace,ft_encoding_unicode) && FT_Select_Charmap(theFace,ft_encoding_symbol);
     }
@@ -418,6 +411,8 @@ void font_instance::FreeTheFace()
 #ifdef USE_PANGO_WIN32
     SelectObject(daddy->hScreenDC,GetStockObject(SYSTEM_FONT));
     pango_win32_font_cache_unload(daddy->pangoFontCache,theFace);
+#else
+    pango_fc_font_unlock_face(PANGO_FC_FONT(pFont));
 #endif
     theFace=NULL;
 }
@@ -461,12 +456,13 @@ int font_instance::MapUnicodeChar(gunichar c)
 #ifdef USE_PANGO_WIN32
         res = pango_win32_font_get_glyph_index(pFont, c);
 #else
-        theFace = pango_ft2_font_get_face(pFont);
+        theFace = pango_fc_font_lock_face(PANGO_FC_FONT(pFont));
         if ( c > 0xf0000 ) {
             res = CLAMP(c, 0xf0000, 0x1fffff) - 0xf0000;
         } else {
             res = FT_Get_Char_Index(theFace, c);
         }
+        pango_fc_font_unlock_face(PANGO_FC_FONT(pFont));
 #endif
     }
     return res;
