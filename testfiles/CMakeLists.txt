@@ -53,6 +53,7 @@ target_link_libraries(unittest
 	depixelize_LIB
 	util_LIB
 	gc_LIB
+	xmlpp_LIB
 
 	${INKSCAPE_LIBS}
 )

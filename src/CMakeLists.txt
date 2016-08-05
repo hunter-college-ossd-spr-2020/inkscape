@@ -470,6 +470,7 @@ add_subdirectory(inkgc)
 add_subdirectory(libgdl)
 add_subdirectory(libuemf)
 add_subdirectory(libvpsc)
+add_subdirectory(libxml++)
 add_subdirectory(livarot)
 add_subdirectory(libnrtype)
 add_subdirectory(libdepixelize)
@@ -529,6 +530,7 @@ set(INKSCAPE_TARGET_LIBS
         avoid_LIB
         cola_LIB
         vpsc_LIB
+        xmlpp_LIB
         livarot_LIB
         uemf_LIB
         2geom_LIB
