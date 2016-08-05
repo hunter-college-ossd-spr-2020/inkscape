@@ -16,7 +16,7 @@ set(xml_SRC
 	subtree.cpp
 	helper-observer.cpp
 	rebase-hrefs.cpp
-
+	svg-parser.cpp
 
 	# -------
 	# Headers
@@ -48,6 +48,7 @@ set(xml_SRC
 	simple-node.h
 	sp-css-attr.h
 	subtree.h
+	svg-parser.h
 	text-node.h
 )
 
