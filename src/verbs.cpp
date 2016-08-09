@@ -1201,6 +1201,9 @@ void SelectionVerb::perform(SPAction *action, void *data)
         case SP_VERB_SELECTION_OUTLINE:
             sp_selected_path_outline(dt);
             break;
+        case SP_VERB_SELECTION_OUTLINE_LEGACY:
+            sp_selected_path_outline(dt, true);
+            break;
         case SP_VERB_SELECTION_SIMPLIFY:
             sp_selected_path_simplify(dt);
             break;
@@ -1514,7 +1517,7 @@ void ObjectVerb::perform( SPAction *action, void *data)
             sp_selection_rotate_90(dt, true);
             break;
         case SP_VERB_OBJECT_FLATTEN:
-            sp_selection_remove_transform(dt);
+            sp_object_set_remove_transform(dt);
             break;
         case SP_VERB_OBJECT_FLOW_TEXT:
             text_flow_into_shape();
@@ -1526,12 +1529,12 @@ void ObjectVerb::perform( SPAction *action, void *data)
             flowtext_to_text();
             break;
         case SP_VERB_OBJECT_FLIP_HORIZONTAL:
-            sp_selection_scale_relative(sel, center, Geom::Scale(-1.0, 1.0));
+            sp_object_set_scale_relative(sel, center, Geom::Scale(-1.0, 1.0));
             DocumentUndo::done(dt->getDocument(), SP_VERB_OBJECT_FLIP_HORIZONTAL,
                                _("Flip horizontally"));
             break;
         case SP_VERB_OBJECT_FLIP_VERTICAL:
-            sp_selection_scale_relative(sel, center, Geom::Scale(1.0, -1.0));
+            sp_object_set_scale_relative(sel, center, Geom::Scale(1.0, -1.0));
             DocumentUndo::done(dt->getDocument(), SP_VERB_OBJECT_FLIP_VERTICAL,
                                _("Flip vertically"));
             break;
@@ -2612,6 +2615,8 @@ Verb *Verb::_base_verbs[] = {
                       INKSCAPE_ICON("path-offset-linked")),
     new SelectionVerb(SP_VERB_SELECTION_OUTLINE, "StrokeToPath", N_("_Stroke to Path"),
                       N_("Convert selected object's stroke to paths"), INKSCAPE_ICON("stroke-to-path")),
+    new SelectionVerb(SP_VERB_SELECTION_OUTLINE_LEGACY, "StrokeToPathLegacy", N_("_Stroke to Path Legacy"),
+                      N_("Convert selected object's stroke to paths legacy mode"), INKSCAPE_ICON("stroke-to-path")),
     new SelectionVerb(SP_VERB_SELECTION_SIMPLIFY, "SelectionSimplify", N_("Si_mplify"),
                       N_("Simplify selected paths (remove extra nodes)"), INKSCAPE_ICON("path-simplify")),
     new SelectionVerb(SP_VERB_SELECTION_REVERSE, "SelectionReverse", N_("_Reverse"),

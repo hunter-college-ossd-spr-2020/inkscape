@@ -46,10 +46,8 @@
 
 #include <libxml/tree.h>
 
-#if GTK_CHECK_VERSION(3,0,0)
 #include <gtkmm/cssprovider.h>
 #include <gdkmm/screen.h>
-#endif
 
 #include "inkgc/gc-core.h"
 
@@ -1042,8 +1040,6 @@ sp_main_gui(int argc, char const **argv)
 #endif
     g_free(usericondir);
 
-
-#if GTK_CHECK_VERSION(3,0,0)
     // Add style sheet (GTK3)
     Glib::RefPtr<Gdk::Screen> screen = Gdk::Screen::get_default();
 
@@ -1100,7 +1096,6 @@ sp_main_gui(int argc, char const **argv)
 
       Gtk::StyleContext::add_provider_for_screen (screen, provider2, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
-#endif
 
     gdk_event_handler_set((GdkEventFunc)snooper, NULL, NULL);
     Inkscape::Debug::log_display_config();
@@ -1214,8 +1209,8 @@ static int sp_process_file_list(GSList *fl)
                 	std::vector<SPItem*> items;
                     SPRoot *root = doc->getRoot();
                     doc->ensureUpToDate();
-                    for ( SPObject *iter = root->firstChild(); iter ; iter = iter->getNext()) {
-                        SPItem* item = (SPItem*) iter;
+                    for (auto& iter: root->children) {
+                        SPItem* item = (SPItem*) &iter;
                         if (! (SP_IS_TEXT(item) || SP_IS_FLOWTEXT(item) || SP_IS_GROUP(item))) {
                             continue;
                         }
@@ -1469,10 +1464,8 @@ do_query_all_recurse (SPObject *o)
         }
     }
 
-    SPObject *child = o->children;
-    while (child) {
-        do_query_all_recurse (child);
-        child = child->next;
+    for(auto& child: o->children) {
+        do_query_all_recurse (&child);
     }
 }
 
