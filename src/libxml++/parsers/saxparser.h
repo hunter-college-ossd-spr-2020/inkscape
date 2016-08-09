@@ -11,6 +11,7 @@
 
 #include <deque>
 #include <memory>
+#include "libxml++/document.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 extern "C" {
@@ -182,6 +183,36 @@ protected:
    */
   virtual void on_internal_subset(const Glib::ustring& name, const Glib::ustring& publicId, const Glib::ustring& systemId);
 
+  /** Override this method to resolve entities references in your derived parser, instead of using the default entity resolution,
+   * or to be informed when entity references are encountered.
+   *
+   * If you override this function then you must also specify true for use_get_entity constructor parameter.
+   * You will probably need to override on_entity_declaration() as well so that you can use that information when
+   * resolving the entity reference.
+   *
+   * This is known to be difficult, because it requires both an understanding of the W3C specifications and knowledge of the
+   * libxml internals. Entity resolution is easier with the DomParser.
+   *
+   * Call this method in this base class for default processing. For instance, if you just want to know about the existence of
+   * an entity reference, without affecting the normal substitution, just override and call the base class.
+   *
+   * Unlike the DomParser, the SaxParser will also tell you about entity references for the 5 predefined entities.
+   *
+   * @param name The entity reference name.
+   * @returns The resolved xmlEntity for the entity reference, or <tt>nullptr</tt> if not found.
+   *          You must include libxml/parser.h in order to use this C struct.
+   * This instance will not be freed by the caller.
+   */
+  virtual _xmlEntity* on_get_entity(const Glib::ustring& name);
+
+  /** Override this to receive information about every entity declaration.
+   * If you override this function, and you want normal entity substitution to work, then you must call the base class in your override.
+   *
+   * This would be useful when overriding on_get_entity().
+   * @throws xmlpp::internal_error
+   */
+  virtual void on_entity_declaration(const Glib::ustring& name, XmlEntityType type, const Glib::ustring& publicId, const Glib::ustring& systemId, const Glib::ustring& content);
+
   void release_underlying() override;
   void initialize_context() override;
 
@@ -189,6 +220,10 @@ private:
   void parse();
 
   std::unique_ptr<_xmlSAXHandler> sax_handler_;
+
+  // A separate xmlpp::Document that is just used for entity resolution,
+  // and never seen in the API:
+  std::unique_ptr<Document> entity_resolver_doc_;
 
   friend struct SaxParserCallback;
 };

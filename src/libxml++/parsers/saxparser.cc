@@ -20,6 +20,8 @@ namespace xmlpp {
 
 struct SaxParserCallback
 {
+  static xmlEntityPtr get_entity(void* context, const xmlChar* name);
+  static void entity_decl(void* context, const xmlChar* name, int type, const xmlChar* publicId, const xmlChar* systemId, xmlChar* content);
   static void start_document(void* context);
   static void end_document(void* context);
   static void start_element(void* context, const xmlChar* name, const xmlChar** p);
@@ -36,7 +38,7 @@ struct SaxParserCallback
 
 
 SaxParser::SaxParser(bool use_get_entity)
-  : sax_handler_(new _xmlSAXHandler)
+  : sax_handler_(new _xmlSAXHandler), entity_resolver_doc_(new Document)
 {
   xmlSAXHandler temp = {
     SaxParserCallback::internal_subset,
@@ -44,8 +46,8 @@ SaxParser::SaxParser(bool use_get_entity)
     nullptr, // hasInternalSubset
     nullptr, // hasExternalSubset
     nullptr, // resolveEntity
-    nullptr, // getEntity
-    nullptr, // entityDecl
+    use_get_entity ? SaxParserCallback::get_entity : nullptr, // getEntity
+    SaxParserCallback::entity_decl, // entityDecl
     nullptr, // notationDecl
     nullptr, // attributeDecl
     nullptr, // elementDecl
@@ -81,6 +83,16 @@ SaxParser::SaxParser(bool use_get_entity)
 SaxParser::~SaxParser()
 {
   release_underlying();
+}
+
+xmlEntityPtr SaxParser::on_get_entity(const Glib::ustring& name)
+{
+  return entity_resolver_doc_->get_entity(name);
+}
+
+void SaxParser::on_entity_declaration(const Glib::ustring& name, XmlEntityType type, const Glib::ustring& publicId, const Glib::ustring& systemId, const Glib::ustring& content)
+{
+  entity_resolver_doc_->set_entity_declaration(name, type, publicId, systemId, content);
 }
 
 void SaxParser::on_start_document()
@@ -129,6 +141,7 @@ void SaxParser::on_internal_subset(const Glib::ustring& name,
                          const Glib::ustring& publicId,
                          const Glib::ustring& systemId)
 {
+  entity_resolver_doc_->set_internal_subset(name, publicId, systemId);
 }
 
 // implementation of this function is inspired by the SAX documentation by James Henstridge.
@@ -356,6 +369,47 @@ void SaxParser::release_underlying()
 void SaxParser::initialize_context()
 {
   Parser::initialize_context();
+  // Start with an empty Document for entity resolution.
+  entity_resolver_doc_.reset(new Document);
+}
+
+
+xmlEntityPtr SaxParserCallback::get_entity(void* context, const xmlChar* name)
+{
+  auto the_context = static_cast<_xmlParserCtxt*>(context);
+  auto parser = static_cast<SaxParser*>(the_context->_private);
+  xmlEntityPtr result = nullptr;
+
+  try
+  {
+    result = parser->on_get_entity((const char*)name);
+  }
+  catch (...)
+  {
+    parser->handle_exception();
+  }
+
+  return result;
+}
+
+void SaxParserCallback::entity_decl(void* context, const xmlChar* name, int type, const xmlChar* publicId, const xmlChar* systemId, xmlChar* content)
+{
+  auto the_context = static_cast<_xmlParserCtxt*>(context);
+  auto parser = static_cast<SaxParser*>(the_context->_private);
+
+  try
+  {
+    parser->on_entity_declaration(
+      ( name ? Glib::ustring((const char*)name) : ""),
+      static_cast<XmlEntityType>(type),
+      ( publicId ? Glib::ustring((const char*)publicId) : ""),
+      ( systemId ? Glib::ustring((const char*)systemId) : ""),
+      ( content ? Glib::ustring((const char*)content) : "") );
+  }
+  catch (...)
+  {
+    parser->handle_exception();
+  }
 }
 
 void SaxParserCallback::start_document(void* context)
