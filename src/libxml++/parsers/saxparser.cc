@@ -26,8 +26,12 @@ struct SaxParserCallback
   static void end_document(void* context);
   static void start_element(void* context, const xmlChar* name, const xmlChar** p);
   static void end_element(void* context, const xmlChar* name);
+  static void start_element_ns(void *context, const xmlChar *name, const xmlChar *prefix, const xmlChar *URI, int nb_namespaces,
+                               const xmlChar **namespaces, int nb_attributes, int nb_defaulted, const xmlChar **attributes);
+  static void end_element_ns(void *context, const xmlChar *name, const xmlChar *prefix, const xmlChar *URI);
   static void characters(void* context, const xmlChar* ch, int len);
   static void comment(void* context, const xmlChar* value);
+  static void processing_instruction(void* context, const xmlChar* target, const xmlChar* data);
   static void warning(void* context, const char* fmt, ...);
   static void error(void* context, const char* fmt, ...);
   static void fatal_error(void* context, const char* fmt, ...);
@@ -60,7 +64,7 @@ SaxParser::SaxParser(bool use_get_entity)
     nullptr, // reference
     SaxParserCallback::characters, // characters
     nullptr, // ignorableWhitespace
-    nullptr, // processingInstruction
+    SaxParserCallback::processing_instruction, // processingInstruction
     SaxParserCallback::comment,  // comment
     SaxParserCallback::warning,  // warning
     SaxParserCallback::error,  // error
@@ -68,10 +72,10 @@ SaxParser::SaxParser(bool use_get_entity)
     nullptr, // getParameterEntity
     SaxParserCallback::cdata_block, // cdataBlock
     nullptr, // externalSubset
-    0,       // initialized
+    XML_SAX2_MAGIC,       // initialized
     nullptr, // private
-    nullptr, // startElementNs
-    nullptr, // endElementNs
+    SaxParserCallback::start_element_ns, // startElementNs
+    SaxParserCallback::end_element_ns, // endElementNs
     nullptr, // serror
   };
   *sax_handler_ = temp;
@@ -111,11 +115,23 @@ void SaxParser::on_end_element(const Glib::ustring& /* name */)
 {
 }
 
+void SaxParser::on_start_element_ns(const Glib::ustring& /* name */, const Glib::ustring& /* prefix */, const Glib::ustring& /* uri */, const NamespaceList& /* namespaces */, const AttributeList& /* attributes */)
+{
+}
+
+void SaxParser::on_end_element_ns(const Glib::ustring& /* name */, const Glib::ustring& /* prefix */, const Glib::ustring& /* uri */)
+{
+}
+
 void SaxParser::on_characters(const Glib::ustring& /* text */)
 {
 }
 
 void SaxParser::on_comment(const Glib::ustring& /* text */)
+{
+}
+
+void SaxParser::on_processing_instruction(const Glib::ustring &target, const Glib::ustring &data)
 {
 }
 
@@ -126,7 +142,6 @@ void SaxParser::on_warning(const Glib::ustring& /* text */)
 void SaxParser::on_error(const Glib::ustring& /* text */)
 {
 }
-
 
 void SaxParser::on_fatal_error(const Glib::ustring& text)
 {
@@ -373,7 +388,6 @@ void SaxParser::initialize_context()
   entity_resolver_doc_.reset(new Document);
 }
 
-
 xmlEntityPtr SaxParserCallback::get_entity(void* context, const xmlChar* name)
 {
   auto the_context = static_cast<_xmlParserCtxt*>(context);
@@ -477,6 +491,63 @@ void SaxParserCallback::end_element(void* context, const xmlChar* name)
   try
   {
     parser->on_end_element(Glib::ustring((const char*) name));
+  }
+  catch (...)
+  {
+    parser->handle_exception();
+  }
+}
+
+void SaxParserCallback::start_element_ns(void *context, const xmlChar *name, const xmlChar *prefix, const xmlChar *URI,
+                                         int nb_namespaces, const xmlChar **namespaces, int nb_attributes,
+                                         int nb_defaulted, const xmlChar **attributes)
+{
+  auto the_context = static_cast<_xmlParserCtxt*>(context);
+  auto parser = static_cast<SaxParser*>(the_context->_private);
+
+  SaxParser::AttributeList attrs;
+  SaxParser::NamespaceList nss;
+  try
+  {
+    const auto pref = prefix ? Glib::ustring((const char*) prefix) : "";
+    const auto uri = URI ? Glib::ustring((const char*) URI) : "";
+    for (int i = 0; i < nb_namespaces; ++i)
+    {
+      const auto p = namespaces[i * 2] ? Glib::ustring((const char*) namespaces[i * 2]) : "";
+      const auto u = namespaces[i * 2 + 1] ? Glib::ustring((const char*) namespaces[i * 2 + 1]) : "";
+      nss.push_back(SaxParser::Namespace(p, u));
+    }
+
+    unsigned int index = 0;
+    for (int ia = 0; ia < nb_attributes; ++ia, index += 5 )
+    {
+      const auto attrName = attributes[index] ? Glib::ustring((const char*) attributes[index]) : "";
+      const auto attrPrefix = attributes[index + 1] ? Glib::ustring((const char*) attributes[index + 1]) : "";
+      const auto attrUri = attributes[index + 2] ? Glib::ustring((const char*) attributes[index + 2]) : "";
+      const auto attrValueBegin = attributes[index + 3];
+      const auto attrValueEnd = attributes[index + 4];
+      Glib::ustring value((const char *)attrValueBegin, (const char *)attrValueEnd);
+      attrs.push_back(SaxParser::Attribute(attrName, value, attrPrefix, attrUri));
+    }
+    parser->on_start_element_ns(Glib::ustring((const char *) name), pref, uri, nss, attrs);
+  }
+  catch (...)
+  {
+    parser->handle_exception();
+  }
+}
+
+void SaxParserCallback::end_element_ns(void *context, const xmlChar *name, const xmlChar *prefix, const xmlChar *URI)
+{
+  auto the_context = static_cast<_xmlParserCtxt*>(context);
+  auto parser = static_cast<SaxParser*>(the_context->_private);
+
+  try
+  {
+    const auto pref = prefix ? Glib::ustring((const char*) prefix) : "";
+    const auto uri = URI ? Glib::ustring((const char*) URI) : "";
+
+    parser->on_end_element_ns(Glib::ustring((const char*) name), pref, uri);
   }
   catch (...)
   {
@@ -615,6 +686,21 @@ void SaxParserCallback::internal_subset(void* context, const xmlChar* name,
     const auto sid = systemId ? Glib::ustring((const char*) systemId) : "";
 
     parser->on_internal_subset( Glib::ustring((const char*) name), pid, sid);
+  }
+  catch (...)
+  {
+    parser->handle_exception();
+  }
+}
+
+void SaxParserCallback::processing_instruction(void *context, const xmlChar *target, const xmlChar *data)
+{
+  auto the_context = static_cast<_xmlParserCtxt*>(context);
+  auto parser = static_cast<SaxParser*>(the_context->_private);
+
+  try
+  {
+    parser->on_processing_instruction(Glib::ustring((const char*) target), Glib::ustring((const char*) data));
   }
   catch (...)
   {

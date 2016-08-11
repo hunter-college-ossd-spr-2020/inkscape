@@ -86,6 +86,42 @@ void SVGParser::on_comment(const Glib::ustring& text)
     Inkscape::GC::release(comment);
 }
 
+void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri, const NamespaceList& namespaces, const AttributeList& attributes) {
+    Glib::ustring n = name;
+    if (prefix != "") {
+        n = prefix + ":" + n;
+    }
+    Node* element = _doc->createElement(n.c_str());
+    for (auto &attr: attributes) {
+        Glib::ustring an = attr.name;
+        if (attr.ns.prefix != "") {
+            an = attr.ns.prefix + ":" + an;
+        }
+        element->setAttribute(an, attr.value);
+    }
+    if (_context.empty()) {
+        _doc->appendChild(element);
+    } else {
+        _context.top()->appendChild(element);
+    }
+    _context.push(element);
+    Inkscape::GC::release(element);
+}
+
+void SVGParser::on_end_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri) {
+    _context.pop();
+}
+
+void SVGParser::on_processing_instruction(const Glib::ustring &target, const Glib::ustring &data) {
+    Node *pi = _doc->createPI(target.c_str(), data.c_str());
+    if (_context.empty()) {
+        _doc->appendChild(pi);
+    } else {
+        _context.top()->appendChild(pi);
+    }
+    Inkscape::GC::release(pi);
+}
+
 void SVGParser::on_warning(const Glib::ustring& text)
 {
     Glib::ustring t = "SVGParser: " + text;

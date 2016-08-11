@@ -36,6 +36,9 @@ protected:
     void on_end_document() override;
     void on_start_element(const Glib::ustring& name, const AttributeList& properties) override;
     void on_end_element(const Glib::ustring& name) override;
+    void on_start_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri, const NamespaceList& namespaces, const AttributeList& attributes) override;
+    void on_end_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri) override;
+    void on_processing_instruction(const Glib::ustring& target, const Glib::ustring& data) override;
     void on_characters(const Glib::ustring& characters) override;
     void on_comment(const Glib::ustring& text) override;
     void on_cdata_block(const Glib::ustring& text) override;

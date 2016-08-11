@@ -35,21 +35,46 @@ class SaxParser : public Parser
 {
 public:
   /**
-   * Simple structure used in the start_element callback, in which
-   * the attributes are a list of name/value pairs.
+   * Simple structure used in the start_element callbacks, in which
+   * the namespaces are a list of prefix/uri pairs.
+   */
+  struct Namespace
+  {
+      Glib::ustring prefix;
+      Glib::ustring uri;
+
+      Namespace()
+      {
+      }
+
+      Namespace(Glib::ustring const & p, Glib::ustring const & u)
+        : prefix(p), uri(u)
+      {
+      }
+  };
+  /**
+   * Simple structure used in the start_element callbacks, in which
+   * the attributes are a list of name/value/namespace tuples.
    */
   struct Attribute
   {
     Glib::ustring name;
     Glib::ustring value;
+    Namespace ns;
 
     Attribute(Glib::ustring const & n, Glib::ustring const & v)
       : name(n), value(v)
+    {
+    }
+
+    Attribute(Glib::ustring const & n, Glib::ustring const & v, Glib::ustring const & p, Glib::ustring const & u)
+      : name(n), value(v), ns(Namespace(p, u))
       {
       }
   };
 
   using AttributeList = std::deque<Attribute>;
+  using NamespaceList = std::deque<Namespace>;
 
   /** This functor is a helper to find an attribute by name in an
    * AttributeList using the standard algorithm std::find_if
@@ -169,8 +194,11 @@ protected:
   virtual void on_end_document();
   virtual void on_start_element(const Glib::ustring& name, const AttributeList& attributes);
   virtual void on_end_element(const Glib::ustring& name);
+  virtual void on_start_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri, const NamespaceList& namespaces, const AttributeList& attributes);
+  virtual void on_end_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri);
   virtual void on_characters(const Glib::ustring& characters);
   virtual void on_comment(const Glib::ustring& text);
+  virtual void on_processing_instruction(const Glib::ustring& target, const Glib::ustring& data);
   virtual void on_warning(const Glib::ustring& text);
   virtual void on_error(const Glib::ustring& text);
 
