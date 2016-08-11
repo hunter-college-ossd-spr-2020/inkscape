@@ -1,5 +1,5 @@
 /*
- * Multiindex container for selection
+ * Unit tests for ObjectSet.
  *
  * Authors:
  *   Adrian Boguszewski

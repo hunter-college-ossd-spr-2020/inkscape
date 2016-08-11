@@ -23,11 +23,13 @@ namespace XML {
 class Node;
 class Document;
 
-class SVGParser : public xmlpp::SaxParser
+class SVGParser : protected xmlpp::SaxParser
 {
 public:
     SVGParser();
     ~SVGParser() override;
+    Document* parseFile(const Glib::ustring& filename);
+    Document* parseBuffer(const Glib::ustring& source);
 
 protected:
     void on_start_document() override;
@@ -36,11 +38,10 @@ protected:
     void on_end_element(const Glib::ustring& name) override;
     void on_characters(const Glib::ustring& characters) override;
     void on_comment(const Glib::ustring& text) override;
+    void on_cdata_block(const Glib::ustring& text) override;
     void on_warning(const Glib::ustring& text) override;
     void on_error(const Glib::ustring& text) override;
     void on_fatal_error(const Glib::ustring& text) override;
-    void on_cdata_block(const Glib::ustring& text) override;
-    Document* getDocument();
 
 private:
     std::stack<Node*> _context;
