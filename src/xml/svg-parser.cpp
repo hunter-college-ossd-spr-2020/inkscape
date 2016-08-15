@@ -17,28 +17,23 @@ namespace Inkscape {
 
 namespace XML {
 
-SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr)
-{
-    // TODO what about entities
+SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr) {
     set_substitute_entities(true);
+    _dummyEntity = new xmlEntity();
 }
 
-SVGParser::~SVGParser()
-{
+SVGParser::~SVGParser() {
+    delete _dummyEntity;
 }
 
-void SVGParser::on_start_document()
-{
+void SVGParser::on_start_document() {
     _doc = new SimpleDocument();
 }
 
-void SVGParser::on_end_document()
-{
+void SVGParser::on_end_document() {
 }
 
-void SVGParser::on_start_element(const Glib::ustring& name,
-                                 const AttributeList& attributes)
-{
+void SVGParser::on_start_element(const Glib::ustring& name, const AttributeList& attributes) {
     Node* element = _doc->createElement(name.c_str());
     for (auto &attr: attributes) {
         element->setAttribute(attr.name, attr.value);
@@ -52,13 +47,11 @@ void SVGParser::on_start_element(const Glib::ustring& name,
     Inkscape::GC::release(element);
 }
 
-void SVGParser::on_end_element(const Glib::ustring& name )
-{
+void SVGParser::on_end_element(const Glib::ustring& name) {
     _context.pop();
 }
 
-void SVGParser::on_characters(const Glib::ustring& text)
-{
+void SVGParser::on_characters(const Glib::ustring& text) {
     if (!_context.empty()) {
         Node *t = _doc->createTextNode(text.c_str());
         _context.top()->appendChild(t);
@@ -66,8 +59,7 @@ void SVGParser::on_characters(const Glib::ustring& text)
     }
 }
 
-void SVGParser::on_cdata_block(const Glib::ustring &text)
-{
+void SVGParser::on_cdata_block(const Glib::ustring &text) {
     if (!_context.empty()) {
         Node *t = _doc->createTextNode(text.c_str(), true);
         _context.top()->appendChild(t);
@@ -75,8 +67,7 @@ void SVGParser::on_cdata_block(const Glib::ustring &text)
     }
 }
 
-void SVGParser::on_comment(const Glib::ustring& text)
-{
+void SVGParser::on_comment(const Glib::ustring& text) {
     Node *comment = _doc->createComment(text.c_str());
     if (_context.empty()) {
         _doc->appendChild(comment);
@@ -90,6 +81,8 @@ void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustri
     Glib::ustring n = name;
     if (prefix != "") {
         n = prefix + ":" + n;
+    } else if (uri != "") {
+        n = n;
     }
     Node* element = _doc->createElement(n.c_str());
     for (auto &attr: attributes) {
@@ -122,22 +115,40 @@ void SVGParser::on_processing_instruction(const Glib::ustring &target, const Gli
     Inkscape::GC::release(pi);
 }
 
-void SVGParser::on_warning(const Glib::ustring& text)
-{
+void SVGParser::on_warning(const Glib::ustring& text) {
     Glib::ustring t = "SVGParser: " + text;
     g_warning(t.c_str());
 }
 
-void SVGParser::on_error(const Glib::ustring& text)
-{
+void SVGParser::on_error(const Glib::ustring& text) {
     Glib::ustring t = "SVGParser: " + text;
     g_error(t.c_str());
 }
 
-void SVGParser::on_fatal_error(const Glib::ustring& text)
-{
+void SVGParser::on_fatal_error(const Glib::ustring& text) {
     Glib::ustring t = "SVGParser: " + text;
     g_error(t.c_str());
+}
+
+xmlEntityPtr SVGParser::on_get_entity(const Glib::ustring& name)
+{
+    // if the name refers to external entity, result should be a nullptr
+    xmlEntityPtr result =  xmlpp::SaxParser::on_get_entity(name);
+    if (result) {
+        return result;
+    }
+
+    return _dummyEntity;
+}
+
+void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntityType type, const Glib::ustring& publicId, const Glib::ustring& systemId, const Glib::ustring& content)
+{
+    // allow only internal entities
+    if (type == xmlpp::XmlEntityType::INTERNAL_GENERAL
+        || type == xmlpp::XmlEntityType::INTERNAL_PARAMETER
+        || type == xmlpp::XmlEntityType::INTERNAL_PREDEFINED) {
+        xmlpp::SaxParser::on_entity_declaration(name, type, publicId, systemId, content);
+    }
 }
 
 Document *SVGParser::parseFile(const Glib::ustring &filename) {

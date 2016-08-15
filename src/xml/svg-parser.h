@@ -12,9 +12,10 @@
 #ifndef SEEN_SVG_PARSER_H
 #define SEEN_SVG_PARSER_H
 
-#include <libxml++/parsers/saxparser.h>
-#include <stack>
 #include "document.h"
+#include <stack>
+#include <libxml++/parsers/saxparser.h>
+#include <libxml/tree.h>
 
 namespace Inkscape {
 
@@ -45,10 +46,15 @@ protected:
     void on_warning(const Glib::ustring& text) override;
     void on_error(const Glib::ustring& text) override;
     void on_fatal_error(const Glib::ustring& text) override;
+    _xmlEntity *on_get_entity(const Glib::ustring &name) override;
+    void on_entity_declaration(const Glib::ustring &name, xmlpp::XmlEntityType type, const Glib::ustring &publicId,
+                               const Glib::ustring &systemId, const Glib::ustring &content) override;
 
 private:
     std::stack<Node*> _context;
     Document* _doc;
+    xmlEntityPtr _dummyEntity;
+
 };
 
 }
