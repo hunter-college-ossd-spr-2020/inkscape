@@ -1,0 +1,8 @@
+This code is a part of libxml++ library (ver 3.0) with local modifications
+inter alia:
+* DOM parser and node classes are removed
+* Enabled SAX2 interface
+* Added new SAX parser methods to handle Processing Instructions
+  and namespace information from nodes
+
+Full library is available here: http://libxmlplusplus.sourceforge.net/
