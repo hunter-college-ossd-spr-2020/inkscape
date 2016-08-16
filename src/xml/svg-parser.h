@@ -29,8 +29,8 @@ class SVGParser : protected xmlpp::SaxParser
 public:
     SVGParser();
     ~SVGParser() override;
-    Document* parseFile(const Glib::ustring& filename);
-    Document* parseBuffer(const Glib::ustring& source);
+    Document* parseFile(const Glib::ustring& filename, const Glib::ustring& defaultNs = "");
+    Document* parseBuffer(const Glib::ustring& source, const Glib::ustring& defaultNs = "");
 
 protected:
     void on_start_document() override;
@@ -51,10 +51,12 @@ protected:
                                const Glib::ustring &systemId, const Glib::ustring &content) override;
 
 private:
+    void _promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri);
+
     std::stack<Node*> _context;
     Document* _doc;
     xmlEntityPtr _dummyEntity;
-
+    Glib::ustring _defaultNs;
 };
 
 }

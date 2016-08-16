@@ -18,7 +18,8 @@ set(TEST_SOURCES
 	color-profile-test
 	dir-util-test
 	sp-object-test
-	object-set-test)
+	object-set-test
+	svg-parser-test)
 
 set(TEST_LIBS
 	gmock_main

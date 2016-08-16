@@ -12,12 +12,13 @@
 #include "svg-parser.h"
 #include "document.h"
 #include "simple-document.h"
+#include "repr.h"
 
 namespace Inkscape {
 
 namespace XML {
 
-SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr) {
+SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _defaultNs("") {
     set_substitute_entities(true);
     _dummyEntity = new xmlEntity();
 }
@@ -34,21 +35,11 @@ void SVGParser::on_end_document() {
 }
 
 void SVGParser::on_start_element(const Glib::ustring& name, const AttributeList& attributes) {
-    Node* element = _doc->createElement(name.c_str());
-    for (auto &attr: attributes) {
-        element->setAttribute(attr.name, attr.value);
-    }
-    if (_context.empty()) {
-        _doc->appendChild(element);
-    } else {
-        _context.top()->appendChild(element);
-    }
-    _context.push(element);
-    Inkscape::GC::release(element);
+    g_warning("The 'on_start_element_ns' function should be invoked");
 }
 
 void SVGParser::on_end_element(const Glib::ustring& name) {
-    _context.pop();
+    g_warning("The 'on_end_element_ns' function should be invoked");
 }
 
 void SVGParser::on_characters(const Glib::ustring& text) {
@@ -79,11 +70,7 @@ void SVGParser::on_comment(const Glib::ustring& text) {
 
 void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri, const NamespaceList& namespaces, const AttributeList& attributes) {
     Glib::ustring n = name;
-    if (prefix != "") {
-        n = prefix + ":" + n;
-    } else if (uri != "") {
-        n = n;
-    }
+    _promoteToNamespace(n, prefix, uri);
     Node* element = _doc->createElement(n.c_str());
     for (auto &attr: attributes) {
         Glib::ustring an = attr.name;
@@ -151,14 +138,33 @@ void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntit
     }
 }
 
-Document *SVGParser::parseFile(const Glib::ustring &filename) {
+Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustring& defaultNs) {
+    _defaultNs = defaultNs;
     parse_file(filename);
+    _defaultNs = "";
     return _doc;
 }
 
-Document *SVGParser::parseBuffer(const Glib::ustring &source) {
+Document *SVGParser::parseBuffer(const Glib::ustring &source, const Glib::ustring& defaultNs) {
+    _defaultNs = defaultNs;
     parse_memory(source);
+    _defaultNs = "";
     return _doc;
+}
+
+void SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri) {
+    Glib::ustring p = "";
+    if (prefix != "") {
+        p = prefix;
+    } else if (uri != "" && sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str())) {
+        p = sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str());
+    } else if (_defaultNs != "") {
+        p = sp_xml_ns_uri_prefix(_defaultNs.c_str(), "");
+    }
+
+    if (p != "") {
+        name = p + ":" + name;
+    }
 }
 
 }
