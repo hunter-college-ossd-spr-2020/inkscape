@@ -1,11 +1,10 @@
 /*
- * Dirty DOM-like  tree
+ * IO functions for svg files.
  *
  * Authors:
- *   Lauris Kaplinski <lauris@kaplinski.com>
- *   bulia byak <buliabyak@users.sf.net>
+ *   Adrian Boguszewski
  *
- * Copyright (C) 1999-2002 Lauris Kaplinski
+ * Copyright (C) 2016 Adrian Boguszewski
  *
  * Released under GNU GPL, read the file 'COPYING' for more information
  */
@@ -38,7 +37,11 @@
 
 #include "preferences.h"
 
+
+#include "repr-io.h"
 #include <glibmm/miscutils.h>
+#include <gio/gio.h>
+#include <boost/algorithm/string.hpp>
 
 using Inkscape::IO::Writer;
 using Inkscape::Util::List;
@@ -1086,6 +1089,88 @@ void sp_repr_write_stream_element( Node * repr, Writer & out,
         out.writeString( "\n" );
     }
 }
+
+namespace Inkscape {
+
+namespace XML {
+
+enum XmlSpaceType {
+    XML_SPACE_DEFAULT,
+    XML_SPACE_PRESERVE
+};
+
+SVGParser IO::parser;
+
+static void clean_attributes(Document *doc) {
+    // Clean unnecessary attributes and style properties from SVG documents (controlled by preferences)
+    Inkscape::Preferences *prefs = Inkscape::Preferences::get();
+    bool clean = prefs->getBool("/options/svgoutput/check_on_reading");
+    if(clean) {
+        sp_attribute_clean_tree(doc->root());
+    }
+}
+
+static void handle_xml_spaces(Node* node, XmlSpaceType type) {
+    XmlSpaceType t = type;
+    const char *space = node->attribute("xml:space");
+    if (space) {
+        if(strcmp(space, "preserve") == 0) {
+            t = XML_SPACE_PRESERVE;
+        } else {
+            t = XML_SPACE_DEFAULT;
+        }
+    }
+    if(node->type() == NodeType::TEXT_NODE && t == XML_SPACE_DEFAULT) {
+        std::string s = node->content();
+        boost::trim(s);
+        node->setContent(s.c_str());
+    }
+    for (Node* child = node->firstChild(); child != nullptr; child = child->next()) {
+        handle_xml_spaces(child, t);
+    }
+}
+
+Document* IO::read_svg_file(const Glib::ustring& filename, const bool& isInternal, const Glib::ustring& defaultNs) {
+    if (!Inkscape::IO::file_test(filename.c_str(), G_FILE_TEST_EXISTS)) {
+        g_warning("Can't open file: %s (doesn't exist)", filename.c_str());
+        return nullptr;
+    }
+    GError *error;
+    GFile *file = g_file_new_for_path (filename.c_str());
+    GFileInfo *file_info = g_file_query_info (file, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+
+    const char *content_type = g_file_info_get_content_type (file_info);
+
+    Document *doc;
+    if(strcmp(content_type, "image/svg+xml") == 0) {
+        doc = parser.parseFile(filename, defaultNs);
+    } else if (strcmp(content_type, "image/svg+xml-compressed") == 0) {
+        doc = parser.parseCompressedFile(filename, defaultNs);
+    } else {
+        g_warning("Wrong content type (%s) to open.", content_type);
+        return nullptr;
+    }
+
+    if(!isInternal) {
+        clean_attributes(doc);
+    }
+    handle_xml_spaces(doc->root(), XML_SPACE_DEFAULT);
+    return doc;
+}
+
+Document* IO::read_svg_buffer(const Glib::ustring& source, const bool& isInternal, const Glib::ustring& defaultNs) {
+    Document *doc = parser.parseBuffer(source, defaultNs);
+    if(!isInternal) {
+        clean_attributes(doc);
+    }
+    handle_xml_spaces(doc->root(), XML_SPACE_DEFAULT);
+    return doc;
+}
+
+} // namespace XML
+
+} // namespace Inkscape
+
 
 
 /*

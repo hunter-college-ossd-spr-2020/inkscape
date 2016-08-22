@@ -24,12 +24,12 @@ namespace XML {
 class Node;
 class Document;
 
-class SVGParser : protected xmlpp::SaxParser
-{
+class SVGParser : protected xmlpp::SaxParser {
 public:
     SVGParser();
     ~SVGParser() override;
     Document* parseFile(const Glib::ustring& filename, const Glib::ustring& defaultNs = "");
+    Document* parseCompressedFile(const Glib::ustring& filename, const Glib::ustring& defaultNs = "");
     Document* parseBuffer(const Glib::ustring& source, const Glib::ustring& defaultNs = "");
 
 protected:
@@ -57,6 +57,7 @@ private:
     Document* _doc;
     xmlEntityPtr _dummyEntity;
     Glib::ustring _defaultNs;
+
 };
 
 }

@@ -42,6 +42,7 @@ set(xml_SRC
 	rebase-hrefs-test.h
 	rebase-hrefs.h
 	repr-action-test.h
+	repr-io.h
 	repr-sorting.h
 	repr.h
 	simple-document.h

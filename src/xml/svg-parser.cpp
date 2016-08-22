@@ -9,6 +9,9 @@
  * Released under GNU GPL, read the file 'COPYING' for more information
  */
 
+#include <io/sys.h>
+#include <io/gzipstream.h>
+#include <io/uristream.h>
 #include "svg-parser.h"
 #include "document.h"
 #include "simple-document.h"
@@ -43,10 +46,10 @@ void SVGParser::on_end_element(const Glib::ustring& name) {
 }
 
 void SVGParser::on_characters(const Glib::ustring& text) {
-    if (!_context.empty()) {
-        Node *t = _doc->createTextNode(text.c_str());
-        _context.top()->appendChild(t);
-        Inkscape::GC::release(t);
+    if (!_context.empty() && text != "") {
+        Node *node = _doc->createTextNode(text.c_str());
+        _context.top()->appendChild(node);
+        Inkscape::GC::release(node);
     }
 }
 
@@ -103,18 +106,15 @@ void SVGParser::on_processing_instruction(const Glib::ustring &target, const Gli
 }
 
 void SVGParser::on_warning(const Glib::ustring& text) {
-    Glib::ustring t = "SVGParser: " + text;
-    g_warning(t.c_str());
+    g_warning("SVGParser: %s", text.c_str());
 }
 
 void SVGParser::on_error(const Glib::ustring& text) {
-    Glib::ustring t = "SVGParser: " + text;
-    g_error(t.c_str());
+    g_error("SVGParser: %s", text.c_str());
 }
 
 void SVGParser::on_fatal_error(const Glib::ustring& text) {
-    Glib::ustring t = "SVGParser: " + text;
-    g_error(t.c_str());
+    g_error("SVGParser: %s", text.c_str());
 }
 
 xmlEntityPtr SVGParser::on_get_entity(const Glib::ustring& name)
@@ -141,14 +141,43 @@ void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntit
 Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustring& defaultNs) {
     _defaultNs = defaultNs;
     parse_file(filename);
-    _defaultNs = "";
     return _doc;
 }
+
+
+Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Glib::ustring &defaultNs) {
+    _defaultNs = defaultNs;
+    const int bufferSize = 1024;
+    FILE* fp = Inkscape::IO::fopen_utf8name(filename.c_str(), "r");
+    URI uri;
+    auto instr = new Inkscape::IO::UriInputStream(fp, uri);
+    auto gzin = new Inkscape::IO::GzipInputStream(*instr);
+    char buffer[bufferSize];
+    char ch;
+    while(true) {
+        std::memset(buffer, 0, bufferSize);
+        int i;
+        for (i = 0; i < bufferSize; i++) {
+            ch = (char) gzin->get();
+            if (ch < 0) {
+                break;
+            }
+            buffer[i] = ch;
+        }
+        Glib::ustring input(buffer, (Glib::ustring::size_type) i);
+        parse_chunk(input);
+        if (i < bufferSize) {
+            break;
+        }
+    }
+
+    return _doc;
+}
+
 
 Document *SVGParser::parseBuffer(const Glib::ustring &source, const Glib::ustring& defaultNs) {
     _defaultNs = defaultNs;
     parse_memory(source);
-    _defaultNs = "";
     return _doc;
 }
 
