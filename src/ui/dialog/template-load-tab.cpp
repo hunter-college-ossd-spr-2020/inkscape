@@ -17,6 +17,7 @@
 #include <gtkmm/messagedialog.h>
 #include <gtkmm/scrolledwindow.h>
 #include <iostream>
+#include <xml/repr-io.h>
 
 #include "extension/db.h"
 #include "inkscape.h"
@@ -234,7 +235,7 @@ TemplateLoadTab::TemplateData TemplateLoadTab::_processTemplateFile(const std::s
     n =  result.display_name.rfind(".svg");
     result.display_name.replace(n, 4, 1, ' ');
     
-    Inkscape::XML::Document *rdoc = sp_repr_read_file(path.data(), SP_SVG_NS_URI);
+    Inkscape::XML::Document *rdoc = Inkscape::XML::IO::read_svg_file(path.data(), false, SP_SVG_NS_URI);
     if (rdoc){
         Inkscape::XML::Node *myRoot = rdoc->root();
         if (strcmp(myRoot->name(), "svg:svg") != 0){     // Wrong file format

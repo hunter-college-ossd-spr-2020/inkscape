@@ -28,6 +28,7 @@
 
 #include <glib.h>
 #include <2geom/point.h>
+#include <extension/extension.h>
 #include "svg/stringstream.h"
 #include "svg/css-ostringstream.h"
 #include "svg/svg-length.h"
@@ -83,7 +84,7 @@ static SPXMLNs *namespaces=NULL;
  */
 static void sp_xml_ns_register_defaults()
 {
-    static SPXMLNs defaults[11];
+    static SPXMLNs defaults[12];
 
     defaults[0].uri = g_quark_from_static_string(SP_SODIPODI_NS_URI);
     defaults[0].prefix = g_quark_from_static_string("sodipodi");
@@ -138,7 +139,11 @@ static void sp_xml_ns_register_defaults()
 
     defaults[10].uri = g_quark_from_static_string(SP_OLD_CC_NS_URI);
     defaults[10].prefix = g_quark_from_static_string("cc");
-    defaults[10].next = NULL;
+    defaults[10].next = &defaults[11];
+
+    defaults[11].uri = g_quark_from_static_string(INKSCAPE_EXTENSION_URI);
+    defaults[11].prefix = g_quark_from_static_string(INKSCAPE_EXTENSION_NS_NC);
+    defaults[11].next = NULL;
 
     namespaces = &defaults[0];
 }

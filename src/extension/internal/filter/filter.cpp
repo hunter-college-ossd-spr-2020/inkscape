@@ -7,6 +7,7 @@
  * Released under GNU GPL, read the file 'COPYING' for more information
  */
 
+#include <xml/repr-io.h>
 #include "desktop.h"
 #include "selection.h"
 #include "document-private.h"
@@ -64,7 +65,7 @@ gchar const *Filter::get_filter_text(Inkscape::Extension::Extension * /*ext*/)
 Inkscape::XML::Document *
 Filter::get_filter (Inkscape::Extension::Extension * ext) {
 	gchar const * filter = get_filter_text(ext);
-	return sp_repr_read_mem(filter, strlen(filter), NULL);
+	return Inkscape::XML::IO::read_svg_buffer(filter, true);
 }
 
 void

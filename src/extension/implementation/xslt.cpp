@@ -29,8 +29,7 @@
 
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
-
-Inkscape::XML::Document * sp_repr_do_read (xmlDocPtr doc, const gchar * default_ns);
+#include <xml/repr-io.h>
 
 /* Namespaces */
 namespace Inkscape {
@@ -146,8 +145,13 @@ SPDocument * XSLT::open(Inkscape::Extension::Input */*module*/,
     xmlDocPtr result = xsltApplyStylesheet(_stylesheet, filein, params);
     xmlFreeDoc(filein);
 
-    Inkscape::XML::Document * rdoc = sp_repr_do_read( result, SP_SVG_NS_URI);
+    xmlChar *str;
+    int size;
+    xmlDocDumpMemory(result, &str, &size);
     xmlFreeDoc(result);
+
+    Inkscape::XML::Document * rdoc = Inkscape::XML::IO::read_svg_buffer((char*) str, false, SP_SVG_NS_URI);
+    xmlFree(str);
 
     if (rdoc == NULL) {
         return NULL;

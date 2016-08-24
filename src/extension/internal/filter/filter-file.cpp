@@ -21,6 +21,7 @@
 /* System includes */
 #include <glibmm/i18n.h>
 #include <glibmm/fileutils.h>
+#include <xml/repr-io.h>
 
 namespace Inkscape {
 namespace Extension {
@@ -84,7 +85,7 @@ Filter::filters_load_dir (gchar const * dirname, gchar * menuname)
 void
 Filter::filters_load_file (gchar * filename, gchar * menuname)
 {
-    Inkscape::XML::Document *doc = sp_repr_read_file(filename, INKSCAPE_EXTENSION_URI);
+	Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true, INKSCAPE_EXTENSION_URI);
 	if (doc == NULL) {
 		g_warning("File (%s) is not parseable as XML.  Ignored.", filename);
 		return;

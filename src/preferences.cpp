@@ -17,6 +17,7 @@
 #include <glibmm/i18n.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
+#include <xml/repr-io.h>
 #include "preferences.h"
 #include "preferences-skeleton.h"
 #include "inkscape.h"
@@ -122,7 +123,7 @@ Preferences::~Preferences()
  */
 void Preferences::_loadDefaults()
 {
-    _prefs_doc = sp_repr_read_mem(preferences_skeleton, PREFERENCES_SKELETON_SIZE, NULL);
+    _prefs_doc = Inkscape::XML::IO::read_svg_buffer(preferences_skeleton, true);
 }
 
 /**
@@ -230,7 +231,8 @@ static Inkscape::XML::Document *loadImpl( std::string const& prefsFilename, Glib
     }
 
     // 4. Is it valid XML?
-    Inkscape::XML::Document *prefs_read = sp_repr_read_mem(prefs_xml, len, NULL);
+    Inkscape::XML::Document *prefs_read = Inkscape::XML::IO::read_svg_buffer(prefs_xml, true);
+
     g_free(prefs_xml);
     if (!prefs_read) {
         gchar *msg = g_strdup_printf(_("The preferences file %s is not a valid XML document."),

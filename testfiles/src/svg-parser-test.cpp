@@ -44,6 +44,7 @@ TEST_F(SVGParserTest, Basics) {
             "<text><![CDATA[some && cdata]]></text>"
         "</svg>";
 
+    std::cout << source << std::endl;
     Document* doc = parser->parseBuffer(source);
     EXPECT_EQ(NodeType::DOCUMENT_NODE, doc->type());
     EXPECT_TRUE(doc->root());
@@ -195,10 +196,10 @@ TEST_F(SVGParserTest, NationalSigns) {
 
 TEST_F(SVGParserTest, XmlSpaces) {
     Glib::ustring source1 = "<svg xml:space=\"preserve\">"
-            "<text> An example text with space preserving.   </text>"
+            "<text> An example text with space preserving.   </text> "
             "</svg>";
     Glib::ustring source2 = "<svg>"
-            "<text> An example text without space preserving.   </text>"
+            "<text> An example text without space preserving.   </text> "
             "</svg>";
     Glib::ustring source3 = "<svg xml:space=\"preserve\">"
             "<text> An example text with space preserving.   </text>"
@@ -207,9 +208,11 @@ TEST_F(SVGParserTest, XmlSpaces) {
             "</g>"
             "</svg>";
     Document* doc1 = parser->parseBuffer(source1);
+    EXPECT_EQ(2, doc1->root()->childCount());
     EXPECT_STREQ("text", doc1->root()->firstChild()->name());
     EXPECT_STREQ(" An example text with space preserving.   ", doc1->root()->firstChild()->firstChild()->content());
     Document* doc2 = parser->parseBuffer(source2);
+    EXPECT_EQ(1, doc2->root()->childCount());
     EXPECT_STREQ("An example text without space preserving.", doc2->root()->firstChild()->firstChild()->content());
     EXPECT_STREQ("text", doc2->root()->firstChild()->name());
     Document* doc3 = parser->parseBuffer(source3);

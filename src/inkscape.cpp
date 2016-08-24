@@ -48,6 +48,7 @@
 #include <glibmm/i18n.h>
 #include <glibmm/miscutils.h>
 #include <glibmm/convert.h>
+#include <xml/repr-io.h>
 
 #include "desktop.h"
 
@@ -819,7 +820,7 @@ bool Application::load_menus()
 
     if ( g_file_get_contents(fn, &menus_xml, &len, NULL) ) {
         // load the menus_xml file
-        _menus = sp_repr_read_mem(menus_xml, len, NULL);
+        _menus = Inkscape::XML::IO::read_svg_buffer(menus_xml, true);
 
         g_free(menus_xml);
         menus_xml = 0;
@@ -828,7 +829,7 @@ bool Application::load_menus()
     fn = 0;
 
     if ( !_menus ) {
-        _menus = sp_repr_read_mem(menus_skeleton, MENUS_SKELETON_SIZE, NULL);
+        _menus = Inkscape::XML::IO::read_svg_buffer(menus_skeleton, true);
     }
 
     return (_menus != 0);

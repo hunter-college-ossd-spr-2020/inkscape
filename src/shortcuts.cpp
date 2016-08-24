@@ -32,6 +32,7 @@
 #include <glibmm/i18n.h>
 #include <glibmm/convert.h>
 #include <glibmm/miscutils.h>
+#include <xml/repr-io.h>
 
 #include "helper/action.h"
 #include "io/sys.h"
@@ -160,7 +161,7 @@ void sp_shortcuts_delete_all_from_file() {
 
     char const *filename = get_path(USER, KEYS, "default.xml");
 
-    XML::Document *doc=sp_repr_read_file(filename, NULL);
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true);
     if (!doc) {
         g_warning("Unable to read keys file %s", filename);
         return;
@@ -196,10 +197,10 @@ Inkscape::XML::Document *sp_shortcut_create_template_file(char const *filename) 
             "<keys name=\"My custom shortcuts\">"
             "</keys>";
 
-    Inkscape::XML::Document *doc = sp_repr_read_mem(buffer, strlen(buffer), NULL);
+    Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_buffer(buffer, true);
     sp_repr_save_file(doc, filename, NULL);
 
-    return sp_repr_read_file(filename, NULL);
+    return Inkscape::XML::IO::read_svg_file(filename, true);
 }
 
 /*
@@ -242,7 +243,7 @@ void sp_shortcut_get_file_names(std::vector<Glib::ustring> *names, std::vector<G
                         if (!Inkscape::IO::file_test(full, G_FILE_TEST_IS_DIR)) {
 
                         	// Get the "key name" from the root element of each file
-                            XML::Document *doc=sp_repr_read_file(full, NULL);
+                            XML::Document *doc = Inkscape::XML::IO::read_svg_file(full, true);
                             if (!doc) {
                                 g_warning("Unable to read keyboard shortcut file %s", full);
                                 continue;
@@ -385,8 +386,8 @@ bool sp_shortcut_file_import() {
 }
 
 void sp_shortcut_file_import_do(char const *importname) {
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(importname, true);
 
-    XML::Document *doc=sp_repr_read_file(importname, NULL);
     if (!doc) {
         g_warning("Unable to read keyboard shortcut file %s", importname);
         return;
@@ -404,7 +405,7 @@ void sp_shortcut_file_export_do(char const *exportname) {
 
     char const *filename = get_path(USER, KEYS, "default.xml");
 
-    XML::Document *doc=sp_repr_read_file(filename, NULL);
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true);
     if (!doc) {
         g_warning("Unable to read keyboard shortcut file %s", filename);
         return;
@@ -428,7 +429,7 @@ void sp_shortcut_delete_from_file(char const * /*action*/, unsigned int const sh
 
     char const *filename = get_path(USER, KEYS, "default.xml");
 
-    XML::Document *doc=sp_repr_read_file(filename, NULL);
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true);
     if (!doc) {
         g_warning("Unable to read keyboard shortcut file %s", filename);
         return;
@@ -496,7 +497,7 @@ void sp_shortcut_add_to_file(char const *action, unsigned int const shortcut) {
 
     char const *filename = get_path(USER, KEYS, "default.xml");
 
-    XML::Document *doc=sp_repr_read_file(filename, NULL);
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true);
     if (!doc) {
         g_warning("Unable to read keyboard shortcut file %s, creating ....", filename);
         doc = sp_shortcut_create_template_file(filename);
@@ -547,7 +548,7 @@ void sp_shortcut_add_to_file(char const *action, unsigned int const shortcut) {
 
 }
 static void read_shortcuts_file(char const *filename, bool const is_user_set) {
-    XML::Document *doc=sp_repr_read_file(filename, NULL);
+    XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true);
     if (!doc) {
         g_warning("Unable to read keys file %s", filename);
         return;

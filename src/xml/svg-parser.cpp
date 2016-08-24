@@ -197,6 +197,7 @@ Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Gl
             break;
         }
     }
+    finish_chunk_parsing();
 
     return _doc;
 }

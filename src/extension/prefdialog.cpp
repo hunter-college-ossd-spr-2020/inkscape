@@ -12,6 +12,7 @@
 #include <gtkmm/checkbutton.h>
 #include <gtkmm/separator.h>
 #include <glibmm/i18n.h>
+#include <xml/repr-io.h>
 
 #include "ui/dialog-events.h"
 #include "xml/repr.h"
@@ -81,7 +82,7 @@ PrefDialog::PrefDialog (Glib::ustring name, gchar const * help, Gtk::Widget * co
 
     if (_effect != NULL && !_effect->no_live_preview) {
         if (_param_preview == NULL) {
-            XML::Document * doc = sp_repr_read_mem(live_param_xml, strlen(live_param_xml), NULL);
+            XML::Document * doc = XML::IO::read_svg_buffer(live_param_xml, true);
             if (doc == NULL) {
                 std::cout << "Error encountered loading live parameter XML !!!" << std::endl;
                 return;
