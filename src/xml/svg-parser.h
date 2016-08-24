@@ -53,7 +53,13 @@ protected:
 private:
     void _promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri);
 
+    enum XmlSpaceType {
+        XML_SPACE_DEFAULT,
+        XML_SPACE_PRESERVE
+    };
+
     std::stack<Node*> _context;
+    std::stack<XmlSpaceType> _currentSpaceType;
     Document* _doc;
     xmlEntityPtr _dummyEntity;
     Glib::ustring _defaultNs;

@@ -12,6 +12,7 @@
 #include <io/sys.h>
 #include <io/gzipstream.h>
 #include <io/uristream.h>
+#include <boost/algorithm/string/trim.hpp>
 #include "svg-parser.h"
 #include "document.h"
 #include "simple-document.h"
@@ -32,9 +33,14 @@ SVGParser::~SVGParser() {
 
 void SVGParser::on_start_document() {
     _doc = new SimpleDocument();
+    _currentSpaceType.push(XML_SPACE_DEFAULT);
 }
 
 void SVGParser::on_end_document() {
+    std::stack<Node*> emptyContext;
+    std::stack<XmlSpaceType> emptySpaceTypes;
+    _context.swap(emptyContext);
+    _currentSpaceType.swap(emptySpaceTypes);
 }
 
 void SVGParser::on_start_element(const Glib::ustring& name, const AttributeList& attributes) {
@@ -46,18 +52,26 @@ void SVGParser::on_end_element(const Glib::ustring& name) {
 }
 
 void SVGParser::on_characters(const Glib::ustring& text) {
-    if (!_context.empty() && text != "") {
-        Node *node = _doc->createTextNode(text.c_str());
+    std::string t = text.raw();
+    if(_currentSpaceType.top() == XML_SPACE_DEFAULT) {
+        boost::trim(t);
+    }
+    if (!_context.empty() && t != "") {
+        Node *node = _doc->createTextNode(t.c_str());
         _context.top()->appendChild(node);
         Inkscape::GC::release(node);
     }
 }
 
 void SVGParser::on_cdata_block(const Glib::ustring &text) {
-    if (!_context.empty()) {
-        Node *t = _doc->createTextNode(text.c_str(), true);
-        _context.top()->appendChild(t);
-        Inkscape::GC::release(t);
+    std::string t = text.raw();
+    if(_currentSpaceType.top() == XML_SPACE_DEFAULT) {
+        boost::trim(t);
+    }
+    if (!_context.empty() && t != "") {
+        Node *node = _doc->createTextNode(t.c_str(), true);
+        _context.top()->appendChild(node);
+        Inkscape::GC::release(node);
     }
 }
 
@@ -80,18 +94,31 @@ void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustri
         if (attr.ns.prefix != "") {
             an = attr.ns.prefix + ":" + an;
         }
-        element->setAttribute(an, attr.value);
+        // must call (const char*, const char*) function due to overloading
+        element->setAttribute(an.c_str(), attr.value.c_str());
     }
     if (_context.empty()) {
         _doc->appendChild(element);
     } else {
         _context.top()->appendChild(element);
     }
+    const char* a = element->attribute("xml:space");
+    if (a) {
+        if (strcmp(a, "preserve") == 0) {
+            _currentSpaceType.push(XML_SPACE_PRESERVE);
+        } else {
+            _currentSpaceType.push(XML_SPACE_DEFAULT);
+        }
+    }
     _context.push(element);
     Inkscape::GC::release(element);
 }
 
 void SVGParser::on_end_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri) {
+    const char* a = _context.top()->attribute("xml:space");
+    if (a) {
+        _currentSpaceType.pop();
+    }
     _context.pop();
 }
 

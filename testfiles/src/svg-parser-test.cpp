@@ -121,9 +121,9 @@ TEST_F(SVGParserTest, Entities) {
     EXPECT_STREQ("text", root->nthChild(1)->name());
     EXPECT_STREQ("AaAaaAaaa", root->nthChild(1)->firstChild()->content());
     EXPECT_STREQ("text", root->nthChild(2)->name());
-    EXPECT_STREQ("Text with xxe vulnerability ", root->nthChild(2)->firstChild()->content());
+    EXPECT_STREQ("Text with xxe vulnerability", root->nthChild(2)->firstChild()->content());
     EXPECT_STREQ("text", root->nthChild(3)->name());
-    EXPECT_STREQ("Text with public resource ", root->nthChild(3)->firstChild()->content());
+    EXPECT_STREQ("Text with public resource", root->nthChild(3)->firstChild()->content());
 }
 
 TEST_F(SVGParserTest, AdobeIlustratorSvg) {
@@ -178,4 +178,43 @@ TEST_F(SVGParserTest, AdobeIlustratorSvg) {
     actual.erase(std::remove_if(actual.begin(), actual.end(), isspace), actual.end());
     expected.erase(std::remove_if(expected.begin(), expected.end(), isspace), expected.end());
     EXPECT_EQ(expected, actual);
+}
+
+TEST_F(SVGParserTest, NationalSigns) {
+    Glib::ustring source = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n"
+            "<inkscape "
+            "  xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\"\n"
+            "  xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\"\n"
+            "  version=\"1\">"
+            "<text>ΩŒĘ©ß←↓→ÓÞĄŚÐÆŊ’Ə…ŁŻŹĆ„”Ńπœę©ß←↓→óþąśðæŋ’əłżźć„”ńµ</text>"
+            "</inkscape>\n";
+    Document* doc = parser->parseBuffer(source);
+    Node* root = doc->root();
+    EXPECT_STREQ("ΩŒĘ©ß←↓→ÓÞĄŚÐÆŊ’Ə…ŁŻŹĆ„”Ńπœę©ß←↓→óþąśðæŋ’əłżźć„”ńµ", root->firstChild()->firstChild()->content());
+}
+
+TEST_F(SVGParserTest, XmlSpaces) {
+    Glib::ustring source1 = "<svg xml:space=\"preserve\">"
+            "<text> An example text with space preserving.   </text>"
+            "</svg>";
+    Glib::ustring source2 = "<svg>"
+            "<text> An example text without space preserving.   </text>"
+            "</svg>";
+    Glib::ustring source3 = "<svg xml:space=\"preserve\">"
+            "<text> An example text with space preserving.   </text>"
+            "<g xml:space=\"default\">"
+            "<text> An example text without space preserving.   </text>"
+            "</g>"
+            "</svg>";
+    Document* doc1 = parser->parseBuffer(source1);
+    EXPECT_STREQ("text", doc1->root()->firstChild()->name());
+    EXPECT_STREQ(" An example text with space preserving.   ", doc1->root()->firstChild()->firstChild()->content());
+    Document* doc2 = parser->parseBuffer(source2);
+    EXPECT_STREQ("An example text without space preserving.", doc2->root()->firstChild()->firstChild()->content());
+    EXPECT_STREQ("text", doc2->root()->firstChild()->name());
+    Document* doc3 = parser->parseBuffer(source3);
+    EXPECT_STREQ("text", doc3->root()->firstChild()->name());
+    EXPECT_STREQ(" An example text with space preserving.   ", doc3->root()->firstChild()->firstChild()->content());
+    EXPECT_STREQ("text", doc3->root()->lastChild()->firstChild()->name());
+    EXPECT_STREQ("An example text without space preserving.", doc3->root()->lastChild()->firstChild()->firstChild()->content());
 }

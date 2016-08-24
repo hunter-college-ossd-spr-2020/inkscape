@@ -17,7 +17,6 @@ set(TEST_SOURCES
 	attributes-test
 	color-profile-test
 	dir-util-test
-	repr-io-test
 	sp-object-test
 	object-set-test
 	svg-parser-test)

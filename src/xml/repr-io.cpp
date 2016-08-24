@@ -1094,11 +1094,6 @@ namespace Inkscape {
 
 namespace XML {
 
-enum XmlSpaceType {
-    XML_SPACE_DEFAULT,
-    XML_SPACE_PRESERVE
-};
-
 SVGParser IO::parser;
 
 static void clean_attributes(Document *doc) {
@@ -1107,26 +1102,6 @@ static void clean_attributes(Document *doc) {
     bool clean = prefs->getBool("/options/svgoutput/check_on_reading");
     if(clean) {
         sp_attribute_clean_tree(doc->root());
-    }
-}
-
-static void handle_xml_spaces(Node* node, XmlSpaceType type) {
-    XmlSpaceType t = type;
-    const char *space = node->attribute("xml:space");
-    if (space) {
-        if(strcmp(space, "preserve") == 0) {
-            t = XML_SPACE_PRESERVE;
-        } else {
-            t = XML_SPACE_DEFAULT;
-        }
-    }
-    if(node->type() == NodeType::TEXT_NODE && t == XML_SPACE_DEFAULT) {
-        std::string s = node->content();
-        boost::trim(s);
-        node->setContent(s.c_str());
-    }
-    for (Node* child = node->firstChild(); child != nullptr; child = child->next()) {
-        handle_xml_spaces(child, t);
     }
 }
 
@@ -1154,7 +1129,6 @@ Document* IO::read_svg_file(const Glib::ustring& filename, const bool& isInterna
     if(!isInternal) {
         clean_attributes(doc);
     }
-    handle_xml_spaces(doc->root(), XML_SPACE_DEFAULT);
     return doc;
 }
 
@@ -1163,7 +1137,6 @@ Document* IO::read_svg_buffer(const Glib::ustring& source, const bool& isInterna
     if(!isInternal) {
         clean_attributes(doc);
     }
-    handle_xml_spaces(doc->root(), XML_SPACE_DEFAULT);
     return doc;
 }
 
