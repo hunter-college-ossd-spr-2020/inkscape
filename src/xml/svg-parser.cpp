@@ -137,11 +137,13 @@ void SVGParser::on_warning(const Glib::ustring& text) {
 }
 
 void SVGParser::on_error(const Glib::ustring& text) {
-    g_error("SVGParser: %s", text.c_str());
+    // should be g_error, but unfortunately g_error kills the program
+    g_warning("SVGParser: %s", text.c_str());
 }
 
 void SVGParser::on_fatal_error(const Glib::ustring& text) {
-    g_error("SVGParser: %s", text.c_str());
+    // should be g_error, but unfortunately g_error kills the program
+    g_warning("SVGParser: %s", text.c_str());
 }
 
 xmlEntityPtr SVGParser::on_get_entity(const Glib::ustring& name)
@@ -167,7 +169,11 @@ void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntit
 
 Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustring& defaultNs) {
     _defaultNs = defaultNs;
-    parse_file(filename);
+    try {
+        parse_file(filename);
+    } catch (const xmlpp::exception &ex) {
+        g_warning(ex.what());
+    }
     return _doc;
 }
 
@@ -181,21 +187,25 @@ Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Gl
     auto gzin = new Inkscape::IO::GzipInputStream(*instr);
     char buffer[bufferSize];
     char ch;
-    while(true) {
-        std::memset(buffer, 0, bufferSize);
-        int i;
-        for (i = 0; i < bufferSize; i++) {
-            ch = (char) gzin->get();
-            if (ch < 0) {
+    try {
+        while(true) {
+            std::memset(buffer, 0, bufferSize);
+            int i;
+            for (i = 0; i < bufferSize; i++) {
+                ch = (char) gzin->get();
+                if (ch < 0) {
+                    break;
+                }
+                buffer[i] = ch;
+            }
+            Glib::ustring input(buffer, (Glib::ustring::size_type) i);
+            parse_chunk(input);
+            if (i < bufferSize) {
                 break;
             }
-            buffer[i] = ch;
         }
-        Glib::ustring input(buffer, (Glib::ustring::size_type) i);
-        parse_chunk(input);
-        if (i < bufferSize) {
-            break;
-        }
+    } catch (const xmlpp::exception &ex) {
+        g_warning(ex.what());
     }
     finish_chunk_parsing();
 
@@ -205,7 +215,11 @@ Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Gl
 
 Document *SVGParser::parseBuffer(const Glib::ustring &source, const Glib::ustring& defaultNs) {
     _defaultNs = defaultNs;
-    parse_memory(source);
+    try {
+        parse_memory(source);
+    } catch (const xmlpp::exception &ex) {
+        g_warning(ex.what());
+    }
     return _doc;
 }
 
