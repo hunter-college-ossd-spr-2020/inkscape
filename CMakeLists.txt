@@ -19,7 +19,7 @@ set(CMAKE_BUILD_TYPE_INIT "Release")
 
 project(inkscape)
 
-set(INKSCAPE_VERSION 0.92pre1)
+set(INKSCAPE_VERSION 0.92+devel)
 set(PROJECT_NAME inkscape)
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
@@ -56,7 +56,6 @@ option(ENABLE_LCMS "Compile with LCMS support" ON)
 option(WITH_GNOME_VFS "Compile with support for Gnome VFS" ON)
 option(WITH_SVG2 "Compile with support for new SVG2 features" ON)
 option(WITH_LPETOOL "Compile with LPE Tool and experimental LPEs enabled" ON)
-#option(WITH_INKJAR "Enable support for openoffice files (SVG jars)" ON)
 option(WITH_OPENMP "Compile with OpenMP support" ON)
 
 option(WITH_PROFILING "Turn on profiling" OFF) # Set to true if compiler/linker should enable profiling

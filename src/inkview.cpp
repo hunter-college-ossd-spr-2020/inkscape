@@ -34,16 +34,16 @@
 #include <sys/stat.h>
 #include <locale.h>
 
+#include <glibmm/optionentry.h>
+
 #include <gtkmm/applicationwindow.h>
 #include <gtkmm/button.h>
+#include <gtkmm/buttonbox.h>
 #include <gtkmm/image.h>
 #include <gtkmm/main.h>
 
-// #include <stropts.h>
-
 #include <libxml/tree.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 
 #include "inkgc/gc-core.h"
 #include "preferences.h"
@@ -54,10 +54,6 @@
 #include "svg-view-widget.h"
 #include "util/units.h"
 
-#ifdef WITH_INKJAR
-#include "io/inkjar.h"
-#endif
-
 #include "inkscape.h"
 
 #ifndef HAVE_BIND_TEXTDOMAIN_CODESET
@@ -66,38 +62,50 @@
 
 #include "ui/icon-names.h"
 
-extern char *optarg;
-extern int  optind, opterr;
+class SPSlideShow;
+
+static int sp_svgview_main_delete (GtkWidget *widget,
+                                   GdkEvent *event,
+                                   struct SPSlideShow *ss);
+
+static int sp_svgview_main_key_press (GtkWidget *widget, 
+                                      GdkEventKey *event,
+                                      struct SPSlideShow *ss);
 
 /**
  * The main application window for the slideshow
  */
 class SPSlideShow : public Gtk::ApplicationWindow {
+private:
+    std::vector<Glib::ustring>  _slides;  ///< List of filenames for each slide
+    int                         _current; ///< Index of the currently displayed slide
+    SPDocument                 *_doc;     ///< The currently displayed slide
+    int                         _timer;
+    GtkWidget                  *_view;
+    Gtk::Window                *_ctrlwin; ///< Window containing slideshow control buttons
+
 public:
-    std::vector<std::string>  slides;  ///< List of filenames for each slide
-    int                       current; ///< Index of the currently displayed slide
-    SPDocument               *doc;     ///< The currently displayed slide
-    GtkWidget                *view;
-    int                       timer;
-    
     /// Current state of application (full-screen or windowed)
     bool is_fullscreen;
 
-    SPSlideShow()
-        :
-            slides(),
-            current(0),
-            doc(NULL),
-            view(NULL),
-            is_fullscreen(false)
-    {}
+    /// Update the window title with current document name
+    void update_title()
+    {
+        set_title(_doc->getName());
+    }
 
+    SPSlideShow(std::vector<Glib::ustring> const &slides);
+    
+    void set_timer(int timer) {_timer = timer;}
     void control_show();
     void show_next();
     void show_prev();
     void goto_first();
     void goto_last();
 
+    static int ctrlwin_delete (GtkWidget *widget,
+                               GdkEvent  *event,
+                               void      *data);
 protected:
     void waiting_cursor();
     void normal_cursor();
@@ -105,12 +113,38 @@ protected:
                       int         current);
 };
 
-#ifdef WITH_INKJAR
-static bool is_jar(char const *filename);
-#endif
+SPSlideShow::SPSlideShow(std::vector<Glib::ustring> const &slides)
+    :
+        _slides(slides),
+        _current(0),
+        _doc(SPDocument::createNewDoc(_slides[0].c_str(), true, false)),
+        _view(NULL),
+        is_fullscreen(false),
+        _timer(0),
+        _ctrlwin(NULL)
+{
+    update_title();
+
+    auto default_screen = Gdk::Screen::get_default();
+
+    set_default_size(MIN ((int)_doc->getWidth().value("px"),  default_screen->get_width()  - 64),
+            MIN ((int)_doc->getHeight().value("px"), default_screen->get_height() - 64));
+
+    g_signal_connect (G_OBJECT (gobj()), "delete_event",    (GCallback) sp_svgview_main_delete,    this);
+    g_signal_connect (G_OBJECT (gobj()), "key_press_event", (GCallback) sp_svgview_main_key_press, this);
+
+    _doc->ensureUpToDate();
+    _view = sp_svg_view_widget_new (_doc);
+    _doc->doUnref ();
+    SP_SVG_VIEW_WIDGET(_view)->setResize( false, _doc->getWidth().value("px"), _doc->getHeight().value("px") );
+    gtk_widget_show (_view);
+    add(*Glib::wrap(_view));
+
+    show();
+}
+
 static void usage();
 
-static GtkWidget *ctrlwin = NULL;
 
 // Dummy functions to keep linker happy
 int sp_main_gui (int, char const**) { return 0; }
@@ -120,7 +154,7 @@ static int sp_svgview_main_delete (GtkWidget */*widget*/,
                                    GdkEvent */*event*/,
                                    struct SPSlideShow */*ss*/)
 {
-    gtk_main_quit ();
+    Gtk::Main::quit();
     return FALSE;
 }
 
@@ -164,51 +198,63 @@ static int sp_svgview_main_key_press (GtkWidget */*widget*/,
         case GDK_KEY_Escape:
         case GDK_KEY_q:
         case GDK_KEY_Q:
-            gtk_main_quit();
+            Gtk::Main::quit();
             break;
         default:
             break;
     }
 
-    ss->set_title(ss->doc->getName());
+    ss->update_title();
     return TRUE;
 }
 
-int main (int argc, const char **argv)
+/// List of all input filenames
+static Glib::OptionGroup::vecustrings filenames;
+
+/// Input timer option
+static int timer = 0;
+
+/**
+ * \brief Set of command-line options for Inkview
+ */
+class InkviewOptionsGroup : public Glib::OptionGroup
 {
-    if (argc == 1) {
-        usage();
+public:
+    InkviewOptionsGroup()
+        :
+            Glib::OptionGroup(_("Inkscape Options"),
+                              _("Default program options")),
+            _entry_timer(),
+            _entry_args()
+    {
+        // Entry for the "timer" option
+        _entry_timer.set_short_name('t');
+        _entry_timer.set_long_name("timer");
+        _entry_timer.set_arg_description(_("NUM"));
+        add_entry(_entry_timer, timer);
+
+        // Entry for the remaining non-option arguments
+        _entry_args.set_short_name('\0');
+        _entry_args.set_long_name(G_OPTION_REMAINING);
+        _entry_args.set_arg_description(_("FILES..."));
+
+        add_entry(_entry_args, filenames);
     }
 
+private:
+    Glib::OptionEntry _entry_timer;
+    Glib::OptionEntry _entry_args;
+};
+
+int main (int argc, char **argv)
+{
+    Glib::OptionContext opt(_("Open SVG files"));
+    InkviewOptionsGroup grp;
+    opt.set_main_group(grp);
+    
     // Prevents errors like "Unable to wrap GdkPixbuf..." (in nr-filter-image.cpp for example)
     Gtk::Main::init_gtkmm_internals();
-
-    Gtk::Main main_instance (&argc, const_cast<char ***>(&argv));
-
-    int num_parsed_options = 0;
-    SPSlideShow ss;
-
-    // the list of arguments is in the net line
-    for (int i = 1; i < argc; i++) {
-        if ((argv[i][0] == '-')) {
-            if (!strcmp(argv[i], "--")) {
-                break;
-            }
-            else if ((!strcmp(argv[i], "-t"))) {
-                if (i + 1 >= argc) {
-                    usage();
-                }
-                ss.timer = atoi(argv[i+1]);
-                num_parsed_options = i+1;
-                i++;
-            }
-            else {
-                usage();
-            }
-        }
-    }
-
-    int i;
+    Gtk::Main main_instance (argc, argv, opt);
 
     bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -230,96 +276,52 @@ int main (int argc, const char **argv)
     setlocale (LC_NUMERIC, "C");
 
     Inkscape::Application::create(argv[0], true);
-    //Inkscape::Application &inkscape = Inkscape::Application::instance();
 
-    // starting at where the commandline options stopped parsing because
-    // we want all the files to be in the list
-    for (i = num_parsed_options + 1 ; i < argc; i++) {
+    if(filenames.empty())
+    {
+        std::cout << opt.get_help();
+        exit(EXIT_FAILURE);
+    }
+
+    std::vector<Glib::ustring> valid_files;
+
+    for(auto file : filenames)
+    {
         struct stat st;
-        if (stat (argv[i], &st)
-              || !S_ISREG (st.st_mode)
-              || (st.st_size < 64)) {
-            fprintf(stderr, "could not open file %s\n", argv[i]);
+        if (stat(file.c_str(), &st)
+                || !S_ISREG (st.st_mode)
+                || (st.st_size < 64)) {
+            std::cerr << "could not open file " << file << std::endl;
         } else {
+            auto doc = SPDocument::createNewDoc(file.c_str(), TRUE, false);
 
-    #ifdef WITH_INKJAR
-            if (is_jar(argv[i])) {
-                Inkjar::JarFileReader jar_file_reader(argv[i]);
-                for (;;) {
-                    GByteArray *gba = jar_file_reader.get_next_file();
-                    if (gba == NULL) {
-                        char *c_ptr;
-                        gchar *last_filename = jar_file_reader.get_last_filename();
-                        if (last_filename == NULL)
-                            break;
-                        if ((c_ptr = std::strrchr(last_filename, '/')) != NULL) {
-                            if (*(++c_ptr) == '\0') {
-                                g_free(last_filename);
-                                continue;
-                            }
-                        }
-                    } else if (gba->len > 0) {
-                        ss.doc = SPDocument::createNewDocFromMem ((const gchar *)gba->data,
-                                           gba->len,
-                                           TRUE);
-                        gchar *last_filename = jar_file_reader.get_last_filename();
-                        if (ss.doc) {
-                            ss.slides.push_back(strdup(last_filename));
-                            (ss.doc)->setUri(last_filename);
-                        }
-                        g_byte_array_free(gba, TRUE);
-                        g_free(last_filename);
-                    } else {
-                        break;
-                    }
-                }
-            } else {
-    #endif /* WITH_INKJAR */
-            /* Append to list */
-            ss.slides.push_back(strdup (argv[i]));
-
-            if (!ss.doc) {
-                ss.doc = SPDocument::createNewDoc((ss.slides[ss.current]).c_str(), TRUE, false);
-                if (!ss.doc) {
-                    ++ss.current;
-                }
+            if(doc)
+            {
+                /* Append to list */
+                valid_files.push_back(file);
             }
-    #ifdef WITH_INKJAR
-            }
-    #endif
         }
     }
 
-    if(!ss.doc) {
+    if(valid_files.empty()) {
        return 1; /* none of the slides loadable */
     }
     
-    ss.set_title(ss.doc->getName() );
-    ss.set_default_size(MIN ((int)(ss.doc)->getWidth().value("px"), (int)gdk_screen_width() - 64),
-                        MIN ((int)(ss.doc)->getHeight().value("px"), (int)gdk_screen_height() - 64));
-
-    g_signal_connect (G_OBJECT (ss.gobj()), "delete_event", (GCallback) sp_svgview_main_delete, &ss);
-    g_signal_connect (G_OBJECT (ss.gobj()), "key_press_event", (GCallback) sp_svgview_main_key_press, &ss);
-
-    (ss.doc)->ensureUpToDate();
-    ss.view = sp_svg_view_widget_new (ss.doc);
-    (ss.doc)->doUnref ();
-    SP_SVG_VIEW_WIDGET(ss.view)->setResize( false, ss.doc->getWidth().value("px"), ss.doc->getHeight().value("px") );
-    gtk_widget_show (ss.view);
-    ss.add(*Glib::wrap(ss.view));
-
-    ss.show();
-
-    gtk_main ();
+    SPSlideShow ss(valid_files);
+    ss.set_timer(timer);
+    main_instance.run();
 
     return 0;
 }
 
-static int sp_svgview_ctrlwin_delete (GtkWidget */*widget*/,
-                                      GdkEvent */*event*/,
-                                      void */*data*/)
+int SPSlideShow::ctrlwin_delete (GtkWidget */*widget*/,
+                                 GdkEvent  */*event*/,
+                                 void      *data)
 {
-    ctrlwin = NULL;
+    auto ss = reinterpret_cast<SPSlideShow *>(data);
+    if(ss->_ctrlwin) delete ss->_ctrlwin;
+
+    ss->_ctrlwin = NULL;
     return FALSE;
 }
 
@@ -328,46 +330,46 @@ static int sp_svgview_ctrlwin_delete (GtkWidget */*widget*/,
  */
 void SPSlideShow::control_show()
 {
-    if (!ctrlwin) {
-        ctrlwin = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-        gtk_window_set_resizable(GTK_WINDOW(ctrlwin), FALSE);
-        gtk_window_set_transient_for(GTK_WINDOW(ctrlwin), GTK_WINDOW(this->gobj()));
-        g_signal_connect(G_OBJECT (ctrlwin), "key_press_event", (GCallback) sp_svgview_main_key_press, this);
-        g_signal_connect(G_OBJECT (ctrlwin), "delete_event", (GCallback) sp_svgview_ctrlwin_delete, NULL);
-        auto t = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-        gtk_container_add(GTK_CONTAINER(ctrlwin), t);
+    if (!_ctrlwin) {
+        _ctrlwin = new Gtk::Window();
+        _ctrlwin->set_resizable(false);
+        _ctrlwin->set_transient_for(*this);
+        g_signal_connect(G_OBJECT (_ctrlwin->gobj()), "key_press_event", (GCallback) sp_svgview_main_key_press, this);
+        g_signal_connect(G_OBJECT (_ctrlwin->gobj()), "delete_event",    (GCallback) SPSlideShow::ctrlwin_delete, this);
+        auto t = Gtk::manage(new Gtk::ButtonBox());
+        _ctrlwin->add(*t);
 
         auto btn_go_first = Gtk::manage(new Gtk::Button());
         auto img_go_first = Gtk::manage(new Gtk::Image());
         img_go_first->set_from_icon_name(INKSCAPE_ICON("go-first"), Gtk::ICON_SIZE_BUTTON);
         btn_go_first->set_image(*img_go_first);
-        gtk_container_add(GTK_CONTAINER(t), GTK_WIDGET(btn_go_first->gobj()));
+        t->add(*btn_go_first);
         btn_go_first->signal_clicked().connect(sigc::mem_fun(*this, &SPSlideShow::goto_first));
         
         auto btn_go_prev = Gtk::manage(new Gtk::Button());
         auto img_go_prev = Gtk::manage(new Gtk::Image());
         img_go_prev->set_from_icon_name(INKSCAPE_ICON("go-previous"), Gtk::ICON_SIZE_BUTTON);
         btn_go_prev->set_image(*img_go_prev);
-        gtk_container_add(GTK_CONTAINER(t), GTK_WIDGET(btn_go_prev->gobj()));
+        t->add(*btn_go_prev);
         btn_go_prev->signal_clicked().connect(sigc::mem_fun(*this, &SPSlideShow::show_prev));
         
         auto btn_go_next = Gtk::manage(new Gtk::Button());
         auto img_go_next = Gtk::manage(new Gtk::Image());
         img_go_next->set_from_icon_name(INKSCAPE_ICON("go-next"), Gtk::ICON_SIZE_BUTTON);
         btn_go_next->set_image(*img_go_next);
-        gtk_container_add(GTK_CONTAINER(t), GTK_WIDGET(btn_go_next->gobj()));
+        t->add(*btn_go_next);
         btn_go_next->signal_clicked().connect(sigc::mem_fun(*this, &SPSlideShow::show_next));
         
         auto btn_go_last = Gtk::manage(new Gtk::Button());
         auto img_go_last = Gtk::manage(new Gtk::Image());
         img_go_last->set_from_icon_name(INKSCAPE_ICON("go-last"), Gtk::ICON_SIZE_BUTTON);
         btn_go_last->set_image(*img_go_last);
-        gtk_container_add(GTK_CONTAINER(t), GTK_WIDGET(btn_go_last->gobj()));
+        t->add(*btn_go_last);
         btn_go_last->signal_clicked().connect(sigc::mem_fun(*this, &SPSlideShow::goto_last));
 
-        gtk_widget_show_all(ctrlwin);
+        _ctrlwin->show_all();
     } else {
-        gtk_window_present(GTK_WINDOW(ctrlwin));
+        _ctrlwin->present();
     }
 }
 
@@ -377,30 +379,30 @@ void SPSlideShow::waiting_cursor()
     auto waiting = Gdk::Cursor::create(display, Gdk::WATCH);
     get_window()->set_cursor(waiting);
     
-    if (ctrlwin) {
-        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(ctrlwin)), waiting->gobj());
+    if (_ctrlwin) {
+        _ctrlwin->get_window()->set_cursor(waiting);
     }
-    while(gtk_events_pending()) {
-       gtk_main_iteration();
+    while(Gtk::Main::events_pending()) {
+        Gtk::Main::iteration();
     }
 }
 
 void SPSlideShow::normal_cursor()
 {
     get_window()->set_cursor();
-    if (ctrlwin) {
-        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(ctrlwin)), NULL);
+    if (_ctrlwin) {
+        _ctrlwin->get_window()->set_cursor();
     }
 }
 
 void SPSlideShow::set_document(SPDocument *doc,
                                int         current)
 {
-    if (doc && doc != this->doc) {
+    if (doc && doc != _doc) {
         doc->ensureUpToDate();
-        reinterpret_cast<SPSVGView*>(SP_VIEW_WIDGET_VIEW (view))->setDocument (doc);
-        this->doc = doc;
-        this->current = current;
+        reinterpret_cast<SPSVGView*>(SP_VIEW_WIDGET_VIEW (_view))->setDocument (doc);
+        _doc = doc;
+        _current = current;
     }
 }
 
@@ -412,11 +414,11 @@ void SPSlideShow::show_next()
     waiting_cursor();
 
     SPDocument *doc = NULL;
-    while (!doc && (current < slides.size() - 1)) {
-        doc = SPDocument::createNewDoc ((slides[++current]).c_str(), TRUE, false);
+    while (!doc && (_current < _slides.size() - 1)) {
+        doc = SPDocument::createNewDoc ((_slides[++_current]).c_str(), TRUE, false);
     }
 
-    set_document(doc, current);
+    set_document(doc, _current);
     normal_cursor();
 }
 
@@ -428,11 +430,11 @@ void SPSlideShow::show_prev()
     waiting_cursor();
 
     SPDocument *doc = NULL;
-    while (!doc && (current > 0)) {
-        doc = SPDocument::createNewDoc ((slides[--current]).c_str(), TRUE, false);
+    while (!doc && (_current > 0)) {
+        doc = SPDocument::createNewDoc ((_slides[--_current]).c_str(), TRUE, false);
     }
 
-    set_document(doc, current);
+    set_document(doc, _current);
     normal_cursor();
 }
 
@@ -445,8 +447,8 @@ void SPSlideShow::goto_first()
 
     SPDocument *doc = NULL;
     int current = 0;
-    while ( !doc && (current < slides.size() - 1)) {
-        doc = SPDocument::createNewDoc((slides[current++]).c_str(), TRUE, false);
+    while ( !doc && (current < _slides.size() - 1)) {
+        doc = SPDocument::createNewDoc((_slides[current++]).c_str(), TRUE, false);
     }
 
     set_document(doc, current - 1);
@@ -462,41 +464,14 @@ void SPSlideShow::goto_last()
     waiting_cursor();
 
     SPDocument *doc = NULL;
-    int current = slides.size() - 1;
+    int current = _slides.size() - 1;
     while (!doc && (current >= 0)) {
-        doc = SPDocument::createNewDoc((slides[current--]).c_str(), TRUE, false);
+        doc = SPDocument::createNewDoc((_slides[current--]).c_str(), TRUE, false);
     }
 
     set_document(doc, current + 1);
 
     normal_cursor();
-}
-
-#ifdef WITH_INKJAR
-static bool is_jar(char const *filename)
-{
-    /* fixme: Check MIME type or something.  /usr/share/misc/file/magic suggests that checking for
-       initial string "PK\003\004" in content should suffice. */
-    size_t const filename_len = strlen(filename);
-    if (filename_len < 5) {
-        return false;
-    }
-    char const *extension = filename + filename_len - 4;
-    return ((memcmp(extension, ".jar", 4) == 0) ||
-            (memcmp(extension, ".sxw", 4) == 0)   );
-}
-#endif /* WITH_INKJAR */
-
-static void usage()
-{
-    fprintf(stderr,
-        "Usage: inkview [OPTIONS...] [FILES ...]\n"
-        "\twhere FILES are SVG (.svg or .svgz)"
-#ifdef WITH_INKJAR
-        " or archives of SVGs (.sxw, .jar)"
-#endif
-        "\n");
-    exit(1);
 }
 
 /*
