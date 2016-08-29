@@ -29,6 +29,8 @@
 #include "util/format.h"
 
 #include "attribute-rel-util.h"
+#include "io/inkscapestream.h"
+#include "rebase-hrefs.h"
 
 namespace Inkscape {
 
@@ -675,6 +677,54 @@ void SimpleNode::mergeFrom(Node const *src, gchar const *key) {
           iter ; ++iter )
     {
         setAttribute(g_quark_to_string(iter->key), iter->value);
+    }
+}
+
+void SimpleNode::serialize(IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) {
+    bool preserve = preserve_spaces;
+    const char *space = attribute("xml:space");
+    if (space) {
+        preserve = strcmp(space, "preserve") == 0;
+    }
+
+    Glib::ustring real_indentation((unsigned long) (indent * indent_level), ' ');
+    Glib::ustring greater_indentation((unsigned long) (indent * (indent_level + 1)), ' ');
+    out.writeUString(real_indentation);
+    out.printf("<%s", name());
+    for (List<AttributeRecord const> iter = _attributes; iter; ++iter) {
+        if (!inline_attributes) {
+            out.writeString("\n");
+            out.writeUString(greater_indentation);
+        }
+        out.printf(" %s=\"", g_quark_to_string(iter->key));
+        _escapeOutput(out, iter->value);
+        out.writeChar('"');
+    }
+    if (_child_count == 0) {
+        out.writeString(" />\n");
+    } else if (_child_count == 1 && firstChild()->type() == TEXT_NODE) {
+        out.writeChar('>');
+        firstChild()->serialize(out, indent, indent_level, inline_attributes, preserve);
+        out.printf("</%s>\n", name());
+    } else {
+        out.writeString(">\n");
+        for (Node* child = firstChild(); child != nullptr; child = child->next()) {
+            child->serialize(out, indent, indent_level >= 15 ? 15 : indent_level + 1, inline_attributes, preserve);
+        }
+        out.writeUString(real_indentation);
+        out.printf("</%s>\n", name());
+    }
+}
+
+void SimpleNode::_escapeOutput(Inkscape::IO::Writer& out, const gchar *value) {
+    for (const gchar *ch = value; *ch != '\0'; ch++) {
+        switch (*ch) {
+            case '"': out.writeString("&quot;"); break;
+            case '&': out.writeString("&amp;"); break;
+            case '<': out.writeString("&lt;"); break;
+            case '>': out.writeString("&gt;"); break;
+            default: out.writeChar(*ch); break;
+        }
     }
 }
 

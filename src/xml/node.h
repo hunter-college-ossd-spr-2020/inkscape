@@ -23,6 +23,11 @@
 #include "util/list.h"
 
 namespace Inkscape {
+
+namespace IO {
+class Writer;
+}
+
 namespace XML {
 
 struct AttributeRecord;
@@ -470,9 +475,17 @@ public:
      */
     virtual void synthesizeEvents(NodeEventVector const *vector, void *data)=0;
 
+    /**
+     * @brief serialize node and all descendants into given stream
+     * @param out output writer
+     * @param indent size of indent in characters
+     * @param indent_level level of indent, every child should have indent_level of parent plus 1
+     * @param inline_attributes whether attributes should be printed in one line
+     * @param preserve_spaces whether xml:space is set to 'preserve'
+     */
+    virtual void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) = 0;
+
     virtual void recursivePrintTree(unsigned level)=0;
-    
-    /*@}*/
 
 protected:
     Node(Node const &) : Anchored() {}

@@ -19,7 +19,8 @@ set(TEST_SOURCES
 	dir-util-test
 	sp-object-test
 	object-set-test
-	svg-parser-test)
+	svg-parser-test
+	svg-writer-test)
 
 set(TEST_LIBS
 	gmock_main

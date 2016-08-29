@@ -16,7 +16,9 @@
 #define SEEN_INKSCAPE_XML_TEXT_NODE_H
 
 #include <glib.h>
+#include <boost/algorithm/string/trim.hpp>
 #include "xml/simple-node.h"
+#include "io/inkscapestream.h"
 
 namespace Inkscape {
 
@@ -45,6 +47,19 @@ struct TextNode : public SimpleNode {
 
     Inkscape::XML::NodeType type() const { return Inkscape::XML::TEXT_NODE; }
     bool is_CData() const { return _is_CData; }
+
+    void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
+        std::string cont = content();
+        if(!preserve_spaces) {
+            boost::trim(cont);
+        }
+        if (_is_CData) {
+            out.printf("<![CDATA[%s]]>", cont.c_str());
+        } else {
+            _escapeOutput(out, cont.c_str());
+        }
+    }
+
 
 protected:
     SimpleNode *_duplicate(Document* doc) const { return new TextNode(*this, doc); }

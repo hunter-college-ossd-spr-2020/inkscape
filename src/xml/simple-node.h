@@ -28,6 +28,10 @@
 
 namespace Inkscape {
 
+namespace IO {
+class Writer;
+}
+
 namespace XML {
 
 /**
@@ -121,6 +125,8 @@ public:
         _subtree_observers.remove(observer);
     }
 
+    virtual void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override;
+
     void recursivePrintTree(unsigned level = 0);
 
 protected:
@@ -128,6 +134,7 @@ protected:
     SimpleNode(SimpleNode const &repr, Document *document);
 
     virtual SimpleNode *_duplicate(Document *doc) const=0;
+    void _escapeOutput(Inkscape::IO::Writer& out, const gchar* value);
 
 private:
     void operator=(Node const &); // no assign

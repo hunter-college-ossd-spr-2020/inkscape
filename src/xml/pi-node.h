@@ -15,6 +15,7 @@
 #define SEEN_INKSCAPE_XML_PI_NODE_H
 
 #include "xml/simple-node.h"
+#include "io/inkscapestream.h"
 
 namespace Inkscape {
 
@@ -33,6 +34,11 @@ struct PINode : public SimpleNode {
     : SimpleNode(other, doc) {}
 
     Inkscape::XML::NodeType type() const { return Inkscape::XML::PI_NODE; }
+
+    void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
+        out.printf("<?%s %s?>\n", name(), content());
+    }
+
 
 protected:
     SimpleNode *_duplicate(Document* doc) const { return new PINode(*this, doc); }
