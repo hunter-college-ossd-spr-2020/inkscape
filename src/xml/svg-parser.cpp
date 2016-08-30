@@ -13,6 +13,7 @@
 #include <io/gzipstream.h>
 #include <io/uristream.h>
 #include <boost/algorithm/string/trim.hpp>
+#include <util/share.h>
 #include "svg-parser.h"
 #include "document.h"
 #include "simple-document.h"
@@ -87,8 +88,15 @@ void SVGParser::on_comment(const Glib::ustring& text) {
 
 void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri, const NamespaceList& namespaces, const AttributeList& attributes) {
     Glib::ustring n = name;
-    _promoteToNamespace(n, prefix, uri);
+    AttributeRecord ar = _promoteToNamespace(n, prefix, uri);
     Node* element = _doc->createElement(n.c_str());
+    for (auto &ns: namespaces) {
+        Glib::ustring nsn = "xmlns";
+        if (ns.prefix != "") {
+            nsn += ":" + ns.prefix;
+        }
+        element->setNamespace(nsn, ns.uri);
+    }
     for (auto &attr: attributes) {
         Glib::ustring an = attr.name;
         if (attr.ns.prefix != "") {
@@ -109,6 +117,9 @@ void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustri
         } else {
             _currentSpaceType.push(XML_SPACE_DEFAULT);
         }
+    }
+    if (ar.key != 0) {
+        _doc->root()->setNamespace(g_quark_to_string(ar.key), ar.value.pointer());
     }
     _context.push(element);
     Inkscape::GC::release(element);
@@ -223,19 +234,26 @@ Document *SVGParser::parseBuffer(const Glib::ustring &source, const Glib::ustrin
     return _doc;
 }
 
-void SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri) {
+AttributeRecord SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri) {
+    AttributeRecord ar(0, Inkscape::Util::ptr_shared<char>());
     Glib::ustring p = "";
     if (prefix != "") {
         p = prefix;
+        ar.value = Inkscape::Util::share_string(uri.c_str());
     } else if (uri != "" && sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str())) {
         p = sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str());
+        ar.value = Inkscape::Util::share_string(uri.c_str());
     } else if (_defaultNs != "") {
         p = sp_xml_ns_uri_prefix(_defaultNs.c_str(), "");
+        ar.value = Inkscape::Util::share_string(_defaultNs.c_str());
     }
 
     if (p != "") {
         name = p + ":" + name;
+        p = "xmlns:" + p;
+        ar.key = g_quark_from_string(p.c_str());
     }
+    return ar;
 }
 
 }

@@ -14,6 +14,7 @@
 #include <src/xml/repr.h>
 #include <src/xml/text-node.h>
 #include <algorithm>
+#include <src/xml/repr-io.h>
 
 using namespace Inkscape::XML;
 
@@ -88,15 +89,22 @@ TEST_F(SVGParserTest, Namespaces) {
     Document* doc1 = parser->parseBuffer(source1);
     EXPECT_EQ(1, doc1->childCount());
     EXPECT_STREQ("svg", doc1->firstChild()->name());
+    EXPECT_EQ(nullptr, g_quark_to_string(doc1->root()->namespaces()));
     Document* doc2 = parser->parseBuffer(source1, SP_INKSCAPE_NS_URI);
     EXPECT_EQ(1, doc2->childCount());
     EXPECT_STREQ("inkscape:svg", doc2->firstChild()->name());
+    EXPECT_STREQ("xmlns:inkscape", g_quark_to_string(doc2->root()->namespaces()->key));
+    EXPECT_STREQ("http://www.inkscape.org/namespaces/inkscape", doc2->root()->namespaces()->value);
     Document* doc3 = parser->parseBuffer(source2);
     EXPECT_EQ(1, doc3->childCount());
     EXPECT_STREQ("svg:svg", doc3->firstChild()->name());
+    EXPECT_STREQ("xmlns", g_quark_to_string(doc3->root()->namespaces()->key));
+    EXPECT_STREQ("http://www.w3.org/2000/svg", doc3->root()->namespaces()->value);
     Document* doc4 = parser->parseBuffer(source2, SP_INKSCAPE_NS_URI);
     EXPECT_EQ(1, doc4->childCount());
     EXPECT_STREQ("svg:svg", doc4->firstChild()->name());
+    EXPECT_STREQ("xmlns", g_quark_to_string(doc4->root()->namespaces()->key));
+    EXPECT_STREQ("http://www.w3.org/2000/svg", doc4->root()->namespaces()->value);
 }
 
 TEST_F(SVGParserTest, Entities) {
@@ -174,7 +182,7 @@ TEST_F(SVGParserTest, AdobeIlustratorSvg) {
         "\t<cdata_test><![CDATA[& is not protected here]]></cdata_test>\n"
         "</svg>";
     Document* doc = parser->parseBuffer(source);
-    Glib::ustring d = sp_repr_save_buf(doc);
+    Glib::ustring d = Inkscape::XML::IO::save_svg_buffer(doc);
     std::string actual = d.raw();
     actual.erase(std::remove_if(actual.begin(), actual.end(), isspace), actual.end());
     expected.erase(std::remove_if(expected.begin(), expected.end(), isspace), expected.end());

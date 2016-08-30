@@ -25,6 +25,8 @@ class IO {
 public:
     static Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
     static Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
+    static Glib::ustring save_svg_buffer(Document* doc);
+    static bool save_svg_file(Document* doc, const Glib::ustring& filename, const Glib::ustring& old_base = "", const Glib::ustring& new_base = "");
 
 private:
     static SVGParser parser;

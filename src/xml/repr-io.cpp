@@ -357,7 +357,7 @@ static void sp_repr_write_stream_root_element(Node *repr, Writer &out,
     }
 
     List<AttributeRecord const> attributes=repr->attributeList();
-    for ( NSMap::iterator iter=ns_map.begin() ; iter != ns_map.end() ; ++iter ) 
+    for ( NSMap::iterator iter=ns_map.begin() ; iter != ns_map.end() ; ++iter )
     {
         Glib::QueryQuark prefix=(*iter).first;
         ptr_shared<char> ns_uri=(*iter).second;
@@ -529,6 +529,8 @@ namespace Inkscape {
 
 namespace XML {
 
+using namespace Inkscape::IO;
+
 SVGParser IO::parser;
 
 static void clean_attributes(Document *doc) {
@@ -576,6 +578,81 @@ Document* IO::read_svg_buffer(const Glib::ustring& source, const bool& isInterna
         clean_attributes(doc);
     }
     return doc;
+}
+
+static void rebase_attributes(Node* node, const Glib::ustring& old_href_base, const Glib::ustring& new_href_base) {
+    for(auto iter = rebase_href_attrs(old_href_base.c_str(), new_href_base.c_str(), node->attributeList()); iter; ++iter) {
+        node->setAttribute(g_quark_to_string(iter->key), iter->value);
+    }
+
+    for (Node *child = node->firstChild(); child != nullptr; child = child->next()) {
+        if (child->type() == ELEMENT_NODE) {
+            rebase_attributes(child, old_href_base, new_href_base);
+        }
+    }
+}
+
+static void serialize(Writer& writer, Document* doc, const Glib::ustring& old_base = "", const Glib::ustring& new_base = "") {
+    Inkscape::Preferences *prefs = Inkscape::Preferences::get();
+    bool inlineAttributes = prefs->getBool("/options/svgoutput/inlineattrs");
+    int indent = prefs->getInt("/options/svgoutput/indent", 2);
+
+    // Clean unnecessary attributes and stype properties. (Controlled by preferences.)
+    bool clean = prefs->getBool("/options/svgoutput/check_on_writing");
+    if (clean) {
+        sp_attribute_clean_tree(doc->root());
+    }
+    // Sort attributes in a canonical order (helps with "diffing" SVG files).
+    bool sort = prefs->getBool("/options/svgoutput/sort_attributes");
+    if (sort) {
+        sp_attribute_sort_tree(doc->root());
+    }
+
+    if (old_base != "") {
+        Glib::ustring old_href_abs_base = calc_abs_doc_base(old_base.c_str());
+        Glib::ustring new_href_abs_base;
+        if (Glib::path_is_absolute(new_base)) {
+            new_href_abs_base = Glib::path_get_dirname(new_base);
+        } else {
+            Glib::ustring const cwd = Glib::get_current_dir();
+            Glib::ustring const for_abs_filename = Glib::build_filename(cwd, new_base);
+            new_href_abs_base = Glib::path_get_dirname(for_abs_filename);
+        }
+        rebase_attributes(doc->root(), old_href_abs_base, new_href_abs_base);
+    }
+
+    doc->serialize(writer, indent, 0, inlineAttributes, false);
+}
+
+Glib::ustring IO::save_svg_buffer(Document *doc) {
+    StringOutputStream stream;
+    OutputStreamWriter writer(stream);
+
+    serialize(writer, doc);
+
+    stream.close();
+    return stream.getString();
+}
+
+bool IO::save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& old_base, const Glib::ustring& new_base) {
+    FILE* file = fopen_utf8name(filename.c_str(), "w");
+
+    if (file == nullptr) {
+        return false;
+    }
+
+    Inkscape::URI dummy("x");
+    std::unique_ptr<OutputStream> stream(new UriOutputStream(file, dummy));
+    if (filename.find(".svgz") == filename.size() - 5) {
+        stream = std::unique_ptr<OutputStream>(new GzipOutputStream(*stream));
+    }
+    OutputStreamWriter writer(*stream);
+
+    serialize(writer, doc, old_base, new_base);
+
+    writer.close();
+    return fclose(file) == 0;
+
 }
 
 } // namespace XML

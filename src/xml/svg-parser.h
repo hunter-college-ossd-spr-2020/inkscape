@@ -51,7 +51,7 @@ protected:
                                const Glib::ustring &systemId, const Glib::ustring &content) override;
 
 private:
-    void _promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri);
+    AttributeRecord _promoteToNamespace(Glib::ustring &name, const Glib::ustring &prefix, const Glib::ustring &uri);
 
     enum XmlSpaceType {
         XML_SPACE_DEFAULT,

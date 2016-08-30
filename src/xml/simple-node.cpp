@@ -402,6 +402,47 @@ SimpleNode::setAttribute(gchar const *name, gchar const *value, bool const /*is_
     g_free( cleaned_value );
 }
 
+void SimpleNode::setNamespace(Glib::ustring const &prefix, Glib::ustring const &uri) {
+    gchar* cleaned_value = g_strdup(uri.c_str());
+    GQuark const key = g_quark_from_string(prefix.c_str());
+
+    MutableList<AttributeRecord> ref;
+    MutableList<AttributeRecord> existing;
+    for (existing = _namespaces; existing; ++existing) {
+        if (existing->key == key) {
+            break;
+        }
+        ref = existing;
+    }
+
+    ptr_shared<char> old_value = (existing ? existing->value : ptr_shared<char>());
+
+    ptr_shared<char> new_value = ptr_shared<char>();
+    if (cleaned_value) {
+        new_value = share_string(cleaned_value);
+        if (!existing) {
+            if (ref) {
+                set_rest(ref, MutableList<AttributeRecord>(AttributeRecord(key, new_value)));
+            } else {
+                _namespaces = MutableList<AttributeRecord>(AttributeRecord(key, new_value));
+            }
+        } else {
+            existing->value = new_value;
+        }
+    } else {
+        if (existing) {
+            if (ref) {
+                set_rest(ref, rest(existing));
+            } else {
+                _namespaces = rest(existing);
+            }
+            set_rest(existing, MutableList<AttributeRecord>());
+        }
+    }
+
+    g_free(cleaned_value);
+}
+
 void SimpleNode::addChild(Node *generic_child, Node *generic_ref) {
     g_assert(generic_child);
     g_assert(generic_child->document() == _document);
@@ -691,14 +732,17 @@ void SimpleNode::serialize(IO::Writer& out, int indent, int indent_level, bool i
     Glib::ustring greater_indentation((unsigned long) (indent * (indent_level + 1)), ' ');
     out.writeUString(real_indentation);
     out.printf("<%s", name());
-    for (List<AttributeRecord const> iter = _attributes; iter; ++iter) {
-        if (!inline_attributes) {
-            out.writeString("\n");
-            out.writeUString(greater_indentation);
+    List<AttributeRecord const> lists[] = {_namespaces, _attributes};
+    for (int i = 0; i < 2; i++) {
+        for (List<AttributeRecord const> iter = lists[i]; iter; ++iter) {
+            if (!inline_attributes) {
+                out.writeString("\n");
+                out.writeUString(greater_indentation);
+            }
+            out.printf(" %s=\"", g_quark_to_string(iter->key));
+            _escapeOutput(out, iter->value);
+            out.writeChar('"');
         }
-        out.printf(" %s=\"", g_quark_to_string(iter->key));
-        _escapeOutput(out, iter->value);
-        out.writeChar('"');
     }
     if (_child_count == 0) {
         out.writeString(" />\n");

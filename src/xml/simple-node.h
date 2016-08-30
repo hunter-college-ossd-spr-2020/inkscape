@@ -97,6 +97,12 @@ public:
 
     void mergeFrom(Node const *src, char const *key);
 
+    void setNamespace(Glib::ustring const &prefix, Glib::ustring const &uri);
+
+    Inkscape::Util::List<AttributeRecord const> namespaces() const {
+        return _namespaces;
+    }
+
     Inkscape::Util::List<AttributeRecord const> attributeList() const {
         return _attributes;
     }
@@ -150,6 +156,7 @@ private:
     int _name;
 
     Inkscape::Util::MutableList<AttributeRecord> _attributes;
+    Inkscape::Util::MutableList<AttributeRecord> _namespaces;
 
     Inkscape::Util::ptr_shared<char> _content;
 

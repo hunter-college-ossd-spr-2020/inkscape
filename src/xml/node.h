@@ -162,6 +162,15 @@ public:
     virtual Inkscape::Util::List<AttributeRecord const> attributeList() const=0;
 
     /**
+     * @brief Get a list of the node's namespaces
+     *
+     * The returned list is a functional programming style list rather than a standard one.
+     *
+     * @return A list of AttributeRecord structures describing the namespaces
+     */
+    virtual Inkscape::Util::List<AttributeRecord const> namespaces() const = 0;
+
+    /**
      * @brief Check whether this node has any attribute that matches a string
      *
      * This method checks whether this node has any attributes whose names
@@ -198,8 +207,17 @@ public:
      * @param value The node's new content
      */
     virtual void setContent(char const *value)=0;
-    
-    //@{
+
+    /**
+     * @brief Change a namespace of this node
+     *
+     * The strings passed to this method are copied, so you can free them after use.
+     *
+     * @param prefix namespace prefix
+     * @param uri namespace uri
+     */
+    virtual void setNamespace(Glib::ustring const &prefix, Glib::ustring const &uri) = 0;
+
     /**
      * @brief Change an attribute of this node
      *
