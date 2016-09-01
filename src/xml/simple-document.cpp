@@ -119,14 +119,14 @@ void SimpleDocument::notifyAttributeChanged(Node &node,
     }
 }
 
-void SimpleDocument::serialize(IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) {
+void SimpleDocument::serialize(IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) {
     out.writeString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n");
     const gchar *str = attribute("doctype");
     if (str) {
         out.writeString(str);
     }
     for (auto child = firstChild(); child != nullptr; child = child->next()) {
-        child->serialize(out, indent, indent_level, inline_attributes, preserve_spaces);
+        child->serialize(out, defaultPrefix, indent, indent_level, inline_attributes, preserve_spaces);
     }
 }
 

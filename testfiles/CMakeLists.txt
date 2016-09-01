@@ -19,6 +19,7 @@ set(TEST_SOURCES
 	dir-util-test
 	sp-object-test
 	object-set-test
+	repr-io-test
 	svg-parser-test
 	svg-writer-test)
 

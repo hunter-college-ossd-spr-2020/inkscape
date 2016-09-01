@@ -16,6 +16,7 @@
 
 #include <cstring>
 #include <string>
+#include <iostream>
 
 #include <glib.h>
 
@@ -403,44 +404,17 @@ SimpleNode::setAttribute(gchar const *name, gchar const *value, bool const /*is_
 }
 
 void SimpleNode::setNamespace(Glib::ustring const &prefix, Glib::ustring const &uri) {
-    gchar* cleaned_value = g_strdup(uri.c_str());
     GQuark const key = g_quark_from_string(prefix.c_str());
-
-    MutableList<AttributeRecord> ref;
-    MutableList<AttributeRecord> existing;
-    for (existing = _namespaces; existing; ++existing) {
-        if (existing->key == key) {
-            break;
-        }
-        ref = existing;
-    }
-
-    ptr_shared<char> old_value = (existing ? existing->value : ptr_shared<char>());
-
-    ptr_shared<char> new_value = ptr_shared<char>();
-    if (cleaned_value) {
-        new_value = share_string(cleaned_value);
-        if (!existing) {
-            if (ref) {
-                set_rest(ref, MutableList<AttributeRecord>(AttributeRecord(key, new_value)));
-            } else {
-                _namespaces = MutableList<AttributeRecord>(AttributeRecord(key, new_value));
-            }
+    GQuark const value = g_quark_from_string(uri.c_str());
+    if (_namespaces.find(key) != _namespaces.end()) {
+        if (uri == "") {
+            _namespaces.erase(key);
         } else {
-            existing->value = new_value;
+            _namespaces.find(key)->second = value;
         }
-    } else {
-        if (existing) {
-            if (ref) {
-                set_rest(ref, rest(existing));
-            } else {
-                _namespaces = rest(existing);
-            }
-            set_rest(existing, MutableList<AttributeRecord>());
-        }
+    } else if (uri != "") {
+        _namespaces.emplace(key, value);
     }
-
-    g_free(cleaned_value);
 }
 
 void SimpleNode::addChild(Node *generic_child, Node *generic_ref) {
@@ -721,7 +695,7 @@ void SimpleNode::mergeFrom(Node const *src, gchar const *key) {
     }
 }
 
-void SimpleNode::serialize(IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) {
+void SimpleNode::serialize(IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) {
     bool preserve = preserve_spaces;
     const char *space = attribute("xml:space");
     if (space) {
@@ -729,34 +703,55 @@ void SimpleNode::serialize(IO::Writer& out, int indent, int indent_level, bool i
     }
 
     Glib::ustring real_indentation((unsigned long) (indent * indent_level), ' ');
+    // indent for attributes
     Glib::ustring greater_indentation((unsigned long) (indent * (indent_level + 1)), ' ');
     out.writeUString(real_indentation);
-    out.printf("<%s", name());
-    List<AttributeRecord const> lists[] = {_namespaces, _attributes};
-    for (int i = 0; i < 2; i++) {
-        for (List<AttributeRecord const> iter = lists[i]; iter; ++iter) {
-            if (!inline_attributes) {
-                out.writeString("\n");
-                out.writeUString(greater_indentation);
-            }
-            out.printf(" %s=\"", g_quark_to_string(iter->key));
-            _escapeOutput(out, iter->value);
-            out.writeChar('"');
-        }
+
+    Glib::ustring n = name();
+    if (defaultPrefix != "" && n.find(defaultPrefix + ":") != Glib::ustring::npos) {
+        // remove prefix
+        n = n.substr(defaultPrefix.size() + 1);
     }
+    // print tag name
+    out.printf("<%s", n.c_str());
+    // print namespaces
+    for (auto &pair: _namespaces) {
+        if (!inline_attributes) {
+            out.writeString("\n");
+            out.writeUString(greater_indentation);
+        }
+        out.printf(" %s=\"", g_quark_to_string(pair.first));
+        _escapeOutput(out, g_quark_to_string(pair.second));
+        out.writeChar('"');
+    }
+    // print attributes
+    for (List<AttributeRecord const> iter = _attributes; iter; ++iter) {
+        if (!inline_attributes) {
+            out.writeString("\n");
+            out.writeUString(greater_indentation);
+        }
+        out.printf(" %s=\"", g_quark_to_string(iter->key));
+        _escapeOutput(out, iter->value);
+        out.writeChar('"');
+    }
+    // close tag if no children
     if (_child_count == 0) {
         out.writeString(" />\n");
+    // print text and close tag
     } else if (_child_count == 1 && firstChild()->type() == TEXT_NODE) {
         out.writeChar('>');
-        firstChild()->serialize(out, indent, indent_level, inline_attributes, preserve);
+        firstChild()->serialize(out, defaultPrefix, indent, indent_level, inline_attributes, preserve);
         out.printf("</%s>\n", name());
+    // close open tag
     } else {
         out.writeString(">\n");
+        // print children elements
         for (Node* child = firstChild(); child != nullptr; child = child->next()) {
-            child->serialize(out, indent, indent_level >= 15 ? 15 : indent_level + 1, inline_attributes, preserve);
+            child->serialize(out, defaultPrefix, indent, indent_level >= 15 ? 15 : indent_level + 1, inline_attributes, preserve);
         }
         out.writeUString(real_indentation);
-        out.printf("</%s>\n", name());
+        // print close tag
+        out.printf("</%s>\n", n.c_str());
     }
 }
 

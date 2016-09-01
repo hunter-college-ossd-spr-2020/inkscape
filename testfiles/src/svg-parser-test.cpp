@@ -45,7 +45,6 @@ TEST_F(SVGParserTest, Basics) {
             "<text><![CDATA[some && cdata]]></text>"
         "</svg>";
 
-    std::cout << source << std::endl;
     Document* doc = parser->parseBuffer(source);
     EXPECT_EQ(NodeType::DOCUMENT_NODE, doc->type());
     EXPECT_TRUE(doc->root());
@@ -87,24 +86,31 @@ TEST_F(SVGParserTest, Namespaces) {
     Glib::ustring source1 = "<svg><text>sample</text></svg>";
     Glib::ustring source2 = "<svg xmlns=\"http://www.w3.org/2000/svg\"><text>sample</text></svg>";
     Document* doc1 = parser->parseBuffer(source1);
+    SimpleNode* root = dynamic_cast<SimpleNode*>(doc1->root());
     EXPECT_EQ(1, doc1->childCount());
     EXPECT_STREQ("svg", doc1->firstChild()->name());
-    EXPECT_EQ(nullptr, g_quark_to_string(doc1->root()->namespaces()));
+    EXPECT_EQ(0, root->namespaces().size());
     Document* doc2 = parser->parseBuffer(source1, SP_INKSCAPE_NS_URI);
+    root = dynamic_cast<SimpleNode*>(doc2->root());
     EXPECT_EQ(1, doc2->childCount());
     EXPECT_STREQ("inkscape:svg", doc2->firstChild()->name());
-    EXPECT_STREQ("xmlns:inkscape", g_quark_to_string(doc2->root()->namespaces()->key));
-    EXPECT_STREQ("http://www.inkscape.org/namespaces/inkscape", doc2->root()->namespaces()->value);
+    EXPECT_EQ(1, root->namespaces().size());
+    EXPECT_STREQ("xmlns:inkscape", g_quark_to_string(root->namespaces().begin()->first));
+    EXPECT_STREQ("http://www.inkscape.org/namespaces/inkscape", g_quark_to_string(root->namespaces().begin()->second));
     Document* doc3 = parser->parseBuffer(source2);
+    root = dynamic_cast<SimpleNode*>(doc3->root());
     EXPECT_EQ(1, doc3->childCount());
     EXPECT_STREQ("svg:svg", doc3->firstChild()->name());
-    EXPECT_STREQ("xmlns", g_quark_to_string(doc3->root()->namespaces()->key));
-    EXPECT_STREQ("http://www.w3.org/2000/svg", doc3->root()->namespaces()->value);
+    EXPECT_EQ(2, root->namespaces().size());
+    EXPECT_STREQ("xmlns:svg", g_quark_to_string(root->namespaces().begin()->first));
+    EXPECT_STREQ("http://www.w3.org/2000/svg", g_quark_to_string(root->namespaces().begin()->second));
     Document* doc4 = parser->parseBuffer(source2, SP_INKSCAPE_NS_URI);
+    root = dynamic_cast<SimpleNode*>(doc4->root());
     EXPECT_EQ(1, doc4->childCount());
     EXPECT_STREQ("svg:svg", doc4->firstChild()->name());
-    EXPECT_STREQ("xmlns", g_quark_to_string(doc4->root()->namespaces()->key));
-    EXPECT_STREQ("http://www.w3.org/2000/svg", doc4->root()->namespaces()->value);
+    EXPECT_EQ(2, root->namespaces().size());
+    EXPECT_STREQ("xmlns", g_quark_to_string((--root->namespaces().end())->first));
+    EXPECT_STREQ("http://www.w3.org/2000/svg", g_quark_to_string(root->namespaces().begin()->second));
 }
 
 TEST_F(SVGParserTest, Entities) {

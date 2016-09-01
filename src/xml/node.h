@@ -162,15 +162,6 @@ public:
     virtual Inkscape::Util::List<AttributeRecord const> attributeList() const=0;
 
     /**
-     * @brief Get a list of the node's namespaces
-     *
-     * The returned list is a functional programming style list rather than a standard one.
-     *
-     * @return A list of AttributeRecord structures describing the namespaces
-     */
-    virtual Inkscape::Util::List<AttributeRecord const> namespaces() const = 0;
-
-    /**
      * @brief Check whether this node has any attribute that matches a string
      *
      * This method checks whether this node has any attributes whose names
@@ -500,8 +491,9 @@ public:
      * @param indent_level level of indent, every child should have indent_level of parent plus 1
      * @param inline_attributes whether attributes should be printed in one line
      * @param preserve_spaces whether xml:space is set to 'preserve'
+     * @param defaultPrefix prefix for default namespace
      */
-    virtual void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) = 0;
+    virtual void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) = 0;
 
     virtual void recursivePrintTree(unsigned level)=0;
 

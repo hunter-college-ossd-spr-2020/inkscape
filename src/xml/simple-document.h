@@ -63,7 +63,7 @@ public:
                                 Util::ptr_shared<char> old_value,
                                 Util::ptr_shared<char> new_value);
 
-    virtual void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override;
+    virtual void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override;
 
 protected:
     SimpleDocument(SimpleDocument const &doc)

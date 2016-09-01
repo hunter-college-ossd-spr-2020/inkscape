@@ -38,7 +38,7 @@ struct CommentNode : public SimpleNode {
 
     Inkscape::XML::NodeType type() const { return Inkscape::XML::COMMENT_NODE; }
 
-    void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
+    void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
         Glib::ustring real_indentation((unsigned long) (indent * indent_level), ' ');
         out.writeUString(real_indentation);
         out.writeString("<!--");

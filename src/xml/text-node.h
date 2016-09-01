@@ -48,7 +48,7 @@ struct TextNode : public SimpleNode {
     Inkscape::XML::NodeType type() const { return Inkscape::XML::TEXT_NODE; }
     bool is_CData() const { return _is_CData; }
 
-    void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
+    void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
         std::string cont = content();
         if(!preserve_spaces) {
             boost::trim(cont);

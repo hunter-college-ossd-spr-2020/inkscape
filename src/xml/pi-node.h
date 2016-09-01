@@ -35,7 +35,7 @@ struct PINode : public SimpleNode {
 
     Inkscape::XML::NodeType type() const { return Inkscape::XML::PI_NODE; }
 
-    void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
+    void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override {
         out.printf("<?%s %s?>\n", name(), content());
     }
 

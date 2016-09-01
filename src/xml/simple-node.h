@@ -18,13 +18,14 @@
 #ifndef SEEN_INKSCAPE_XML_SIMPLE_NODE_H
 #define SEEN_INKSCAPE_XML_SIMPLE_NODE_H
 
-#include <cassert>
-#include <iostream>
-
 #include "xml/node.h"
 #include "xml/attribute-record.h"
 #include "xml/composite-node-observer.h"
 #include "util/list-container.h"
+
+#include <glibmm/quark.h>
+#include <map>
+#include <cassert>
 
 namespace Inkscape {
 
@@ -33,6 +34,12 @@ class Writer;
 }
 
 namespace XML {
+
+struct compare_quark_ids {
+    bool operator()(Glib::QueryQuark const &a, Glib::QueryQuark const &b) const {
+        return a.id() < b.id();
+    }
+};
 
 /**
  * @brief Default implementation of the XML node stored in memory.
@@ -99,7 +106,8 @@ public:
 
     void setNamespace(Glib::ustring const &prefix, Glib::ustring const &uri);
 
-    Inkscape::Util::List<AttributeRecord const> namespaces() const {
+    typedef std::map<Glib::QueryQuark, Glib::QueryQuark, compare_quark_ids> NamespaceMap;
+    NamespaceMap& namespaces() {
         return _namespaces;
     }
 
@@ -131,7 +139,7 @@ public:
         _subtree_observers.remove(observer);
     }
 
-    virtual void serialize(Inkscape::IO::Writer& out, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override;
+    virtual void serialize(Inkscape::IO::Writer& out, const Glib::ustring& defaultPrefix, int indent, int indent_level, bool inline_attributes, bool preserve_spaces) override;
 
     void recursivePrintTree(unsigned level = 0);
 
@@ -156,7 +164,7 @@ private:
     int _name;
 
     Inkscape::Util::MutableList<AttributeRecord> _attributes;
-    Inkscape::Util::MutableList<AttributeRecord> _namespaces;
+    NamespaceMap _namespaces;
 
     Inkscape::Util::ptr_shared<char> _content;
 

@@ -1,5 +1,5 @@
 /*
- * Unit tests for repr IO
+ * Unit tests for svg serialization
  *
  * Authors:
  *   Adrian Boguszewski
@@ -52,7 +52,7 @@ TEST_F(SVGWriterTest, Basics) {
             "</svg>\n";
 
     Document* doc = parser->parseBuffer(source);
-    doc->serialize(*writer, 0, 0, true, true);
+    doc->serialize(*writer, "", 0, 0, true, true);
     writer->close();
     EXPECT_EQ(source, souts->getString());
 }
@@ -117,7 +117,7 @@ TEST_F(SVGWriterTest, Indentation) {
         node1->appendChild(doc1->createElement("g"));
         node1 = node1->firstChild();
     }
-    doc1->serialize(*writer, 1, 0, true, true);
+    doc1->serialize(*writer, "", 1, 0, true, true);
     writer->close();
     EXPECT_EQ(result1, souts->getString());
     souts->clear();
@@ -129,7 +129,7 @@ TEST_F(SVGWriterTest, Indentation) {
         node2->appendChild(doc2->createElement("g"));
         node2 = node2->firstChild();
     }
-    doc2->serialize(*writer, 2, 0, true, true);
+    doc2->serialize(*writer, "", 2, 0, true, true);
     writer->close();
     EXPECT_EQ(result2, souts->getString());
 }
@@ -181,12 +181,12 @@ TEST_F(SVGWriterTest, InlineAttributes) {
     node->appendChild(doc->createElement("text"));
     node->nthChild(2)->appendChild(doc->createTextNode("Some text"));
 
-    doc->serialize(*writer, 2, 0, true, true);
+    doc->serialize(*writer, "", 2, 0, true, true);
     writer->close();
     EXPECT_EQ(result1, souts->getString());
     souts->clear();
 
-    doc->serialize(*writer, 2, 0, false, true);
+    doc->serialize(*writer, "", 2, 0, false, true);
     writer->close();
     EXPECT_EQ(result2, souts->getString());
 }
@@ -211,7 +211,7 @@ TEST_F(SVGWriterTest, XmlSpaces) {
     node->nthChild(1)->appendChild(doc->createElement("text"));
     node->nthChild(1)->firstChild()->appendChild(doc->createTextNode(" An example text without space preserving.   "));
 
-    doc->serialize(*writer, 0, 0, true, false);
+    doc->serialize(*writer, "", 0, 0, true, false);
     writer->close();
 
     EXPECT_EQ(result, souts->getString());

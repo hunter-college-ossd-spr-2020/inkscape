@@ -592,7 +592,50 @@ static void rebase_attributes(Node* node, const Glib::ustring& old_href_base, co
     }
 }
 
-static void serialize(Writer& writer, Document* doc, const Glib::ustring& old_base = "", const Glib::ustring& new_base = "") {
+static void add_namespace_to_doc(Document* doc, const Glib::ustring& nodeName) {
+    if (nodeName.find(":") != Glib::ustring::npos) {
+        Glib::ustring prefix = nodeName.substr(0, nodeName.find(":"));
+        Glib::ustring extendedPrefix = "xmlns:" + prefix;
+        SimpleNode* root = dynamic_cast<SimpleNode*>(doc->root());
+        if (root->namespaces().find(g_quark_from_string(extendedPrefix.c_str())) == root->namespaces().end()
+                && prefix != "xml") {
+            root->setNamespace(extendedPrefix, sp_xml_ns_prefix_uri(prefix.c_str()));
+        }
+    }
+}
+
+static void find_all_prefixes(Document* doc, Node* node) {
+    add_namespace_to_doc(doc, node->name());
+    for (List<AttributeRecord const> iter = node->attributeList(); iter; ++iter) {
+        add_namespace_to_doc(doc, g_quark_to_string(iter->key));
+    }
+    for (Node *child = node->firstChild(); child != nullptr; child = child->next()) {
+        if (child->type() == ELEMENT_NODE) {
+            find_all_prefixes(doc, child);
+        }
+    }
+}
+
+static void serialize(Writer& writer, Document* doc, const Glib::ustring& defaultNs, const Glib::ustring& old_base, const Glib::ustring& new_base) {
+    if (old_base != "") {
+        Glib::ustring old_href_abs_base = calc_abs_doc_base(old_base.c_str());
+        Glib::ustring new_href_abs_base;
+        if (Glib::path_is_absolute(new_base)) {
+            new_href_abs_base = Glib::path_get_dirname(new_base);
+        } else {
+            Glib::ustring const cwd = Glib::get_current_dir();
+            Glib::ustring const for_abs_filename = Glib::build_filename(cwd, new_base);
+            new_href_abs_base = Glib::path_get_dirname(for_abs_filename);
+        }
+        rebase_attributes(doc->root(), old_href_abs_base, new_href_abs_base);
+    }
+
+    find_all_prefixes(doc, doc->root());
+    if (defaultNs != "") {
+        doc->root()->setNamespace("xmlns", defaultNs);
+    }
+    Glib::ustring defaultPrefix = sp_xml_ns_uri_prefix(defaultNs.c_str(), "");
+
     Inkscape::Preferences *prefs = Inkscape::Preferences::get();
     bool inlineAttributes = prefs->getBool("/options/svgoutput/inlineattrs");
     int indent = prefs->getInt("/options/svgoutput/indent", 2);
@@ -608,33 +651,20 @@ static void serialize(Writer& writer, Document* doc, const Glib::ustring& old_ba
         sp_attribute_sort_tree(doc->root());
     }
 
-    if (old_base != "") {
-        Glib::ustring old_href_abs_base = calc_abs_doc_base(old_base.c_str());
-        Glib::ustring new_href_abs_base;
-        if (Glib::path_is_absolute(new_base)) {
-            new_href_abs_base = Glib::path_get_dirname(new_base);
-        } else {
-            Glib::ustring const cwd = Glib::get_current_dir();
-            Glib::ustring const for_abs_filename = Glib::build_filename(cwd, new_base);
-            new_href_abs_base = Glib::path_get_dirname(for_abs_filename);
-        }
-        rebase_attributes(doc->root(), old_href_abs_base, new_href_abs_base);
-    }
-
-    doc->serialize(writer, indent, 0, inlineAttributes, false);
+    doc->serialize(writer, defaultPrefix, indent, 0, inlineAttributes, false);
 }
 
-Glib::ustring IO::save_svg_buffer(Document *doc) {
+Glib::ustring IO::save_svg_buffer(Document *doc, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
     StringOutputStream stream;
     OutputStreamWriter writer(stream);
 
-    serialize(writer, doc);
+    serialize(writer, doc, defaultNs, oldBase, newBase);
 
-    stream.close();
+    writer.close();
     return stream.getString();
 }
 
-bool IO::save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& old_base, const Glib::ustring& new_base) {
+bool IO::save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
     FILE* file = fopen_utf8name(filename.c_str(), "w");
 
     if (file == nullptr) {
@@ -643,12 +673,13 @@ bool IO::save_svg_file(Document *doc, const Glib::ustring &filename, const Glib:
 
     Inkscape::URI dummy("x");
     std::unique_ptr<OutputStream> stream(new UriOutputStream(file, dummy));
+    std::unique_ptr<OutputStream> decorator;
     if (filename.find(".svgz") == filename.size() - 5) {
-        stream = std::unique_ptr<OutputStream>(new GzipOutputStream(*stream));
+        decorator = std::unique_ptr<OutputStream>(new GzipOutputStream(*stream));
     }
-    OutputStreamWriter writer(*stream);
+    OutputStreamWriter writer(decorator ? *decorator : *stream);
 
-    serialize(writer, doc, old_base, new_base);
+    serialize(writer, doc, defaultNs, oldBase, newBase);
 
     writer.close();
     return fclose(file) == 0;
