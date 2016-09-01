@@ -15,7 +15,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
 #include "sp-object.h"
 #include "svg.h"
@@ -25,11 +25,12 @@
 #include <vector>
 #include "xml/attribute-record.h"
 #include "xml/simple-document.h"
+#include "xml/repr-io.h"
 #include "sp-root.h"
 #include "document.h"
 
 #ifdef WITH_GNOME_VFS
-# include <libgnomevfs/gnome-vfs.h>
+#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 namespace Inkscape {
@@ -267,8 +268,7 @@ Svg::save(Inkscape::Extension::Output *mod, SPDocument *doc, gchar const *filena
         rdoc = new_rdoc;
     }
 
-    if (!sp_repr_save_rebased_file(rdoc, filename, SP_SVG_NS_URI,
-                                   doc->getBase(), filename)) {
+    if (!Inkscape::XML::IO::save_svg_file(rdoc, filename, SP_SVG_NS_URI, doc->getBase(), filename)) {
         throw Inkscape::Extension::Output::save_failed();
     }
 

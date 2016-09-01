@@ -31,7 +31,7 @@ public:
                               const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
 
 private:
-    static SVGParser parser;
+    static SVGParser _parser;
 };
 
 } // namespace XML

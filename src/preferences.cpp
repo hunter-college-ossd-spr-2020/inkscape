@@ -282,7 +282,7 @@ void Preferences::save()
         // There are many other factors, so ask if you would like to learn them. - JAC
         Glib::ustring utf8name = Glib::filename_to_utf8(_prefs_filename);
         if (!utf8name.empty()) {
-            sp_repr_save_file(_prefs_doc, utf8name.c_str());
+            Inkscape::XML::IO::save_svg_file(_prefs_doc, utf8name);
         }
     }
 }

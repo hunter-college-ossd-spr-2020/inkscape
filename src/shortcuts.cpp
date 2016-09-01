@@ -184,8 +184,7 @@ void sp_shortcuts_delete_all_from_file() {
         iter=root->firstChild();
     }
 
-
-    sp_repr_save_file(doc, filename, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, filename);
 
     GC::release(doc);
 }
@@ -198,7 +197,7 @@ Inkscape::XML::Document *sp_shortcut_create_template_file(char const *filename) 
             "</keys>";
 
     Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_buffer(buffer, true);
-    sp_repr_save_file(doc, filename, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, filename);
 
     return Inkscape::XML::IO::read_svg_file(filename, true);
 }
@@ -394,7 +393,7 @@ void sp_shortcut_file_import_do(char const *importname) {
     }
 
     char const *filename = get_path(USER, KEYS, "default.xml");
-    sp_repr_save_file(doc, filename, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, filename);
 
     GC::release(doc);
 
@@ -411,7 +410,7 @@ void sp_shortcut_file_export_do(char const *exportname) {
         return;
     }
 
-    sp_repr_save_file(doc, exportname, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, exportname);
 
     GC::release(doc);
 }
@@ -487,7 +486,7 @@ void sp_shortcut_delete_from_file(char const * /*action*/, unsigned int const sh
         iter = iter->next();
     }
 
-    sp_repr_save_file(doc, filename, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, filename);
 
     GC::release(doc);
 
@@ -542,7 +541,7 @@ void sp_shortcut_add_to_file(char const *action, unsigned int const shortcut) {
         doc->root()->appendChild(newnode);
     }
 
-    sp_repr_save_file(doc, filename, NULL);
+    Inkscape::XML::IO::save_svg_file(doc, filename);
 
     GC::release(doc);
 

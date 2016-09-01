@@ -163,7 +163,7 @@ Filter::filters_load_node (Inkscape::XML::Node * node, gchar * menuname)
 	node->setAttribute("xmlns:inkscape", SP_INKSCAPE_NS_URI);
 
 	mywriter writer;
-	sp_repr_write_stream(node, writer, 0, FALSE, g_quark_from_static_string("svg"), 0, 0);
+	node->serialize(writer, "svg", 0, 0, false, false);
 
     Inkscape::Extension::build_from_mem(xml_str, new Filter(g_strdup(writer.c_str())));
 	g_free(xml_str);

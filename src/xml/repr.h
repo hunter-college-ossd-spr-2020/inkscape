@@ -49,29 +49,7 @@ char const *sp_xml_ns_prefix_uri(char const *prefix);
 
 Inkscape::XML::Document *sp_repr_document_new(char const *rootname);
 
-/* IO */
-
-void sp_repr_write_stream(Inkscape::XML::Node *repr, Inkscape::IO::Writer &out,
-                          int indent_level,  bool add_whitespace, Glib::QueryQuark elide_prefix,
-                          int inlineattrs, int indent,
-                          char const *old_href_base = NULL,
-                          char const *new_href_base = NULL);
-Glib::ustring sp_repr_save_buf(Inkscape::XML::Document *doc);
-
-// TODO convert to std::string
-void sp_repr_save_stream(Inkscape::XML::Document *doc, FILE *to_file,
-                         char const *default_ns = NULL, bool compress = false,
-                         char const *old_href_base = NULL,
-                         char const *new_href_base = NULL);
-
-bool sp_repr_save_file(Inkscape::XML::Document *doc, char const *filename, char const *default_ns=NULL);
-bool sp_repr_save_rebased_file(Inkscape::XML::Document *doc, char const *filename_utf8,
-                               char const *default_ns,
-                               char const *old_base, char const *new_base_filename);
-
-
 /* CSS stuff */
-
 SPCSSAttr *sp_repr_css_attr_new(void);
 void sp_repr_css_attr_unref(SPCSSAttr *css);
 SPCSSAttr *sp_repr_css_attr(Inkscape::XML::Node *repr, char const *attr);

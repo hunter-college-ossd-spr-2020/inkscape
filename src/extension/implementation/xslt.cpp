@@ -201,8 +201,7 @@ void XSLT::save(Inkscape::Extension::Output *module, SPDocument *doc, gchar cons
         return;
     }
 
-    if (!sp_repr_save_rebased_file(repr->document(), tempfilename_out.c_str(), SP_SVG_NS_URI,
-                                   doc->getBase(), filename)) {
+    if (!Inkscape::XML::IO::save_svg_file(repr->document(), tempfilename_out.c_str(), SP_SVG_NS_URI, doc->getBase(), filename)) {
         throw Inkscape::Extension::Output::save_failed();
     }
 

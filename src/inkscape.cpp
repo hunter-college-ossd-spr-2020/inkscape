@@ -323,21 +323,17 @@ int Application::autosave()
             baseName = 0;
 
             // Try to save the file
-            FILE *file = Inkscape::IO::fopen_utf8name(full_path, "w");
             gchar *errortext = 0;
-            if (file) {
-                try{
-                    sp_repr_save_stream(repr->document(), file, SP_SVG_NS_URI);
-                } catch (Inkscape::Extension::Output::no_extension_found &e) {
-                    errortext = g_strdup(_("Autosave failed! Could not find inkscape extension to save document."));
-                } catch (Inkscape::Extension::Output::save_failed &e) {
+            try {
+                if (!Inkscape::XML::IO::save_svg_file(repr->document(), full_path, SP_SVG_NS_URI)) {
                     gchar *safeUri = Inkscape::IO::sanitizeString(full_path);
                     errortext = g_strdup_printf(_("Autosave failed! File %s could not be saved."), safeUri);
                     g_free(safeUri);
                 }
-                fclose(file);
-            }
-            else {
+
+            } catch (Inkscape::Extension::Output::no_extension_found &e) {
+                errortext = g_strdup(_("Autosave failed! Could not find inkscape extension to save document."));
+            } catch (Inkscape::Extension::Output::save_failed &e) {
                 gchar *safeUri = Inkscape::IO::sanitizeString(full_path);
                 errortext = g_strdup_printf(_("Autosave failed! File %s could not be saved."), safeUri);
                 g_free(safeUri);
@@ -702,15 +698,14 @@ Application::crash_handler (int /*signum*/)
                 file = Inkscape::IO::fopen_utf8name(filename, "w");
                 if (file) {
                     g_snprintf (c, 1024, "%s", filename); // we want the complete path to be stored in c (for reporting purposes)
+                    fclose (file);
                     break;
                 }
             }
 
             // Save
-            if (file) {
-                sp_repr_save_stream (repr->document(), file, SP_SVG_NS_URI);
+            if (Inkscape::XML::IO::save_svg_file(repr->document(), c, SP_SVG_NS_URI)) {
                 savednames = g_slist_prepend (savednames, g_strdup (c));
-                fclose (file);
             } else {
                 failednames = g_slist_prepend (failednames, (doc->getName()) ? g_strdup(doc->getName()) : g_strdup (_("Untitled document")));
             }

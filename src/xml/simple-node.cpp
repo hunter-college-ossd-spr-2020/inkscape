@@ -741,7 +741,7 @@ void SimpleNode::serialize(IO::Writer& out, const Glib::ustring& defaultPrefix, 
     } else if (_child_count == 1 && firstChild()->type() == TEXT_NODE) {
         out.writeChar('>');
         firstChild()->serialize(out, defaultPrefix, indent, indent_level, inline_attributes, preserve);
-        out.printf("</%s>\n", name());
+        out.printf("</%s>\n", n.c_str());
     // close open tag
     } else {
         out.writeString(">\n");
