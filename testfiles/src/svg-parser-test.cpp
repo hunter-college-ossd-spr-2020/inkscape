@@ -222,7 +222,7 @@ TEST_F(SVGParserTest, XmlSpaces) {
             "</g>"
             "</svg>";
     Document* doc1 = parser->parseBuffer(source1);
-    EXPECT_EQ(2, doc1->root()->childCount());
+    EXPECT_EQ(1, doc1->root()->childCount());
     EXPECT_STREQ("text", doc1->root()->firstChild()->name());
     EXPECT_STREQ(" An example text with space preserving.   ", doc1->root()->firstChild()->firstChild()->content());
     Document* doc2 = parser->parseBuffer(source2);

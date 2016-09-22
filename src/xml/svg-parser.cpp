@@ -54,7 +54,7 @@ void SVGParser::on_end_element(const Glib::ustring& name) {
 
 void SVGParser::on_characters(const Glib::ustring& text) {
     std::string t = text.raw();
-    if(_currentSpaceType.top() == XML_SPACE_DEFAULT) {
+    if(_currentSpaceType.top() == XML_SPACE_DEFAULT || std::all_of(t.begin(), t.end(), isspace)) {
         boost::trim(t);
     }
     if (!_context.empty() && t != "") {
