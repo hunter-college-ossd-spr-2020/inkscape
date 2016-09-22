@@ -645,6 +645,9 @@ Effect::addCanvasIndicators(SPLPEItem const*/*lpeitem*/, std::vector<Geom::PathV
 {
 }
 
+/**
+ * Call to a method on nodetool to update the helper path from the effect
+ */
 void
 Effect::update_helperpath() {
     using namespace Inkscape::UI;
