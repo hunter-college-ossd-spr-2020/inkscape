@@ -124,7 +124,7 @@ Preferences::~Preferences()
  */
 void Preferences::_loadDefaults()
 {
-    _prefs_doc = Inkscape::XML::IO::read_svg_buffer(preferences_skeleton, true);
+    _prefs_doc = Inkscape::XML::read_svg_buffer(preferences_skeleton, true);
 }
 
 /**
@@ -232,7 +232,7 @@ static Inkscape::XML::Document *loadImpl( std::string const& prefsFilename, Glib
     }
 
     // 4. Is it valid XML?
-    Inkscape::XML::Document *prefs_read = Inkscape::XML::IO::read_svg_buffer(prefs_xml, true);
+    Inkscape::XML::Document *prefs_read = Inkscape::XML::read_svg_buffer(prefs_xml, true);
 
     g_free(prefs_xml);
     if (!prefs_read) {
@@ -283,7 +283,7 @@ void Preferences::save()
         // There are many other factors, so ask if you would like to learn them. - JAC
         Glib::ustring utf8name = Glib::filename_to_utf8(_prefs_filename);
         if (!utf8name.empty()) {
-            Inkscape::XML::IO::save_svg_file(_prefs_doc, utf8name);
+            Inkscape::XML::save_svg_file(_prefs_doc, utf8name);
         }
     }
 }

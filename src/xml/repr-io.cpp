@@ -19,6 +19,7 @@
 #include "rebase-hrefs.h"
 #include "simple-node.h"
 #include "util/list.h"
+#include "svg-parser.h"
 #include "xml/attribute-record.h"
 #include <boost/algorithm/string.hpp>
 #include <io/sys.h>
@@ -33,7 +34,7 @@ namespace XML {
 
 using namespace Inkscape::IO;
 
-SVGParser IO::_parser;
+static SVGParser _parser;
 
 static void clean_attributes(Document *doc) {
     // Clean unnecessary attributes and style properties from SVG documents (controlled by preferences)
@@ -44,7 +45,7 @@ static void clean_attributes(Document *doc) {
     }
 }
 
-Document* IO::read_svg_file(const Glib::ustring& filename, const bool& isInternal, const Glib::ustring& defaultNs) {
+Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal, const Glib::ustring& defaultNs) {
     if (!Inkscape::IO::file_test(filename.c_str(), G_FILE_TEST_EXISTS)) {
         g_warning("Can't open file: %s (doesn't exist)", filename.c_str());
         return nullptr;
@@ -74,7 +75,7 @@ Document* IO::read_svg_file(const Glib::ustring& filename, const bool& isInterna
     return doc;
 }
 
-Document* IO::read_svg_buffer(const Glib::ustring& source, const bool& isInternal, const Glib::ustring& defaultNs) {
+Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal, const Glib::ustring& defaultNs) {
     Document *doc = _parser.parseBuffer(source, defaultNs);
     if(!isInternal) {
         clean_attributes(doc);
@@ -158,7 +159,7 @@ static void serialize(Writer& writer, Document* doc, const Glib::ustring& defaul
     doc->serialize(writer, defaultPrefix, indent, 0, inlineAttributes, false);
 }
 
-Glib::ustring IO::save_svg_buffer(Document *doc, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
+Glib::ustring save_svg_buffer(Document *doc, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
     StringOutputStream stream;
     OutputStreamWriter writer(stream);
 
@@ -168,7 +169,7 @@ Glib::ustring IO::save_svg_buffer(Document *doc, const Glib::ustring& defaultNs,
     return stream.getString();
 }
 
-bool IO::save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
+bool save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
     FILE* file = fopen_utf8name(filename.c_str(), "w");
 
     if (file == nullptr) {

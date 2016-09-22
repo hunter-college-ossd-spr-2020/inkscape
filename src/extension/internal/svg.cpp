@@ -268,7 +268,7 @@ Svg::save(Inkscape::Extension::Output *mod, SPDocument *doc, gchar const *filena
         rdoc = new_rdoc;
     }
 
-    if (!Inkscape::XML::IO::save_svg_file(rdoc, filename, SP_SVG_NS_URI, doc->getBase(), filename)) {
+    if (!Inkscape::XML::save_svg_file(rdoc, filename, SP_SVG_NS_URI, doc->getBase(), filename)) {
         throw Inkscape::Extension::Output::save_failed();
     }
 

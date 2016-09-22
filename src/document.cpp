@@ -497,7 +497,7 @@ SPDocument *SPDocument::createNewDoc(gchar const *uri, unsigned int keepalive, b
         Inkscape::XML::Node *rroot;
         gchar *s, *p;
         /* Try to fetch repr from file */
-        rdoc = Inkscape::XML::IO::read_svg_file(uri, false, SP_SVG_NS_URI);
+        rdoc = Inkscape::XML::read_svg_file(uri, false, SP_SVG_NS_URI);
         /* If file cannot be loaded, return NULL without warning */
         if (rdoc == NULL) return NULL;
         rroot = rdoc->root();
@@ -543,7 +543,7 @@ SPDocument *SPDocument::createNewDocFromMem(gchar const *buffer, gint length, un
 {
     SPDocument *doc = NULL;
 
-    Inkscape::XML::Document *rdoc = Inkscape::XML::IO::read_svg_buffer(buffer, false, SP_SVG_NS_URI);
+    Inkscape::XML::Document *rdoc = Inkscape::XML::read_svg_buffer(buffer, false, SP_SVG_NS_URI);
     if ( rdoc ) {
         // Only continue to create a non-null doc if it could be loaded
         Inkscape::XML::Node *rroot = rdoc->root();

@@ -82,7 +82,7 @@ PrefDialog::PrefDialog (Glib::ustring name, gchar const * help, Gtk::Widget * co
 
     if (_effect != NULL && !_effect->no_live_preview) {
         if (_param_preview == NULL) {
-            XML::Document * doc = XML::IO::read_svg_buffer(live_param_xml, true);
+            XML::Document * doc = Inkscape::XML::read_svg_buffer(live_param_xml, true);
             if (doc == NULL) {
                 std::cout << "Error encountered loading live parameter XML !!!" << std::endl;
                 return;

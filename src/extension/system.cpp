@@ -547,7 +547,7 @@ build_from_reprdoc(Inkscape::XML::Document *doc, Implementation::Implementation 
 Extension *
 build_from_file(gchar const *filename)
 {
-    Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true, INKSCAPE_EXTENSION_URI);
+    Inkscape::XML::Document *doc = Inkscape::XML::read_svg_file(filename, true, INKSCAPE_EXTENSION_URI);
     std::string dir = Glib::path_get_dirname(filename);
     Extension *ext = build_from_reprdoc(doc, NULL, &dir);
     if (ext != NULL)
@@ -569,7 +569,7 @@ build_from_file(gchar const *filename)
 Extension *
 build_from_mem(gchar const *buffer, Implementation::Implementation *in_imp)
 {
-    Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_buffer(buffer, true, INKSCAPE_EXTENSION_URI);
+    Inkscape::XML::Document *doc = Inkscape::XML::read_svg_buffer(buffer, true, INKSCAPE_EXTENSION_URI);
     g_return_val_if_fail(doc != NULL, NULL);
     Extension *ext = build_from_reprdoc(doc, in_imp, NULL);
     Inkscape::GC::release(doc);

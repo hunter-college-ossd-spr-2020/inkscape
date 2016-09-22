@@ -65,7 +65,7 @@ gchar const *Filter::get_filter_text(Inkscape::Extension::Extension * /*ext*/)
 Inkscape::XML::Document *
 Filter::get_filter (Inkscape::Extension::Extension * ext) {
 	gchar const * filter = get_filter_text(ext);
-	return Inkscape::XML::IO::read_svg_buffer(filter, true);
+	return Inkscape::XML::read_svg_buffer(filter, true);
 }
 
 void

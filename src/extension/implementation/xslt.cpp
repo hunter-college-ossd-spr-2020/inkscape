@@ -150,7 +150,7 @@ SPDocument * XSLT::open(Inkscape::Extension::Input */*module*/,
     xmlDocDumpMemory(result, &str, &size);
     xmlFreeDoc(result);
 
-    Inkscape::XML::Document * rdoc = Inkscape::XML::IO::read_svg_buffer((char*) str, false, SP_SVG_NS_URI);
+    Inkscape::XML::Document * rdoc = Inkscape::XML::read_svg_buffer((char*) str, false, SP_SVG_NS_URI);
     xmlFree(str);
 
     if (rdoc == NULL) {
@@ -201,7 +201,7 @@ void XSLT::save(Inkscape::Extension::Output *module, SPDocument *doc, gchar cons
         return;
     }
 
-    if (!Inkscape::XML::IO::save_svg_file(repr->document(), tempfilename_out.c_str(), SP_SVG_NS_URI, doc->getBase(), filename)) {
+    if (!Inkscape::XML::save_svg_file(repr->document(), tempfilename_out.c_str(), SP_SVG_NS_URI, doc->getBase(), filename)) {
         throw Inkscape::Extension::Output::save_failed();
     }
 

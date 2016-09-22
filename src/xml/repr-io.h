@@ -12,7 +12,6 @@
 #ifndef INKSCAPE_REPR_IO_H
 #define INKSCAPE_REPR_IO_H
 
-#include "svg-parser.h"
 #include <glibmm/ustring.h>
 
 namespace Inkscape {
@@ -21,18 +20,12 @@ namespace XML {
 
 class Document;
 
-class IO {
-public:
-    static Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
-    static Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
-    static Glib::ustring save_svg_buffer(Document* doc, const Glib::ustring& defaultNs = "",
-                                         const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
-    static bool save_svg_file(Document* doc, const Glib::ustring& filename, const Glib::ustring& defaultNs = "",
-                              const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
-
-private:
-    static SVGParser _parser;
-};
+Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
+Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
+Glib::ustring save_svg_buffer(Document* doc, const Glib::ustring& defaultNs = "",
+                                     const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
+bool save_svg_file(Document* doc, const Glib::ustring& filename, const Glib::ustring& defaultNs = "",
+                          const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
 
 } // namespace XML
 

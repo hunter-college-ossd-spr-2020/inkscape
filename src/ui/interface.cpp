@@ -1175,7 +1175,7 @@ sp_ui_drag_data_received(GtkWidget *widget,
         case SVG_XML_DATA: {
             gchar *svgdata = (gchar *)gtk_selection_data_get_data (data);
 
-            Inkscape::XML::Document *rnewdoc = Inkscape::XML::IO::read_svg_buffer(svgdata, false, SP_SVG_NS_URI);
+            Inkscape::XML::Document *rnewdoc = Inkscape::XML::read_svg_buffer(svgdata, false, SP_SVG_NS_URI);
 
             if (rnewdoc == NULL) {
                 sp_ui_error_dialog(_("Could not parse SVG data"));

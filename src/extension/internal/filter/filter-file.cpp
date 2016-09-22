@@ -85,7 +85,7 @@ Filter::filters_load_dir (gchar const * dirname, gchar * menuname)
 void
 Filter::filters_load_file (gchar * filename, gchar * menuname)
 {
-	Inkscape::XML::Document *doc = Inkscape::XML::IO::read_svg_file(filename, true, INKSCAPE_EXTENSION_URI);
+	Inkscape::XML::Document *doc = Inkscape::XML::read_svg_file(filename, true, INKSCAPE_EXTENSION_URI);
 	if (doc == NULL) {
 		g_warning("File (%s) is not parseable as XML.  Ignored.", filename);
 		return;

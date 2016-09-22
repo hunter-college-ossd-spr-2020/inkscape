@@ -188,7 +188,7 @@ TEST_F(SVGParserTest, AdobeIlustratorSvg) {
         "\t<cdata_test><![CDATA[& is not protected here]]></cdata_test>\n"
         "</svg>";
     Document* doc = parser->parseBuffer(source);
-    Glib::ustring d = Inkscape::XML::IO::save_svg_buffer(doc);
+    Glib::ustring d = Inkscape::XML::save_svg_buffer(doc);
     std::string actual = d.raw();
     actual.erase(std::remove_if(actual.begin(), actual.end(), isspace), actual.end());
     expected.erase(std::remove_if(expected.begin(), expected.end(), isspace), expected.end());

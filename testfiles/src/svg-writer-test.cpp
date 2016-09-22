@@ -14,6 +14,7 @@
 #include <src/xml/repr.h>
 #include <src/io/stringstream.h>
 #include <src/xml/simple-document.h>
+#include <src/xml/svg-parser.h>
 
 using namespace Inkscape::XML;
 using namespace Inkscape::IO;

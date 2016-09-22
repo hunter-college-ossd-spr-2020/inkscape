@@ -43,11 +43,11 @@ TEST(ReprIOTest, Namespaces) {
     Node *child = doc->createElement("extension:ext");
     child->setAttribute("xlink:href", "a.jpg");
     doc->firstChild()->appendChild(child);
-    Glib::ustring d1 = IO::save_svg_buffer(doc, SP_SVG_NS_URI);
+    Glib::ustring d1 = save_svg_buffer(doc, SP_SVG_NS_URI);
     std::string actual1 = d1.raw();
     actual1.erase(std::remove_if(actual1.begin(), actual1.end(), isspace), actual1.end());
     expected1.erase(std::remove_if(expected1.begin(), expected1.end(), isspace), expected1.end());
-    Glib::ustring d2 = IO::save_svg_buffer(doc, INKSCAPE_EXTENSION_URI);
+    Glib::ustring d2 = save_svg_buffer(doc, INKSCAPE_EXTENSION_URI);
     std::string actual2 = d2.raw();
     actual2.erase(std::remove_if(actual2.begin(), actual2.end(), isspace), actual2.end());
     expected2.erase(std::remove_if(expected2.begin(), expected2.end(), isspace), expected2.end());
@@ -65,7 +65,7 @@ TEST(ReprIOTest, Rebasing) {
     Node *child = doc->createElement("image");
     child->setAttribute("xlink:href", "a.jpg");
     doc->firstChild()->appendChild(child);
-    Glib::ustring d = IO::save_svg_buffer(doc, "", "/home/user", "/home/a.svg");
+    Glib::ustring d = save_svg_buffer(doc, "", "/home/user", "/home/a.svg");
     std::string actual = d.raw();
     actual.erase(std::remove_if(actual.begin(), actual.end(), isspace), actual.end());
     expected.erase(std::remove_if(expected.begin(), expected.end(), isspace), expected.end());

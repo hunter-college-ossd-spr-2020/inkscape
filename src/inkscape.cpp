@@ -325,7 +325,7 @@ int Application::autosave()
             // Try to save the file
             gchar *errortext = 0;
             try {
-                if (!Inkscape::XML::IO::save_svg_file(repr->document(), full_path, SP_SVG_NS_URI)) {
+                if (!Inkscape::XML::save_svg_file(repr->document(), full_path, SP_SVG_NS_URI)) {
                     gchar *safeUri = Inkscape::IO::sanitizeString(full_path);
                     errortext = g_strdup_printf(_("Autosave failed! File %s could not be saved."), safeUri);
                     g_free(safeUri);
@@ -704,7 +704,7 @@ Application::crash_handler (int /*signum*/)
             }
 
             // Save
-            if (Inkscape::XML::IO::save_svg_file(repr->document(), c, SP_SVG_NS_URI)) {
+            if (Inkscape::XML::save_svg_file(repr->document(), c, SP_SVG_NS_URI)) {
                 savednames = g_slist_prepend (savednames, g_strdup (c));
             } else {
                 failednames = g_slist_prepend (failednames, (doc->getName()) ? g_strdup(doc->getName()) : g_strdup (_("Untitled document")));
@@ -815,7 +815,7 @@ bool Application::load_menus()
 
     if ( g_file_get_contents(fn, &menus_xml, &len, NULL) ) {
         // load the menus_xml file
-        _menus = Inkscape::XML::IO::read_svg_buffer(menus_xml, true);
+        _menus = Inkscape::XML::read_svg_buffer(menus_xml, true);
 
         g_free(menus_xml);
         menus_xml = 0;
@@ -824,7 +824,7 @@ bool Application::load_menus()
     fn = 0;
 
     if ( !_menus ) {
-        _menus = Inkscape::XML::IO::read_svg_buffer(menus_skeleton, true);
+        _menus = Inkscape::XML::read_svg_buffer(menus_skeleton, true);
     }
 
     return (_menus != 0);
