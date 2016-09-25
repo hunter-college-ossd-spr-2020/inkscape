@@ -14,6 +14,7 @@
 #include <io/uristream.h>
 #include <boost/algorithm/string/trim.hpp>
 #include <util/share.h>
+#include <giomm.h>
 #include "svg-parser.h"
 #include "document.h"
 #include "simple-document.h"
@@ -25,6 +26,7 @@ namespace XML {
 
 SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _defaultNs("") {
     set_substitute_entities(true);
+    readBufferSize = 65536;
     _dummyEntity = new xmlEntity();
 }
 
@@ -191,27 +193,18 @@ Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustrin
 
 Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Glib::ustring &defaultNs) {
     _defaultNs = defaultNs;
-    const int bufferSize = 1024;
-    FILE* fp = Inkscape::IO::fopen_utf8name(filename.c_str(), "r");
-    URI uri;
-    auto instr = new Inkscape::IO::UriInputStream(fp, uri);
-    auto gzin = new Inkscape::IO::GzipInputStream(*instr);
-    char buffer[bufferSize];
-    char ch;
+    Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(filename);
+    Glib::RefPtr<Gio::FileInputStream> stream = file->read();
+    Glib::RefPtr<Gio::Converter> converter = Gio::ZlibDecompressor::create(Gio::ZLIB_COMPRESSOR_FORMAT_GZIP);
+    Glib::RefPtr<Gio::ConverterInputStream> converterStream = Gio::ConverterInputStream::create(stream, converter);
+
     try {
         while(true) {
-            std::memset(buffer, 0, bufferSize);
-            int i;
-            for (i = 0; i < bufferSize; i++) {
-                ch = (char) gzin->get();
-                if (ch < 0) {
-                    break;
-                }
-                buffer[i] = ch;
-            }
-            Glib::ustring input(buffer, (Glib::ustring::size_type) i);
-            parse_chunk(input);
-            if (i < bufferSize) {
+            Glib::ustring buffer(readBufferSize, '\0');
+            size_type i = (size_type) converterStream->read((void *) buffer.c_str(), buffer.size());
+            buffer.resize(i);
+            parse_chunk(buffer);
+            if (i < readBufferSize) {
                 break;
             }
         }
@@ -254,6 +247,10 @@ AttributeRecord SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::
         ar.key = g_quark_from_string(p.c_str());
     }
     return ar;
+}
+
+void SVGParser::setReadBufferSize(size_t amount) {
+    readBufferSize = amount;
 }
 
 }

@@ -9,6 +9,7 @@
  * Released under GNU GPL, read the file 'COPYING' for more information
  */
 
+#include <giomm/init.h>
 #include "doc-per-case-test.h"
 
 #include "inkscape.h"
@@ -22,6 +23,9 @@ DocPerCaseTest::DocPerCaseTest() :
 
 void DocPerCaseTest::SetUpTestCase()
 {
+    // must be called to provide proper Glib initialization
+    Gio::init();
+
     if ( !Inkscape::Application::exists() )
     {
         // Create the global inkscape object.

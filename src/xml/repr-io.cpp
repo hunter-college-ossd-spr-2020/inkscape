@@ -23,8 +23,8 @@
 #include "xml/attribute-record.h"
 #include <boost/algorithm/string.hpp>
 #include <io/sys.h>
-#include <gio/gio.h>
 #include <glibmm/miscutils.h>
+#include <giomm/file.h>
 
 using namespace Inkscape::Util;
 
@@ -50,22 +50,18 @@ Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal, c
         g_warning("Can't open file: %s (doesn't exist)", filename.c_str());
         return nullptr;
     }
-    GError *error;
-    GFile *file = g_file_new_for_path (filename.c_str());
-    GFileInfo *file_info = g_file_query_info (file, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
 
-    const char *content_type = g_file_info_get_content_type (file_info);
+    Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(filename);
+    Glib::RefPtr<Gio::FileInfo> info = file->query_info();
+    std::string content_type = info->get_content_type();
 
     Document *doc;
-    if(strcmp(content_type, "image/svg+xml") == 0
-       || strcmp(content_type, "application/xml") == 0
-       || strcmp(content_type, "text/html") == 0) {
+    if(content_type == "image/svg+xml" || content_type == "application/xml" || content_type == "text/html") {
         doc = _parser.parseFile(filename, defaultNs);
-    } else if (strcmp(content_type, "image/svg+xml-compressed") == 0
-               || strcmp(content_type, "application/x-gzip") == 0) {
+    } else if (content_type == "image/svg+xml-compressed" || content_type == "application/x-gzip") {
         doc = _parser.parseCompressedFile(filename, defaultNs);
     } else {
-        g_warning("Wrong content type (%s) to open.", content_type);
+        g_warning("Wrong content type (%s) to open.", content_type.c_str());
         return nullptr;
     }
 

@@ -28,6 +28,7 @@ class SVGParser : protected xmlpp::SaxParser {
 public:
     SVGParser();
     ~SVGParser() override;
+    void setReadBufferSize(size_t amount);
     Document* parseFile(const Glib::ustring& filename, const Glib::ustring& defaultNs = "");
     Document* parseCompressedFile(const Glib::ustring& filename, const Glib::ustring& defaultNs = "");
     Document* parseBuffer(const Glib::ustring& source, const Glib::ustring& defaultNs = "");
@@ -63,7 +64,7 @@ private:
     Document* _doc;
     xmlEntityPtr _dummyEntity;
     Glib::ustring _defaultNs;
-
+    size_t readBufferSize;
 };
 
 }
