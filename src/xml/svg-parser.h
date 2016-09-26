@@ -62,7 +62,6 @@ private:
     std::stack<Node*> _context;
     std::stack<XmlSpaceType> _currentSpaceType;
     Document* _doc;
-    xmlEntityPtr _dummyEntity;
     Glib::ustring _defaultNs;
     size_t readBufferSize;
 };

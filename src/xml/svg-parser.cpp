@@ -10,7 +10,6 @@
  */
 
 #include <io/sys.h>
-#include <io/gzipstream.h>
 #include <io/uristream.h>
 #include <boost/algorithm/string/trim.hpp>
 #include <util/share.h>
@@ -27,11 +26,9 @@ namespace XML {
 SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _defaultNs("") {
     set_substitute_entities(true);
     readBufferSize = 65536;
-    _dummyEntity = new xmlEntity();
 }
 
 SVGParser::~SVGParser() {
-    delete _dummyEntity;
 }
 
 void SVGParser::on_start_document() {
@@ -167,7 +164,7 @@ xmlEntityPtr SVGParser::on_get_entity(const Glib::ustring& name)
         return result;
     }
 
-    return _dummyEntity;
+    return xmlNewEntity(nullptr, nullptr, 0, nullptr, nullptr, nullptr);
 }
 
 void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntityType type, const Glib::ustring& publicId, const Glib::ustring& systemId, const Glib::ustring& content)
