@@ -30,6 +30,7 @@ SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _default_ns("") {
 }
 
 SVGParser::~SVGParser() {
+    delete _dummy_entity;
 }
 
 void SVGParser::on_start_document() {
