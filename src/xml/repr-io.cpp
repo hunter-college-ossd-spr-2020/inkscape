@@ -45,7 +45,7 @@ static void clean_attributes(Document *doc) {
     }
 }
 
-Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal, const Glib::ustring& defaultNs) {
+Document* read_svg_file(const Glib::ustring& filename, const bool& is_internal, const Glib::ustring& default_ns) {
     if (!Inkscape::IO::file_test(filename.c_str(), G_FILE_TEST_EXISTS)) {
         g_warning("Can't open file: %s (doesn't exist)", filename.c_str());
         return nullptr;
@@ -57,23 +57,23 @@ Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal, c
 
     Document *doc;
     if(content_type == "image/svg+xml" || content_type == "application/xml" || content_type == "text/html") {
-        doc = _parser.parseFile(filename, defaultNs);
+        doc = _parser.parseFile(filename, default_ns);
     } else if (content_type == "image/svg+xml-compressed" || content_type == "application/x-gzip") {
-        doc = _parser.parseCompressedFile(filename, defaultNs);
+        doc = _parser.parseCompressedFile(filename, default_ns);
     } else {
-        g_warning("Wrong content type (%s) to open.", content_type.c_str());
+        g_warning("Unrecognized content type: %s.", content_type.c_str());
         return nullptr;
     }
 
-    if(!isInternal) {
+    if(!is_internal) {
         clean_attributes(doc);
     }
     return doc;
 }
 
-Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal, const Glib::ustring& defaultNs) {
-    Document *doc = _parser.parseBuffer(source, defaultNs);
-    if(!isInternal) {
+Document* read_svg_buffer(const Glib::ustring& source, const bool& is_internal, const Glib::ustring& default_ns) {
+    Document *doc = _parser.parseBuffer(source, default_ns);
+    if(!is_internal) {
         clean_attributes(doc);
     }
     return doc;
@@ -91,9 +91,9 @@ static void rebase_attributes(Node* node, const Glib::ustring& old_href_base, co
     }
 }
 
-static void add_namespace_to_doc(Document* doc, const Glib::ustring& nodeName) {
-    if (nodeName.find(":") != Glib::ustring::npos) {
-        Glib::ustring prefix = nodeName.substr(0, nodeName.find(":"));
+static void add_namespace_to_doc(Document* doc, const Glib::ustring& node_name) {
+    if (node_name.find(":") != Glib::ustring::npos) {
+        Glib::ustring prefix = node_name.substr(0, node_name.find(":"));
         Glib::ustring extendedPrefix = "xmlns:" + prefix;
         SimpleNode* root = dynamic_cast<SimpleNode*>(doc->root());
         if (root->namespaces().find(g_quark_from_string(extendedPrefix.c_str())) == root->namespaces().end()
@@ -115,7 +115,7 @@ static void find_all_prefixes(Document* doc, Node* node) {
     }
 }
 
-static void serialize(Writer& writer, Document* doc, const Glib::ustring& defaultNs, const Glib::ustring& old_base, const Glib::ustring& new_base) {
+static void serialize(Writer& writer, Document* doc, const Glib::ustring& default_ns, const Glib::ustring& old_base, const Glib::ustring& new_base) {
     if (old_base != "") {
         Glib::ustring old_href_abs_base = calc_abs_doc_base(old_base.c_str());
         Glib::ustring new_href_abs_base;
@@ -138,10 +138,10 @@ static void serialize(Writer& writer, Document* doc, const Glib::ustring& defaul
 
     // find all used prefixes
     find_all_prefixes(doc, doc->root());
-    if (defaultNs != "") {
-        doc->root()->setNamespace("xmlns", defaultNs);
+    if (default_ns != "") {
+        doc->root()->setNamespace("xmlns", default_ns);
     }
-    Glib::ustring defaultPrefix = sp_xml_ns_uri_prefix(defaultNs.c_str(), "");
+    Glib::ustring defaultPrefix = sp_xml_ns_uri_prefix(default_ns.c_str(), "");
 
     bool inlineAttributes = prefs->getBool("/options/svgoutput/inlineattrs");
     int indent = prefs->getInt("/options/svgoutput/indent", 2);
@@ -155,17 +155,17 @@ static void serialize(Writer& writer, Document* doc, const Glib::ustring& defaul
     doc->serialize(writer, defaultPrefix, indent, 0, inlineAttributes, false);
 }
 
-Glib::ustring save_svg_buffer(Document *doc, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
+Glib::ustring save_svg_buffer(Document *doc, const Glib::ustring& default_ns, const Glib::ustring& old_base, const Glib::ustring& new_base) {
     StringOutputStream stream;
     OutputStreamWriter writer(stream);
 
-    serialize(writer, doc, defaultNs, oldBase, newBase);
+    serialize(writer, doc, default_ns, old_base, new_base);
 
     writer.close();
     return stream.getString();
 }
 
-bool save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& defaultNs, const Glib::ustring& oldBase, const Glib::ustring& newBase) {
+bool save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ustring& default_ns, const Glib::ustring& old_base, const Glib::ustring& new_base) {
     FILE* file = fopen_utf8name(filename.c_str(), "w");
 
     if (file == nullptr) {
@@ -180,7 +180,7 @@ bool save_svg_file(Document *doc, const Glib::ustring &filename, const Glib::ust
     }
     OutputStreamWriter writer(decorator ? *decorator : *stream);
 
-    serialize(writer, doc, defaultNs, oldBase, newBase);
+    serialize(writer, doc, default_ns, old_base, new_base);
 
     writer.close();
     return fclose(file) == 0;

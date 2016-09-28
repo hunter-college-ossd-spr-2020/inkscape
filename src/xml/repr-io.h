@@ -20,12 +20,12 @@ namespace XML {
 
 class Document;
 
-Document* read_svg_file(const Glib::ustring& filename, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
-Document* read_svg_buffer(const Glib::ustring& source, const bool& isInternal = false, const Glib::ustring& defaultNs = "");
-Glib::ustring save_svg_buffer(Document* doc, const Glib::ustring& defaultNs = "",
-                                     const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
-bool save_svg_file(Document* doc, const Glib::ustring& filename, const Glib::ustring& defaultNs = "",
-                          const Glib::ustring& oldBase = "", const Glib::ustring& newBase = "");
+Document* read_svg_file(const Glib::ustring& filename, const bool& is_internal = false, const Glib::ustring& default_ns = "");
+Document* read_svg_buffer(const Glib::ustring& source, const bool& is_internal = false, const Glib::ustring& default_ns = "");
+Glib::ustring save_svg_buffer(Document* doc, const Glib::ustring& default_ns = "",
+                                     const Glib::ustring& old_base = "", const Glib::ustring& new_base = "");
+bool save_svg_file(Document* doc, const Glib::ustring& filename, const Glib::ustring& default_ns = "",
+                          const Glib::ustring& old_base = "", const Glib::ustring& new_base = "");
 
 } // namespace XML
 

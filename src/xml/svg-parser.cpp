@@ -23,9 +23,10 @@ namespace Inkscape {
 
 namespace XML {
 
-SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _defaultNs("") {
+SVGParser::SVGParser(): xmlpp::SaxParser(true), _doc(nullptr), _default_ns("") {
     set_substitute_entities(true);
-    readBufferSize = 65536;
+    _read_buffer_size = 65536;
+    _dummy_entity = xmlNewEntity(nullptr, nullptr, 0, nullptr, nullptr, nullptr);
 }
 
 SVGParser::~SVGParser() {
@@ -33,14 +34,14 @@ SVGParser::~SVGParser() {
 
 void SVGParser::on_start_document() {
     _doc = new SimpleDocument();
-    _currentSpaceType.push(XML_SPACE_DEFAULT);
+    _current_space_type.push(XML_SPACE_DEFAULT);
 }
 
 void SVGParser::on_end_document() {
     std::stack<Node*> emptyContext;
     std::stack<XmlSpaceType> emptySpaceTypes;
     _context.swap(emptyContext);
-    _currentSpaceType.swap(emptySpaceTypes);
+    _current_space_type.swap(emptySpaceTypes);
 }
 
 void SVGParser::on_start_element(const Glib::ustring& name, const AttributeList& attributes) {
@@ -53,7 +54,7 @@ void SVGParser::on_end_element(const Glib::ustring& name) {
 
 void SVGParser::on_characters(const Glib::ustring& text) {
     std::string t = text.raw();
-    if(_currentSpaceType.top() == XML_SPACE_DEFAULT || std::all_of(t.begin(), t.end(), isspace)) {
+    if(_current_space_type.top() == XML_SPACE_DEFAULT || std::all_of(t.begin(), t.end(), isspace)) {
         boost::trim(t);
     }
     if (!_context.empty() && t != "") {
@@ -65,7 +66,7 @@ void SVGParser::on_characters(const Glib::ustring& text) {
 
 void SVGParser::on_cdata_block(const Glib::ustring &text) {
     std::string t = text.raw();
-    if(_currentSpaceType.top() == XML_SPACE_DEFAULT) {
+    if(_current_space_type.top() == XML_SPACE_DEFAULT) {
         boost::trim(t);
     }
     if (!_context.empty() && t != "") {
@@ -112,9 +113,9 @@ void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustri
     const char* a = element->attribute("xml:space");
     if (a) {
         if (strcmp(a, "preserve") == 0) {
-            _currentSpaceType.push(XML_SPACE_PRESERVE);
+            _current_space_type.push(XML_SPACE_PRESERVE);
         } else {
-            _currentSpaceType.push(XML_SPACE_DEFAULT);
+            _current_space_type.push(XML_SPACE_DEFAULT);
         }
     }
     if (ar.key != 0) {
@@ -127,7 +128,7 @@ void SVGParser::on_start_element_ns(const Glib::ustring& name, const Glib::ustri
 void SVGParser::on_end_element_ns(const Glib::ustring& name, const Glib::ustring& prefix, const Glib::ustring& uri) {
     const char* a = _context.top()->attribute("xml:space");
     if (a) {
-        _currentSpaceType.pop();
+        _current_space_type.pop();
     }
     _context.pop();
 }
@@ -147,12 +148,10 @@ void SVGParser::on_warning(const Glib::ustring& text) {
 }
 
 void SVGParser::on_error(const Glib::ustring& text) {
-    // should be g_error, but unfortunately g_error kills the program
     g_warning("SVGParser: %s", text.c_str());
 }
 
 void SVGParser::on_fatal_error(const Glib::ustring& text) {
-    // should be g_error, but unfortunately g_error kills the program
     g_warning("SVGParser: %s", text.c_str());
 }
 
@@ -164,7 +163,7 @@ xmlEntityPtr SVGParser::on_get_entity(const Glib::ustring& name)
         return result;
     }
 
-    return xmlNewEntity(nullptr, nullptr, 0, nullptr, nullptr, nullptr);
+    return _dummy_entity;
 }
 
 void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntityType type, const Glib::ustring& publicId, const Glib::ustring& systemId, const Glib::ustring& content)
@@ -178,7 +177,7 @@ void SVGParser::on_entity_declaration(const Glib::ustring& name, xmlpp::XmlEntit
 }
 
 Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustring& defaultNs) {
-    _defaultNs = defaultNs;
+    _default_ns = defaultNs;
     try {
         parse_file(filename);
     } catch (const xmlpp::exception &ex) {
@@ -189,7 +188,7 @@ Document *SVGParser::parseFile(const Glib::ustring &filename, const Glib::ustrin
 
 
 Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Glib::ustring &defaultNs) {
-    _defaultNs = defaultNs;
+    _default_ns = defaultNs;
     Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(filename);
     Glib::RefPtr<Gio::FileInputStream> stream = file->read();
     Glib::RefPtr<Gio::Converter> converter = Gio::ZlibDecompressor::create(Gio::ZLIB_COMPRESSOR_FORMAT_GZIP);
@@ -197,11 +196,11 @@ Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Gl
 
     try {
         while(true) {
-            Glib::ustring buffer(readBufferSize, '\0');
+            Glib::ustring buffer(_read_buffer_size, '\0');
             size_type i = (size_type) converterStream->read((void *) buffer.c_str(), buffer.size());
             buffer.resize(i);
             parse_chunk(buffer);
-            if (i < readBufferSize) {
+            if (i < _read_buffer_size) {
                 break;
             }
         }
@@ -215,7 +214,7 @@ Document *SVGParser::parseCompressedFile(const Glib::ustring &filename, const Gl
 
 
 Document *SVGParser::parseBuffer(const Glib::ustring &source, const Glib::ustring& defaultNs) {
-    _defaultNs = defaultNs;
+    _default_ns = defaultNs;
     try {
         parse_memory(source);
     } catch (const xmlpp::exception &ex) {
@@ -233,9 +232,9 @@ AttributeRecord SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::
     } else if (uri != "" && sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str())) {
         p = sp_xml_ns_uri_prefix(uri.c_str(), prefix.c_str());
         ar.value = Inkscape::Util::share_string(uri.c_str());
-    } else if (_defaultNs != "") {
-        p = sp_xml_ns_uri_prefix(_defaultNs.c_str(), "");
-        ar.value = Inkscape::Util::share_string(_defaultNs.c_str());
+    } else if (_default_ns != "") {
+        p = sp_xml_ns_uri_prefix(_default_ns.c_str(), "");
+        ar.value = Inkscape::Util::share_string(_default_ns.c_str());
     }
 
     if (p != "") {
@@ -247,7 +246,7 @@ AttributeRecord SVGParser::_promoteToNamespace(Glib::ustring &name, const Glib::
 }
 
 void SVGParser::setReadBufferSize(size_t amount) {
-    readBufferSize = amount;
+    _read_buffer_size = amount;
 }
 
 }

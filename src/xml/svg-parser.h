@@ -60,10 +60,11 @@ private:
     };
 
     std::stack<Node*> _context;
-    std::stack<XmlSpaceType> _currentSpaceType;
+    std::stack<XmlSpaceType> _current_space_type;
     Document* _doc;
-    Glib::ustring _defaultNs;
-    size_t readBufferSize;
+    Glib::ustring _default_ns;
+    size_t _read_buffer_size;
+    xmlEntityPtr _dummy_entity;
 };
 
 }
