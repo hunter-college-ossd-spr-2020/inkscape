@@ -19,19 +19,8 @@
 /* Micro version number of libxml++. */
 #define LIBXMLXX_MICRO_VERSION 0
 
-#ifdef GLIBMM_DLL
-  #if defined(LIBXMLPP_BUILD) && defined(_WINDLL)
-    // Do not dllexport as it is handled by gendef on MSVC
-    #define LIBXMLPP_API
-  #elif !defined(LIBXMLPP_BUILD)
-    #define LIBXMLPP_API __declspec(dllimport)
-  #else
-    /* Build a static library */
-    #define LIBXMLPP_API
-  #endif /* LIBXMLPP_BUILD - _WINDLL */
-#else
-  #define LIBXMLPP_API
-#endif /* GLIBMM_DLL */
+/* Create static library */
+#define LIBXMLPP_API
 
 #endif /* _LIBXMLPP_CONFIG_H */
 
