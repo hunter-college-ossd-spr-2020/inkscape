@@ -158,6 +158,12 @@ public:
  */
     SPGradient *getVector(bool force_private = false);
 
+ /**
+ * Returns private mesh of given gradient (the gradient at the end of the href chain which has
+ * patches), optionally normalizing it.
+ */
+    SPGradient *getArray(bool force_private = false);
+
     //static GType getType();
 
     /** Forces vector to be built, if not present (i.e. changed) */
@@ -165,9 +171,6 @@ public:
 
     /** Forces array (mesh) to be built, if not present (i.e. changed) */
     void ensureArray();
-
-    /** Ensures that color array is populated */
-    void ensureColors();
 
     /**
      * Set spread property of gradient and emit modified.

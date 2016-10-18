@@ -221,6 +221,7 @@ set(inkscape_SRC
   line-geometry.cpp
   line-snapper.cpp
   main-cmdlineact.cpp
+  main-cmdlinexact.cpp
   media.cpp
   message-context.cpp
   message-stack.cpp
@@ -337,6 +338,7 @@ set(inkscape_SRC
   line-snapper.h
   macros.h
   main-cmdlineact.h
+  main-cmdlinexact.h
   media.h
   menus-skeleton.h
   message-context.h
@@ -501,9 +503,6 @@ add_executable(inkview ${view_SRC})
 
 add_dependencies(inkscape inkscape_version)
 
-if(WITH_DBUS)
-    add_dependencies(inkscape inkscape_dbus)
-endif()
 
 set(INKSCAPE_TARGET_LIBS
         # order from automake
@@ -528,6 +527,10 @@ set(INKSCAPE_TARGET_LIBS
 
 # Build everything except main and inkview.c in a shared library.
 add_library(inkscape_base SHARED ${inkscape_SRC} ${sp_SRC})
+
+if(WITH_DBUS)
+    add_dependencies(inkscape_base inkscape_dbus)
+endif()
 
 # Link the inkscape_base library against all external dependencies
 target_link_libraries(inkscape_base ${INKSCAPE_TARGET_LIBS})

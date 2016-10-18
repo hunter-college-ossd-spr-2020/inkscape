@@ -41,6 +41,7 @@
 #include "ink-radio-action.h"
 #include "ink-toggle-action.h"
 #include "widgets/ink-comboboxentry-action.h"
+#include "widgets/style-utils.h"
 #include "inkscape.h"
 #include "selection-chemistry.h"
 #include "sp-flowtext.h"
@@ -304,7 +305,7 @@ static void sp_text_script_changed( InkToggleAction* act, GObject *tbl )
     bool setSuper = false;
     bool setSub   = false;
 
-    if(result_baseline == QUERY_STYLE_NOTHING || result_baseline == QUERY_STYLE_MULTIPLE_DIFFERENT ) {
+    if (Inkscape::is_query_style_updateable(result_baseline)) {
         // If not set or mixed, turn on superscript or subscript
         if( prop == 0 ) {
             setSuper = true;
@@ -1601,7 +1602,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
                                                                       _(tooltip.c_str()),
                                                                       NULL,
                                                                       GTK_TREE_MODEL(model_size),
-                                                                      4,  // Width in characters
+                                                                      4,      // Width in characters
                                                                       0,      // Extra list width
                                                                       NULL,   // Cell layout
                                                                       NULL,   // Separator
@@ -1623,7 +1624,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
                                                                       _("Font style"),
                                                                       NULL,
                                                                       GTK_TREE_MODEL(model_style),
-                                                                      12, // Width in characters
+                                                                      12,     // Width in characters
                                                                       0,      // Extra list width
                                                                       NULL,   // Cell layout
                                                                       NULL,   // Separator
@@ -1653,7 +1654,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
                                                       _("Toggle Subscript"),             // Label
                                                       _("Toggle subscript"),             // Tooltip
                                                       "text_subscript",                  // Icon (inkId)
-                                                      secondarySize );                     // Icon size
+                                                      secondarySize );                   // Icon size
         gtk_action_group_add_action( mainActions, GTK_ACTION( act ) );
         g_signal_connect_after( G_OBJECT(act), "toggled", G_CALLBACK(sp_text_script_changed), holder );
         gtk_toggle_action_set_active( GTK_TOGGLE_ACTION(act), prefs->getBool("/tools/text/sub", false) );
@@ -1747,8 +1748,8 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
                             -1 );
 
         EgeSelectOneAction* act = ege_select_one_action_new( "TextWritingModeAction", // Name
-                                                             _("Writing mode"),        // Label
-                                                             _("Block progression"),   // Tooltip
+                                                             _("Writing mode"),       // Label
+                                                             _("Block progression"),  // Tooltip
                                                              NULL,                    // Icon name
                                                              GTK_TREE_MODEL(model) ); // Model
 
@@ -1840,7 +1841,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextLineHeightAction",               /* name */
             _("Line Height"),                     /* label */
             _("Line:"),                           /* short label */
-            _("Spacing between baselines (times font size)"),      /* tooltip */
+            _("Spacing between baselines"),       /* tooltip */
             "/tools/text/lineheight",             /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */
@@ -1879,7 +1880,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextWordSpacingAction",              /* name */
             _("Word spacing"),                    /* label */
             _("Word:"),                           /* short label */
-            _("Spacing between words (px)"),     /* tooltip */
+            _("Spacing between words (px)"),      /* tooltip */
             "/tools/text/wordspacing",            /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */
@@ -1910,7 +1911,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextLetterSpacingAction",            /* name */
             _("Letter spacing"),                  /* label */
             _("Letter:"),                         /* short label */
-            _("Spacing between letters (px)"),   /* tooltip */
+            _("Spacing between letters (px)"),    /* tooltip */
             "/tools/text/letterspacing",          /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */
@@ -1941,7 +1942,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextDxAction",                       /* name */
             _("Kerning"),                         /* label */
             _("Kern:"),                           /* short label */
-            _("Horizontal kerning (px)"), /* tooltip */
+            _("Horizontal kerning (px)"),         /* tooltip */
             "/tools/text/dx",                     /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */
@@ -1972,7 +1973,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextDyAction",                       /* name */
             _("Vertical Shift"),                  /* label */
             _("Vert:"),                           /* short label */
-            _("Vertical shift (px)"),   /* tooltip */
+            _("Vertical shift (px)"),             /* tooltip */
             "/tools/text/dy",                     /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */
@@ -2003,7 +2004,7 @@ void sp_text_toolbox_prep(SPDesktop *desktop, GtkActionGroup* mainActions, GObje
             "TextRotationAction",                 /* name */
             _("Letter rotation"),                 /* label */
             _("Rot:"),                            /* short label */
-            _("Character rotation (degrees)"),/* tooltip */
+            _("Character rotation (degrees)"),    /* tooltip */
             "/tools/text/rotation",               /* preferences path */
             0.0,                                  /* default */
             GTK_WIDGET(desktop->canvas),          /* focusTarget */

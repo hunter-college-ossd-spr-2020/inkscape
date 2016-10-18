@@ -51,6 +51,7 @@
 #include "sp-mesh-row.h"
 #include "sp-mesh-patch.h"
 #include "sp-stop.h"
+#include "display/curve.h"
 
 // For new mesh creation
 #include "preferences.h"
@@ -678,11 +679,17 @@ SPMeshNodeArray& SPMeshNodeArray::operator=( const SPMeshNodeArray& rhs ) {
 bool SPMeshNodeArray::read( SPMeshGradient *mg_in ) {
 
     mg = mg_in;
+    SPMeshGradient* mg_array = dynamic_cast<SPMeshGradient*>(mg->getArray());
+    if (!mg_array) {
+        std::cerr << "SPMeshNodeArray::read: No mesh array!" << std::endl;
+        return false;
+    }
+    // std::cout << "SPMeshNodeArray::read: " << mg_in << "  array: " << mg_array << std::endl;
 
     // Count rows and columns, if unchanged reuse array to keep draggers valid.
     unsigned cols = 0;
     unsigned rows = 0;
-    for (auto& ro: mg->children) {
+    for (auto& ro: mg_array->children) {
         if (SP_IS_MESHROW(&ro)) {
             ++rows;
             if (rows == 1 ) {
@@ -707,7 +714,7 @@ bool SPMeshNodeArray::read( SPMeshGradient *mg_in ) {
 
     guint max_column = 0;
     guint irow = 0; // Corresponds to top of patch being read in.
-    for (auto& ro: mg->children) {
+    for (auto& ro: mg_array->children) {
 
         if (SP_IS_MESHROW(&ro)) {
 
@@ -921,10 +928,16 @@ void SPMeshNodeArray::write( SPMeshGradient *mg ) {
     using Geom::X;
     using Geom::Y;
 
+    SPMeshGradient* mg_array = dynamic_cast<SPMeshGradient*>(mg->getArray());
+    if (!mg_array) {
+        // std::cerr << "SPMeshNodeArray::write: missing patches!" << std::endl;
+        mg_array = mg;
+    }
+
     // First we must delete reprs for old mesh rows and patches.
     GSList *descendant_reprs = NULL;
     GSList *descendant_objects = NULL;
-    for (auto& row: mg->children) {
+    for (auto& row: mg_array->children) {
         descendant_reprs = g_slist_prepend (descendant_reprs, row.getRepr());
         descendant_objects = g_slist_prepend (descendant_objects, &row);
         for (auto& patch: row.children) {
@@ -950,8 +963,9 @@ void SPMeshNodeArray::write( SPMeshGradient *mg ) {
 
     // Now we build new reprs
     Inkscape::XML::Node *mesh = mg->getRepr();
+    Inkscape::XML::Node *mesh_array = mg_array->getRepr();
 
-    SPMeshNodeArray* array = &(mg->array);
+    SPMeshNodeArray* array = &(mg_array->array);
     SPMeshPatchI patch0( &(array->nodes), 0, 0 );
     Geom::Point current_p = patch0.getPoint( 0, 0 ); // Side 0, point 0
 
@@ -966,7 +980,7 @@ void SPMeshNodeArray::write( SPMeshGradient *mg ) {
 
         // Write row
         Inkscape::XML::Node *row = xml_doc->createElement("svg:meshrow");
-        mesh->appendChild( row );  // No attributes
+        mesh_array->appendChild( row );  // No attributes
 
         guint columns = array->patch_columns();
         for( guint j = 0; j < columns; ++j ) {
@@ -1071,42 +1085,27 @@ void SPMeshNodeArray::write( SPMeshGradient *mg ) {
 }
 
 /**
-   Find default color based on color of first stop in "vector" gradient.
-   This should be rewritten if dependence on "vector" is removed.
-*/
+ * Find default color based on colors in existing fill.
+ */
 static SPColor default_color( SPItem *item ) {
 
-    // Set initial color to the color of the object before adding the mesh.
-    // This is a bit tricky as at the moment, a "vector" gradient is created
-    // before reaching here, replacing the original solid color. But the first
-    // stop will be that of the original object color.
     SPColor color( 0.5, 0.0, 0.5 );
+
     if ( item->style ) {
-        SPStyle const &style = *(item->style);
-        SPIPaint const &paint = ( style.fill ); // Could pick between style.fill/style.stroke
+        SPIPaint const &paint = ( item->style->fill ); // Could pick between style.fill/style.stroke
         if ( paint.isColor() ) {
             color = paint.value.color;
         } else if ( paint.isPaintserver() ) {
-            SPObject const *server = style.getFillPaintServer();
-            if ( SP_IS_GRADIENT(server) ) {
-                SPGradient *vector = SP_GRADIENT( server )->getVector();
-                SPStop *firstStop = (vector) ?
-                    vector->getFirstStop() : SP_GRADIENT( server )->getFirstStop();
+            SPObject const *server = item->style->getFillPaintServer();
+            if ( SP_IS_GRADIENT(server) && SP_GRADIENT(server)->getVector() ) {
+                SPStop *firstStop = SP_GRADIENT(server)->getVector()->getFirstStop();
                 if ( firstStop ) {
-                    if (firstStop->currentColor) {
-                        Glib::ustring str = firstStop->getStyleProperty("color", NULL);
-                        if( !str.empty() ) {
-                            guint32 rgb = sp_svg_read_color( str.c_str(), 0 );
-                            color = SPColor( rgb );
-                        }
-                    } else {
-                        color = firstStop->specified_color;
-                    }
+                    color = firstStop->getEffectiveColor();
                 }
             }
         }
     } else {
-        std::cout << " SPMeshNodeArray: No style" << std::endl;
+        std::cerr << " SPMeshNodeArray: default_color(): No style" << std::endl;
     }
 
     return color;
@@ -1145,6 +1144,10 @@ void SPMeshNodeArray::create( SPMeshGradient *mg, SPItem *item, Geom::OptRect bb
     // We get called twice when a new mesh is created...WHY?
     //  return if we've already constructed the mesh.
     if( !nodes.empty() ) return;
+
+    // Set 'gradientUnits'. Our calculations assume "userSpaceOnUse".
+    Inkscape::XML::Node *repr = mg->getRepr();
+    repr->setAttribute("gradientUnits", "userSpaceOnUse");
 
     // Get default color
     SPColor color = default_color( item );
@@ -1192,7 +1195,6 @@ void SPMeshNodeArray::create( SPMeshGradient *mg, SPItem *item, Geom::OptRect bb
         // std::cout << " start: " << start << "  end: " << end << std::endl;
 
         // IS THIS NECESSARY?
-        Inkscape::XML::Node *repr = mg->getRepr();
         sp_repr_set_svg_double( repr, "x", center[Geom::X] + rx * cos(start) );
         sp_repr_set_svg_double( repr, "y", center[Geom::Y] + ry * sin(start) );
 
@@ -1262,7 +1264,6 @@ void SPMeshNodeArray::create( SPMeshGradient *mg, SPItem *item, Geom::OptRect bb
 
             gdouble s = -3.0/2.0 * M_PI_2;
 
-            Inkscape::XML::Node *repr = mg->getRepr();
             sp_repr_set_svg_double( repr, "x", center[Geom::X] + rx * cos(s) );
             sp_repr_set_svg_double( repr, "y", center[Geom::Y] + ry * sin(s) );
 
@@ -1315,7 +1316,6 @@ void SPMeshNodeArray::create( SPMeshGradient *mg, SPItem *item, Geom::OptRect bb
             // std::cout << "We've got ourselves an star! Sides: " << sides << std::endl;
 
             Geom::Point p0 = sp_star_get_xy( star, SP_STAR_POINT_KNOT1, 0 );
-            Inkscape::XML::Node *repr = mg->getRepr();
             sp_repr_set_svg_double( repr, "x", p0[Geom::X] );
             sp_repr_set_svg_double( repr, "y", p0[Geom::Y] );
 
@@ -1385,7 +1385,6 @@ void SPMeshNodeArray::create( SPMeshGradient *mg, SPItem *item, Geom::OptRect bb
 
             // Generic
 
-            Inkscape::XML::Node *repr = mg->getRepr();
             sp_repr_set_svg_double(repr, "x", bbox->min()[Geom::X]);
             sp_repr_set_svg_double(repr, "y", bbox->min()[Geom::Y]);
 
@@ -2700,6 +2699,49 @@ void SPMeshNodeArray::update_handles( guint corner, std::vector< guint > /*selec
     //         Geom::Point dsx1 = pnodes[0][1]->p - 
 }
 
+
+SPCurve * SPMeshNodeArray::outline_path() {
+
+    SPCurve *outline = new SPCurve();
+
+    outline->moveto( nodes[0][0]->p );
+
+    int ncol = nodes[0].size();
+    int nrow = nodes.size();
+
+    // Top
+    for (int i = 1; i < ncol; i += 3 ) {
+        outline->curveto( nodes[0][i]->p, nodes[0][i+1]->p, nodes[0][i+2]->p);
+    }
+
+    // Right
+    for (int i = 1; i < nrow; i += 3 ) {
+        outline->curveto( nodes[i][ncol-1]->p, nodes[i+1][ncol-1]->p, nodes[i+2][ncol-1]->p);
+    }
+
+    // Bottom (right to left)
+    for (int i = 1; i < nrow; i += 3 ) {
+        outline->curveto( nodes[nrow-1][ncol-i-1]->p, nodes[nrow-1][ncol-i-2]->p, nodes[nrow-1][ncol-i-3]->p);
+    }
+
+    // Left (bottom to top)
+    for (int i = 1; i < nrow; i += 3 ) {
+        outline->curveto( nodes[nrow-i-1][0]->p, nodes[nrow-i-2][0]->p, nodes[nrow-i-3][0]->p);
+    }
+
+    outline->closepath();
+
+    return outline;
+}
+
+void SPMeshNodeArray::transform(Geom::Affine const &m) {
+
+    for (int i = 0; i < nodes[0].size(); ++i) {
+        for (int j = 0; j < nodes.size(); ++j) {
+            nodes[j][i]->p *= m;
+        }
+    }
+}
 
 // Defined in gradient-chemistry.cpp
 guint32 average_color(guint32 c1, guint32 c2, gdouble p);
