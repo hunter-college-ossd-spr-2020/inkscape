@@ -56,9 +56,13 @@ Document* read_svg_file(const Glib::ustring& filename, const bool& is_internal, 
     std::string content_type = info->get_content_type();
 
     Document *doc;
-    if(content_type == "image/svg+xml" || content_type == "application/xml" || content_type == "text/html") {
+    if(content_type == "image/svg+xml" || content_type == "application/xml" || content_type == "text/html"
+            // Windows doesn't support mime type
+            || content_type == ".svg" || content_type == ".xml" || content_type == ".inx" || content_type == ".htm" || content_type == ".html") {
         doc = _parser.parseFile(filename, default_ns);
-    } else if (content_type == "image/svg+xml-compressed" || content_type == "application/x-gzip") {
+    } else if (content_type == "image/svg+xml-compressed" || content_type == "application/x-gzip"
+                // the same as above
+                || content_type == ".svgz") {
         doc = _parser.parseCompressedFile(filename, default_ns);
     } else {
         g_warning("Unrecognized content type: %s.", content_type.c_str());
