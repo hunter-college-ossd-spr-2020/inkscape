@@ -419,7 +419,7 @@ LivePathEffectEditor::onAdd()
 
                 // If item is a SPRect, convert it to path first:
                 if ( dynamic_cast<SPRect *>(item) ) {
-                    sp_selected_path_to_curves(sel, current_desktop, false);
+                    sel->toCurves();
                     item = sel->singleItem(); // get new item
                 }
 
@@ -451,7 +451,7 @@ LivePathEffectEditor::onAdd()
                         item = NULL;
 
                         // run sp_selection_clone_original_path_lpe 
-                        sp_selection_clone_original_path_lpe(current_desktop);
+                        sel->cloneOriginalPathLPE();
 
                         SPItem *new_item = sel->singleItem();
                         // Check that the cloning was successful. We don't want to change the ID of the original referenced path!
@@ -546,8 +546,8 @@ void LivePathEffectEditor::on_effect_selection_changed()
     LivePathEffect::LPEObjectReference * lperef = (*it)[columns.lperef];
 
     if (lperef && current_lpeitem && current_lperef != lperef) {
-    //The last condition ignore Gtk::TreeModel may occasionally be changed emitted when nothing has happened
-        if (lperef->lpeobject->get_lpe()) {
+        //The last condition ignore Gtk::TreeModel may occasionally be changed emitted when nothing has happened
+        if (lperef->getObject()) {
             lpe_list_locked = true; // prevent reload of the list which would lose selection
             current_lpeitem->setCurrentPathEffect(lperef);
             current_lperef = lperef;

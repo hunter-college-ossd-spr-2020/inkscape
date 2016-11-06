@@ -204,7 +204,7 @@ SPItem *ObjectSet::_sizeistItem(bool sml, CompareSize compare) {
     SPItem *ist = NULL;
 
     for (auto i = items.begin(); i != items.end(); ++i) {
-        Geom::OptRect obox = SP_ITEM(*i)->desktopPreferredBounds();
+        Geom::OptRect obox = SP_ITEM(*i)->documentPreferredBounds();
         if (!obox || obox.empty()) {
             continue;
         }
@@ -212,7 +212,7 @@ SPItem *ObjectSet::_sizeistItem(bool sml, CompareSize compare) {
         Geom::Rect bbox = *obox;
 
         gdouble size = compare == AREA ? bbox.area() :
-                       (compare == VERTICAL ? bbox.width() : bbox.height());
+                       (compare == VERTICAL ? bbox.height() : bbox.width());
         size = sml ? size : size * -1;
         if (size < max) {
             max = size;
@@ -232,12 +232,28 @@ Inkscape::XML::Node *ObjectSet::singleRepr() {
     return obj ? obj->getRepr() : nullptr;
 }
 
-void ObjectSet::set(SPObject *object) {
+void ObjectSet::set(SPObject *object, bool persist_selection_context) {
     _clear();
     _add(object);
-    // can't emit signal here due to boolean argument in Selection
-//    _emitSignals();
+    if(dynamic_cast<Inkscape::Selection*>(this))
+        return dynamic_cast<Inkscape::Selection*>(this)->_emitChanged(persist_selection_context);
 }
+
+void ObjectSet::setReprList(std::vector<XML::Node*> const &list) {
+    if(!document())
+        return;
+    clear();
+    for (auto iter = list.rbegin(); iter != list.rend(); ++iter) {
+        SPObject *obj = document()->getObjectById((*iter)->attribute("id"));
+        if (obj) {
+            add(obj);
+        }
+    }
+    if(dynamic_cast<Inkscape::Selection*>(this))
+        return dynamic_cast<Inkscape::Selection*>(this)->_emitChanged();//
+}
+
+
 
 Geom::OptRect ObjectSet::bounds(SPItem::BBoxType type) const
 {

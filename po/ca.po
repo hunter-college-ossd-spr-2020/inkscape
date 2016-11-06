@@ -7,7 +7,7 @@
 # Francesc Dorca <f.dorca@filnet.es>, 2003. Traducció sodipodi.
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2004-2008.
 # Joaquim Perez i Noguer <noguer@gmail.com>, 2008-2010.
-# Jordi Mas i Hernàndez, <jmas@softcatala.org>, 2015
+# Jordi Mas i Hernàndez, <jmas@softcatala.org>, 2015-2016
 # Eulàlia Pagès, <eulaliapages@gmail.com>, 2015
 # Xavier Beà, <xavier.bea@gmail.com>, 2015
 # Carles Ferrando, <carles.ferrando@gmail.com>, 2015
@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inkscape\n"
 "Report-Msgid-Bugs-To: inkscape-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2016-06-02 12:12+0200\n"
-"PO-Revision-Date: 2015-02-03 16:09-0500\n"
+"POT-Creation-Date: 2016-06-08 09:06+0200\n"
+"PO-Revision-Date: 2016-10-24 07:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: Catalan <gnome@llistes.softcatala.org>\n"
 "Language: ca\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../inkscape.appdata.xml.in.h:1 ../inkscape.desktop.in.h:1
 msgid "Inkscape"
@@ -42,6 +42,9 @@ msgid ""
 "Illustrator, CorelDraw, or Xara X, using the W3C standard Scalable Vector "
 "Graphics (SVG) file format."
 msgstr ""
+"Un editor de gràfics vectorials de codi lliure, amb característiques "
+"similars a Illustrator, CorelDraw, o Xara X, utilitzant l'estàndard del W3C "
+"de gràfics vectorials escalables (SVG) com a format de fitxer."
 
 #: ../inkscape.appdata.xml.in.h:4
 msgid ""
@@ -51,11 +54,15 @@ msgid ""
 "trace bitmaps and much more. We also aim to maintain a thriving user and "
 "developer community by using open, community-oriented development."
 msgstr ""
+"L'Inkscape té moltes funcionalitats SVG avançades (marcadors, clons, alfa, "
+"mescla, etc.). S'ha tingut molta cura en dissenyar la seva interfície "
+"d'usuari. És molt senzill editar nodes, i fer operacions complexes amb "
+"camins, o dibuixar mapes de bits. Mantenim també una comunitat d'usuaris i "
+"desenvolupadors activa al voltant del seu desenvolupament comunitari."
 
 #: ../inkscape.appdata.xml.in.h:5
-#, fuzzy
 msgid "Main application window"
-msgstr "Duplic_a la finestra"
+msgstr "Finestra principal de l'aplicació"
 
 #: ../inkscape.desktop.in.h:3
 msgid "Inkscape Vector Graphics Editor"
@@ -67,7 +74,7 @@ msgstr "Creeu i editeu imatges de gràfics de vectors escalables"
 
 #: ../inkscape.desktop.in.h:5
 msgid "image;editor;vector;drawing;"
-msgstr ""
+msgstr "imatge;editor;vector;dibuix;"
 
 #: ../inkscape.desktop.in.h:6
 msgid "New Drawing"
@@ -1821,7 +1828,7 @@ msgstr "Alumini"
 
 #: ../share/filters/filters.svg.h:728
 msgid "Aluminium effect with sharp brushed reflections"
-msgstr "Efecte d'alumini amb molta refracció"
+msgstr "Efecte d'alumini amb molta reflexió"
 
 #: ../share/filters/filters.svg.h:730
 msgid "Comics"
@@ -4473,16 +4480,16 @@ msgstr "Llenç de la tipografia de les directrius"
 msgid "3D Box"
 msgstr "Capsa 3D"
 
-#: ../src/color-profile.cpp:842
+#: ../src/color-profile.cpp:856
 #, c-format
 msgid "Color profiles directory (%s) is unavailable."
 msgstr "El directori dels perfils de color (%s) no es troba disponible."
 
-#: ../src/color-profile.cpp:901 ../src/color-profile.cpp:918
+#: ../src/color-profile.cpp:928 ../src/color-profile.cpp:945
 msgid "(invalid UTF-8 string)"
 msgstr "(cadena UTF-8 no vàlida)"
 
-#: ../src/color-profile.cpp:903
+#: ../src/color-profile.cpp:930
 msgctxt "Profile name"
 msgid "None"
 msgstr "Cap"
@@ -5056,7 +5063,7 @@ msgstr ""
 "web de l'Inkscape o si teniu cap pregunta sobre aquesta extensió pregunteu-"
 "ho a les llistes de correu."
 
-#: ../src/extension/implementation/script.cpp:1108
+#: ../src/extension/implementation/script.cpp:1111
 msgid ""
 "Inkscape has received additional data from the script executed.  The script "
 "did not return an error, but this may indicate the results will not be as "
@@ -5977,7 +5984,7 @@ msgstr "Usa MS Unicode PUA (0xF020-0xF0FF) per als caràcters convertits"
 #: ../src/extension/internal/emf-inout.cpp:3622
 #: ../src/extension/internal/wmf-inout.cpp:3201
 msgid "Compensate for PPT font bug"
-msgstr "Compensa l'error font PPT"
+msgstr "Compensa l'error de tipus de lletra PPT"
 
 #: ../src/extension/internal/emf-inout.cpp:3623
 #: ../src/extension/internal/wmf-inout.cpp:3202
@@ -6623,14 +6630,12 @@ msgid "Replace RGB by any color"
 msgstr "Reemplaça RGB per qualsevol color"
 
 #: ../src/extension/internal/filter/color.h:254
-#, fuzzy
 msgid "Color Blindness"
-msgstr "Color de les línies guia"
+msgstr "Daltonisme"
 
 #: ../src/extension/internal/filter/color.h:258
-#, fuzzy
 msgid "Blindness type:"
-msgstr "Tipus de mescla:"
+msgstr "Tipus de daltonisme:"
 
 #: ../src/extension/internal/filter/color.h:259
 msgid "Rod monochromacy (atypical achromatopsia)"
@@ -6641,33 +6646,38 @@ msgid "Cone monochromacy (typical achromatopsia)"
 msgstr ""
 
 #: ../src/extension/internal/filter/color.h:261
+#, fuzzy
 msgid "Green weak (deuteranomaly)"
-msgstr ""
+msgstr "Deuteranomalia (vermell-verd)"
 
 #: ../src/extension/internal/filter/color.h:262
+#, fuzzy
 msgid "Green blind (deuteranopia)"
-msgstr ""
+msgstr "Deuteranopia (insensible al verd)"
 
 #: ../src/extension/internal/filter/color.h:263
+#, fuzzy
 msgid "Red weak (protanomaly)"
-msgstr ""
+msgstr "Protanomalia (vermell-verd)"
 
 #: ../src/extension/internal/filter/color.h:264
+#, fuzzy
 msgid "Red blind (protanopia)"
-msgstr ""
+msgstr "Protanopia (insensible al vermell)"
 
 #: ../src/extension/internal/filter/color.h:265
+#, fuzzy
 msgid "Blue weak (tritanomaly)"
-msgstr ""
+msgstr "Tritanomalia (blau-groc)"
 
 #: ../src/extension/internal/filter/color.h:266
+#, fuzzy
 msgid "Blue blind (tritanopia)"
-msgstr ""
+msgstr "Tritanopia (insensible al blau)"
 
 #: ../src/extension/internal/filter/color.h:286
-#, fuzzy
 msgid "Simulate color blindness"
-msgstr "Simula l'estil d'una pintura a l'oli"
+msgstr "Simula el daltonisme"
 
 #: ../src/extension/internal/filter/color.h:329
 msgid "Color Shift"
@@ -6679,7 +6689,7 @@ msgstr "Maj (°)"
 
 #: ../src/extension/internal/filter/color.h:340
 msgid "Rotate and desaturate hue"
-msgstr "Alterna i desatura el to"
+msgstr "Alterna i dessatura el to"
 
 #: ../src/extension/internal/filter/color.h:396
 msgid "Harsh light"
@@ -8084,7 +8094,7 @@ msgstr ""
 
 #: ../src/extension/internal/pdfinput/pdf-input.cpp:134
 msgid "Poppler/Cairo import"
-msgstr ""
+msgstr "Importació amb Poppler/Cairo"
 
 #: ../src/extension/internal/pdfinput/pdf-input.cpp:135
 msgid ""
@@ -8094,9 +8104,8 @@ msgid ""
 msgstr ""
 
 #: ../src/extension/internal/pdfinput/pdf-input.cpp:136
-#, fuzzy
 msgid "Internal import"
-msgstr "Port sèrie:"
+msgstr "Importació interna"
 
 #: ../src/extension/internal/pdfinput/pdf-input.cpp:137
 msgid ""
@@ -9093,11 +9102,11 @@ msgstr "Nom més explicatiu de l'objecte acoblador"
 
 #: ../src/libgdl/gdl-dock-object.c:140
 msgid "Stock Icon"
-msgstr "Icona de reserva"
+msgstr "Icona de l'estoc"
 
 #: ../src/libgdl/gdl-dock-object.c:141
 msgid "Stock icon for the dock object"
-msgstr "Icona de reserva per l'objecte acoblable"
+msgstr "Icona de l'estoc per l'objecte acoblable"
 
 #: ../src/libgdl/gdl-dock-object.c:147
 msgid "Pixbuf Icon"
@@ -9431,9 +9440,8 @@ msgid "Interpolate points"
 msgstr "Punts interpolats"
 
 #: ../src/live_effects/effect.cpp:140
-#, fuzzy
 msgid "Transform by 2 points"
-msgstr "Transforma els degradats"
+msgstr "Transforma per 2 punts"
 
 #: ../src/live_effects/effect.cpp:141
 #: ../src/live_effects/lpe-show_handles.cpp:26
@@ -9610,9 +9618,8 @@ msgstr "Gira l'original 90 graus, abans d'encorbar-ho al llarg del camí"
 
 #: ../src/live_effects/lpe-bendpath.cpp:178
 #: ../src/live_effects/lpe-patternalongpath.cpp:285
-#, fuzzy
 msgid "Change the width"
-msgstr "Canvia l'amplada del traç"
+msgstr "Canvia l'amplada"
 
 #: ../src/live_effects/lpe-bounding-box.cpp:24
 #: ../src/live_effects/lpe-clone-original.cpp:18
@@ -9656,11 +9663,11 @@ msgstr "Mida d'ajuda"
 
 #: ../src/live_effects/lpe-bspline.cpp:32
 msgid "Apply changes if weight = 0%"
-msgstr ""
+msgstr "Aplica els canvis si el pes = 0%"
 
 #: ../src/live_effects/lpe-bspline.cpp:33
 msgid "Apply changes if weight > 0%"
-msgstr ""
+msgstr "Aplica els canvis si el pes > 0%"
 
 #: ../src/live_effects/lpe-bspline.cpp:34
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:56
@@ -9668,14 +9675,12 @@ msgid "Change only selected nodes"
 msgstr "Canvia només els nodes seleccionats"
 
 #: ../src/live_effects/lpe-bspline.cpp:35
-#, fuzzy
 msgid "Change weight %:"
-msgstr "Canvieu el pes:"
+msgstr "Canvieu el % de pes:"
 
 #: ../src/live_effects/lpe-bspline.cpp:35
-#, fuzzy
 msgid "Change weight percent of the effect"
-msgstr "Canvieu el pes de l'efecte"
+msgstr "Canvieu el percentatge de pes de l'efecte"
 
 #: ../src/live_effects/lpe-bspline.cpp:99
 msgid "Default weight"
@@ -9686,14 +9691,12 @@ msgid "Make cusp"
 msgstr "Fes una cúspide"
 
 #: ../src/live_effects/lpe-bspline.cpp:148
-#, fuzzy
 msgid "Change to default weight"
-msgstr "Pes predeterminat"
+msgstr "Canvia al pes predeterminat"
 
 #: ../src/live_effects/lpe-bspline.cpp:154
-#, fuzzy
 msgid "Change to 0 weight"
-msgstr "Canvieu el pes:"
+msgstr "Canvieu el pes a 0:"
 
 #: ../src/live_effects/lpe-bspline.cpp:160
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:240
@@ -9950,11 +9953,11 @@ msgstr "Mida de l'ajuda amb direcció"
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:103
 msgid "IMPORTANT! New version soon..."
-msgstr ""
+msgstr "Important! Hi haurà una versió nova aviat..."
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:107
 msgid "Not compatible. Convert to path after."
-msgstr ""
+msgstr "No és compatible. Converteix a un camí després."
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:165
 #: ../src/ui/dialog/lpe-fillet-chamfer-properties.cpp:72
@@ -9977,24 +9980,21 @@ msgid "Inverse chamfer"
 msgstr "Inverteix el xamfrà"
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:247
-#, fuzzy
 msgid "Convert to fillet"
-msgstr "Converteix a Braille"
+msgstr "Arrodoneix"
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:254
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:278
-#, fuzzy
 msgid "Convert to inverse fillet"
-msgstr "Converteix a Braille"
+msgstr "Inverteix l'arrodoniment"
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:270
-#, fuzzy
 msgid "Convert to chamfer"
-msgstr "Converteix en guionets"
+msgstr "Xamfrà"
 
 #: ../src/live_effects/lpe-fillet-chamfer.cpp:290
 msgid "Knots and helper paths refreshed"
-msgstr ""
+msgstr "Nusos i camins d'ajuda refrescats"
 
 #: ../src/live_effects/lpe-gears.cpp:214
 msgid "_Teeth:"
@@ -10026,7 +10026,7 @@ msgstr "Camí al llarg del qual es creen passos intermedis."
 
 #: ../src/live_effects/lpe-interpolate.cpp:31
 msgid "Steps_:"
-msgstr "Passos:"
+msgstr "Passos_:"
 
 #: ../src/live_effects/lpe-interpolate.cpp:31
 msgid "Determines the number of steps from start to end path."
@@ -10101,9 +10101,8 @@ msgid "Miter"
 msgstr "Junta"
 
 #: ../src/live_effects/lpe-jointype.cpp:34
-#, fuzzy
 msgid "Miter Clip"
-msgstr "Límit de la junta:"
+msgstr "Junta retall"
 
 #. {LINEJOIN_EXTRP_MITER,  N_("Extrapolated"),      "extrapolated"}, // disabled because doesn't work well
 #: ../src/live_effects/lpe-jointype.cpp:35
@@ -10112,19 +10111,16 @@ msgid "Extrapolated arc"
 msgstr "Arc extrapolat"
 
 #: ../src/live_effects/lpe-jointype.cpp:36
-#, fuzzy
 msgid "Extrapolated arc Alt1"
-msgstr "Arc extrapolat"
+msgstr "Arc extrapolat Alt1"
 
 #: ../src/live_effects/lpe-jointype.cpp:37
-#, fuzzy
 msgid "Extrapolated arc Alt2"
-msgstr "Arc extrapolat"
+msgstr "Arc extrapolat Alt2"
 
 #: ../src/live_effects/lpe-jointype.cpp:38
-#, fuzzy
 msgid "Extrapolated arc Alt3"
-msgstr "Arc extrapolat"
+msgstr "Arc extrapolat Alt3"
 
 #: ../src/live_effects/lpe-jointype.cpp:42
 #: ../src/live_effects/lpe-powerstroke.cpp:149
@@ -10247,262 +10243,277 @@ msgstr "Canvia l'encreuament de nusos"
 
 #: ../src/live_effects/lpe-lattice2.cpp:47
 #: ../src/live_effects/lpe-perspective-envelope.cpp:43
-#, fuzzy
 msgid "Mirror movements in horizontal"
-msgstr "Mou els nodes horitzontalment"
+msgstr "Reflecteix els moviments horitzontalment"
 
 #: ../src/live_effects/lpe-lattice2.cpp:48
 #: ../src/live_effects/lpe-perspective-envelope.cpp:44
-#, fuzzy
 msgid "Mirror movements in vertical"
-msgstr "Mou els nodes verticalment"
+msgstr "Reflecteix els moviments verticalment"
 
 #: ../src/live_effects/lpe-lattice2.cpp:49
 msgid "Update while moving knots (maybe slow)"
 msgstr ""
 
 #: ../src/live_effects/lpe-lattice2.cpp:50
-#, fuzzy
 msgid "Control 0:"
-msgstr "Nansa de control 0:"
+msgstr "Control 0:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:50
 msgid "Control 0 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 0 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:51
-#, fuzzy
 msgid "Control 1:"
-msgstr "Nansa de control 1:"
+msgstr "Control 1:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:51
 msgid "Control 1 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 1 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:52
-#, fuzzy
 msgid "Control 2:"
-msgstr "Nansa de control 2:"
+msgstr "Control 2:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:52
 msgid "Control 2 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 2 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:53
-#, fuzzy
 msgid "Control 3:"
-msgstr "Nansa de control 3:"
+msgstr "Control 3:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:53
 msgid "Control 3 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 3 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:54
-#, fuzzy
 msgid "Control 4:"
-msgstr "Nansa de control 4:"
+msgstr "Control 4:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:54
 msgid "Control 4 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 4 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:55
-#, fuzzy
 msgid "Control 5:"
-msgstr "Nansa de control 5:"
+msgstr "Control 5:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:55
 msgid "Control 5 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 5 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:56
-#, fuzzy
 msgid "Control 6:"
-msgstr "Nansa de control 6:"
+msgstr "Control 6:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:56
 msgid "Control 6 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 6 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:57
-#, fuzzy
 msgid "Control 7:"
-msgstr "Nansa de control 7:"
+msgstr "Control 7:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:57
 msgid "Control 7 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 7 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de les "
+"nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:58
-#, fuzzy
 msgid "Control 8x9:"
-msgstr "Nansa de control 8x9:"
+msgstr "Control 8x9:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:58
 msgid ""
 "Control 8x9 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 8x9 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:59
-#, fuzzy
 msgid "Control 10x11:"
-msgstr "Nansa de control 10x11:"
+msgstr "Control 10x11:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:59
-#, fuzzy
 msgid ""
 "Control 10x11 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 10x11 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 10x11 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:60
-#, fuzzy
 msgid "Control 12:"
-msgstr "Nansa de control 12:"
+msgstr "Control 12:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:60
 msgid "Control 12 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 12 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:61
-#, fuzzy
 msgid "Control 13:"
-msgstr "Nansa de control 13:"
+msgstr "Control 13:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:61
 msgid "Control 13 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 13 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:62
-#, fuzzy
 msgid "Control 14:"
-msgstr "Nansa de control 14:"
+msgstr "Control 14:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:62
 msgid "Control 14 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 14 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:63
-#, fuzzy
 msgid "Control 15:"
-msgstr "Nansa de control 15:"
+msgstr "Control 15:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:63
 msgid "Control 15 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 15 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:64
-#, fuzzy
 msgid "Control 16:"
-msgstr "Nansa de control 16:"
+msgstr "Control 16:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:64
 msgid "Control 16 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 16 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:65
-#, fuzzy
 msgid "Control 17:"
-msgstr "Nansa de control 17:"
+msgstr "Control 17:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:65
 msgid "Control 17 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 17 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:66
-#, fuzzy
 msgid "Control 18:"
-msgstr "Nansa de control 18:"
+msgstr "Control 18:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:66
 msgid "Control 18 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 18 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:67
-#, fuzzy
 msgid "Control 19:"
-msgstr "Nansa de control 19:"
+msgstr "Control 19:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:67
 msgid "Control 19 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
 msgstr ""
+"Control 19 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:68
-#, fuzzy
 msgid "Control 20x21:"
-msgstr "Nansa de control 20x21:"
+msgstr "Control 20x21:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:68
-#, fuzzy
 msgid ""
 "Control 20x21 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 20x21 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 20x21 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:69
-#, fuzzy
 msgid "Control 22x23:"
-msgstr "Nansa de control 22x23:"
+msgstr "Control 22x23:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:69
-#, fuzzy
 msgid ""
 "Control 22x23 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 22x23 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 22x23 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:70
-#, fuzzy
 msgid "Control 24x26:"
-msgstr "Nansa de control 24x26:"
+msgstr "Control 24x26:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:70
-#, fuzzy
 msgid ""
 "Control 24x26 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 24x26 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 24x26 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:71
-#, fuzzy
 msgid "Control 25x27:"
-msgstr "Nansa de control 25x27:"
+msgstr "Control 25x27:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:71
-#, fuzzy
 msgid ""
 "Control 25x27 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 25x27 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 25x27 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:72
-#, fuzzy
 msgid "Control 28x30:"
-msgstr "Nansa de control 28x30:"
+msgstr "Control 28x30:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:72
-#, fuzzy
 msgid ""
 "Control 28x30 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 28x30 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 28x30 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:73
-#, fuzzy
 msgid "Control 29x31:"
-msgstr "Nansa de control 29x31:"
+msgstr "Control 29x31:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:73
-#, fuzzy
 msgid ""
 "Control 29x31 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Nansa de control 29x31 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 29x31 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:74
-#, fuzzy
 msgid "Control 32x33x34x35:"
-msgstr "Nansa de control 32x33x34x35:"
+msgstr "Control 32x33x34x35:"
 
 #: ../src/live_effects/lpe-lattice2.cpp:74
-#, fuzzy
 msgid ""
 "Control 32x33x34x35 - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along "
 "axes"
-msgstr "Nansa de control 32x33x34x35 - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Control 32x33x34x35 - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al "
+"llarg de les nanses"
 
 #: ../src/live_effects/lpe-lattice2.cpp:239
 msgid "Reset grid"
@@ -10510,14 +10521,12 @@ msgstr "Reinicia la graella"
 
 #: ../src/live_effects/lpe-lattice2.cpp:271
 #: ../src/live_effects/lpe-lattice2.cpp:286
-#, fuzzy
 msgid "Show Points"
-msgstr "Ordena els punts"
+msgstr "Mostra els punts"
 
 #: ../src/live_effects/lpe-lattice2.cpp:284
-#, fuzzy
 msgid "Hide Points"
-msgstr "Amaga els nodes"
+msgstr "Amaga els punts"
 
 #: ../src/live_effects/lpe-patternalongpath.cpp:63
 #: ../share/extensions/pathalongpath.inx.h:10
@@ -10631,7 +10640,7 @@ msgstr "Deformació per embolcall"
 #: ../src/live_effects/lpe-perspective-envelope.cpp:45
 #, fuzzy
 msgid "Overflow perspective"
-msgstr "Perspectiva"
+msgstr "_Perspectiva"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:46
 msgid "Type"
@@ -10646,36 +10655,40 @@ msgid "Top Left"
 msgstr "Superior esquerre"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:47
-#, fuzzy
 msgid "Top Left - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Superior esquerre - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Superior esquerre - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al "
+"llarg de les nanses"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:48
 msgid "Top Right"
 msgstr "Superior dreta"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:48
-#, fuzzy
 msgid "Top Right - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "Superior dreta - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"Superior dreta - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg "
+"de les nanses"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:49
 msgid "Down Left"
 msgstr "A baix esquerra"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:49
-#, fuzzy
 msgid "Down Left - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "A baix esquerra - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"A baix esquerra - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg "
+"de les nanses"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:50
 msgid "Down Right"
 msgstr "A baix dreta"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:50
-#, fuzzy
 msgid "Down Right - <b>Ctrl+Alt+Click</b>: reset, <b>Ctrl</b>: move along axes"
-msgstr "A baix dreta - Ctrl+Alt+Clic reiniciar"
+msgstr ""
+"A baix dreta - <b>Ctrl+Alt+Clic</b>: reinicia, <b>Ctrl</b>: mou al llarg de "
+"les nanses"
 
 #: ../src/live_effects/lpe-perspective-envelope.cpp:367
 msgid "Handles:"
@@ -10946,17 +10959,17 @@ msgstr "Per la mida màxima del segment"
 #: ../src/live_effects/lpe-roughen.cpp:38
 #, fuzzy
 msgid "Along nodes"
-msgstr "Uneix els nodes"
+msgstr "Along"
 
 #: ../src/live_effects/lpe-roughen.cpp:39
 #, fuzzy
 msgid "Rand"
-msgstr "Aleatòriament"
+msgstr "Rand"
 
 #: ../src/live_effects/lpe-roughen.cpp:40
 #, fuzzy
 msgid "Retract"
-msgstr "Extreu"
+msgstr "Tanca"
 
 #. initialise your parameters here:
 #: ../src/live_effects/lpe-roughen.cpp:49
@@ -10988,14 +11001,12 @@ msgid "Global randomize"
 msgstr "Aleatorietat global"
 
 #: ../src/live_effects/lpe-roughen.cpp:61
-#, fuzzy
 msgid "Handles"
-msgstr "Nanses:"
+msgstr "Nanses"
 
 #: ../src/live_effects/lpe-roughen.cpp:61
-#, fuzzy
 msgid "Handles options"
-msgstr "Posicions aleatòries"
+msgstr "Opcions de les nanses:"
 
 #: ../src/live_effects/lpe-roughen.cpp:63
 #: ../share/extensions/jitternodes.inx.h:5
@@ -11003,18 +11014,16 @@ msgid "Shift nodes"
 msgstr "Canvia els nodes"
 
 #: ../src/live_effects/lpe-roughen.cpp:65
-#, fuzzy
 msgid "Fixed displacement"
-msgstr "Desplaçament X:"
+msgstr "Desplaçament fix:"
 
 #: ../src/live_effects/lpe-roughen.cpp:65
 msgid "Fixed displacement, 1/3 of segment length"
-msgstr ""
+msgstr "Desplaçament fix, 1/3 de la longitud del segment"
 
 #: ../src/live_effects/lpe-roughen.cpp:67
-#, fuzzy
 msgid "Spray Tool friendly"
-msgstr "Preferències de l'eina esprai"
+msgstr "Eina esprai amigable"
 
 #: ../src/live_effects/lpe-roughen.cpp:67
 msgid "For use with spray tool in copy mode"
@@ -11033,8 +11042,9 @@ msgid "<b>Extra roughen</b> Add a extra layer of rough"
 msgstr "<b>Extra rugós</b> Afegeix una capa extra de rugositat"
 
 #: ../src/live_effects/lpe-roughen.cpp:148
+#, fuzzy
 msgid "<b>Options</b> Modify options to rough"
-msgstr ""
+msgstr "<b>Opcions de la partició</b>"
 
 #: ../src/live_effects/lpe-ruler.cpp:25 ../share/extensions/measure.inx.h:27
 #: ../share/extensions/restack.inx.h:16
@@ -11188,9 +11198,8 @@ msgid "Roughly threshold:"
 msgstr "Llindar poc definit:"
 
 #: ../src/live_effects/lpe-simplify.cpp:32
-#, fuzzy
 msgid "Smooth angles:"
-msgstr "Suavitat:"
+msgstr "Suavitza els angles:"
 
 #: ../src/live_effects/lpe-simplify.cpp:32
 msgid "Max degree difference on handles to perform a smooth"
@@ -11414,89 +11423,72 @@ msgid "End point of the taper"
 msgstr "Punt final del fus"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:31
-#, fuzzy
 msgid "Elastic"
-msgstr "Plastilina"
+msgstr "Elàstic"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:31
-#, fuzzy
 msgid "Elastic transform mode"
-msgstr "Selecciona i transforma els objectes"
+msgstr "Mode de transformació elàstic"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:32
-#, fuzzy
 msgid "From original width"
-msgstr "Clona el camí original"
+msgstr "Des de l'amplada original"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:33
-#, fuzzy
 msgid "Lock length"
-msgstr "Bloca la capa"
+msgstr "Bloca la longitud"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:33
-#, fuzzy
 msgid "Lock length to current distance"
-msgstr "Bloca o desbloca la capa actual"
+msgstr "Bloca la longitud a la distància actual"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:34
-#, fuzzy
 msgid "Lock angle"
-msgstr "Angle del con"
+msgstr "Bloca l'angle"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:35
-#, fuzzy
 msgid "Flip horizontal"
-msgstr "Volteja horitzontalment"
+msgstr "Capgira horitzontalment"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:36
-#, fuzzy
 msgid "Flip vertical"
-msgstr "Volteja verticalment"
+msgstr "Capgira verticalment"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:37
-#, fuzzy
 msgid "Start point"
-msgstr "Ordena els punts"
+msgstr "Punt d'inici"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:38
-#, fuzzy
 msgid "End point"
-msgstr "Camí del final:"
+msgstr "Punt final"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:39
-#, fuzzy
 msgid "Stretch"
-msgstr "Força"
+msgstr "Estira"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:39
-#, fuzzy
 msgid "Stretch the result"
-msgstr "Inicia la comprovació"
+msgstr "Estira el resultat"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:40
-#, fuzzy
 msgid "Offset from knots"
-msgstr "Punts de desplaçament"
+msgstr "Desplaçament des dels nusos"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:41
-#, fuzzy
 msgid "First Knot"
-msgstr "Primers auxilis"
+msgstr "Primer Nus"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:42
-#, fuzzy
 msgid "Last Knot"
-msgstr "Nus"
+msgstr "Últim nus"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:43
-#, fuzzy
 msgid "Rotation helper size"
-msgstr "Centres de rotació"
+msgstr "Mida d'ajuda a la rotació"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:196
-#, fuzzy
 msgid "Change index of knot"
-msgstr "Canvia el tipus de node"
+msgstr "Canvia l'índex del nus"
 
 #: ../src/live_effects/lpe-transform_2pts.cpp:349
 #: ../src/ui/dialog/inkscape-preferences.cpp:1623
@@ -11877,13 +11869,12 @@ msgid "Export document to an EPS file"
 msgstr "Exporta el document a un fitxer EPS"
 
 #: ../src/main.cpp:412
-#, fuzzy
 msgid ""
 "Choose the PostScript Level used to export. Possible choices are 2 and 3 "
 "(the default)"
 msgstr ""
 "Trieu el nivell de PostScript utilitzat per a l'exportació. Les possibles "
-"opcions són 2 (per defecte) i 3"
+"opcions són 2 i 3 (per defecte)"
 
 #: ../src/main.cpp:414
 msgid "PS Level"
@@ -12508,19 +12499,16 @@ msgid "Group"
 msgstr "Agrupa"
 
 #: ../src/selection-chemistry.cpp:798
-#, fuzzy
 msgid "<b>No objects selected</b> to pop out of group."
-msgstr "<b>No s'ha seleccionat cap objecte</b> d'on agafar l'estil."
+msgstr "<b>No s'ha seleccionat cap objecte</b> d'on treure fora del grup."
 
 #: ../src/selection-chemistry.cpp:808
-#, fuzzy
 msgid "Selection <b>not in a group</b>."
-msgstr "Seleccioneu un <b>grup</b> per desagrupar-lo."
+msgstr "La selecció <b>no està al grup</b>."
 
 #: ../src/selection-chemistry.cpp:822
-#, fuzzy
 msgid "Pop selection from group"
-msgstr "_Tracta la selecció com a un grup: "
+msgstr "Treu la selecció del grup"
 
 #: ../src/selection-chemistry.cpp:830
 msgid "Select a <b>group</b> to ungroup."
@@ -12660,7 +12648,7 @@ msgstr "Mou la selecció a la capa"
 #. to a translation... but leave that for another day.
 #: ../src/selection-chemistry.cpp:1561 ../src/seltrans.cpp:391
 msgid "Cannot transform an embedded SVG."
-msgstr "No es pot transformar un SVG inscrustat"
+msgstr "No es pot transformar un SVG incrustat."
 
 #: ../src/selection-chemistry.cpp:1731
 msgid "Remove transform"
@@ -12990,11 +12978,11 @@ msgid "Use <b>Shift+D</b> to look up frame"
 msgstr "Useu <b>Maj+D</b> per cercar el marc"
 
 #: ../src/selection-describer.cpp:236
-#, fuzzy, c-format
+#, c-format
 msgid "<b>%1$i</b> objects selected of type %2$s"
 msgid_plural "<b>%1$i</b> objects selected of types %2$s"
-msgstr[0] "<b>%i</b> objectes seleccionats per la classe %s"
-msgstr[1] "<b>%i</b> objectes seleccionats per les classes %s"
+msgstr[0] "<b>%1$i</b> objecte seleccionat de tipus %2$s"
+msgstr[1] "<b>%1$i</b> objectes seleccionats de tipus %2$s"
 
 #: ../src/selection-describer.cpp:246
 #, c-format
@@ -13167,20 +13155,20 @@ msgid_plural "(%d characters%s)"
 msgstr[0] "(%d caràcter%s)"
 msgstr[1] "(%d caràcters%s)"
 
-#: ../src/sp-guide.cpp:261
+#: ../src/sp-guide.cpp:262
 msgid "Create Guides Around the Page"
 msgstr "Crea guies al voltant de la pàgina"
 
-#: ../src/sp-guide.cpp:274 ../src/verbs.cpp:2544
+#: ../src/sp-guide.cpp:275 ../src/verbs.cpp:2544
 msgid "Delete All Guides"
 msgstr "Suprimeix totes les guies"
 
 #. Guide has probably been deleted and no longer has an attached namedview.
-#: ../src/sp-guide.cpp:485
+#: ../src/sp-guide.cpp:486
 msgid "Deleted"
 msgstr "Suprimit"
 
-#: ../src/sp-guide.cpp:494
+#: ../src/sp-guide.cpp:495
 msgid ""
 "<b>Shift+drag</b> to rotate, <b>Ctrl+drag</b> to move origin, <b>Del</b> to "
 "delete"
@@ -13188,17 +13176,17 @@ msgstr ""
 "<b>Arrossegueu+Maj</b> per girar; <b>arrossegueu+Ctrl</b> per moure "
 "l'origen; <b>Supr</b> per suprimir"
 
-#: ../src/sp-guide.cpp:498
+#: ../src/sp-guide.cpp:499
 #, c-format
 msgid "vertical, at %s"
 msgstr "vertical, a %s"
 
-#: ../src/sp-guide.cpp:501
+#: ../src/sp-guide.cpp:502
 #, c-format
 msgid "horizontal, at %s"
 msgstr "horitzontal, a %s"
 
-#: ../src/sp-guide.cpp:506
+#: ../src/sp-guide.cpp:507
 #, c-format
 msgid "at %d degrees, through (%s,%s)"
 msgstr "a %d graus, a través (%s,%s)"
@@ -13760,7 +13748,7 @@ msgstr ""
 "Francesc Dorca (f.dorca@filnet.es), 2003\n"
 "Xavier Conde Rueda (xavi.conde@gmail.com), 2004-2008\n"
 "Quim Perez Noguer (noguer@gmail.com), 2009\n"
-"Jordi Mas i Hernàndez, (jmas@softcatala.org), 2015"
+"Jordi Mas i Hernàndez, (jmas@softcatala.org), 2015-2016"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:206
 #: ../src/ui/dialog/align-and-distribute.cpp:937
@@ -14016,19 +14004,16 @@ msgid "Selection Area"
 msgstr "Àrea de selecció"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:1097
-#, fuzzy
 msgid "Middle of selection"
-msgstr "Amplada de la selecció"
+msgstr "Al mig de la selecció"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:1098
-#, fuzzy
 msgid "Min value"
-msgstr "Valor d'interlletratge:"
+msgstr "Valor mínim"
 
 #: ../src/ui/dialog/align-and-distribute.cpp:1099
-#, fuzzy
 msgid "Max value"
-msgstr "Valor inicial X:"
+msgstr "Valor màxim"
 
 #: ../src/ui/dialog/calligraphic-profile-rename.cpp:40
 #: ../src/ui/dialog/calligraphic-profile-rename.cpp:138
@@ -14409,13 +14394,12 @@ msgid "Initial color of tiled clones"
 msgstr "Color inicial dels clons de mosaic"
 
 #: ../src/ui/dialog/clonetiler.cpp:665
-#, fuzzy
 msgid ""
 "Initial color for clones (works only if the original has unset fill or "
 "stroke or on spray tool in copy mode)"
 msgstr ""
 "Color inicial per als clons (només s'usa si l'original no té emplenat ni "
-"traç)"
+"traç o l'eina esprai està en mode de còpia)"
 
 #: ../src/ui/dialog/clonetiler.cpp:680
 msgid "<b>H:</b>"
@@ -14623,7 +14607,7 @@ msgstr ""
 #: ../src/ui/dialog/clonetiler.cpp:1011
 #, fuzzy
 msgid "Apply to tiled clones:"
-msgstr "Suprimeix els clons del mosaic"
+msgstr "Crea clons en mosaic..."
 
 #: ../src/ui/dialog/clonetiler.cpp:1052
 msgid "How many rows in the tiling"
@@ -14837,12 +14821,12 @@ msgid "License"
 msgstr "Llicència"
 
 #: ../src/ui/dialog/document-metadata.cpp:126
-#: ../src/ui/dialog/document-properties.cpp:994
+#: ../src/ui/dialog/document-properties.cpp:1037
 msgid "<b>Dublin Core Entities</b>"
 msgstr "<b>Entitats de Dublín Core</b>"
 
 #: ../src/ui/dialog/document-metadata.cpp:168
-#: ../src/ui/dialog/document-properties.cpp:1056
+#: ../src/ui/dialog/document-properties.cpp:1099
 msgid "<b>License</b>"
 msgstr "<b>Llicència</b>"
 
@@ -14858,7 +14842,7 @@ msgstr "Si no està habilitat, no s'aplicarà suavitzat al dibuix"
 #: ../src/ui/dialog/document-properties.cpp:119
 #, fuzzy
 msgid "Checkerboard background"
-msgstr "Tauler d'escacs"
+msgstr "Tauler d'es_cacs..."
 
 #: ../src/ui/dialog/document-properties.cpp:119
 msgid ""
@@ -15113,14 +15097,12 @@ msgid "<b>Page Size</b>"
 msgstr "<b>Mida de la pàgina</b>"
 
 #: ../src/ui/dialog/document-properties.cpp:336
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Fons"
+msgstr "<b>Fons</b>"
 
 #: ../src/ui/dialog/document-properties.cpp:339
-#, fuzzy
 msgid "<b>Border</b>"
-msgstr "<b>Base:</b>"
+msgstr "<b>Vora</b>"
 
 #: ../src/ui/dialog/document-properties.cpp:342
 msgid "<b>Display</b>"
@@ -15150,136 +15132,136 @@ msgstr "<b>Miscel·lània</b>"
 #. Inkscape::GC::release(defsRepr);
 #. inform the document, so we can undo
 #. Color Management
-#: ../src/ui/dialog/document-properties.cpp:526 ../src/verbs.cpp:3020
+#: ../src/ui/dialog/document-properties.cpp:542 ../src/verbs.cpp:3020
 msgid "Link Color Profile"
 msgstr "Associa el perfil de color"
 
-#: ../src/ui/dialog/document-properties.cpp:623
+#: ../src/ui/dialog/document-properties.cpp:654
 msgid "Remove linked color profile"
 msgstr "Suprimeix el perfil de color associat"
 
-#: ../src/ui/dialog/document-properties.cpp:636
+#: ../src/ui/dialog/document-properties.cpp:673
 msgid "<b>Linked Color Profiles:</b>"
 msgstr "<b>Perfils de color associats:</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:638
+#: ../src/ui/dialog/document-properties.cpp:675
 msgid "<b>Available Color Profiles:</b>"
 msgstr "<b>Perfils de color disponibles:</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:640
+#: ../src/ui/dialog/document-properties.cpp:677
 msgid "Link Profile"
 msgstr "Associa el perfil"
 
-#: ../src/ui/dialog/document-properties.cpp:643
+#: ../src/ui/dialog/document-properties.cpp:680
 msgid "Unlink Profile"
 msgstr "Dissocia el perfil"
 
-#: ../src/ui/dialog/document-properties.cpp:721
+#: ../src/ui/dialog/document-properties.cpp:764
 msgid "Profile Name"
 msgstr "Nom del perfil"
 
-#: ../src/ui/dialog/document-properties.cpp:757
+#: ../src/ui/dialog/document-properties.cpp:800
 msgid "External scripts"
 msgstr "Scripts externs"
 
-#: ../src/ui/dialog/document-properties.cpp:758
+#: ../src/ui/dialog/document-properties.cpp:801
 msgid "Embedded scripts"
 msgstr "Scripts incrustats"
 
-#: ../src/ui/dialog/document-properties.cpp:763
+#: ../src/ui/dialog/document-properties.cpp:806
 msgid "<b>External script files:</b>"
 msgstr "<b>Fitxers d'scripts externs:</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:765
+#: ../src/ui/dialog/document-properties.cpp:808
 msgid "Add the current file name or browse for a file"
 msgstr "Afegeix el nom del fitxer actual o navega per un fitxer"
 
-#: ../src/ui/dialog/document-properties.cpp:768
-#: ../src/ui/dialog/document-properties.cpp:845
+#: ../src/ui/dialog/document-properties.cpp:811
+#: ../src/ui/dialog/document-properties.cpp:888
 #: ../src/ui/widget/selected-style.cpp:357
 msgid "Remove"
 msgstr "Suprimeix"
 
-#: ../src/ui/dialog/document-properties.cpp:832
+#: ../src/ui/dialog/document-properties.cpp:875
 msgid "Filename"
 msgstr "Nom de fitxer"
 
-#: ../src/ui/dialog/document-properties.cpp:840
+#: ../src/ui/dialog/document-properties.cpp:883
 msgid "<b>Embedded script files:</b>"
 msgstr "<b>Fitxers d'scripts incrustats:</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:842
+#: ../src/ui/dialog/document-properties.cpp:885
 #: ../src/ui/dialog/objects.cpp:1894
 msgid "New"
 msgstr "Nou"
 
-#: ../src/ui/dialog/document-properties.cpp:909
+#: ../src/ui/dialog/document-properties.cpp:952
 msgid "Script id"
 msgstr "Id d'script"
 
-#: ../src/ui/dialog/document-properties.cpp:915
+#: ../src/ui/dialog/document-properties.cpp:958
 msgid "<b>Content:</b>"
 msgstr "<b>Contingut:</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:1032
+#: ../src/ui/dialog/document-properties.cpp:1075
 msgid "_Save as default"
 msgstr "De_sa com a predeterminat"
 
-#: ../src/ui/dialog/document-properties.cpp:1033
+#: ../src/ui/dialog/document-properties.cpp:1076
 msgid "Save this metadata as the default metadata"
 msgstr "Desa aquesta metadada com a predeterminada"
 
-#: ../src/ui/dialog/document-properties.cpp:1034
+#: ../src/ui/dialog/document-properties.cpp:1077
 msgid "Use _default"
 msgstr "Usa com a pre_determinat"
 
-#: ../src/ui/dialog/document-properties.cpp:1035
+#: ../src/ui/dialog/document-properties.cpp:1078
 msgid "Use the previously saved default metadata here"
 msgstr "Usa aquí la metadada predeterminada desada prèviament"
 
 #. inform the document, so we can undo
-#: ../src/ui/dialog/document-properties.cpp:1108
+#: ../src/ui/dialog/document-properties.cpp:1151
 msgid "Add external script..."
 msgstr "Afegeix un script extern..."
 
-#: ../src/ui/dialog/document-properties.cpp:1147
+#: ../src/ui/dialog/document-properties.cpp:1190
 msgid "Select a script to load"
 msgstr "Selecciona un script a carregar"
 
 #. inform the document, so we can undo
-#: ../src/ui/dialog/document-properties.cpp:1175
+#: ../src/ui/dialog/document-properties.cpp:1218
 msgid "Add embedded script..."
 msgstr "Afegeix un script incrustat..."
 
 #. inform the document, so we can undo
-#: ../src/ui/dialog/document-properties.cpp:1206
+#: ../src/ui/dialog/document-properties.cpp:1249
 msgid "Remove external script"
 msgstr "Suprimeix l'script extern"
 
 #. inform the document, so we can undo
-#: ../src/ui/dialog/document-properties.cpp:1235
+#: ../src/ui/dialog/document-properties.cpp:1278
 msgid "Remove embedded script"
 msgstr "Suprimeix l'script incrustat"
 
 #. TODO repr->set_content(_EmbeddedContent.get_buffer()->get_text());
 #. inform the document, so we can undo
-#: ../src/ui/dialog/document-properties.cpp:1331
+#: ../src/ui/dialog/document-properties.cpp:1374
 msgid "Edit embedded script"
 msgstr "Edita l'script incrustat"
 
-#: ../src/ui/dialog/document-properties.cpp:1415
+#: ../src/ui/dialog/document-properties.cpp:1458
 msgid "<b>Creation</b>"
 msgstr "<b>Creació</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:1416
+#: ../src/ui/dialog/document-properties.cpp:1459
 msgid "<b>Defined grids</b>"
 msgstr "<b>Graelles definides</b>"
 
-#: ../src/ui/dialog/document-properties.cpp:1660
+#: ../src/ui/dialog/document-properties.cpp:1703
 msgid "Remove grid"
 msgstr "Suprimeix la graella"
 
-#: ../src/ui/dialog/document-properties.cpp:1752
+#: ../src/ui/dialog/document-properties.cpp:1795
 msgid "Changed default display unit"
 msgstr "Canvia la unitat de visualització predeterminada"
 
@@ -15405,9 +15387,8 @@ msgid "Export the bitmap file with these settings"
 msgstr "Exporta el fitxer de mapa de bits amb aquests valors"
 
 #: ../src/ui/dialog/export.cpp:479
-#, fuzzy
 msgid "bitmap"
-msgstr "Mapa de bits"
+msgstr "mapa de bits"
 
 #: ../src/ui/dialog/export.cpp:614
 #, c-format
@@ -17042,7 +17023,7 @@ msgstr "Cuneiforme"
 
 #: ../src/ui/dialog/glyphs.cpp:125
 msgid "Phoenician"
-msgstr "Fonètic"
+msgstr "Fenici"
 
 #: ../src/ui/dialog/glyphs.cpp:126 ../src/ui/dialog/glyphs.cpp:275
 msgid "Phags-pa"
@@ -17583,13 +17564,12 @@ msgid "_Set spacing:"
 msgstr "E_stableix l'espaiat:"
 
 #: ../src/ui/dialog/guides.cpp:47
-#, fuzzy
 msgid "Lo_cked"
-msgstr "Bloquejat"
+msgstr "_Blocades"
 
 #: ../src/ui/dialog/guides.cpp:47
 msgid "Lock the movement of guides"
-msgstr ""
+msgstr "Bloqueja el moviment de les guies"
 
 #: ../src/ui/dialog/guides.cpp:48
 msgid "Rela_tive change"
@@ -17708,13 +17688,13 @@ msgstr ""
 "Mida dels punts creats amb Ctrl+clic (relativa a l'amplada de traç actual)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:213
-#, fuzzy
 msgid "Base simplify:"
-msgstr "Simplifica"
+msgstr "Base simplificada:"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:213
+#, fuzzy
 msgid "on dynamic LPE simplify"
-msgstr ""
+msgstr "Edita LPE"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:214
 msgid "Base simplify of dynamic LPE based simplify"
@@ -17926,7 +17906,7 @@ msgstr ""
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:369
 msgid "Update outline when dragging nodes"
-msgstr "Actualitza el contorn quan s'arrosseguin els nodes"
+msgstr "Actualitza el contorn quan s'arrosseguin nodes"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:370
 msgid ""
@@ -18284,7 +18264,7 @@ msgstr "Armeni (hy)"
 #: ../src/ui/dialog/inkscape-preferences.cpp:538
 #, fuzzy
 msgid "Assamese (as)"
-msgstr "Japonès (ja)"
+msgstr "Assamès"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:538
 msgid "Azerbaijani (az)"
@@ -18313,7 +18293,7 @@ msgstr "Bengalí/Bangladesh (bn_BD)"
 #: ../src/ui/dialog/inkscape-preferences.cpp:539
 #, fuzzy
 msgid "Bodo (brx)"
-msgstr "Bretó (br)"
+msgstr "bodo"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:539
 msgid "Breton (br)"
@@ -18348,8 +18328,9 @@ msgid "Danish (da)"
 msgstr "Danès (da)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:541
+#, fuzzy
 msgid "Dogri (doi)"
-msgstr ""
+msgstr "DOI"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:541
 msgid "Dutch (nl)"
@@ -18412,9 +18393,8 @@ msgid "Galician (gl)"
 msgstr "Gallec (gl)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:545
-#, fuzzy
 msgid "Gujarati (gu)"
-msgstr "Gujarati"
+msgstr "Gujarati (gu)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:546
 msgid "Hebrew (he)"
@@ -18422,7 +18402,7 @@ msgstr "Hebreu (he)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:546
 msgid "Hindi (hi)"
-msgstr ""
+msgstr "Hindi (hi)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:546
 msgid "Hungarian (hu)"
@@ -18430,11 +18410,11 @@ msgstr "Hongarès (hu)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:547
 msgid "Icelandic (is)"
-msgstr ""
+msgstr "Islandès (is)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:547
 msgid "Indonesian (id)"
-msgstr "Indonesi"
+msgstr "Indonesi (id)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:547
 msgid "Irish (ga)"
@@ -18449,9 +18429,8 @@ msgid "Japanese (ja)"
 msgstr "Japonès (ja)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:549
-#, fuzzy
 msgid "Kannada (kn)"
-msgstr "Kanarès"
+msgstr "Kanarès (kn)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:549
 msgid "Kashmiri in Peso-Arabic script (ks@aran)"
@@ -18470,14 +18449,12 @@ msgid "Kinyarwanda (rw)"
 msgstr "Kinyarwanda (rw)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:549
-#, fuzzy
 msgid "Konkani (kok)"
-msgstr "Coreà (ko)"
+msgstr "Konkani (kok)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:549
-#, fuzzy
 msgid "Konkani in Latin script (kok@latin)"
-msgstr "Serbi amb alfabet llatí (sr@latin)"
+msgstr "Konkani amb alfabet llatí (kok@latin)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:549
 msgid "Korean (ko)"
@@ -18497,24 +18474,23 @@ msgstr "Macedoni (mk)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
 msgid "Maithili (mai)"
-msgstr ""
+msgstr "Maithili (mai)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
-#, fuzzy
 msgid "Malayalam (ml)"
-msgstr "Malaiàlam"
+msgstr "Malaiàlam (ml)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
 msgid "Manipuri (mni)"
-msgstr ""
+msgstr "Manipuri (mni)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
 msgid "Manipuri in Bengali script (mni@beng)"
-msgstr ""
+msgstr "Manipuri amb alfabet bengalí (mni@beng)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
 msgid "Marathi (mr)"
-msgstr ""
+msgstr "Marathi (mr)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:551
 msgid "Mongolian (mn)"
@@ -18534,7 +18510,7 @@ msgstr "Nynorsk noruec (nn)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:553
 msgid "Odia (or)"
-msgstr ""
+msgstr "Oriya (or)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:554
 msgid "Panjabi (pa)"
@@ -18562,17 +18538,15 @@ msgstr "Rus (ru)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:556
 msgid "Sanskrit (sa)"
-msgstr ""
+msgstr "Sànscrit (sa)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:556
-#, fuzzy
 msgid "Santali (sat)"
-msgstr "Italià (it)"
+msgstr "Santali (sat)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:556
-#, fuzzy
 msgid "Santali in Devanagari script (sat@deva)"
-msgstr "Serbi amb alfabet llatí (sr@latin)"
+msgstr "Santali amb alfabet devanagari (sat@deva)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:556
 msgid "Serbian (sr)"
@@ -18584,12 +18558,11 @@ msgstr "Serbi amb alfabet llatí (sr@latin)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:557
 msgid "Sindhi (sd)"
-msgstr ""
+msgstr "Sindhi (sd)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:557
-#, fuzzy
 msgid "Sindhi in Devanagari script (sd@deva)"
-msgstr "Serbi amb alfabet llatí (sr@latin)"
+msgstr "Sindhi amb alfabet devanagari (sd@deva)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:557
 msgid "Slovak (sk)"
@@ -18612,9 +18585,8 @@ msgid "Swedish (sv)"
 msgstr "Suec (sv)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:558
-#, fuzzy
 msgid "Tamil (ta)"
-msgstr "Tàmil"
+msgstr "Tàmil (ta)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:558
 msgid "Telugu (te)"
@@ -18634,7 +18606,7 @@ msgstr "Ucraïnès (uk)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:559
 msgid "Urdu (ur)"
-msgstr ""
+msgstr "Urdú (ur)"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:560
 msgid "Vietnamese (vi)"
@@ -18650,25 +18622,21 @@ msgstr ""
 "Defineix l'idioma que s'utilitzarà en els menús i en el format dels números"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:616
-#, fuzzy
 msgctxt "Icon size"
 msgid "Larger"
-msgstr "Gran"
+msgstr "Més gran"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:616
-#, fuzzy
 msgctxt "Icon size"
 msgid "Large"
 msgstr "Gran"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:616
-#, fuzzy
 msgctxt "Icon size"
 msgid "Small"
 msgstr "Petita"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:616
-#, fuzzy
 msgctxt "Icon size"
 msgid "Smaller"
 msgstr "Més petit"
@@ -18867,19 +18835,16 @@ msgid "Aggressive"
 msgstr "Agressiu"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:702
-#, fuzzy
 msgctxt "Window size"
 msgid "Small"
 msgstr "Petita"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:702
-#, fuzzy
 msgctxt "Window size"
 msgid "Large"
 msgstr "Gran"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:702
-#, fuzzy
 msgctxt "Window size"
 msgid "Maximized"
 msgstr "Maximitzada"
@@ -19378,7 +19343,7 @@ msgstr ""
 "Imprimeix l'avís si es troben propietats d'estil redundants (p. ex. si una "
 "propietat té el valor predeterminat i un valor diferent a l'heretat o si el "
 "valor és el mateix que seria si fos heretat). Els fitxers de la base de "
-"dades es troben a inkscape_data_dir/attributes"
+"dades es troben a inkscape_data_dir/attributes."
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:980
 msgid "Delete redundant style properties"
@@ -19428,7 +19393,7 @@ msgstr "Sortida SVG"
 #. TRANSLATORS: see http://www.newsandtech.com/issues/2004/03-04/pt/03-04_rendering.htm
 #: ../src/ui/dialog/inkscape-preferences.cpp:997
 msgid "Perceptual"
-msgstr "Percentual"
+msgstr "Perceptiu"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:997
 msgid "Relative Colorimetric"
@@ -19551,7 +19516,7 @@ msgstr "Preserva el canal K en les transformacions de CMYK en CMYK"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1091
 #: ../src/ui/widget/color-icc-selector.cpp:394
-#: ../src/ui/widget/color-icc-selector.cpp:685
+#: ../src/ui/widget/color-icc-selector.cpp:699
 msgid "<none>"
 msgstr "<cap>"
 
@@ -19912,11 +19877,12 @@ msgstr ""
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1266
 msgid "Mouse move pans when Space is pressed"
-msgstr ""
+msgstr "El botó esquerre del ratolí desplaça quan es prem espai"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1268
 msgid "When on, pressing and holding Space and dragging pans canvas"
 msgstr ""
+"Quan està actiu, prement i mentnint l'espai i arrossegant desplaça el llenç"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1269
 msgid "Mouse wheel zooms by default"
@@ -19937,9 +19903,8 @@ msgstr "Desplaçament"
 
 #. Snapping options
 #: ../src/ui/dialog/inkscape-preferences.cpp:1275
-#, fuzzy
 msgid "Snap indicator"
-msgstr "Activa l'indicador d'ajustament"
+msgstr "Indicador d'ajustament"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1277
 msgid "Enable snap indicator"
@@ -19951,17 +19916,19 @@ msgstr "Després d'ajustar, apareixerà un símbol al punt que s'hagi ajustat"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1284
 msgid "Snap indicator persistence (in seconds):"
-msgstr ""
+msgstr "Persistència de l'indicador d'ajustament (en segons):"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1285
 msgid ""
 "Controls how long the snap indicator message will be shown, before it "
 "disappears"
 msgstr ""
+"Controla durant quan de temps es mostrarà l'indicador d'ajustament, abans de "
+"que desaparegui"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1287
 msgid "What should snap"
-msgstr ""
+msgstr "Que s'hauria d'ajustar"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1289
 msgid "Only snap the node closest to the pointer"
@@ -20003,14 +19970,12 @@ msgstr ""
 "de restricció"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1301
-#, fuzzy
 msgid "Delayed snap"
-msgstr "Ajusta sempre"
+msgstr "Retard de l'ajustament"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1304
-#, fuzzy
 msgid "Delay (in seconds):"
-msgstr "_Retard (en ms):"
+msgstr "Temps de retard (segons):"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1305
 msgid ""
@@ -20318,7 +20283,7 @@ msgstr "(cal reiniciar)"
 #: ../src/ui/dialog/inkscape-preferences.cpp:1429
 msgid "Configure number of processors/threads to use when rendering filters"
 msgstr ""
-"Configura el nombre de processadors o fils d'execució a usar en rendaritzar "
+"Configura el nombre de processadors o fils d'execució a usar en renderitzar "
 "filtres"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1433
@@ -20514,12 +20479,11 @@ msgid "Bitmaps"
 msgstr "Mapes de bits"
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1549
-#, fuzzy
 msgid ""
 "Select a file of predefined shortcuts to use. Any customized shortcuts you "
 "create will be added separately to "
 msgstr ""
-"Seleccioneu un fitxer o una drecera predefinida per usar. Qualsevol drecera "
+"Seleccioneu un fitxer amb dreceres predefinides per usar. Qualsevol drecera "
 "personalitzada que creeu s'afegirà per separat "
 
 #: ../src/ui/dialog/inkscape-preferences.cpp:1552
@@ -20835,19 +20799,16 @@ msgid "None"
 msgstr "Cap"
 
 #: ../src/ui/dialog/knot-properties.cpp:59
-#, fuzzy
 msgid "Position X:"
-msgstr "Posició:"
+msgstr "Posició X:"
 
 #: ../src/ui/dialog/knot-properties.cpp:66
-#, fuzzy
 msgid "Position Y:"
-msgstr "Posició:"
+msgstr "Posició Y:"
 
 #: ../src/ui/dialog/knot-properties.cpp:120
-#, fuzzy
 msgid "Modify Knot Position"
-msgstr "Modifica la posició del node"
+msgstr "Modifica la posició del nus"
 
 #: ../src/ui/dialog/knot-properties.cpp:121
 #: ../src/ui/dialog/layer-properties.cpp:411
@@ -20857,14 +20818,14 @@ msgid "_Move"
 msgstr "_Mou"
 
 #: ../src/ui/dialog/knot-properties.cpp:180
-#, fuzzy, c-format
+#, c-format
 msgid "Position X (%s):"
-msgstr "Posició (%):"
+msgstr "Posició X (%s):"
 
 #: ../src/ui/dialog/knot-properties.cpp:181
-#, fuzzy, c-format
+#, c-format
 msgid "Position Y (%s):"
-msgstr "Posició (%):"
+msgstr "Posició Y (%s):"
 
 #: ../src/ui/dialog/layer-properties.cpp:55
 msgid "Layer name:"
@@ -20953,9 +20914,8 @@ msgid "Lock other layers"
 msgstr "Bloca altres capes"
 
 #: ../src/ui/dialog/layers.cpp:730
-#, fuzzy
 msgid "Move layer"
-msgstr "Capa moguda"
+msgstr "Mou la capa"
 
 #: ../src/ui/dialog/layers.cpp:892
 msgctxt "Layers"
@@ -21089,9 +21049,8 @@ msgid "Position (%):"
 msgstr "Posició (%):"
 
 #: ../src/ui/dialog/lpe-fillet-chamfer-properties.cpp:216
-#, fuzzy
 msgid "%1:"
-msgstr "k1:"
+msgstr "%1:"
 
 #: ../src/ui/dialog/lpe-powerstroke-properties.cpp:122
 msgid "Modify Node Position"
@@ -21296,9 +21255,8 @@ msgid "Set object description"
 msgstr "Estableix la descripció de l'objecte"
 
 #: ../src/ui/dialog/object-properties.cpp:535
-#, fuzzy
 msgid "Set image rendering option"
-msgstr "Representació del color del dispositiu:"
+msgstr "Estableix l'opció de renderització de la imatge"
 
 #: ../src/ui/dialog/object-properties.cpp:554
 msgid "Lock object"
@@ -21368,10 +21326,9 @@ msgstr "Estableix la difuminació de l'objecte"
 #: ../src/ui/dialog/objects.cpp:1621
 msgctxt "Visibility"
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: ../src/ui/dialog/objects.cpp:1622
-#, fuzzy
 msgctxt "Lock"
 msgid "L"
 msgstr "L"
@@ -21379,34 +21336,30 @@ msgstr "L"
 #: ../src/ui/dialog/objects.cpp:1623
 msgctxt "Type"
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: ../src/ui/dialog/objects.cpp:1624
-#, fuzzy
 msgctxt "Clip and mask"
 msgid "CM"
-msgstr "CMS"
+msgstr "CM"
 
 #: ../src/ui/dialog/objects.cpp:1625
-#, fuzzy
 msgctxt "Highlight"
 msgid "HL"
-msgstr "HSL"
+msgstr "HL"
 
 #: ../src/ui/dialog/objects.cpp:1626
-#, fuzzy
 msgid "Label"
-msgstr "_Etiqueta:"
+msgstr "Etiqueta"
 
 #. In order to get tooltips on header, we must create our own label.
 #: ../src/ui/dialog/objects.cpp:1668
-#, fuzzy
 msgid "Toggle visibility of Layer, Group, or Object."
-msgstr "Commuta la visibilitat de la capa actual"
+msgstr "Commuta la visibilitat de la capa, grup o objecte."
 
 #: ../src/ui/dialog/objects.cpp:1681
 msgid "Toggle lock of Layer, Group, or Object."
-msgstr ""
+msgstr "Commuta el boqueig de la capa, grup o objecte."
 
 #: ../src/ui/dialog/objects.cpp:1693
 msgid ""
@@ -21415,8 +21368,9 @@ msgid ""
 msgstr ""
 
 #: ../src/ui/dialog/objects.cpp:1712
+#, fuzzy
 msgid "Is object clipped and/or masked?"
-msgstr ""
+msgstr "No agrupis els objectes escapçats o emmascarats"
 
 #: ../src/ui/dialog/objects.cpp:1723
 msgid ""
@@ -21451,33 +21405,28 @@ msgid "Collapse All"
 msgstr "Col·lapsa-ho tot"
 
 #: ../src/ui/dialog/objects.cpp:1892
-#, fuzzy
 msgid "Rename"
-msgstr "_Reanomena"
+msgstr "Canvia el nom"
 
 #: ../src/ui/dialog/objects.cpp:1898
 msgid "Solo"
-msgstr ""
+msgstr "Solo"
 
 #: ../src/ui/dialog/objects.cpp:1899
-#, fuzzy
 msgid "Show All"
-msgstr "Mostra:"
-
-#: ../src/ui/dialog/objects.cpp:1900
-#, fuzzy
-msgid "Hide All"
 msgstr "Mostra-ho tot"
 
+#: ../src/ui/dialog/objects.cpp:1900
+msgid "Hide All"
+msgstr "Amaga-ho tot"
+
 #: ../src/ui/dialog/objects.cpp:1904
-#, fuzzy
 msgid "Lock Others"
-msgstr "Bloca altres capes"
+msgstr "Bloca els altres"
 
 #: ../src/ui/dialog/objects.cpp:1905
-#, fuzzy
 msgid "Lock All"
-msgstr "Desbloca-ho tot"
+msgstr "Bloqueja-ho tot"
 
 #. LockAndHide
 #: ../src/ui/dialog/objects.cpp:1906 ../src/verbs.cpp:3011
@@ -21485,26 +21434,23 @@ msgid "Unlock All"
 msgstr "Desbloca-ho tot"
 
 #: ../src/ui/dialog/objects.cpp:1910
-#, fuzzy
 msgid "Up"
-msgstr "Dalt"
+msgstr "Amunt"
 
 #: ../src/ui/dialog/objects.cpp:1911
-#, fuzzy
 msgid "Down"
-msgstr "A baix esquerra"
+msgstr "Avall"
 
 #: ../src/ui/dialog/objects.cpp:1920
-#, fuzzy
 msgid "Set Clip"
-msgstr "E_stableix l'àrea de retall"
+msgstr "Estableix l'àrea de retall"
 
 #. will never be implemented
 #. _watching.push_back( &_addPopupItem( targetDesktop, SP_VERB_OBJECT_SET_INVERSE_CLIPPATH, 0, "Set Inverse Clip", (int)BUTTON_SETINVCLIP ) );
 #: ../src/ui/dialog/objects.cpp:1926
 #, fuzzy
 msgid "Unset Clip"
-msgstr "E_stableix l'àrea de retall"
+msgstr "no està definit"
 
 #. Set mask
 #: ../src/ui/dialog/objects.cpp:1930 ../src/ui/interface.cpp:1754
@@ -21514,7 +21460,7 @@ msgstr "Estableix la màscara"
 #: ../src/ui/dialog/objects.cpp:1931
 #, fuzzy
 msgid "Unset Mask"
-msgstr "Estableix la màscara"
+msgstr "no està definit"
 
 #: ../src/ui/dialog/objects.cpp:1953
 msgid "Select Highlight Color"
@@ -22148,16 +22094,14 @@ msgid "By: "
 msgstr "Per: "
 
 #: ../src/ui/dialog/text-edit.cpp:72
-#, fuzzy
 msgid "_Variants"
-msgstr "Variació"
+msgstr "_Variants"
 
 #: ../src/ui/dialog/text-edit.cpp:73
 msgid "Set as _default"
 msgstr "_Estableix per defecte"
 
 #: ../src/ui/dialog/text-edit.cpp:87
-#, fuzzy
 msgid "AaBbCcIiPpQq12369$€¢?.;/()"
 msgstr "AaBbCcIiPpQqcÇ12369$€¢?.;/()"
 
@@ -22842,7 +22786,7 @@ msgstr "Introduïu el grup #%1"
 #: ../src/ui/interface.cpp:1528
 #, fuzzy
 msgid "_Pop selection out of group"
-msgstr "_Tracta la selecció com a un grup: "
+msgstr "Sor Mis Ind"
 
 #. Item dialog
 #: ../src/ui/interface.cpp:1656 ../src/verbs.cpp:2940
@@ -23048,16 +22992,18 @@ msgid "Adjust ellipse <b>height</b>, with <b>Ctrl</b> to make circle"
 msgstr "Ajusteu <b>l'alçada</b> de l'el·lipse, amb <b>Ctrl</b> es fa un cercle"
 
 #: ../src/ui/object-edit.cpp:991
+#, fuzzy
 msgid ""
 "Position the <b>start point</b> of the arc or segment; with <b>Ctrl</b> to "
 "snap angle; drag <b>inside</b> the ellipse for arc, <b>outside</b> for "
 "segment"
 msgstr ""
-"Posicioneu el <b>punt inicial</b> de l'arc o segment; amb <b>Ctrl</b> "
+"Posicioneu el <b>punt inicial</b> de l'arc o segment; amb <b>Maj</b> "
 "s'ajusta l'angle; arrossegueu <b>a dins</b> l'el·lipse per fer un arc, o "
 "<b>a fora</b> per fer un segment"
 
 #: ../src/ui/object-edit.cpp:996
+#, fuzzy
 msgid ""
 "Position the <b>end point</b> of the arc or segment; with <b>Ctrl</b> to "
 "snap angle; drag <b>inside</b> the ellipse for arc, <b>outside</b> for "
@@ -23127,7 +23073,7 @@ msgstr "<b>Majúscules</b>: cliqueu per commutar la selecció de segments"
 #: ../src/ui/tool/curve-drag-point.cpp:200
 msgctxt "Path segment tip"
 msgid "<b>Ctrl+Alt</b>: click to insert a node"
-msgstr "<b>Ctrl+Alt</b>: cliqueu per inserir un node"
+msgstr "<b>Ctrl+Alt</b>: feu clic per inserir un node"
 
 #: ../src/ui/tool/curve-drag-point.cpp:204
 #, fuzzy
@@ -24127,29 +24073,29 @@ msgstr "Mesura"
 
 #: ../src/ui/tools/measure-tool.cpp:752
 msgid "Base"
-msgstr ""
+msgstr "Base"
 
 #: ../src/ui/tools/measure-tool.cpp:761
 msgid "Add guides from measure tool"
 msgstr ""
 
 #: ../src/ui/tools/measure-tool.cpp:781
-msgid "Add Stored to measure tool"
+msgid "Keep last measure on the canvas, for reference"
 msgstr ""
 
 #: ../src/ui/tools/measure-tool.cpp:801
 #, fuzzy
 msgid "Convert measure to items"
-msgstr "Converteix un traç en camí"
+msgstr "No existeix aquest compàs"
 
 #: ../src/ui/tools/measure-tool.cpp:839
 msgid "Add global measure line"
-msgstr ""
+msgstr "Afegeix una línia global de mesura"
 
 #: ../src/ui/tools/measure-tool.cpp:1290 ../src/ui/tools/measure-tool.cpp:1292
-#, fuzzy, c-format
+#, c-format
 msgid "Crossing %lu"
-msgstr "Difuminat creuat"
+msgstr "Encreuament  %lu"
 
 #. TRANSLATORS: Mind the space in front. This is part of a compound message
 #: ../src/ui/tools/mesh-tool.cpp:122 ../src/ui/tools/mesh-tool.cpp:133
@@ -24217,7 +24163,7 @@ msgstr "<b>Majúscules</b>: dibuixeu la malla al voltant del punt d'inici"
 #: ../src/ui/tools/mesh-tool.cpp:971
 #, fuzzy
 msgid "Create mesh"
-msgstr "Crea una malla predeterminada"
+msgstr "Crea un degradat en forma de malla"
 
 #: ../src/ui/tools/node-tool.cpp:648
 msgctxt "Node tool tip"
@@ -24327,8 +24273,8 @@ msgid ""
 "<b>Curve segment</b>: angle %3.2f&#176;, distance %s; with <b>Ctrl</b> to "
 "snap angle, <b>Enter</b> or <b>Shift+Enter</b> to finish the path"
 msgstr ""
-"<b>Segment de corba</b>: angle %3.2f&#176;, distància %s; amb <b>Ctrl</b> "
-"s'ajusta l'angle; amb <b>Retorn</b> acabeu el camí"
+"<b>Segment de corba</b>: angle %3.2f&#176;, distància %s; amb <b>Majúscules"
+"+clic</b> per fer un node vèrtex; amb <b>Retorn</b> per acabar el camí"
 
 #: ../src/ui/tools/pen-tool.cpp:1798
 #, fuzzy, c-format
@@ -24336,8 +24282,8 @@ msgid ""
 "<b>Line segment</b>: angle %3.2f&#176;, distance %s; with <b>Ctrl</b> to "
 "snap angle, <b>Enter</b> or <b>Shift+Enter</b> to finish the path"
 msgstr ""
-"<b>Segment de línia</b>: angle %3.2f&#176;, distància %s; amb <b>Ctrl</b> "
-"s'ajusta l'angle; amb <b>Retorn</b> acabeu el camí"
+"<b>Segment de línia</b>: angle %3.2f&#176;, distància %s; amb <b>Majúscules"
+"+clic</b> per fer un node vèrtex; amb <b>Retorn</b> per acabar el camí"
 
 #: ../src/ui/tools/pen-tool.cpp:1801
 #, fuzzy, c-format
@@ -25071,85 +25017,74 @@ msgstr "Difuminat (%)"
 #: ../src/ui/widget/font-variants.cpp:38
 msgctxt "Font variant"
 msgid "Ligatures"
-msgstr ""
+msgstr "Lligadures"
 
 #: ../src/ui/widget/font-variants.cpp:39
-#, fuzzy
 msgctxt "Font variant"
 msgid "Common"
-msgstr "normal"
+msgstr "Comú"
 
 #: ../src/ui/widget/font-variants.cpp:40
-#, fuzzy
 msgctxt "Font variant"
 msgid "Discretionary"
-msgstr "Direcció"
+msgstr "Discrecional"
 
 #: ../src/ui/widget/font-variants.cpp:41
-#, fuzzy
 msgctxt "Font variant"
 msgid "Historical"
-msgstr "Tutorials"
+msgstr "Històrica"
 
 #: ../src/ui/widget/font-variants.cpp:42
-#, fuzzy
 msgctxt "Font variant"
 msgid "Contextual"
-msgstr "Context"
+msgstr "Contextual"
 
 #: ../src/ui/widget/font-variants.cpp:44
-#, fuzzy
 msgctxt "Font variant"
 msgid "Position"
-msgstr "Posició"
+msgstr "Posició "
 
 #: ../src/ui/widget/font-variants.cpp:45 ../src/ui/widget/font-variants.cpp:50
-#, fuzzy
 msgctxt "Font variant"
 msgid "Normal"
 msgstr "Normal"
 
 #: ../src/ui/widget/font-variants.cpp:46
-#, fuzzy
 msgctxt "Font variant"
 msgid "Subscript"
-msgstr "Commuta subíndex"
+msgstr "Subíndex"
 
 #: ../src/ui/widget/font-variants.cpp:47
-#, fuzzy
 msgctxt "Font variant"
 msgid "Superscript"
-msgstr "Commuta superíndex"
+msgstr "Superíndex"
 
 #: ../src/ui/widget/font-variants.cpp:49
-#, fuzzy
 msgctxt "Font variant"
 msgid "Capitals"
-msgstr "Hospital"
+msgstr "Majúscules"
 
 #: ../src/ui/widget/font-variants.cpp:51
-#, fuzzy
 msgctxt "Font variant"
 msgid "Small"
-msgstr "Petita"
+msgstr "Petit"
 
 #: ../src/ui/widget/font-variants.cpp:52
-#, fuzzy
 msgctxt "Font variant"
 msgid "All small"
-msgstr "Totes les imatges"
+msgstr "Tot petit"
 
 #: ../src/ui/widget/font-variants.cpp:53
 #, fuzzy
 msgctxt "Font variant"
 msgid "Petite"
-msgstr "Tots inactius"
+msgstr "Petite-Rivière"
 
 #: ../src/ui/widget/font-variants.cpp:54
 #, fuzzy
 msgctxt "Font variant"
 msgid "All petite"
-msgstr "Tots inactius"
+msgstr "Petite-Rivière"
 
 #: ../src/ui/widget/font-variants.cpp:55
 msgctxt "Font variant"
@@ -25165,76 +25100,75 @@ msgstr "Navegació a vela"
 #: ../src/ui/widget/font-variants.cpp:58
 msgctxt "Font variant"
 msgid "Numeric"
-msgstr ""
+msgstr "Numèric"
 
 #: ../src/ui/widget/font-variants.cpp:59
 #, fuzzy
 msgctxt "Font variant"
 msgid "Lining"
-msgstr "Aprima:"
+msgstr ""
+"<ahelp hid=\"cui/ui/pageformatpage/comboRegisterStyle\"><switchinline select="
+"\"appl\"><caseinline select=\"WRITER\">Seleccioneu l'estil de paràgraf que "
+"voleu utilitzar com a referència per alinear el text amb l'estil de pàgina "
+"seleccionat. L'alçada del tipus de lletra indicada a l'estil de referència "
+"defineix l'espaiat de la graella de pàgina vertical.</caseinline></"
+"switchinline></ahelp>"
 
 #: ../src/ui/widget/font-variants.cpp:60
-#, fuzzy
 msgctxt "Font variant"
 msgid "Old Style"
-msgstr "Estil"
+msgstr "Estil antic"
 
 #: ../src/ui/widget/font-variants.cpp:61
-#, fuzzy
 msgctxt "Font variant"
 msgid "Default Style"
-msgstr "Títol predeterminat"
+msgstr "Estil per defecte"
 
 #: ../src/ui/widget/font-variants.cpp:62
-#, fuzzy
 msgctxt "Font variant"
 msgid "Proportional"
-msgstr "Proporció de la pestanya:"
+msgstr "Proporcional"
 
 #: ../src/ui/widget/font-variants.cpp:63
 msgctxt "Font variant"
 msgid "Tabular"
-msgstr ""
+msgstr "Tabular"
 
 #: ../src/ui/widget/font-variants.cpp:64
-#, fuzzy
 msgctxt "Font variant"
 msgid "Default Width"
-msgstr "Títol predeterminat"
+msgstr "Amplada per defecte"
 
 #: ../src/ui/widget/font-variants.cpp:65
-#, fuzzy
 msgctxt "Font variant"
 msgid "Diagonal"
-msgstr "Guies en diagonal"
+msgstr "Diagonal"
 
 #: ../src/ui/widget/font-variants.cpp:66
-#, fuzzy
 msgctxt "Font variant"
 msgid "Stacked"
-msgstr "Fons"
+msgstr "Apilat"
 
 #: ../src/ui/widget/font-variants.cpp:67
-#, fuzzy
 msgctxt "Font variant"
 msgid "Default Fractions"
-msgstr "Configuració predeterminada de la graella"
+msgstr "Fraccions per defecte"
 
 #: ../src/ui/widget/font-variants.cpp:68
 msgctxt "Font variant"
 msgid "Ordinal"
-msgstr ""
+msgstr "Ordinal"
 
 #: ../src/ui/widget/font-variants.cpp:69
-msgctxt "Font variant"
-msgid "Slashed Zero"
-msgstr ""
-
-#: ../src/ui/widget/font-variants.cpp:71
 #, fuzzy
 msgctxt "Font variant"
+msgid "Slashed Zero"
+msgstr "Barrat"
+
+#: ../src/ui/widget/font-variants.cpp:71
+msgctxt "Font variant"
 msgid "Feature Settings"
-msgstr "Configuració de la pàgina"
+msgstr "Configuració de característica"
 
 #: ../src/ui/widget/font-variants.cpp:72
 msgctxt "Font variant"
@@ -25260,9 +25194,8 @@ msgstr ""
 #. Position ----------------------------------
 #. Add tooltips
 #: ../src/ui/widget/font-variants.cpp:112
-#, fuzzy
 msgid "Normal position."
-msgstr "Posició X"
+msgstr "Posició normal."
 
 #: ../src/ui/widget/font-variants.cpp:113
 msgid "Subscript. OpenType table: 'subs'"
@@ -25277,7 +25210,7 @@ msgstr ""
 #: ../src/ui/widget/font-variants.cpp:138
 #, fuzzy
 msgid "Normal capitalization."
-msgstr "Localització"
+msgstr "Bloq Maj commuta les majúscules normals dels caràcters alfabètics"
 
 #: ../src/ui/widget/font-variants.cpp:139
 msgid "Small-caps (lowercase). OpenType table: 'smcp'"
@@ -25312,9 +25245,8 @@ msgstr ""
 #. Numeric ------------------------------
 #. Add tooltips
 #: ../src/ui/widget/font-variants.cpp:180
-#, fuzzy
 msgid "Normal style."
-msgstr "Desplaçament normal:"
+msgstr "Estil normal."
 
 #: ../src/ui/widget/font-variants.cpp:181
 msgid "Lining numerals. OpenType table: 'lnum'"
@@ -25325,9 +25257,8 @@ msgid "Old style numerals. OpenType table: 'onum'"
 msgstr ""
 
 #: ../src/ui/widget/font-variants.cpp:183
-#, fuzzy
 msgid "Normal widths."
-msgstr "Llum normal"
+msgstr "Amplades normals."
 
 #: ../src/ui/widget/font-variants.cpp:184
 msgid "Proportional width numerals. OpenType table: 'pnum'"
@@ -25338,9 +25269,8 @@ msgid "Same width numerals. OpenType table: 'tnum'"
 msgstr ""
 
 #: ../src/ui/widget/font-variants.cpp:186
-#, fuzzy
 msgid "Normal fractions."
-msgstr "Ignora rotacions de la imatge"
+msgstr "Fraccions normals."
 
 #: ../src/ui/widget/font-variants.cpp:187
 msgid "Diagonal fractions. OpenType table: 'frac'"
@@ -25390,9 +25320,8 @@ msgid "MetadataLicence|Other"
 msgstr "Altres"
 
 #: ../src/ui/widget/licensor.cpp:72
-#, fuzzy
 msgid "Document license updated"
-msgstr "Neteja el document"
+msgstr "S'ha actualitzat la llicència del document"
 
 #: ../src/ui/widget/object-composite-settings.cpp:47
 #: ../src/ui/widget/selected-style.cpp:1118
@@ -25455,24 +25384,20 @@ msgid "Bottom margin"
 msgstr "Marge inferior"
 
 #: ../src/ui/widget/page-sizer.cpp:244
-#, fuzzy
 msgid "Scale _x:"
-msgstr "Escala:"
+msgstr "Escala _x:"
 
 #: ../src/ui/widget/page-sizer.cpp:244
-#, fuzzy
 msgid "Scale X"
-msgstr "Escala"
+msgstr "Escala X"
 
 #: ../src/ui/widget/page-sizer.cpp:245
-#, fuzzy
 msgid "Scale _y:"
-msgstr "Escala:"
+msgstr "Escala _y:"
 
 #: ../src/ui/widget/page-sizer.cpp:245
-#, fuzzy
 msgid "Scale Y"
-msgstr "Escala"
+msgstr "Escala Y"
 
 #: ../src/ui/widget/page-sizer.cpp:323
 msgid "Orientation:"
@@ -25517,7 +25442,7 @@ msgstr ""
 #: ../src/ui/widget/page-sizer.cpp:483
 #, fuzzy
 msgid "_Viewbox..."
-msgstr "_Visualitza"
+msgstr "Extreu la ViewBox del SVG..."
 
 #: ../src/ui/widget/page-sizer.cpp:590
 msgid "Set page size"
@@ -25525,16 +25450,16 @@ msgstr "Estableix la mida de la pàgina"
 
 #: ../src/ui/widget/page-sizer.cpp:836
 msgid "User units per "
-msgstr ""
+msgstr "Unitats d'usuari per "
 
 #: ../src/ui/widget/page-sizer.cpp:932
-#, fuzzy
 msgid "Set page scale"
-msgstr "Estableix la mida de la pàgina"
+msgstr "Estableix l'escala de la pàgina"
 
 #: ../src/ui/widget/page-sizer.cpp:958
+#, fuzzy
 msgid "Set 'viewBox'"
-msgstr ""
+msgstr "Extreu la ViewBox del SVG..."
 
 #: ../src/ui/widget/panel.cpp:116
 msgid "List"
@@ -26257,9 +26182,9 @@ msgid "Flip vertically"
 msgstr "Volteja verticalment"
 
 #: ../src/verbs.cpp:1590
-#, fuzzy, c-format
+#, c-format
 msgid "Set %d"
-msgstr "Estableix l'amplada:"
+msgstr "Estableix %d"
 
 #: ../src/verbs.cpp:1599 ../src/verbs.cpp:2729
 msgid "Create new selection set"
@@ -26833,14 +26758,12 @@ msgid "Delete all the guides in the document"
 msgstr "Suprimeix tots els guies al document"
 
 #: ../src/verbs.cpp:2546
-#, fuzzy
 msgid "Lock All Guides"
-msgstr "Desbloca-ho tot"
+msgstr "Bloqueja totes les guies"
 
 #: ../src/verbs.cpp:2546 ../src/widgets/desktop-widget.cpp:404
-#, fuzzy
 msgid "Toggle lock of all guides in the document"
-msgstr "Suprimeix tots els guies al document"
+msgstr "Commuta el bloqueja de totes les guies al document"
 
 #: ../src/verbs.cpp:2547
 msgid "Create _Guides Around the Page"
@@ -26900,14 +26823,12 @@ msgid "Ungroup selected groups"
 msgstr "Desagrupa els grups seleccionats"
 
 #: ../src/verbs.cpp:2565
-#, fuzzy
 msgid "_Pop selected objects out of group"
-msgstr "Agrupa els objectes seleccionats"
+msgstr "_Treu els objectes seleccionats del grup"
 
 #: ../src/verbs.cpp:2566
-#, fuzzy
 msgid "Pop selected objects out of group"
-msgstr "Agrupa els objectes seleccionats"
+msgstr "Treu els objectes seleccionats del grup"
 
 #: ../src/verbs.cpp:2568
 msgid "_Put on Path"
@@ -28431,9 +28352,8 @@ msgid "Fit the page to the drawing"
 msgstr "Ajusta la pàgina al dibuix"
 
 #: ../src/verbs.cpp:3008
-#, fuzzy
 msgid "_Resize Page to Selection"
-msgstr "Ajusta la pàgina a la selecció"
+msgstr "_Canvia la mida de la pàgina a la selecció"
 
 #: ../src/verbs.cpp:3009
 msgid ""
@@ -29110,14 +29030,12 @@ msgid "%s%s - Inkscape"
 msgstr "%s%s - Inkscape"
 
 #: ../src/widgets/desktop-widget.cpp:1111
-#, fuzzy
 msgid "Locked all guides"
-msgstr "Bloqueja totes les capes"
+msgstr "Totes les guies bloquejades"
 
 #: ../src/widgets/desktop-widget.cpp:1113
-#, fuzzy
 msgid "Unlocked all guides"
-msgstr "Desbloca totes les capes"
+msgstr "Totes les guies desbloquejades"
 
 #: ../src/widgets/desktop-widget.cpp:1130
 msgid "Color-managed display is <b>enabled</b> in this window"
@@ -29217,9 +29135,8 @@ msgstr "Retalla objectes"
 
 #. Width
 #: ../src/widgets/eraser-toolbar.cpp:151
-#, fuzzy
 msgid "(no width)"
-msgstr "Amplada zero"
+msgstr "(sense amplada)"
 
 #: ../src/widgets/eraser-toolbar.cpp:155
 msgid "The width of the eraser pen (relative to the visible canvas area)"
@@ -29230,7 +29147,7 @@ msgstr ""
 #: ../src/widgets/eraser-toolbar.cpp:171
 #, fuzzy
 msgid "Eraser Mass"
-msgstr "Goma d'esborrar"
+msgstr "Cota:"
 
 #: ../src/widgets/eraser-toolbar.cpp:172
 #, fuzzy
@@ -29239,9 +29156,8 @@ msgstr ""
 "Incrementeu per arrossegar la ploma, com si la inèrcia la fes anar lenta"
 
 #: ../src/widgets/eraser-toolbar.cpp:186 ../src/widgets/eraser-toolbar.cpp:187
-#, fuzzy
 msgid "Break apart cut items"
-msgstr "Separa"
+msgstr "Separa els elements tallats"
 
 #: ../src/widgets/fill-style.cpp:356
 msgid "Change fill rule"
@@ -29522,31 +29438,31 @@ msgid "Change gradient stop color"
 msgstr "Canvia el color de la fase del degradat"
 
 #: ../src/widgets/image-menu-item.c:151
-#, fuzzy
 msgid "Image widget"
-msgstr "Fitxer d'imatge"
+msgstr "Giny d'imatge"
 
 #: ../src/widgets/image-menu-item.c:152
 msgid "Child widget to appear next to the menu text"
-msgstr ""
+msgstr "Giny fill que apareix al costat del text del menú"
 
 #: ../src/widgets/image-menu-item.c:167
-#, fuzzy
 msgid "Use stock"
-msgstr "Enganxa el traç"
+msgstr "Utilitza l'estoc"
 
 #: ../src/widgets/image-menu-item.c:168
 msgid "Whether to use the label text to create a stock menu item"
 msgstr ""
+"Si s'ha d'utilitzar el text de l'etiqueta per crear un element de menú "
+"d'estoc"
 
 #: ../src/widgets/image-menu-item.c:183
-#, fuzzy
 msgid "Accel Group"
-msgstr "Agrupa"
+msgstr "Grup d'acceleració"
 
 #: ../src/widgets/image-menu-item.c:184
 msgid "The Accel Group to use for stock accelerator keys"
 msgstr ""
+"El grup de dreceres a utilitzar per a les dreceres de teclat de l'estoc"
 
 #: ../src/widgets/lpe-toolbar.cpp:233
 msgid "Closed"
@@ -29622,39 +29538,35 @@ msgstr "Obre el diàleg LPE per adaptar els paràmetres numèricament"
 
 #: ../src/widgets/measure-toolbar.cpp:157
 msgid "Start and end measures inactive."
-msgstr ""
+msgstr "Mesures d'inici i fi inactives."
 
 #: ../src/widgets/measure-toolbar.cpp:159
 msgid "Start and end measures active."
-msgstr ""
+msgstr "Mesures d'inici i fi actives."
 
 #: ../src/widgets/measure-toolbar.cpp:175
-#, fuzzy
 msgid "Show all crossings."
-msgstr "Mostra totes les capes"
+msgstr "Mostra tots els encreuaments."
 
 #: ../src/widgets/measure-toolbar.cpp:177
 msgid "Show visible crossings."
-msgstr ""
+msgstr "Mostra els encreuaments."
 
 #: ../src/widgets/measure-toolbar.cpp:193
 msgid "Use all layers in the measure."
-msgstr ""
+msgstr "Utilitza totes les capes en la mesura."
 
 #: ../src/widgets/measure-toolbar.cpp:195
-#, fuzzy
 msgid "Use current layer in the measure."
-msgstr "Puja la capa al capdamunt"
+msgstr "Utilitza la capes actual en la mesura."
 
 #: ../src/widgets/measure-toolbar.cpp:211
-#, fuzzy
 msgid "Compute all elements."
-msgstr "tutorial-elements.ca.svg"
+msgstr "Calcula tots els elements."
 
 #: ../src/widgets/measure-toolbar.cpp:213
-#, fuzzy
 msgid "Compute max length."
-msgstr "Longitud del camí dins-fora:"
+msgstr "Calcula la llargada màxima:"
 
 #: ../src/widgets/measure-toolbar.cpp:274 ../src/widgets/text-toolbar.cpp:1609
 msgid "Font Size"
@@ -29679,84 +29591,72 @@ msgstr "Precisió:"
 
 #: ../src/widgets/measure-toolbar.cpp:303
 msgid "Decimal precision of measure"
-msgstr ""
+msgstr "Estableix la precisió decimal de la mesura"
 
 #: ../src/widgets/measure-toolbar.cpp:315
-#, fuzzy
 msgid "Scale %"
-msgstr "Escala"
+msgstr "Escala %"
 
 #: ../src/widgets/measure-toolbar.cpp:315
-#, fuzzy
 msgid "Scale %:"
-msgstr "Escala:"
+msgstr "Escala %:"
 
 #: ../src/widgets/measure-toolbar.cpp:316
 msgid "Scale the results"
-msgstr ""
+msgstr "Escala els resultats"
 
 #: ../src/widgets/measure-toolbar.cpp:329
-#, fuzzy
 msgid "The offset size"
-msgstr "Desplaçament del vermell"
+msgstr "Mida del desplaçament"
 
 #: ../src/widgets/measure-toolbar.cpp:341
 #: ../src/widgets/measure-toolbar.cpp:342
-#, fuzzy
 msgid "Ignore first and last"
-msgstr "Ignora els punts primer i darrer"
+msgstr "Ignora primer i darrer"
 
 #: ../src/widgets/measure-toolbar.cpp:352
 #: ../src/widgets/measure-toolbar.cpp:353
-#, fuzzy
 msgid "Show hidden intersections"
-msgstr "Intersecció de guies"
+msgstr "Mostra interseccions ocultes"
 
 #: ../src/widgets/measure-toolbar.cpp:363
 #: ../src/widgets/measure-toolbar.cpp:364
-#, fuzzy
 msgid "Show measures between items"
-msgstr "Mostra els moviments entre camins"
+msgstr "Mostra les mesures entre elements"
 
 #: ../src/widgets/measure-toolbar.cpp:374
 #: ../src/widgets/measure-toolbar.cpp:375
-#, fuzzy
 msgid "Measure all layers"
-msgstr "Cerca en totes les capes"
+msgstr "Mesura totes les capes"
 
 #: ../src/widgets/measure-toolbar.cpp:385
 #: ../src/widgets/measure-toolbar.cpp:386
-#, fuzzy
 msgid "Reverse measure"
-msgstr "Camí invertit"
+msgstr "Mesura inversa"
 
 #: ../src/widgets/measure-toolbar.cpp:395
 #: ../src/widgets/measure-toolbar.cpp:396
 msgid "Phantom measure"
-msgstr ""
+msgstr "Mesura fantasma"
 
 #: ../src/widgets/measure-toolbar.cpp:405
 #: ../src/widgets/measure-toolbar.cpp:406
-#, fuzzy
 msgid "To guides"
-msgstr "Mostra les _guies"
+msgstr "A les guies"
 
 #: ../src/widgets/measure-toolbar.cpp:415
 #: ../src/widgets/measure-toolbar.cpp:416
-#, fuzzy
 msgid "Mark Dimension"
-msgstr "Mides"
+msgstr "Marca la dimensió"
 
 #: ../src/widgets/measure-toolbar.cpp:425
 #: ../src/widgets/measure-toolbar.cpp:426
-#, fuzzy
 msgid "Convert to item"
-msgstr "Converteix a Braille"
+msgstr "Converteix l'element"
 
 #: ../src/widgets/mesh-toolbar.cpp:318
-#, fuzzy
 msgid "Set mesh type"
-msgstr "Estableix l'estil del text"
+msgstr "Estableix el tipus de malla"
 
 #: ../src/widgets/mesh-toolbar.cpp:380
 msgid "normal"
@@ -29835,8 +29735,9 @@ msgid "Coons"
 msgstr ""
 
 #: ../src/widgets/mesh-toolbar.cpp:522
+#, fuzzy
 msgid "Bicubic"
-msgstr ""
+msgstr "Bicúbic"
 
 #: ../src/widgets/mesh-toolbar.cpp:524
 msgid "Coons"
@@ -29853,7 +29754,7 @@ msgstr "Suavitzat:"
 #: ../src/widgets/mesh-toolbar.cpp:537
 #, fuzzy
 msgid "Toggle Sides"
-msgstr "Commuta superíndex"
+msgstr "Cares:"
 
 #: ../src/widgets/mesh-toolbar.cpp:538
 msgid "Toggle selected sides between Beziers and lines."
@@ -29862,12 +29763,12 @@ msgstr ""
 #: ../src/widgets/mesh-toolbar.cpp:541
 #, fuzzy
 msgid "Toggle side:"
-msgstr "Commuta el mode de _focus"
+msgstr "permuta vista vores laterals"
 
 #: ../src/widgets/mesh-toolbar.cpp:548
 #, fuzzy
 msgid "Make elliptical"
-msgstr "Fes cursiva"
+msgstr "Arcs el·líptics"
 
 #: ../src/widgets/mesh-toolbar.cpp:549
 msgid ""
@@ -29878,21 +29779,19 @@ msgstr ""
 #: ../src/widgets/mesh-toolbar.cpp:552
 #, fuzzy
 msgid "Make elliptical:"
-msgstr "Fes cursiva"
+msgstr "Arcs el·líptics"
 
 #: ../src/widgets/mesh-toolbar.cpp:559
-#, fuzzy
 msgid "Pick colors:"
-msgstr "Color dels punts"
+msgstr "Escolliu colors:"
 
 #: ../src/widgets/mesh-toolbar.cpp:560
 msgid "Pick colors for selected corner nodes from underneath mesh."
 msgstr ""
 
 #: ../src/widgets/mesh-toolbar.cpp:563
-#, fuzzy
 msgid "Pick Color"
-msgstr "Emplenat de color"
+msgstr "Escolliu un color"
 
 #: ../src/widgets/node-toolbar.cpp:341
 msgid "Insert node"
@@ -30291,7 +30190,7 @@ msgstr "Des del porta-retalls"
 #: ../src/widgets/pencil-toolbar.cpp:181
 #, fuzzy
 msgid "Bend from clipboard"
-msgstr "Des del porta-retalls"
+msgstr "Del _porta-retalls"
 
 #: ../src/widgets/pencil-toolbar.cpp:182
 msgid "Last applied"
@@ -30334,8 +30233,9 @@ msgid "LPE based interactive simplify"
 msgstr ""
 
 #: ../src/widgets/pencil-toolbar.cpp:418 ../src/widgets/pencil-toolbar.cpp:419
+#, fuzzy
 msgid "LPE simplify flatten"
-msgstr ""
+msgstr "Simplifica"
 
 #: ../src/widgets/rect-toolbar.cpp:125
 msgid "Change rectangle"
@@ -30504,7 +30404,6 @@ msgstr "X:"
 
 #. shortLabel
 #: ../src/widgets/select-toolbar.cpp:443
-#, fuzzy
 msgctxt "Select toolbar"
 msgid "Horizontal coordinate of selection"
 msgstr "Coordenada horitzontal de la selecció"
@@ -30523,7 +30422,6 @@ msgstr "Y:"
 
 #. shortLabel
 #: ../src/widgets/select-toolbar.cpp:462
-#, fuzzy
 msgctxt "Select toolbar"
 msgid "Vertical coordinate of selection"
 msgstr "Coordenada vertical de la selecció"
@@ -30542,7 +30440,6 @@ msgstr "A:"
 
 #. shortLabel
 #: ../src/widgets/select-toolbar.cpp:481
-#, fuzzy
 msgctxt "Select toolbar"
 msgid "Width of selection"
 msgstr "Amplada de la selecció"
@@ -30570,7 +30467,6 @@ msgstr "H:"
 
 #. shortLabel
 #: ../src/widgets/select-toolbar.cpp:513
-#, fuzzy
 msgctxt "Select toolbar"
 msgid "Height of selection"
 msgstr "Alçada de la selecció"
@@ -30712,10 +30608,10 @@ msgstr ""
 "llenç)"
 
 #: ../src/widgets/spray-toolbar.cpp:312
-#, fuzzy
 msgid "Use the pressure of the input device to alter the width of spray area"
 msgstr ""
-"Usa la pressió del dispositiu d'entrada per modificar l'amplada de la ploma"
+"Usa la pressió del dispositiu d'entrada per modificar l'amplada de l'àrea de "
+"l'esprai"
 
 #: ../src/widgets/spray-toolbar.cpp:323
 msgid "(maximum mean)"
@@ -30775,12 +30671,12 @@ msgstr "Utilitza l'esprai d'objectes al llarg d'un camí"
 #: ../src/widgets/spray-toolbar.cpp:383
 #, fuzzy
 msgid "Delete sprayed items"
-msgstr "Suprimeix una fase del degradat"
+msgstr "Suprimeix els elements"
 
 #: ../src/widgets/spray-toolbar.cpp:384
 #, fuzzy
 msgid "Delete sprayed items from selection"
-msgstr "Agafa les corbes de la selecció..."
+msgstr "Suprimeix la selecció de l'arxiu"
 
 #: ../src/widgets/spray-toolbar.cpp:388 ../src/widgets/tweak-toolbar.cpp:253
 msgid "Mode"
@@ -30875,51 +30771,44 @@ msgid "Inverted pick value, retaining color in advanced trace mode"
 msgstr ""
 
 #: ../src/widgets/spray-toolbar.cpp:528 ../src/widgets/spray-toolbar.cpp:529
-#, fuzzy
 msgid "Apply picked color to fill"
-msgstr "Aplica el darrer color seleccionat a l'emplenat"
+msgstr "Aplica el color escollit a l'emplenat"
 
 #: ../src/widgets/spray-toolbar.cpp:541 ../src/widgets/spray-toolbar.cpp:542
-#, fuzzy
 msgid "Apply picked color to stroke"
-msgstr "Aplica el darrer color seleccionat al traç"
+msgstr "Aplica el color escollit al traç"
 
 #: ../src/widgets/spray-toolbar.cpp:554 ../src/widgets/spray-toolbar.cpp:555
 msgid "No overlap between colors"
-msgstr ""
+msgstr "No sobreposis entre colors"
 
 #: ../src/widgets/spray-toolbar.cpp:567 ../src/widgets/spray-toolbar.cpp:568
 msgid "Apply over transparent areas"
-msgstr ""
+msgstr "Aplica sobre les àrees transparents"
 
 #: ../src/widgets/spray-toolbar.cpp:580 ../src/widgets/spray-toolbar.cpp:581
 msgid "Apply over no transparent areas"
-msgstr ""
+msgstr "Aplica sobre les àrees no transparents"
 
 #: ../src/widgets/spray-toolbar.cpp:593 ../src/widgets/spray-toolbar.cpp:594
-#, fuzzy
 msgid "Prevent overlapping objects"
-msgstr "Selecciona un objecte"
+msgstr "Evita la sobreposició d'objectes"
 
 #: ../src/widgets/spray-toolbar.cpp:605
-#, fuzzy
 msgid "(minimum offset)"
-msgstr "(força mínima)"
+msgstr "(desplaçament mínim)"
 
 #: ../src/widgets/spray-toolbar.cpp:605
-#, fuzzy
 msgid "(maximum offset)"
-msgstr "(força màxima)"
+msgstr "(desplaçament màxim)"
 
 #: ../src/widgets/spray-toolbar.cpp:608
-#, fuzzy
 msgid "Offset %"
-msgstr "Desplaçament"
+msgstr "Desplaçament %"
 
 #: ../src/widgets/spray-toolbar.cpp:608
-#, fuzzy
 msgid "Offset %:"
-msgstr "Desplaçament:"
+msgstr "Desplaçament %:"
 
 #: ../src/widgets/spray-toolbar.cpp:609
 msgid "Increase to segregate objects more (value in percent)"
@@ -31119,7 +31008,7 @@ msgstr "Ratlles:"
 #. (arrowheads, bullets, faces, whatever) to the start, end, or middle nodes of a path.
 #: ../src/widgets/stroke-style.cpp:251
 msgid "Markers:"
-msgstr "Marques:"
+msgstr "Marcadors:"
 
 #: ../src/widgets/stroke-style.cpp:257
 msgid "Start Markers are drawn on the first node of a path or shape"
@@ -31186,37 +31075,32 @@ msgid "Square cap"
 msgstr "Quadrat ampliat"
 
 #: ../src/widgets/stroke-style.cpp:392
-#, fuzzy
 msgid "Fill, Stroke, Markers"
-msgstr "Marcadors de l'estil del traç"
+msgstr "Emplenat, traç, marcadors"
 
 #: ../src/widgets/stroke-style.cpp:396
-#, fuzzy
 msgid "Stroke, Fill, Markers"
-msgstr "Marcadors de l'estil del traç"
+msgstr "Traç, emplenat, marcadors"
 
 #: ../src/widgets/stroke-style.cpp:400
-#, fuzzy
 msgid "Fill, Markers, Stroke"
-msgstr "Emplenat i traç"
+msgstr "Emplenat, marcadors, traç"
 
 #: ../src/widgets/stroke-style.cpp:408
-#, fuzzy
 msgid "Markers, Fill, Stroke"
-msgstr "Emplenat i traç"
+msgstr "Marcadors, emplenat, traç"
 
 #: ../src/widgets/stroke-style.cpp:412
-#, fuzzy
 msgid "Stroke, Markers, Fill"
-msgstr "Marcadors de l'estil del traç"
+msgstr "Traç, marcadors, emplenat"
 
 #: ../src/widgets/stroke-style.cpp:416
 msgid "Markers, Stroke, Fill"
-msgstr ""
+msgstr "Marcadors, traç, emplenat"
 
 #: ../src/widgets/stroke-style.cpp:534
 msgid "Set markers"
-msgstr "Marcadors"
+msgstr "Estableix els marcadors"
 
 #: ../src/widgets/stroke-style.cpp:1116 ../src/widgets/stroke-style.cpp:1205
 msgid "Set stroke style"
@@ -31255,9 +31139,8 @@ msgid "Text: Change line-height"
 msgstr "Text: canvia l'alçada de la línia"
 
 #: ../src/widgets/text-toolbar.cpp:728
-#, fuzzy
 msgid "Text: Change line-height unit"
-msgstr "Text: canvia l'alçada de la línia"
+msgstr "Text: canvia la unitat d'alçada de la línia"
 
 #: ../src/widgets/text-toolbar.cpp:777
 msgid "Text: Change word-spacing"
@@ -31280,9 +31163,8 @@ msgid "Text: Change rotate"
 msgstr "Text: canvia la rotació"
 
 #: ../src/widgets/text-toolbar.cpp:977
-#, fuzzy
 msgid "Text: Change writing mode"
-msgstr "Text: canvia l'orientació"
+msgstr "Txet: canvia el mode d'escriptura"
 
 #: ../src/widgets/text-toolbar.cpp:1031
 msgid "Text: Change orientation"
@@ -31355,46 +31237,44 @@ msgstr "Horitzontal"
 #: ../src/widgets/text-toolbar.cpp:1746
 #, fuzzy
 msgid "Vertical — RL"
-msgstr "Vertical"
+msgstr "U~RL"
 
 #: ../src/widgets/text-toolbar.cpp:1747
+#, fuzzy
 msgid "Vertical text — lines: right to left"
-msgstr ""
+msgstr "Pleca doble esquerra i dreta"
 
 #: ../src/widgets/text-toolbar.cpp:1753
 #, fuzzy
 msgid "Vertical — LR"
-msgstr "Vertical"
+msgstr "d'esquerra a dreta, de dalt a baix"
 
 #: ../src/widgets/text-toolbar.cpp:1754
+#, fuzzy
 msgid "Vertical text — lines: left to right"
-msgstr ""
+msgstr "Pleca doble esquerra i dreta"
 
 #. Name
 #: ../src/widgets/text-toolbar.cpp:1759
-#, fuzzy
 msgid "Writing mode"
-msgstr "Mode dibuix"
+msgstr "Mode d'escriptura"
 
 #. Label
 #: ../src/widgets/text-toolbar.cpp:1760
 msgid "Block progression"
-msgstr ""
+msgstr "Progrés del bloc"
 
 #: ../src/widgets/text-toolbar.cpp:1789
-#, fuzzy
 msgid "Auto glyph orientation"
-msgstr "Segueix l'orientació del camí"
+msgstr "Orientació automàtica del glif"
 
 #: ../src/widgets/text-toolbar.cpp:1796
-#, fuzzy
 msgid "Upright"
-msgstr "Més brillant"
+msgstr "Vertical"
 
 #: ../src/widgets/text-toolbar.cpp:1797
-#, fuzzy
 msgid "Upright glyph orientation"
-msgstr "Orientació del text"
+msgstr "Orientació vertical del glif"
 
 #: ../src/widgets/text-toolbar.cpp:1804
 msgid "Sideways"
@@ -31403,7 +31283,7 @@ msgstr ""
 #: ../src/widgets/text-toolbar.cpp:1805
 #, fuzzy
 msgid "Sideways glyph orientation"
-msgstr "Segueix l'orientació del camí"
+msgstr "Orientació"
 
 #. Name
 #: ../src/widgets/text-toolbar.cpp:1811
@@ -31412,8 +31292,9 @@ msgstr "Orientació del text"
 
 #. Label
 #: ../src/widgets/text-toolbar.cpp:1812
+#, fuzzy
 msgid "Text (glyph) orientation in vertical text."
-msgstr ""
+msgstr "Títol vertical i text vertical"
 
 #. Drop down menu
 #: ../src/widgets/text-toolbar.cpp:1845
@@ -31865,7 +31746,7 @@ msgstr "En el mode de color, actua sobre el to de l'objecte"
 #, fuzzy
 msgctxt "Hue"
 msgid "H"
-msgstr "H"
+msgstr "A"
 
 #: ../src/widgets/tweak-toolbar.cpp:303
 msgid "In color mode, act on objects' saturation"
@@ -31876,7 +31757,7 @@ msgstr "En el mode de color, actua sobre la saturació de l'objecte"
 #, fuzzy
 msgctxt "Saturation"
 msgid "S"
-msgstr "S"
+msgstr "Ds."
 
 #: ../src/widgets/tweak-toolbar.cpp:319
 msgid "In color mode, act on objects' lightness"
@@ -31887,7 +31768,7 @@ msgstr "En el mode de color, actua sobre la lluentor de l'objecte"
 #, fuzzy
 msgctxt "Lightness"
 msgid "L"
-msgstr "L"
+msgstr "l"
 
 #: ../src/widgets/tweak-toolbar.cpp:335
 msgid "In color mode, act on objects' opacity"
@@ -31895,7 +31776,6 @@ msgstr "En el mode de color, actua en l'opacitat de l'objecte"
 
 #. TRANSLATORS: "O" here stands for Opacity
 #: ../src/widgets/tweak-toolbar.cpp:339
-#, fuzzy
 msgctxt "Opacity"
 msgid "O"
 msgstr "O"
@@ -31933,7 +31813,7 @@ msgstr ""
 
 #: ../share/extensions/convert2dashes.py:56
 msgid "Total number of objects not converted: {}\n"
-msgstr ""
+msgstr "Nombre total d'objectes que no s'han de convertit: {}\n"
 
 #: ../share/extensions/dimension.py:108
 msgid "Please select an object."
@@ -31947,16 +31827,19 @@ msgstr ""
 
 #. report to the Inkscape console using errormsg
 #: ../share/extensions/draw_from_triangle.py:179
+#, fuzzy
 msgid "Side Length 'a' (px): "
-msgstr "Longitud del costat «a» (px):"
+msgstr "Longitud del costat a (px):"
 
 #: ../share/extensions/draw_from_triangle.py:180
+#, fuzzy
 msgid "Side Length 'b' (px): "
-msgstr "Longitud del costat «b» (px):"
+msgstr "Longitud del costat b (px):"
 
 #: ../share/extensions/draw_from_triangle.py:181
+#, fuzzy
 msgid "Side Length 'c' (px): "
-msgstr "Longitud del costat «c» (px):"
+msgstr "Longitud del costat c (px):"
 
 #: ../share/extensions/draw_from_triangle.py:182
 msgid "Angle 'A' (radians): "
@@ -32053,17 +31936,18 @@ msgid "Need at least 2 paths selected"
 msgstr "Calen almenys seleccionar 2 camins"
 
 #: ../share/extensions/funcplot.py:46
-#, fuzzy
 msgid ""
 "x-interval cannot be zero. Please modify 'Start X value' or 'End X value'"
-msgstr "L'interval X no pot ser zero. Modifiqueu «Inici X» o «Final X»"
+msgstr ""
+"L'interval X no pot ser zero. Modifiqueu el valor «Inici X» o «Final X»"
 
 #: ../share/extensions/funcplot.py:58
-#, fuzzy
 msgid ""
 "y-interval cannot be zero. Please modify 'Y value of rectangle's top' or 'Y "
 "value of rectangle's bottom'"
-msgstr "L'interval Y no pot ser zero. Modifiqueu «Y superior» o «Y inferior»"
+msgstr ""
+"L'interval Y no pot ser zero. Modifiqueu «el valor Y del rectangle superior» "
+"o «el valor Y del rectangle inferior»"
 
 #: ../share/extensions/funcplot.py:313
 msgid "Please select a rectangle"
@@ -32488,8 +32372,8 @@ msgid ""
 "No object selected. Please select the object you want to assign an effect to "
 "and then press apply.\n"
 msgstr ""
-"No hi ha cap objecte seleccionat. Selecciona l'objecte al que voleu assignar "
-"un efecte ai prem aplica.\n"
+"No hi ha cap objecte seleccionat. Selecciona l'objecte al qual voleu "
+"assignar un efecte ai prem aplica.\n"
 
 #: ../share/extensions/jessyInk_export.py:80
 msgid "Could not find Inkscape command.\n"
@@ -32660,7 +32544,7 @@ msgid ""
 "extension. Please install them and try again.  On a Debian-like system this "
 "can be done with the command, sudo apt-get install python-numpy."
 msgstr ""
-"No s'ha pogut importar el mòdul numpy. Aquesta extensió necessita aquesta "
+"No s'ha pogut importar el mòdul numpy. Aquesta extensió necessita aquest "
 "mòdul. Torneu-ho a intentar després d'instal·lar-ne un. En un sistema del "
 "tipus Debian podeu fer-ho amb l'ordre «sudo apt-get install python-numpy»."
 
@@ -32757,7 +32641,7 @@ msgstr ""
 #: ../share/extensions/plotter.py:146
 #, fuzzy
 msgid "pySerial is not installed. Please follow these steps:"
-msgstr "pySerial no està instal·lada."
+msgstr "Seguiu els passos següents per instal·lar l'extensió:"
 
 #: ../share/extensions/plotter.py:147
 msgid "1. Download and extract (unzip) this file to your local harddisk:"
@@ -32775,8 +32659,9 @@ msgid ""
 msgstr ""
 
 #: ../share/extensions/plotter.py:151
+#, fuzzy
 msgid "3. Close and restart Inkscape."
-msgstr ""
+msgstr "L'Inkscape ha trobat un error intern i ara es tancarà.\n"
 
 #: ../share/extensions/plotter.py:200
 msgid ""
@@ -32879,7 +32764,7 @@ msgid ""
 "Found the following fonts:\n"
 "%s"
 msgstr ""
-"S'han trobat les tipografia següents: \n"
+"S'han trobat les tipografies següents: \n"
 "%s"
 
 #: ../share/extensions/replace_font.py:194
@@ -32901,7 +32786,7 @@ msgstr "Introduïu una tipografia substituta a totes les caixes."
 #: ../share/extensions/restack.py:75
 #, fuzzy
 msgid "There is no selection to restack."
-msgstr "No hi ha cap selecció per interpolar"
+msgstr "Apila"
 
 #: ../share/extensions/summersnight.py:41
 msgid ""
@@ -32980,7 +32865,7 @@ msgstr "El directori \"%s\" no existeix."
 #: ../share/extensions/webslicer_export.py:76
 #, fuzzy
 msgid "No slicer layer found."
-msgstr "Cap capa."
+msgstr "Cisalla"
 
 #: ../share/extensions/webslicer_export.py:106
 #, python-format
@@ -33229,7 +33114,7 @@ msgstr "Més fosc"
 
 #: ../share/extensions/color_desaturate.inx.h:1
 msgid "Desaturate"
-msgstr "Desatura"
+msgstr "Dessatura"
 
 #: ../share/extensions/color_grayscale.inx.h:1
 #: ../share/extensions/webslicer_create_rect.inx.h:15
@@ -33272,17 +33157,17 @@ msgstr "Aleatoritza"
 #: ../share/extensions/color_randomize.inx.h:4
 #, fuzzy, no-c-format
 msgid "Hue range (%)"
-msgstr "Rotació del to (°)"
+msgstr "_To:"
 
 #: ../share/extensions/color_randomize.inx.h:6
 #, fuzzy, no-c-format
 msgid "Saturation range (%)"
-msgstr "Saturació (%)"
+msgstr "Saturació:"
 
 #: ../share/extensions/color_randomize.inx.h:8
 #, fuzzy, no-c-format
 msgid "Lightness range (%)"
-msgstr "Brillantor (%)"
+msgstr "Brillantor (%):"
 
 #: ../share/extensions/color_randomize.inx.h:10
 #, fuzzy, no-c-format
@@ -34318,8 +34203,8 @@ msgstr ""
 "per omplir l'àrea de camins original fins al valor «radi de l'àrea». Els "
 "traços s'inicien des de «1/2 D» fins «l'amplada de l'àrea» amb l' amplada "
 "total amb «D» passos on D és mesura des de la definició de l'eina més "
-"propera (valor «Diàmetre de l'eina»). El desplaçament només es crearà si el "
-"«amplada de l'àrea» és igual a «1/2 D»."
+"propera (valor «Diàmetre de l'eina»). El desplaçament només es crearà si "
+"«l'amplada de l'àrea» és igual a «1/2 D»."
 
 #: ../share/extensions/gcodetools_area.inx.h:6
 msgid "Fill area"
@@ -34852,7 +34737,7 @@ msgid ""
 "This function modifies path so it will be able to be cut with the "
 "rectangular cutter."
 msgstr ""
-"Aquesta funció modifica camí pel que serà capaç de ser tallat amb el cúter "
+"Aquesta funció modifica camí pel qual serà capaç de ser tallat amb el cúter "
 "rectangular."
 
 #: ../share/extensions/gcodetools_orientation_points.inx.h:1
@@ -35721,9 +35606,8 @@ msgstr ""
 
 #: ../share/extensions/hpgl_output.inx.h:26
 #: ../share/extensions/plotter.inx.h:54
-#, fuzzy
 msgid "Tool (Knife) offset correction (mm):"
-msgstr "Desplaçament horitzontal (mm):"
+msgstr "Desplaçament de correcció (mm) de l'eina de tall:"
 
 #: ../share/extensions/hpgl_output.inx.h:27
 #: ../share/extensions/plotter.inx.h:55
@@ -35793,25 +35677,24 @@ msgid "Export an HP Graphics Language file"
 msgstr "Exporta un fitxer HP Graphics Language"
 
 #: ../share/extensions/image_attributes.inx.h:1
-#, fuzzy
 msgid "Set Image Attributes"
-msgstr "Estableix els atributs"
+msgstr "Estableix els atributs de la imatgte"
 
 #. render images like in 0.48
 #: ../share/extensions/image_attributes.inx.h:3
-#, fuzzy
 msgid "Basic"
-msgstr "Llatí bàsic"
+msgstr "Bàsic"
 
 #. render images like in 0.48
 #: ../share/extensions/image_attributes.inx.h:5
 msgid "Support non-uniform scaling"
-msgstr ""
+msgstr "Suport per escalat no uniforme"
 
 #. render images like in 0.48
 #: ../share/extensions/image_attributes.inx.h:7
+#, fuzzy
 msgid "Render images blocky"
-msgstr ""
+msgstr "Mostra les &taules com a imatges"
 
 #. render images like in 0.48
 #: ../share/extensions/image_attributes.inx.h:9
@@ -35823,12 +35706,13 @@ msgstr ""
 #: ../share/extensions/image_attributes.inx.h:11
 #, fuzzy
 msgid "Image Aspect Ratio"
-msgstr "Simplificació de la imatge"
+msgstr "Conserva la ràtio d'aspecte de la imatge"
 
 #. image aspect ratio
 #: ../share/extensions/image_attributes.inx.h:13
+#, fuzzy
 msgid "preserveAspectRatio attribute:"
-msgstr ""
+msgstr "Cap atribut així"
 
 #. image aspect ratio
 #: ../share/extensions/image_attributes.inx.h:15
@@ -35837,52 +35721,43 @@ msgstr ""
 
 #. image-rendering
 #: ../share/extensions/image_attributes.inx.h:17
-#, fuzzy
 msgid "Scope:"
-msgstr "Abast"
+msgstr "Abast:"
 
 #. image-rendering
 #: ../share/extensions/image_attributes.inx.h:19
-#, fuzzy
 msgid "Unset"
-msgstr "Enfonsat"
+msgstr "Desassigna"
 
 #: ../share/extensions/image_attributes.inx.h:20
-#, fuzzy
 msgid "Change only selected image(s)"
-msgstr "Canvia només els nodes seleccionats"
+msgstr "Canvia només les imatges seleccionades"
 
 #: ../share/extensions/image_attributes.inx.h:21
-#, fuzzy
 msgid "Change all images in selection"
-msgstr "No s'ha pogut trobar una el·lipse a la selecció"
+msgstr "Canvia totes les imatges seleccionades"
 
 #: ../share/extensions/image_attributes.inx.h:22
-#, fuzzy
 msgid "Change all images in document"
-msgstr "Comprova l'ortografia del text del document"
+msgstr "Canvia totes les imatges al document"
 
 #. image-rendering
 #: ../share/extensions/image_attributes.inx.h:24
-#, fuzzy
 msgid "Image Rendering Quality"
-msgstr "Renderització de la imatge:"
+msgstr "Qualitat de renderització d'imatge"
 
 #. image-rendering
 #: ../share/extensions/image_attributes.inx.h:26
-#, fuzzy
 msgid "Image rendering attribute:"
-msgstr "Mode renderització de la imatge:"
+msgstr "Atribut de renderització de la imatge:"
 
 #: ../share/extensions/image_attributes.inx.h:27
-#, fuzzy
 msgid "Apply attribute to parent group of selection"
-msgstr "Aplica la transformació a la selecció"
+msgstr "Aplica l'atribut al grup pare de la selecció"
 
 #: ../share/extensions/image_attributes.inx.h:28
-#, fuzzy
 msgid "Apply attribute to SVG root"
-msgstr "Atribut per establir:"
+msgstr "Aplica l'atribut a l'arrel del SVG"
 
 #: ../share/extensions/ink2canvas.inx.h:1
 msgid "Convert to html5 canvas"
@@ -35923,9 +35798,8 @@ msgstr "Referència del teclat i ratolí"
 
 #. i18n. Please don't translate it unless a page exists in your language
 #: ../share/extensions/inkscape_help_keys.inx.h:3
-#, fuzzy
 msgid "http://inkscape.org/doc/keys092.html"
-msgstr "http://inkscape.org/doc/keys091.html"
+msgstr "http://inkscape.org/doc/keys092.html"
 
 #: ../share/extensions/inkscape_help_manual.inx.h:1
 msgid "Inkscape Manual"
@@ -35942,9 +35816,8 @@ msgstr "Novetats d'aquesta versió"
 
 #. i18n. Please don't translate it unless a page exists in your language
 #: ../share/extensions/inkscape_help_relnotes.inx.h:3
-#, fuzzy
 msgid "http://wiki.inkscape.org/wiki/index.php/Release_notes/0.92"
-msgstr "http://wiki.inkscape.org/wiki/index.php/Release_notes/0.91"
+msgstr "http://wiki.inkscape.org/wiki/index.php/Release_notes/0.92"
 
 #: ../share/extensions/inkscape_help_reportabug.inx.h:1
 msgid "Report a Bug"
@@ -35977,7 +35850,7 @@ msgstr "Estil d'interpolació"
 #: ../share/extensions/interp.inx.h:7 ../share/extensions/interp_att_g.inx.h:10
 #, fuzzy
 msgid "Use Z-order"
-msgstr "Vores alçades"
+msgstr "Ordenació en Z"
 
 #: ../share/extensions/interp.inx.h:8 ../share/extensions/interp_att_g.inx.h:11
 msgid "Workaround for reversed selection order in Live Preview cycles"
@@ -36580,27 +36453,29 @@ msgid "Shift node handles"
 msgstr "Canvia els punts de control de nodes"
 
 #: ../share/extensions/jitternodes.inx.h:7
+#, fuzzy
 msgid "Distribution of the displacements:"
-msgstr ""
+msgstr "Distribució"
 
 #: ../share/extensions/jitternodes.inx.h:8
 #, fuzzy
 msgid "Uniform"
-msgstr "Cuneiforme"
+msgstr "Uniforma"
 
 #: ../share/extensions/jitternodes.inx.h:9
+#, fuzzy
 msgid "Pareto"
-msgstr ""
+msgstr "Pareto"
 
 #: ../share/extensions/jitternodes.inx.h:10
 #, fuzzy
 msgid "Gaussian"
-msgstr "Difuminat gaussià"
+msgstr "Gaussià"
 
 #: ../share/extensions/jitternodes.inx.h:11
 #, fuzzy
 msgid "Log-normal"
-msgstr "normal"
+msgstr "El valor de la mitjana de la distribució log normal."
 
 #: ../share/extensions/jitternodes.inx.h:13
 msgid ""
@@ -36903,32 +36778,35 @@ msgstr "Tipus de mesura: "
 #: ../share/extensions/measure.inx.h:4
 #, fuzzy
 msgid "Text Presets"
-msgstr "Preferències de text"
+msgstr "Cap predefinició"
 
 #: ../share/extensions/measure.inx.h:6
 #, fuzzy
 msgid "Text on Path"
-msgstr "Text sobre el camí"
+msgstr "Text al camí"
 
 #: ../share/extensions/measure.inx.h:8
 #, fuzzy, no-c-format
 msgid "Offset (%)"
-msgstr "Desplaçament (px):"
+msgstr "Desplaçament..."
 
 #: ../share/extensions/measure.inx.h:9
 #, fuzzy
 msgid "Text anchor:"
-msgstr "Àncora del text"
+msgstr "àncora del text"
 
 #: ../share/extensions/measure.inx.h:10
 #, fuzzy
 msgid "Fixed Text"
-msgstr "Text flotant"
+msgstr ""
+"Seguiu seleccionant i inserint camps de la base de dades si voleu que "
+"l'etiqueta contingui més camps. Podeu prémer Retorn per inserir una línia "
+"nova i podeu escriure qualsevol caràcter per inserir text fix."
 
 #: ../share/extensions/measure.inx.h:11
 #, fuzzy
 msgid "Angle (°):"
-msgstr "Angle X:"
+msgstr "&Angle (a):"
 
 #: ../share/extensions/measure.inx.h:12
 msgid "Font size (px):"
@@ -36959,45 +36837,50 @@ msgstr "Centre de masses"
 #: ../share/extensions/measure.inx.h:21
 #, fuzzy
 msgid "Text on Path, Start"
-msgstr "Text sobre el camí"
+msgstr "Camí per unir el començament del camí"
 
 #: ../share/extensions/measure.inx.h:22
 #, fuzzy
 msgid "Text on Path, Middle"
-msgstr "Text sobre el camí"
+msgstr "Text alineat al mig"
 
 #: ../share/extensions/measure.inx.h:23
 #, fuzzy
 msgid "Text on Path, End"
-msgstr "Text sobre el camí"
+msgstr "Camí del final del final de la corba:"
 
 #: ../share/extensions/measure.inx.h:24
+#, fuzzy
 msgid "Fixed Text, Start of Path"
-msgstr ""
+msgstr "Camí d'inici:"
 
 #: ../share/extensions/measure.inx.h:25
+#, fuzzy
 msgid "Fixed Text, Center of BBox"
-msgstr ""
+msgstr "Redimensiona mantenint el centre fix"
 
 #: ../share/extensions/measure.inx.h:26
 #, fuzzy
 msgid "Fixed Text, Center of Mass"
-msgstr "Centre de masses"
+msgstr "Posició del centre de massa"
 
 #: ../share/extensions/measure.inx.h:28
 #, fuzzy
 msgid "Center"
-msgstr "Centímetre"
+msgstr "Central"
 
 #: ../share/extensions/measure.inx.h:30
 #, fuzzy
 msgid "Start of Path"
-msgstr "Camí d'inici:"
+msgstr ""
+"<b>Cliqueu</b> o <b>cliqueu i arrossegueu</b> per començar un camí; amb "
+"<b>Maj</b> ho afegiu al camí seleccionat. <b>Ctrl+clic</b> per crear punts "
+"dispersos (per al mode de línies rectes només)."
 
 #: ../share/extensions/measure.inx.h:31
 #, fuzzy
 msgid "Center of BBox"
-msgstr "Centre de masses"
+msgstr "Centre de la capsa"
 
 #: ../share/extensions/measure.inx.h:32
 #, fuzzy
@@ -37086,44 +36969,56 @@ msgid "NiceCharts"
 msgstr ""
 
 #: ../share/extensions/nicechart.inx.h:2
+#, fuzzy
 msgid "Data"
-msgstr ""
+msgstr "DADES"
 
 #: ../share/extensions/nicechart.inx.h:3
 #, fuzzy
 msgid "Data from file"
-msgstr "Carrega d'un fitxer"
+msgstr "Importa dades CSV des d'un fitxer"
 
 #: ../share/extensions/nicechart.inx.h:5
 #, fuzzy
 msgid "Delimiter:"
-msgstr "Límit de la junta:"
+msgstr "Delimitador:"
 
 #: ../share/extensions/nicechart.inx.h:6
+#, fuzzy
 msgid "Column that contains the keys:"
-msgstr ""
+msgstr "La primera columna té encapçalaments"
 
 #: ../share/extensions/nicechart.inx.h:7
 #, fuzzy
 msgid "Column that contains the values:"
-msgstr "Un valor constant del vot"
+msgstr ""
+"La columna A conté diversos valors X1; la columna B, diversos valors X2, i "
+"la columna C, els valors Y. Ja heu introduït els valors en el full de "
+"càlcul. Heu configurat E2:G6 en el full de càlcul i heu activat "
+"l'<emph>Auxiliar de funcions</emph>. Perquè la funció ESTLIN funcioni, heu "
+"d'haver activat la casella de selecció <emph>Matriu</emph> a "
+"l'<emph>Auxiliar de funcions</emph>. Tot seguit, seleccioneu els valors "
+"següents en el full de càlcul (o introduïu-los mitjançant el teclat):"
 
 #: ../share/extensions/nicechart.inx.h:8
+#, fuzzy
 msgid "File encoding (e.g. utf-8):"
-msgstr ""
+msgstr "L'arxiu ha de estar codificat en UTF-8"
 
 #: ../share/extensions/nicechart.inx.h:9
+#, fuzzy
 msgid "First line contains headings"
-msgstr ""
+msgstr "La primera línia conté el codi de les preguntes:"
 
 #: ../share/extensions/nicechart.inx.h:10
 #, fuzzy
 msgid "Direct input"
-msgstr "Direcció"
+msgstr "Entrada directa"
 
 #: ../share/extensions/nicechart.inx.h:11
+#, fuzzy
 msgid "Data:"
-msgstr ""
+msgstr "Dades:"
 
 #: ../share/extensions/nicechart.inx.h:12
 #, fuzzy
@@ -37131,8 +37026,9 @@ msgid "Enter the full path to a CSV file:"
 msgstr "Camí complet al fitxer de registre:"
 
 #: ../share/extensions/nicechart.inx.h:13
+#, fuzzy
 msgid "Type in comma separated values:"
-msgstr ""
+msgstr "Valors Separats per Comes (*.csv)"
 
 #: ../share/extensions/nicechart.inx.h:14
 msgid "(format like this: apples:3,bananas:5)"
@@ -37141,54 +37037,57 @@ msgstr ""
 #: ../share/extensions/nicechart.inx.h:15
 #, fuzzy
 msgid "Labels"
-msgstr "_Etiqueta:"
+msgstr "Etiquetes"
 
 #: ../share/extensions/nicechart.inx.h:16
 #, fuzzy
 msgid "Font:"
-msgstr "_Tipus de lletra"
+msgstr "Tipus de lletra:"
 
 #: ../share/extensions/nicechart.inx.h:18
 #, fuzzy
 msgid "Font color:"
-msgstr "Color del mes:"
+msgstr "Color de la lletra:"
 
 #: ../share/extensions/nicechart.inx.h:19
+#, fuzzy
 msgid "Charts"
-msgstr ""
+msgstr "Diagrames"
 
 #: ../share/extensions/nicechart.inx.h:20
 #, fuzzy
 msgid "Draw horizontally"
-msgstr "Mou horitzontalment"
+msgstr "Horitzontalment"
 
 #: ../share/extensions/nicechart.inx.h:21
 #, fuzzy
 msgid "Bar length:"
-msgstr "Longitud principal:"
+msgstr "Longitud mínima de les barres (%):"
 
 #: ../share/extensions/nicechart.inx.h:22
 #, fuzzy
 msgid "Bar width:"
-msgstr "Amplada del difuminat:"
+msgstr "Amplada de la barra"
 
 #: ../share/extensions/nicechart.inx.h:23
 #, fuzzy
 msgid "Pie radius:"
-msgstr "Radi intern:"
+msgstr "Amb aquest radi"
 
 #: ../share/extensions/nicechart.inx.h:24
 #, fuzzy
 msgid "Bar offset:"
-msgstr "Inici del desplaçament:"
+msgstr "Desplaçament..."
 
 #: ../share/extensions/nicechart.inx.h:26
+#, fuzzy
 msgid "Offset between chart and labels:"
-msgstr ""
+msgstr "Anima les _transicions entre etiquetes"
 
 #: ../share/extensions/nicechart.inx.h:27
+#, fuzzy
 msgid "Offset between chart and chart title:"
-msgstr ""
+msgstr "Modifica l'alineació del títol del diagrama."
 
 #: ../share/extensions/nicechart.inx.h:28
 msgid "Work around aliasing effects (creates overlapping segments)"
@@ -37197,58 +37096,62 @@ msgstr ""
 #: ../share/extensions/nicechart.inx.h:29
 #, fuzzy
 msgid "Color scheme:"
-msgstr "_Colors:"
+msgstr "Esquema de colors:"
 
 #: ../share/extensions/nicechart.inx.h:30
 #, fuzzy
 msgid "Custom colors:"
-msgstr "Color de l'elevació"
+msgstr "&Colors Personalitzats"
 
 #: ../share/extensions/nicechart.inx.h:31
 #, fuzzy
 msgid "Reverse color scheme"
-msgstr "Suprimeix el color de traç"
+msgstr "Sense esquema de color"
 
 #: ../share/extensions/nicechart.inx.h:32
 #, fuzzy
 msgid "Drop shadow"
-msgstr "Ombra caiguda"
+msgstr "Ombra"
 
 #: ../share/extensions/nicechart.inx.h:37
+#, fuzzy
 msgid "SAP"
-msgstr ""
+msgstr "SAP"
 
 #: ../share/extensions/nicechart.inx.h:38
 #, fuzzy
 msgid "Values"
-msgstr "Valor"
+msgstr "Valors"
 
 #: ../share/extensions/nicechart.inx.h:39
 #, fuzzy
 msgid "Show values"
-msgstr "Mostra les nanses"
+msgstr "Mo&stra els valors"
 
 #: ../share/extensions/nicechart.inx.h:40
 #, fuzzy
 msgid "Chart type:"
-msgstr "Tipus d'ombra:"
+msgstr "Tipus de gràfic:"
 
 #: ../share/extensions/nicechart.inx.h:41
 #, fuzzy
 msgid "Bar chart"
-msgstr "Alçada de la barra:"
+msgstr "Diagrama de barres"
 
 #: ../share/extensions/nicechart.inx.h:42
+#, fuzzy
 msgid "Pie chart"
-msgstr ""
+msgstr "Gràfic circular"
 
 #: ../share/extensions/nicechart.inx.h:43
+#, fuzzy
 msgid "Pie chart (percentage)"
-msgstr ""
+msgstr "Visualitzar com una gràfica pie"
 
 #: ../share/extensions/nicechart.inx.h:44
+#, fuzzy
 msgid "Stacked bar chart"
-msgstr ""
+msgstr "Diagrama de barres apilades"
 
 #: ../share/extensions/param_curves.inx.h:1
 msgid "Parametric Curves"
@@ -37535,7 +37438,7 @@ msgstr "Ràtio de bauds de la vostra connexió sèrie (Per defecte: 9600)"
 #: ../share/extensions/plotter.inx.h:8
 #, fuzzy
 msgid "Serial byte size:"
-msgstr "Mida de la paleta:"
+msgstr "Unitats de mida de bytes:"
 
 #: ../share/extensions/plotter.inx.h:10
 #, no-c-format
@@ -37547,7 +37450,7 @@ msgstr ""
 #: ../share/extensions/plotter.inx.h:11
 #, fuzzy
 msgid "Serial stop bits:"
-msgstr "Port sèrie:"
+msgstr "no és compatible amb el nombre de bits d'aturada"
 
 #: ../share/extensions/plotter.inx.h:13
 #, no-c-format
@@ -37559,7 +37462,7 @@ msgstr ""
 #: ../share/extensions/plotter.inx.h:14
 #, fuzzy
 msgid "Serial parity:"
-msgstr "Port sèrie:"
+msgstr "Indica la paritat del port sèrie."
 
 #: ../share/extensions/plotter.inx.h:16
 #, no-c-format
@@ -37571,7 +37474,7 @@ msgstr ""
 #: ../share/extensions/plotter.inx.h:17
 #, fuzzy
 msgid "Serial flow control:"
-msgstr "Control de flux:"
+msgstr "el control de flux del port sèrie no està implementat"
 
 #: ../share/extensions/plotter.inx.h:18
 msgid ""
@@ -38114,22 +38017,23 @@ msgstr "Apila"
 #: ../share/extensions/restack.inx.h:2
 #, fuzzy
 msgid "Based on Position"
-msgstr "Modifica la posició del node"
+msgstr ""
+"Estableix la temporització del subtítol utilitzant la posició del vídeo"
 
 #: ../share/extensions/restack.inx.h:3
 #, fuzzy
 msgid "Presets"
-msgstr "Presència"
+msgstr "Predefinicions"
 
 #: ../share/extensions/restack.inx.h:6
 #, fuzzy
 msgid "Horizontal:"
-msgstr "_Horitzontal:"
+msgstr "Horitzontal:"
 
 #: ../share/extensions/restack.inx.h:7
 #, fuzzy
 msgid "Vertical:"
-msgstr "_Vertical:"
+msgstr "Vertical:"
 
 #: ../share/extensions/restack.inx.h:8
 #, fuzzy
@@ -38163,7 +38067,7 @@ msgstr "Radial cap endins"
 #: ../share/extensions/restack.inx.h:15
 #, fuzzy
 msgid "Object Reference Point"
-msgstr "Punt de referència dins-fora"
+msgstr "Punt de referència:"
 
 #: ../share/extensions/restack.inx.h:17
 #: ../share/extensions/text_extract.inx.h:9
@@ -38186,7 +38090,7 @@ msgstr "Baix"
 #: ../share/extensions/restack.inx.h:21
 #, fuzzy
 msgid "Based on Z-Order"
-msgstr "Vores alçades"
+msgstr "Ordenació &A > Z"
 
 #: ../share/extensions/restack.inx.h:22
 #, fuzzy
@@ -38196,11 +38100,12 @@ msgstr "Apila"
 #: ../share/extensions/restack.inx.h:23
 #, fuzzy
 msgid "Reverse Z-Order"
-msgstr "Degradat invertit"
+msgstr "Ordenació en Z"
 
 #: ../share/extensions/restack.inx.h:24
+#, fuzzy
 msgid "Shuffle Z-Order"
-msgstr ""
+msgstr "Ordenació en Z"
 
 #: ../share/extensions/restack.inx.h:26
 msgid ""
@@ -38230,7 +38135,7 @@ msgstr "Mida mínima:"
 #: ../share/extensions/rtree.inx.h:4
 #, fuzzy
 msgid "Omit redundant segments"
-msgstr "Fes rectes els segments"
+msgstr "Omet"
 
 #: ../share/extensions/rtree.inx.h:5
 msgid "Lift pen for backward steps"
@@ -38283,15 +38188,28 @@ msgid "Convert CSS attributes to XML attributes"
 msgstr "Converteix els atributs CSS a XML"
 
 #: ../share/extensions/scour.inx.h:8
+#, fuzzy
 msgid ""
 "Convert styles from style tags and inline style=\"\" declarations into XML "
 "attributes."
 msgstr ""
+"Aquesta extensió optimitza el fitxer SVG d'acord a les següents opcions:\n"
+"    * Escurça els noms de colors: Converteix tots els colors a format "
+"#RRGGBB o #RGB.\n"
+"    * Converteix els atributs CSS a XML: converteix els estils des de les "
+"etiquetes d'estils i declaracions d'estil interior=\"\" a atributs XML.\n"
+"    * Col·lapsament de grup: suprimeix els elements de grup menys usats, "
+"promovent el seu contingut un nivell superior. Requereix \"Suprimeix els "
+"noms pels elements ID no usats\" \n"
+"    * Crea grups per atributs similars: crea elements de grup per córrer o "
+"elements que tinguin almenys un atribut en comú (p.e. color d'emplenat, "
+"opacitat de contorn...).\n"
+"    * Incrusta ràsters: incrusta imatges ràster com a "
 
 #: ../share/extensions/scour.inx.h:9
 #, fuzzy
 msgid "Collapse groups"
-msgstr "Col·lapsa-ho tot"
+msgstr "Redueix tots els grups"
 
 #: ../share/extensions/scour.inx.h:10
 msgid ""
@@ -38320,8 +38238,9 @@ msgid ""
 msgstr ""
 
 #: ../share/extensions/scour.inx.h:15
+#, fuzzy
 msgid "Keep unreferenced definitions"
-msgstr ""
+msgstr "node sense referenciar `%s'"
 
 #: ../share/extensions/scour.inx.h:16
 msgid "Keep element definitions that are not currently used in the SVG"
@@ -38365,13 +38284,26 @@ msgid "Remove comments"
 msgstr "Suprimeix els comentaris"
 
 #: ../share/extensions/scour.inx.h:25
+#, fuzzy
 msgid "Remove all XML comments from output."
-msgstr ""
+msgstr "  --strip-comments  Treu els comentaris del fitxers XML\n"
 
 #: ../share/extensions/scour.inx.h:26
 #, fuzzy
 msgid "Embed raster images"
-msgstr "Incrusta ràsters"
+msgstr ""
+"Aquesta extensió optimitza el fitxer SVG d'acord a les següents opcions:\n"
+"    * Escurça els noms de colors: Converteix tots els colors a format "
+"#RRGGBB o #RGB.\n"
+"    * Converteix els atributs CSS a XML: converteix els estils des de les "
+"etiquetes d'estils i declaracions d'estil interior=\"\" a atributs XML.\n"
+"    * Col·lapsament de grup: suprimeix els elements de grup menys usats, "
+"promovent el seu contingut un nivell superior. Requereix \"Suprimeix els "
+"noms pels elements ID no usats\" \n"
+"    * Crea grups per atributs similars: crea elements de grup per córrer o "
+"elements que tinguin almenys un atribut en comú (p.e. color d'emplenat, "
+"opacitat de contorn...).\n"
+"    * Incrusta ràsters: incrusta imatges ràster com a "
 
 #: ../share/extensions/scour.inx.h:27
 msgid ""
@@ -38404,7 +38336,7 @@ msgstr ""
 #: ../share/extensions/scour.inx.h:33
 #, fuzzy
 msgid "Indentation characters:"
-msgstr "Caràcter Unicode:"
+msgstr "Sense sagnat"
 
 #: ../share/extensions/scour.inx.h:34
 msgid ""
@@ -38416,7 +38348,7 @@ msgstr ""
 #: ../share/extensions/scour.inx.h:35
 #, fuzzy
 msgid "Depth of indentation:"
-msgstr "Funció profunditat:"
+msgstr "Sagnat"
 
 #: ../share/extensions/scour.inx.h:36
 msgid ""
@@ -38438,12 +38370,12 @@ msgstr ""
 #: ../share/extensions/scour.inx.h:39
 #, fuzzy
 msgid "Document options"
-msgstr "Propietats _del document..."
+msgstr "Opcions del document"
 
 #: ../share/extensions/scour.inx.h:40
 #, fuzzy
 msgid "Pretty-printing"
-msgstr "S'està pintant"
+msgstr "Pretty-printing:\n"
 
 #: ../share/extensions/scour.inx.h:41
 msgid "Space"
@@ -38461,12 +38393,12 @@ msgstr "Cap"
 #: ../share/extensions/scour.inx.h:44
 #, fuzzy
 msgid "IDs"
-msgstr "ID"
+msgstr "Identificadors"
 
 #: ../share/extensions/scour.inx.h:45
 #, fuzzy
 msgid "Remove unused IDs"
-msgstr "Suprimeix el vermell"
+msgstr "Suprimeix els que no s'han emprat"
 
 #: ../share/extensions/scour.inx.h:46
 msgid ""
@@ -38486,8 +38418,9 @@ msgid ""
 msgstr ""
 
 #: ../share/extensions/scour.inx.h:49
+#, fuzzy
 msgid "Prefix shortened IDs with:"
-msgstr ""
+msgstr "Identificadors"
 
 #: ../share/extensions/scour.inx.h:50
 msgid "Prepend shortened IDs with the specified prefix."
@@ -38509,13 +38442,12 @@ msgstr ""
 #: ../share/extensions/scour.inx.h:53
 #, fuzzy
 msgid "Preserve the following IDs:"
-msgstr ""
-"S'han trobat les tipografia següents: \n"
-"%s"
+msgstr "Preserva"
 
 #: ../share/extensions/scour.inx.h:54
+#, fuzzy
 msgid "A comma-separated list of IDs that are to be preserved."
-msgstr ""
+msgstr "Llista delimitada per comes"
 
 #: ../share/extensions/scour.inx.h:55
 #, fuzzy
@@ -39059,26 +38991,27 @@ msgstr "A partir del costat c i els angles a, b"
 #: ../share/extensions/ungroup_deep.inx.h:1
 #, fuzzy
 msgid "Deep Ungroup"
-msgstr "Desagrupa"
+msgstr "Desagr&upa..."
 
 #: ../share/extensions/ungroup_deep.inx.h:2
 #, fuzzy
 msgid "Ungroup all groups in the selected object."
-msgstr "Crea un grup de retall usant com a base els objectes seleccionats"
+msgstr "Desagrupa els grups seleccionats"
 
 #: ../share/extensions/ungroup_deep.inx.h:3
 #, fuzzy
 msgid "Starting Depth"
-msgstr "Camí d'inici:"
+msgstr "Profunditat (%):"
 
 #: ../share/extensions/ungroup_deep.inx.h:4
 #, fuzzy
 msgid "Stopping Depth (from top)"
-msgstr "Suprimeix el camí de retall de la selecció"
+msgstr "La profunditat màxima dibuixada del diagrama a partir de l'arrel"
 
 #: ../share/extensions/ungroup_deep.inx.h:5
+#, fuzzy
 msgid "Depth to Keep (from bottom)"
-msgstr ""
+msgstr "Profunditat de la recursivitat --- baixeu-la!!"
 
 #: ../share/extensions/voronoi2svg.inx.h:1
 msgid "Voronoi Diagram"
@@ -39099,7 +39032,7 @@ msgstr "Mostra la capsa contenidora"
 #: ../share/extensions/voronoi2svg.inx.h:6
 #, fuzzy
 msgid "Triangles color"
-msgstr "Triangle cap enfora"
+msgstr "Triangles"
 
 #: ../share/extensions/voronoi2svg.inx.h:7
 msgid "Delaunay Triangulation"
@@ -39123,13 +39056,14 @@ msgid "Options for Delaunay Triangulation"
 msgstr "Triangulació Delaunay"
 
 #: ../share/extensions/voronoi2svg.inx.h:13
+#, fuzzy
 msgid "Default (Stroke black and no fill)"
-msgstr ""
+msgstr "Emplenat i traç"
 
 #: ../share/extensions/voronoi2svg.inx.h:14
 #, fuzzy
 msgid "Triangles with item color"
-msgstr "Canvia el color de mostra"
+msgstr "color de l'ítem"
 
 #: ../share/extensions/voronoi2svg.inx.h:15
 msgid "Triangles with item color (random on apply)"
@@ -39573,6 +39507,121 @@ msgstr "Un format popular d'imatges per a il·lustracions"
 msgid "XAML Input"
 msgstr "Entrada XAML"
 
+#~ msgid "Origin"
+#~ msgstr "Origen"
+
+#~ msgid "Origin of the rotation"
+#~ msgstr "Origen de la rotació"
+
+#~ msgid "Starting:"
+#~ msgstr "Inici:"
+
+#~ msgid "Angle of the first copy"
+#~ msgstr "Angle de la primera còpia"
+
+#~ msgid "Rotation angle:"
+#~ msgstr "Angle de rotació:"
+
+#~ msgid "Angle between two successive copies"
+#~ msgstr "Angle entre dues còpies successives"
+
+#~ msgid "Number of copies:"
+#~ msgstr "Nombre de còpies:"
+
+#~ msgid "Number of copies of the original path"
+#~ msgstr "Nombre de còpies del camí original"
+
+#~ msgid "360º Copies"
+#~ msgstr "Còpies 360º"
+
+#~ msgid "No rotation angle, fixed to 360º"
+#~ msgstr "Sense angle de rotació, fixat a 360º"
+
+#~ msgid "Fuse paths"
+#~ msgstr "Fusiona camins"
+
+#~ msgid "Fuse paths by helper line, use fill-rule: evenodd for best result"
+#~ msgstr ""
+#~ "Fusiona camins per la línia d'ajuda, use la regla «evenodd» per a un "
+#~ "millor resultat"
+
+#~ msgid "Adjust the starting angle"
+#~ msgstr "Ajusta l'angle d'inici"
+
+#~ msgid "Adjust the rotation angle"
+#~ msgstr "Ajusta l'angle de rotació"
+
+#~ msgid "Min Radius:"
+#~ msgstr "Radi mínim:"
+
+#~ msgid "Minimun radius, low values can be slow"
+#~ msgstr "Radi mínim, els valors baixos poden ser lents"
+
+#~ msgid "Vertical Page Center"
+#~ msgstr "Centre vertical de la pàgina"
+
+#~ msgid "Horizontal Page Center"
+#~ msgstr "Centre horitzontal de la pàgina"
+
+#~ msgid "Free from reflection line"
+#~ msgstr "Lliure des de la línia de reflexió"
+
+#~ msgid "X from middle knot"
+#~ msgstr "X des del nus mig"
+
+#~ msgid "Y from middle knot"
+#~ msgstr "Y des del nus mig"
+
+#~ msgid "Symmetry move mode"
+#~ msgstr "Mode de moviment amb simetria"
+
+#~ msgid "Discard original path?"
+#~ msgstr "Voleu descartar el camí original?"
+
+#~ msgid "Check this to only keep the mirrored part of the path"
+#~ msgstr "Marqueu per mantenir emmirallada només la part del camí"
+
+#~ msgid "Fuse original and the reflection into a single path"
+#~ msgstr "Fusiona l'original i el reflectit amb un únic camí"
+
+#~ msgid "Opposite fuse"
+#~ msgstr "Fusió oposada"
+
+#~ msgid "Picks the other side of the mirror as the original"
+#~ msgstr "Escull l'altra cara del mirall com l'original"
+
+#~ msgid "Start mirror line"
+#~ msgstr "Inici de la línia del mirall"
+
+#~ msgid "End mirror line"
+#~ msgstr "Fi de la línia del mirall"
+
+#~ msgid "Adjust the center"
+#~ msgstr "Ajusta el centre"
+
+#, fuzzy
+#~ msgid "Side Length 'a' ("
+#~ msgstr "Longitud del costat a (px):"
+
+#, fuzzy
+#~ msgid "Side Length 'b' ("
+#~ msgstr "Longitud del costat b (px):"
+
+#, fuzzy
+#~ msgid "Side Length 'c' ("
+#~ msgstr "Longitud del costat c (px):"
+
+#, fuzzy
+#~ msgid "Area ("
+#~ msgstr "Àrea:"
+
+#~ msgid "https://inkscape.org/en/ask/"
+#~ msgstr "https://inkscape.org/en/ask/"
+
+#, fuzzy
+#~ msgid "Add Stored to measure tool"
+#~ msgstr "Eina Compàs: mesura distàncies i angles"
+
 #~ msgid ""
 #~ "Select <b>exactly 2 paths</b> to perform difference, division, or path "
 #~ "cut."
@@ -39622,12 +39671,6 @@ msgstr "Entrada XAML"
 
 #~ msgid "Arbitrary Angle"
 #~ msgstr "Angle arbitrari"
-
-#~ msgid "Horizontal Point:"
-#~ msgstr "Punt horitzontal:"
-
-#~ msgid "Vertical Point:"
-#~ msgstr "Punt vertical:"
 
 #~ msgid "Group collapsing"
 #~ msgstr "Col·lapsament de grups"

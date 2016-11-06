@@ -1,6 +1,7 @@
 #ifndef SP_OBJECT_H_SEEN
 #define SP_OBJECT_H_SEEN
 
+
 /*
  * Authors:
  *   Lauris Kaplinski <lauris@kaplinski.com>
@@ -13,6 +14,8 @@
  *
  * Released under GNU GPL, read the file 'COPYING' for more information
  */
+
+#include <glibmm/ustring.h>
 
 /* SPObject flags */
 
@@ -201,6 +204,7 @@ public:
     virtual ~SPObject();
 
     unsigned int cloned : 1;
+    SPObject *clone_original;
     unsigned int uflags : 8;
     unsigned int mflags : 8;
     SPIXmlSpace xml_space;
@@ -877,7 +881,7 @@ public:
  */
 int sp_object_compare_position(SPObject const *first, SPObject const *second);
 bool sp_object_compare_position_bool(SPObject const *first, SPObject const *second);
-
+gchar * sp_object_get_unique_id(SPObject    *object, gchar const *defid);
 
 #endif // SP_OBJECT_H_SEEN
 

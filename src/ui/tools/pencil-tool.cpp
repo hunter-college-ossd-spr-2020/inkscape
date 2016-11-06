@@ -487,7 +487,7 @@ bool PencilTool::_handleKeyPress(GdkEventKey const &event) {
         case GDK_KEY_g:
         case GDK_KEY_G:
             if (Inkscape::UI::held_only_shift(event)) {
-                sp_selection_to_guides(this->desktop);
+                this->desktop->selection->toGuides();
                 ret = true;
             }
             break;
@@ -588,8 +588,8 @@ void PencilTool::_setEndpoint(Geom::Point const &p) {
  * Still not sure, how it will make most sense.
  */
 void PencilTool::_finishEndpoint() {
-    if ( ( this->red_curve->is_empty() )
-         || ( *(this->red_curve->first_point()) == *(this->red_curve->second_point())   ) )
+    if (this->red_curve->is_unset() || 
+        this->red_curve->first_point() == this->red_curve->second_point())
     {
         this->red_curve->reset();
         sp_canvas_bpath_set_bpath(SP_CANVAS_BPATH(this->red_bpath), NULL);
